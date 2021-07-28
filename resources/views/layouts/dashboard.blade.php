@@ -30,6 +30,12 @@
     <link href="{!! asset('BackAsset') !!}/assets/css/apps/contacts.css" rel="stylesheet" type="text/css" />
 
     <link href="{!! asset('BackAsset') !!}/assets/css/elements/tooltip.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{!! asset('BackAsset') !!}/plugins/editors/quill/quill.snow.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{!! asset('BackAsset') !!}/assets/css/forms/theme-checkbox-radio.css">
+    <link rel="stylesheet" href="{!! asset('BackAsset') !!}/plugins/editors/markdown/simplemde.min.css">
+    <link href="{!! asset('BackAsset') !!}/assets/css/components/custom-modal.css" rel="stylesheet" type="text/css" />
+
 
     <!-- END GLOBAL MANDATORY STYLES -->
 
@@ -178,7 +184,7 @@
                                 <a href="javascript:void(0);"> Properties </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0);"> Projects </a>
+                                <a href="{!! route('indexProject') !!}"> Projects </a>
                             </li>
                             <li>
                                 <a href="{!! route('realstateFeature') !!}"> Features </a>
@@ -298,6 +304,24 @@
                         </ul>
                     </li>
                     <li class="menu">
+                        <a href="#Trash" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <span> Trash</span>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </div>
+                        </a>
+                        <ul class="collapse submenu list-unstyled" id="Trash" data-parent="#accordionExample">
+                            <li>
+                                <a href="{!! route('TrashListProjects') !!}"> Project Trash </a>
+                            </li>
+                            <li>
+                                <a href="#"> Properties Trash </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu">
                         <a href="#plat" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <span>Administration</span>
@@ -349,7 +373,7 @@
     <script src="{!! asset('BackAsset') !!}/assets/js/app.js"></script>
     <script src="{!! asset('BackAsset') !!}/assets/js/scrollspyNav.js"></script>
     <script src="{!! asset('BackAsset') !!}/plugins/editors/markdown/simplemde.min.js"></script>
-    <script src="{!! asset('BackAsset') !!}/plugins/editors/markdown/custom-markdown.js"></script>
+
     <script>
         $(document).ready(function() {
             App.init();
@@ -377,6 +401,11 @@
     <script src="{!! asset('BackAsset') !!}/assets/js/elements/tooltip.js"></script>
     <script src="{!! asset('BackAsset') !!}/plugins/jquery-ui/jquery-ui.min.js"></script>
     <script src="{!! asset('BackAsset') !!}/assets/js/apps/contact.js"></script>
+    <script src="{!! asset('BackAsset') !!}/assets/js/forms/bootstrap_validation/bs_validation_script.js"></script>
+    {{-- <script src="{!! asset('BackAsset') !!}/plugins/editors/quill/quill.js"></script>
+    <script src="{!! asset('BackAsset') !!}/plugins/editors/quill/custom-quill.js"></script> --}}
+    <script src="{!! asset('BackAsset') !!}/plugins/editors/markdown/simplemde.min.js"></script>
+    <script src="{!! asset('BackAsset') !!}/plugins/editors/markdown/custom-markdown.js"></script>
 
     <!-- END GLOBAL MANDATORY SCRIPTS -->
 

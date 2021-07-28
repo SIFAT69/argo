@@ -8,7 +8,8 @@ var quill = new Quill('#editor-container', {
       ['image', 'code-block']
     ]
   },
-  placeholder: 'Compose an epic...',
+  placeholder: 'Write details about the project......',
+  name: 'description',
   theme: 'snow'  // or 'bubble'
 });
 
@@ -22,10 +23,10 @@ var quill = new Quill('#editor-container', {
     placeholder: 'Compose an epic...',
     theme: 'snow'
   });
-  
+
   // Enable all tooltips
   $('[data-toggle="tooltip"]').tooltip();
-  
+
   // Can control programmatically too
   $('.ql-italic').mouseover();
   setTimeout(function() {

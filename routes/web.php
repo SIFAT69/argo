@@ -9,6 +9,7 @@ use App\Http\Controllers\RealstatecategoryController;
 use App\Http\Controllers\RealstatefacilitiesController;
 use App\Http\Controllers\RealstatefeatureController;
 use App\Http\Controllers\LibraryController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -103,7 +104,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/media-library-trash-restore-{id}', [LibraryController::class, 'LibraryFilesTrashRestore'])->name('LibraryFilesTrashRestore');
     Route::get('/media-library-trash-delete-{id}', [LibraryController::class, 'HardDelete'])->name('HardDelete');
     //Media Library
-});
+
+    // Projects Start
+    Route::get('/project-list', [ProjectController::class, 'indexProject'])->name('indexProject');
+    Route::get('/project-create', [ProjectController::class, 'createProject'])->name('createProject');
+    Route::post('/project-create-post', [ProjectController::class, 'createProjectPost'])->name('createProjectPost');
+    Route::get('/project-edit-{id}', [ProjectController::class, 'createProjectEdit'])->name('createProjectEdit');
+    Route::post('/project-edit-post-{id}', [ProjectController::class, 'createProjectEditPost'])->name('createProjectEditPost');
+    Route::get('/project-delete-{id}', [ProjectController::class, 'softDeleteProject'])->name('softDeleteProject');
+    Route::get('/project-view-trash-lists', [ProjectController::class, 'TrashListProjects'])->name('TrashListProjects');
+    Route::get('/project-view-restore-{id}', [ProjectController::class, 'restoreProject'])->name('restoreProject');
+    Route::get('/project-hard-delete-{id}', [ProjectController::class, 'HardDeleteProject'])->name('HardDeleteProject');
+    // Projects End
+  });
 
 
 Route::get('/logout', function () {
