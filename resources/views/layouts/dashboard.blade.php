@@ -35,6 +35,12 @@
     <link rel="stylesheet" type="text/css" href="{!! asset('BackAsset') !!}/assets/css/forms/theme-checkbox-radio.css">
     <link rel="stylesheet" href="{!! asset('BackAsset') !!}/plugins/editors/markdown/simplemde.min.css">
     <link href="{!! asset('BackAsset') !!}/assets/css/components/custom-modal.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{!! asset('BackAsset') !!}/plugins/dropify/dropify.min.css">
+    <link href="{!! asset('BackAsset') !!}/assets/css/users/account-setting.css" rel="stylesheet" type="text/css" />
+    <link href="{!! asset('BackAsset') !!}/plugins/apex/apexcharts.css" rel="stylesheet" type="text/css">
+    <link href="{!! asset('BackAsset') !!}/assets/css/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
+    <link href="{!! asset('BackAsset') !!}/plugins/pricing-table/css/component.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{!! asset('BackAsset') !!}/assets/css/forms/switches.css">
 
 
     <!-- END GLOBAL MANDATORY STYLES -->
@@ -80,15 +86,15 @@
 
                 <li class="nav-item dropdown user-profile-dropdown">
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <img src="{!! asset('BackAsset') !!}/assets/img/90x90.jpg" alt="avatar">
+                        <img src="../uploads/{{ Auth::user()->avatar }}" alt="avatar">
                     </a>
                     <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
                         <div class="">
                             <div class="dropdown-item">
-                                <a class="" href="user_profile.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> My Profile</a>
+                                <a class="" href="{!! route('AccountEdit', Auth::id()) !!}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> My Profile</a>
                             </div>
                             <div class="dropdown-item">
-                                <a class="" href="apps_mailbox.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-inbox"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg> Inbox</a>
+                                <a class="" href="apps_mailbox.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-inbox"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg> Inbox <span class="badge badge-danger">2</span></a>
                             </div>
 
                             <div class="dropdown-item">
@@ -212,9 +218,16 @@
                       </a>
                     </li>
                     <li class="menu">
-                      <a href="javascript:void(0);" aria-expanded="false" class="dropdown-toggle">
+                      <a href="{!! route('plans.index') !!}" aria-expanded="false" class="dropdown-toggle">
                         <div class="">
-                          <span>Packages</span>
+                          <span>Create Packages</span>
+                        </div>
+                      </a>
+                    </li>
+                    <li class="menu">
+                      <a href="#" aria-expanded="false" class="dropdown-toggle">
+                        <div class="">
+                          <span>Agents</span>
                         </div>
                       </a>
                     </li>
@@ -236,10 +249,10 @@
                         </a>
                         <ul class="collapse submenu list-unstyled" id="payments" data-parent="#accordionExample">
                             <li>
-                                <a href="javascript:void(0);"> Transactions </a>
+                                <a href="{!! route('transactions') !!}"> Transactions </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0);"> Payment Method </a>
+                                <a href="{!! route('editpayment') !!}"> Payment Method </a>
                             </li>
                         </ul>
                     </li>
@@ -406,7 +419,15 @@
     <script src="{!! asset('BackAsset') !!}/plugins/editors/quill/custom-quill.js"></script> --}}
     <script src="{!! asset('BackAsset') !!}/plugins/editors/markdown/simplemde.min.js"></script>
     <script src="{!! asset('BackAsset') !!}/plugins/editors/markdown/custom-markdown.js"></script>
-
+    <script src="{!! asset('BackAsset') !!}/plugins/dropify/dropify.min.js"></script>
+    <script src="{!! asset('BackAsset') !!}/plugins/blockui/jquery.blockUI.min.js"></script>
+    <!-- <script src="plugins/tagInput/tags-input.js"></script> -->
+    <script src="{!! asset('BackAsset') !!}/assets/js/users/account-settings.js"></script>
+    <script src="{!! asset('BackAsset') !!}/plugins/apex/apexcharts.min.js"></script>
+    <script src="{!! asset('BackAsset') !!}/assets/js/dashboard/dash_1.js"></script>
+    <script src="{!! asset('BackAsset') !!}/plugins/blockui/jquery.blockUI.min.js"></script>
+    <script src="{!! asset('BackAsset') !!}/plugins/blockui/custom-blockui.js"></script>
+    <script src="{!! asset('BackAsset') !!}/plugins/highlight/highlight.pack.js"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
 
 </body>

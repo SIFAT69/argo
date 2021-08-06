@@ -29,7 +29,7 @@
                                     <td><a href="mailto:{{ $account->email }}">{{ $account->email }}</a></td>
                                     <td>{{ $account->created_at }}</td>
                                     <td>
-                                      <a href="#" class="btn btn-outline-primary rounded bs-tooltip" data-placement="top" title="Edit"><img src="https://img.icons8.com/material-outlined/24/000000/edit--v4.png"/></a>
+                                      <a href="{!! route('AccountEdit', $account->id) !!}" class="btn btn-outline-primary rounded bs-tooltip" data-placement="top" title="Edit"><img src="https://img.icons8.com/material-outlined/24/000000/edit--v4.png"/></a>
                                       <a href="#" class="btn btn-outline-danger rounded bs-tooltip" data-placement="top" title="Delete"><img src="https://img.icons8.com/material-rounded/24/000000/delete-sign.png"/></a>
                                     </td>
                                 </tr>

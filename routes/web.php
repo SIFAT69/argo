@@ -10,6 +10,10 @@ use App\Http\Controllers\RealstatefacilitiesController;
 use App\Http\Controllers\RealstatefeatureController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\PlanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +74,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Accounts
     Route::get('/accounts-list', [AccountController::class, 'AccountList'])->name('AccountList');
+    Route::get('/accounts-edit-{id}', [AccountController::class, 'AccountEdit'])->name('AccountEdit');
+    Route::post('/accounts-edit-post', [AccountController::class, 'AccountEditPost'])->name('AccountEditPost');
     // Accounts
 
 
@@ -116,6 +122,29 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/project-view-restore-{id}', [ProjectController::class, 'restoreProject'])->name('restoreProject');
     Route::get('/project-hard-delete-{id}', [ProjectController::class, 'HardDeleteProject'])->name('HardDeleteProject');
     // Projects End
+
+    //Payment Start
+    Route::get('/dashboard/agent/select-package', [PaymentController::class, 'package_index'])->name('package_index');
+    Route::post('/dashboard/agent/select-package-post', [PaymentController::class, 'checkout'])->name('package_payment');
+    // Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
+    Route::post('checkout',[PaymentController::class, 'afterpayment'])->name('checkout.credit-card');
+    //Payment End
+
+    // Packages And Subcription Start
+    Route::get('plans',[PlanController::class, 'index'])->name('plans.index');
+    Route::get('/plan/{plan}',[PlanController::class, 'show'])->name('plans.show');
+    Route::post('/subscription',[SubscriptionController::class, 'create'])->name('subscription.create');
+    Route::get('create/plan',[SubscriptionController::class, 'createPlan'])->name('create.plan');
+    Route::post('store/plan',[SubscriptionController::class, 'storePlan'])->name('store.plan');
+    Route::get('plan-status-{id}',[PlanController::class, 'PlanStatus'])->name('PlanStatus');
+    Route::get('plan-delete-{id}',[PlanController::class, 'DeletePackages'])->name('DeletePackages');
+    // Packages And Subcription End
+
+    //Payment gateway Setup
+    Route::get('edit-paymentgateway',[PaymentController::class, 'editpayment'])->name('editpayment');
+    Route::get('all-transactions',[PaymentController::class, 'transactions'])->name('transactions');
+    //Payment gateway Setup
+
   });
 
 

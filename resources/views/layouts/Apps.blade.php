@@ -65,10 +65,22 @@
                         <li>
                             <a href="#"><span class="title">Careers</span></a>
                         </li>
-                        <li class="last">
+                        <li>
                             <a href="page-contact.html"><span class="title">Contact</span></a>
                         </li>
-                        <li class="list-inline-item list_s"><a href="#" class="btn flaticon-user" data-toggle="modal" data-target=".bd-example-modal-lg"> <span class="dn-lg">Login/Register</span></a></li>
+                        @php
+                        $subCheck = DB::table('subscriptions')->where('user_id', Auth::id())->value('stripe_status');
+                        @endphp
+                        @if ($subCheck != "active" && !empty(Auth::user()))
+                          <li class="last">
+                            <a href="{!! route('package_index') !!}"><span class="title">Be An Agent</span></a>
+                          </li>
+                        @endif
+                        @if (Auth::check())
+                          <li class="list-inline-item list_s"><a href="{!! route('dashboard') !!}" class="btn flaticon-user"> <span class="dn-lg">Dashboard</span></a></li>
+                        @else
+                          <li class="list-inline-item list_s"><a href="#" class="btn flaticon-user" data-toggle="modal" data-target=".bd-example-modal-lg"> <span class="dn-lg">Login/Register</span></a></li>
+                        @endif
                         <li class="list-inline-item add_listing"><a href="page-add-new-property.html"><span class="flaticon-plus"></span><span class="dn-lg"> Create Listing</span></a></li>
                     </ul>
                 </nav>
@@ -85,12 +97,18 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <ul class="sign_up_tab nav nav-tabs" id="myTab" role="tablist">
+                                  @if (Auth::check())
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Login</a>
+                                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Dashboard</a>
+                                    </li>
+                                  @else
+                                    <li class="nav-item">
+                                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Login</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Register</a>
+                                      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Register</a>
                                     </li>
+                                  @endif
                                 </ul>
                             </div>
                         </div>
@@ -186,12 +204,6 @@
                                                     <div class="input-group-text"><i class="flaticon-password"></i></div>
                                                 </div>
                                             </div>
-                                            <div class="form-group ui_kit_select_search mb0">
-                                                <select class="selectpicker" data-live-search="true" name="account_role" data-width="100%">
-                                                    <option data-tokens="Tenant">Tenant</option>
-                                                    <option data-tokens="Agency">Agent</option>
-                                                </select>
-                                            </div>
                                             <div class="form-group custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="exampleCheck2">
                                                 <label class="custom-control-label" for="exampleCheck2">I have read and accept the Terms and Privacy Policy?</label>
@@ -213,11 +225,12 @@
             <div class="mobile-menu">
                 <div class="header stylehome1">
                     <div class="main_logo_home2 text-center">
-                        <img class="nav_logo_img img-fluid mt20" src="{!! asset('FontAsset') !!}/images/header-logo2.png" alt="header-logo2.png">
-                        <span class="mt20">FindHouse</span>
+                        <img class="nav_logo_img img-fluid mt20" width="200rem" src="{!! asset('FontAsset') !!}/images/header-logo2.png" alt="header-logo2.png">
                     </div>
                     <ul class="menu_bar_home2">
-                        <li class="list-inline-item list_s"><a href="page-register.html"><span class="flaticon-user"></span></a></li>
+                      @if (Auth::check())
+                        <li class="list-inline-item list_s"><a href="{!! route('dashboard') !!}"><span class="flaticon-user"></span></a></li>
+                      @endif
                         <li class="list-inline-item"><a href="#menu"><span></span></a></li>
                     </ul>
                 </div>
@@ -322,8 +335,10 @@
                         </ul>
                     </li>
                     <li><a href="page-contact.html">Contact</a></li>
+                    @if (!Auth::check())
                     <li><a href="page-login.html"><span class="flaticon-user"></span> Login</a></li>
                     <li><a href="page-register.html"><span class="flaticon-edit"></span> Register</a></li>
+                    @endif
                     <li class="cl_btn"><a class="btn btn-block btn-lg btn-thm circle" href="#"><span class="flaticon-plus"></span> Create Listing</a></li>
                 </ul>
             </nav>
