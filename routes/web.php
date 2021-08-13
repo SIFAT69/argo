@@ -14,6 +14,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\PropertyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -123,6 +124,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/project-hard-delete-{id}', [ProjectController::class, 'HardDeleteProject'])->name('HardDeleteProject');
     // Projects End
 
+    // Project Start
+    Route::get('/properties-lists', [PropertyController::class, 'property_list'])->name('property_list');
+    Route::get('/properties-create-new', [PropertyController::class, 'property_create'])->name('property_create');
+    Route::post('/properties-create-post', [PropertyController::class, 'property_post'])->name('property_post');
+    Route::get('/properties-edit-{id}', [PropertyController::class, 'property_edit'])->name('property_edit');
+    Route::post('/properties-edit-post-{id}', [PropertyController::class, 'createPropertyEditPost'])->name('createPropertyEditPost');
+    Route::get('/properties-delete-{id}', [PropertyController::class, 'softDeleteProperties'])->name('softDeleteProperties');
+    Route::get('/properties-view-trash-lists', [PropertyController::class, 'TrashListProperties'])->name('TrashListProperties');
+    Route::get('/properties-view-restore-{id}', [PropertyController::class, 'restoreProperties'])->name('restoreProperties');
+    Route::get('/properties-hard-delete-{id}', [PropertyController::class, 'HardDeleteProperty'])->name('HardDeleteProperty');
+    // Project END
+
+
     //Payment Start
     Route::get('/dashboard/agent/select-package', [PaymentController::class, 'package_index'])->name('package_index');
     Route::post('/dashboard/agent/select-package-post', [PaymentController::class, 'checkout'])->name('package_payment');
@@ -143,7 +157,9 @@ Route::group(['middleware' => 'auth'], function () {
     //Payment gateway Setup
     Route::get('edit-paymentgateway',[PaymentController::class, 'editpayment'])->name('editpayment');
     Route::get('all-transactions',[PaymentController::class, 'transactions'])->name('transactions');
-    //Payment gateway Setup
+    //Payment gateway Setupv
+
+
 
   });
 

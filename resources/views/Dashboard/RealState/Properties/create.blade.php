@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('page_title')
-Edit project
+Create a new project
 @endsection
 @section('content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -10,31 +10,41 @@ Edit project
     <div class="layout-px-spacing">
         <div class="row layout-top-spacing">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+
                 <div class="widget-content widget-content-area br-6">
-                    <a href="{!! route('indexProject') !!}" class="btn btn-primary float-right" style="margin: 1rem">Back</a>
+                    <a href="{!! route('property_list') !!}" class="btn btn-primary float-right" style="margin: 1rem">Back</a>
                     <br>
                     <br>
                     <br>
                     <br>
-                    <form class="needs-validation" novalidate action="{!! route('createProjectEditPost', $project->id) !!}" method="post" enctype="multipart/form-data">
+                    <form class="needs-validation" novalidate action="{!! route('property_post') !!}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
                             <div class="col-md-12 mb-4">
                                 <label for="validationCustom01">Title:</label>
-                                <input type="text" class="form-control" placeholder="Enter a title" required name="title" value="{{ $project->title }}" required>
+                                <input type="text" class="form-control" placeholder="Enter a title" required name="title" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-12 mb-4">
                                 <label for="validationCustom01">Meta Description:</label>
-                                <textarea type="text" class="form-control" placeholder="Enter a meta description" required name="meta_desc"  required>{{ $project->meta_description }}</textarea>
+                                <textarea type="text" class="form-control" placeholder="Enter a meta description" required name="meta_desc" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12 mb-4">
+                                <label for="validationCustom01">Type :</label>
+                                <select class="form-control" required name="status" name="type">
+                                  <option value="Sale">Sale</option>
+                                  <option value="Rent">Rent</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-12">
                                 <div class="">
                                     <div class="widget-content">
-                                      <textarea name="description">{{ $project->description }}</textarea>
+                                      <textarea name="description"></textarea>
                                       <script>
                                               CKEDITOR.replace( 'description' );
                                       </script>
@@ -45,13 +55,17 @@ Edit project
                         <hr>
                         <h4>Images:</h4>
                         <hr>
-                        @foreach ($variable =json_decode($project->images) as $image)
-                          @php
-                            $imageName = DB::table('libraries')->where('id', $image)->value('file_name');
-                          @endphp
-
-                          <img src="../uploads/{{ $imageName }}" width="120px" alt="">
-                        @endforeach
+                        <div class="widget-content widget-content-area">
+                            <div class="custom-file-container" data-upload-id="mySecondImage">
+                                <label>Upload (Allow Multiple) <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
+                                <label class="custom-file-container__custom-file">
+                                    <input type="file" name="images[]" class="custom-file-container__custom-file__custom-file-input" multiple accept="image/*" required>
+                                    <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                                    <span class="custom-file-container__custom-file__custom-file-control"></span>
+                                </label>
+                                <div class="custom-file-container__image-preview"></div>
+                            </div>
+                        </div>
                         <hr>
                         <h4>Location:</h4>
                         <hr>
@@ -60,27 +74,27 @@ Edit project
                                 <label for="validationCustom01">City:</label>
                                 <select class="form-control" name="city">
                                     @foreach ($cities as $city)
-                                    <option @if($project->city == $city->city) selected @endif value="{{ $city->city }}">{{ $city->city }}</option>
+                                    <option value="{{ $city->city }}">{{ $city->city }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                        {{-- <div class="form-row">
+                        <div class="form-row">
                             <div class="col-md-12 mb-4">
                                 <label for="validationCustom01">States:</label>
                                 <select class="form-control" name="state">
                                     @foreach ($states as $state)
-                                    <option value="{{ $state->states }}" @if($project->states == $city->city) selected @endif>{{ $state->states }}</option>
+                                    <option value="{{ $state->states }}">{{ $state->states }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="form-row">
                             <div class="col-md-12 mb-4">
                                 <label for="validationCustom01">Country:</label>
                                 <select class="form-control" name="country">
                                     @foreach ($countries as $country)
-                                    <option @if($project->location == $country->name) selected @endif value="{{ $country->name }}">{{ $country->name }}</option>
+                                    <option value="{{ $country->name }}">{{ $country->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -88,14 +102,14 @@ Edit project
                         <div class="form-row">
                             <div class="col-md-6 mb-4">
                                 <label for="validationCustom01">Latitude:</label>
-                                <input type="text" class="form-control mb-2" name="latitude" value="{{ $project->latitude }}">
+                                <input type="text" class="form-control mb-2" name="latitude" value="">
                                 <div class="alert alert-primary">
                                     <a href="https://www.latlong.net/convert-address-to-lat-long.html">Go here to get Latitude from address.</a>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="validationCustom01">Longitude:</label>
-                                <input type="text" class="form-control mb-2" name="longitude" value="{{ $project->longitude }}">
+                                <input type="text" class="form-control mb-2" name="longitude" value="">
                                 <div class="alert alert-primary">
                                     <a href="https://www.latlong.net/convert-address-to-lat-long.html">Go here to get Longitude from address.</a>
                                 </div>
@@ -106,30 +120,30 @@ Edit project
                         <hr>
                         <div class="form-row">
                             <div class="col-md-4 mb-4">
-                                <label for="validationCustom01">Number blocks:</label>
-                                <input type="text" class="form-control" name="flat_blocks" value="{{ $project->flat_blocks }}">
+                                <label for="validationCustom01">Number Bedrooms:</label>
+                                <input type="text" class="form-control" name="flat_beds" value="">
                             </div>
                             <div class="col-md-4 mb-4">
                                 <label for="validationCustom01">Number Floor:</label>
-                                <input type="text" class="form-control" name="flat_floors" value="{{ $project->flat_floors }}">
+                                <input type="text" class="form-control" name="flat_baths" value="">
                             </div>
                             <div class="col-md-4 mb-4">
                                 <label for="validationCustom01">Number flats:</label>
-                                <input type="text" class="form-control" name="flat_number" value="{{ $project->flat_number }}">
+                                <input type="text" class="form-control" name="flat_floors" value="">
                             </div>
                             <div class="col-md-6 mb-4">
-                                <label for="validationCustom01">Lowest price:</label>
-                                <input type="text" class="form-control" name="low_price" placeholder="Currency (USD)" value="{{ $project->low_price }}">
+                                <label for="validationCustom01">Price:</label>
+                                <input type="text" class="form-control" name="price" placeholder="Currency (USD)" value="">
                             </div>
                             <div class="col-md-6 mb-4">
-                                <label for="validationCustom01">Max price:</label>
-                                <input type="text" class="form-control" name="max_price" placeholder="Currency (USD)" value="{{ $project->max_price }}">
+                                <label for="validationCustom01">Size(M<sup>2</sup>):</label>
+                                <input type="text" class="form-control" name="size" placeholder="Meter Squre" value="">
                             </div>
                             <div class="col-md-12 mb-4">
                                 <label for="validationCustom01">Category:</label>
                                 <select class="form-control" name="category">
                                     @foreach ($categories as $category)
-                                    <option @if($project->category == $category->name) selected @endif value="{{ $category->name }}">{{ $category->name }}</option>
+                                    <option value="{{ $category->name }}">{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -142,20 +156,14 @@ Edit project
                             <div class="col-md-6 mb-4">
                                 <label for="validationCustom01">Select Facility:</label>
                                 <select class="form-control" name="facility[]">
-                                  <option value="Null">Null</option>
-                                  @foreach ($variable =json_decode($project->facilities) as $faci)
-                                    <option @if($faci == $facility->facility) selected @endif value="{{ $faci }}">{{ $faci }}</option>
-                                  @endforeach
+                                    @foreach ($realstatefacilities as $facility)
+                                    <option value="{{ $facility->facility }}">{{ $facility->facility }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-6 mb-4">
-                                <label for="validationCustom01">Distance (km):</label>
-                                  @foreach ($variable = json_decode($project->distance) as $dis)
-                                    @php
-                                      $distance[] = $dis;
-                                    @endphp
-                                  @endforeach
-                                 <input type="text" class="form-control mb-2" name="distance[]" placeholder="Distance (KM)" value="{{ $distance[$loop->index] }}">
+                                <label for="validationCustom01">Distance:</label>
+                                <input type="text" class="form-control mb-2" name="distance[]" placeholder="Distance (KM)" value="">
                             </div>
                         </div>
                         @endforeach
@@ -164,12 +172,6 @@ Edit project
                         <hr>
                         <div class="form-row">
                             <div class="col-md-12 mb-4">
-                              <p>Currently selected: </p>
-                              @foreach ($fec = json_decode($project->features) as $key => $value)
-                                {{ $value  }},
-                              @endforeach
-                              <hr>
-                              <label for="">Please select category again: </label>
                                 @foreach ($realstatefeatures as $feature)
                                 <div class="n-chk">
                                     <label class="new-control new-checkbox new-checkbox-rounded checkbox-outline-success">
@@ -185,13 +187,12 @@ Edit project
                         <hr>
                         <div class="form-row">
                             <div class="col-md-12 mb-4">
-                              <img src="../uploads/{{ $project->youtube_thumb }}" width="120px" class="mb-3" alt=""> <br>
                                 <label for="validationCustom01">Youtube Thumbnail:</label>
-                                <input type="file" class="form-control-file mb-2" name="youtube_thumb" value="{{ $project->youtube_thumb }}">
+                                <input type="file" class="form-control-file mb-2" name="youtube_thumb" value="">
                             </div>
                             <div class="col-md-12 mb-4">
                                 <label for="validationCustom01">Youtube Link:</label>
-                                <input type="link" class="form-control mb-2" name="youtube_link" placeholder="https://youtu.be/RDCEkbq13Sk3w" value="{{ $project->youtube_link }}">
+                                <input type="link" class="form-control mb-2" name="youtube_link" placeholder="https://youtu.be/RDCEkbq13Sk3w" value="">
                             </div>
                         </div>
                         <button class="btn btn-primary mt-3" type="submit">Save</button>

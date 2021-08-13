@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('page_title')
-Edit project
+Edit Property
 @endsection
 @section('content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -11,12 +11,12 @@ Edit project
         <div class="row layout-top-spacing">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area br-6">
-                    <a href="{!! route('indexProject') !!}" class="btn btn-primary float-right" style="margin: 1rem">Back</a>
+                    <a href="{!! route('property_list') !!}" class="btn btn-primary float-right" style="margin: 1rem">Back</a>
                     <br>
                     <br>
                     <br>
                     <br>
-                    <form class="needs-validation" novalidate action="{!! route('createProjectEditPost', $project->id) !!}" method="post" enctype="multipart/form-data">
+                    <form class="needs-validation" novalidate action="{!! route('createPropertyEditPost', $project->id) !!}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
                             <div class="col-md-12 mb-4">
@@ -28,6 +28,15 @@ Edit project
                             <div class="col-md-12 mb-4">
                                 <label for="validationCustom01">Meta Description:</label>
                                 <textarea type="text" class="form-control" placeholder="Enter a meta description" required name="meta_desc"  required>{{ $project->meta_description }}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12 mb-4">
+                                <label for="validationCustom01">Type :</label>
+                                <select class="form-control" required name="status" name="type">
+                                  <option @if($project->status == "Sale") selected @endif value="Sale">Sale</option>
+                                  <option @if($project->status == "Rent") selected @endif value="Rent">Rent</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-row">
@@ -106,24 +115,24 @@ Edit project
                         <hr>
                         <div class="form-row">
                             <div class="col-md-4 mb-4">
-                                <label for="validationCustom01">Number blocks:</label>
-                                <input type="text" class="form-control" name="flat_blocks" value="{{ $project->flat_blocks }}">
+                                <label for="validationCustom01">Number Beds:</label>
+                                <input type="text" class="form-control" name="flat_beds" value="{{ $project->flat_beds }}">
                             </div>
                             <div class="col-md-4 mb-4">
-                                <label for="validationCustom01">Number Floor:</label>
+                                <label for="validationCustom01">Baths:</label>
+                                <input type="text" class="form-control" name="flat_baths" value="{{ $project->flat_baths }}">
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <label for="validationCustom01">Number floors:</label>
                                 <input type="text" class="form-control" name="flat_floors" value="{{ $project->flat_floors }}">
                             </div>
-                            <div class="col-md-4 mb-4">
-                                <label for="validationCustom01">Number flats:</label>
-                                <input type="text" class="form-control" name="flat_number" value="{{ $project->flat_number }}">
+                            <div class="col-md-6 mb-4">
+                                <label for="validationCustom01">Price:</label>
+                                <input type="text" class="form-control" name="price" placeholder="Currency (USD)" value="{{ $project->price }}">
                             </div>
                             <div class="col-md-6 mb-4">
-                                <label for="validationCustom01">Lowest price:</label>
-                                <input type="text" class="form-control" name="low_price" placeholder="Currency (USD)" value="{{ $project->low_price }}">
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <label for="validationCustom01">Max price:</label>
-                                <input type="text" class="form-control" name="max_price" placeholder="Currency (USD)" value="{{ $project->max_price }}">
+                                <label for="validationCustom01">Size(m<sup>2</sup>):</label>
+                                <input type="text" class="form-control" name="size" placeholder="Currency (USD)" value="{{ $project->size }}">
                             </div>
                             <div class="col-md-12 mb-4">
                                 <label for="validationCustom01">Category:</label>

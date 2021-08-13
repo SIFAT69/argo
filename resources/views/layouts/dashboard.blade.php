@@ -187,7 +187,7 @@
                         </a>
                         <ul class="collapse submenu list-unstyled" id="submenu" data-parent="#accordionExample">
                             <li>
-                                <a href="javascript:void(0);"> Properties </a>
+                                <a href="{!! route('property_list') !!}"> Properties </a>
                             </li>
                             <li>
                                 <a href="{!! route('indexProject') !!}"> Projects </a>
@@ -330,7 +330,7 @@
                                 <a href="{!! route('TrashListProjects') !!}"> Project Trash </a>
                             </li>
                             <li>
-                                <a href="#"> Properties Trash </a>
+                                <a href="{!! route('TrashListProperties') !!}"> Properties Trash </a>
                             </li>
                         </ul>
                     </li>

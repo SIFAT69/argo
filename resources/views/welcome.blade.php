@@ -65,9 +65,9 @@ Argo
                                                 </div>
                                                 <div class="dd_content2">
                                                     <div class="pricing_acontent">
-                                                        <!-- <input type="text" class="amount" placeholder="$52,239">
+                                                        {{-- <input type="text" class="amount" placeholder="$52,239">
                             <input type="text" class="amount2" placeholder="$985,14">
-                            <div class="slider-range"></div> -->
+                            <div class="slider-range"></div> --}}
                                                         <span id="slider-range-value1"></span>
                                                         <span id="slider-range-value2"></span>
                                                         <div id="slider"></div>

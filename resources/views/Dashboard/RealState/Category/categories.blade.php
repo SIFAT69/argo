@@ -12,7 +12,7 @@
                 @include('Alerts.danger')
                   <div class="widget-content widget-content-area br-6">
                     <a href="#" class="btn btn-primary float-right" style="margin: 1rem" data-toggle="modal" data-target="#createCategory">Create new</a>
-                    <h4 href="#" class="float-left" style="margin: 1rem">All blogs</h4>
+                    <h4 href="#" class="float-left" style="margin: 1rem">All Categories</h4>
                       <div class="table-responsive mb-4 mt-4">
                           <table id="zero-config" class="table table-hover" style="width:100%">
                               <thead>
