@@ -42,7 +42,7 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
-                    <a href="#" class="navbar_brand float-left dn-smd">
+                    <a href="{!! route('welcome') !!}" class="navbar_brand float-left dn-smd">
                         <img class="logo1 img-fluid" src="{!! asset('FontAsset') !!}/images/header-logo.png" alt="header-logo.png" width="250px">
                         <img class="logo2 img-fluid" src="{!! asset('FontAsset') !!}/images/header-logo2.png" alt="header-logo2.png" width="250px">
                     </a>
@@ -50,23 +50,23 @@
                     <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
                     <ul id="respMenu" class="ace-responsive-menu text-right" data-menu-style="horizontal">
                         <li>
-                            <a href="#"><span class="title">Home</span></a>
+                            <a href="{!! route('welcome') !!}"><span class="title">Home</span></a>
                         </li>
                         <li>
-                            <a href="#"><span class="title">Properties</span></a>
+                            <a href="{!! route('properties_lists') !!}"><span class="title">Properties</span></a>
                         </li>
                         <li>
-                            <a href="#"><span class="title">Agents</span></a>
+                            <a href="{!! route('projects_lists') !!}"><span class="title">Projects</span></a>
                         </li>
                         <li>
-                            <a href="#"><span class="title">News</span></a>
+                            <a href="{!! route('agencies_lists') !!}"><span class="title">Agencies</span></a>
+                        </li>
+                        <li>
+                            <a href="{!! route('blogs_lists') !!}"><span class="title">Blogs</span></a>
 
                         </li>
                         <li>
-                            <a href="#"><span class="title">Careers</span></a>
-                        </li>
-                        <li>
-                            <a href="page-contact.html"><span class="title">Contact</span></a>
+                            <a href="{!! route('contact') !!}"><span class="title">Contact</span></a>
                         </li>
                         @php
                         $subCheck = DB::table('subscriptions')->where('user_id', Auth::id())->value('stripe_status');

@@ -15,6 +15,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -169,7 +170,13 @@ Route::get('/logout', function () {
   return redirect('/login');
 })->name('logout');
 
-
+// FontPages Start
+Route::get('properties/all',[PageController::class, 'properties_lists'])->name('properties_lists');
+Route::get('projects/all',[PageController::class, 'projects_lists'])->name('projects_lists');
+Route::get('agencies/all',[PageController::class, 'agencies_lists'])->name('agencies_lists');
+Route::get('blogs/all',[PageController::class, 'blogs_lists'])->name('blogs_lists');
+Route::get('contact',[PageController::class, 'contact'])->name('contact');
+// FontPages End
 
 
 
