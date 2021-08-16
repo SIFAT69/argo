@@ -68,6 +68,7 @@ class PropertyController extends Controller
         'user_id' => Auth::id(),
         'status' => $request->status,
         'title' => $request->title,
+        'type' => $request->type,
         'slug' => $slug,
         'meta_description' => $request->meta_desc,
         'description' => $request->description,

@@ -26,6 +26,7 @@ class CreatePropertiesTable extends Migration
           $table->string('category');
           $table->string('city',255);
           $table->string('location',255);
+          $table->string('states',255);
           $table->string('latitude',255);
           $table->string('longitude',255);
           $table->string('flat_beds');
