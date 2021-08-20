@@ -55,17 +55,10 @@ Argo
   								<div class="mbp_pagination mt20">
   									<ul class="page_navigation">
   									    <li class="page-item disabled">
-  									    	<a class="page-link" href="#" tabindex="-1" aria-disabled="true"> <span class="flaticon-left-arrow"></span> Prev</a>
+  									    	<a class="page-link" href="{{ $blogs->nextPageUrl() }}" tabindex="-1" aria-disabled="true"> <span class="flaticon-left-arrow"></span> Prev</a>
   									    </li>
-  									    <li class="page-item"><a class="page-link" href="#">1</a></li>
-  									    <li class="page-item active" aria-current="page">
-  									    	<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-  									    </li>
-  									    <li class="page-item"><a class="page-link" href="#">3</a></li>
-  									    <li class="page-item"><a class="page-link" href="#">...</a></li>
-  									    <li class="page-item"><a class="page-link" href="#">29</a></li>
   									    <li class="page-item">
-  									    	<a class="page-link" href="#"><span class="flaticon-right-arrow"></span></a>
+  									    	<a class="page-link" href="{{ $blogs->previousPageUrl() }}"><span class="flaticon-right-arrow"></span></a>
   									    </li>
   									</ul>
   								</div>
@@ -88,63 +81,36 @@ Argo
   						<h4 class="title">Categories Property</h4>
   						<div class="widget_list">
   							<ul class="list_details">
-  								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Apartment <span class="float-right">6 properties</span></a></li>
-  								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Condo <span class="float-right">12 properties</span></a></li>
-  								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Family House <span class="float-right">8 properties</span></a></li>
-  								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Modern Villa <span class="float-right">26 properties</span></a></li>
-  								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Town House <span class="float-right">89 properties</span></a></li>
+                  @foreach ($categories as $category)
+  								<li><a href="#"><i class="fa fa-caret-right mr10"></i>{{ $category->name }} <span class="float-right">{{ DB::table('properties')->where('category', $category->name)->count() }} properties</span></a></li>
+                  @endforeach
   							</ul>
   						</div>
   					</div>
   					<div class="sidebar_feature_listing">
   						<h4 class="title">Featured Listings</h4>
-  						<div class="media">
-  							<img class="align-self-start mr-3" src="{!! asset('FontAsset') !!}/images/blog/fls1.jpg" alt="fls1.jpg">
+              @forelse ($is_featured_properties as $featured_properties)
+                <div class="media">
+  							<img class="align-self-start mr-3" src="../uploads/{{ $featured_properties->youtube_thumb }}" style="width: 90px; height: 80px" alt="fls1.jpg">
   							<div class="media-body">
-  						    	<h5 class="mt-0 post_title">Nice Room With View</h5>
-  						    	<a href="#">$13,000/<small>/mo</small></a>
+  						    	<h5 class="mt-0 post_title">{{ $featured_properties->title }}</h5>
+  						    	<a href="#">${{ $featured_properties->price }}</a>
   						    	<ul class="mb0">
-  						    		<li class="list-inline-item">Beds: 4</li>
-  						    		<li class="list-inline-item">Baths: 2</li>
-  						    		<li class="list-inline-item">Sq Ft: 5280</li>
+  						    		<li class="list-inline-item">Beds: {{ $featured_properties->flat_beds }}</li>,
+  						    		<li class="list-inline-item">Baths: {{ $featured_properties->flat_baths }}</li>,
+  						    		<li class="list-inline-item">m<sup>2</sup>: {{ $featured_properties->size }}</li>
   						    	</ul>
   							</div>
   						</div>
-  						<div class="media">
-  							<img class="align-self-start mr-3" src="{!! asset('FontAsset') !!}/images/blog/fls2.jpg" alt="fls2.jpg">
+              @empty
+                <div class="media">
   							<div class="media-body">
-  						    	<h5 class="mt-0 post_title">Villa called Archangel</h5>
-  						    	<a href="#">$13,000<small>/mo</small></a>
-  						    	<ul class="mb0">
-  						    		<li class="list-inline-item">Beds: 4</li>
-  						    		<li class="list-inline-item">Baths: 2</li>
-  						    		<li class="list-inline-item">Sq Ft: 5280</li>
-  						    	</ul>
+  						    	<h5 class="mt-0 post_title">No featured properties found!</h5>
   							</div>
   						</div>
-  						<div class="media">
-  							<img class="align-self-start mr-3" src="{!! asset('FontAsset') !!}/images/blog/fls3.jpg" alt="fls3.jpg">
-  							<div class="media-body">
-  						    	<h5 class="mt-0 post_title">Sunset Studio</h5>
-  						    	<a href="#">$13,000<small>/mo</small></a>
-  						    	<ul class="mb0">
-  						    		<li class="list-inline-item">Beds: 4</li>
-  						    		<li class="list-inline-item">Baths: 2</li>
-  						    		<li class="list-inline-item">Sq Ft: 5280</li>
-  						    	</ul>
-  							</div>
-  						</div>
+              @endforelse
   					</div>
-  					<div class="blog_tag_widget">
-  						<h4 class="title">Tags</h4>
-  						<ul class="tag_list">
-  							<li class="list-inline-item"><a href="#">Apartment</a></li>
-  							<li class="list-inline-item"><a href="#">Real Estate</a></li>
-  							<li class="list-inline-item"><a href="#">Estate</a></li>
-  							<li class="list-inline-item"><a href="#">Luxury</a></li>
-  							<li class="list-inline-item"><a href="#">Real</a></li>
-  						</ul>
-  					</div>
+
   				</div>
   			</div>
   		</div>

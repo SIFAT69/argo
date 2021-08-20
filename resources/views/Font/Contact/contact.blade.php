@@ -43,7 +43,7 @@ Argo
       <div class="col-lg-7 col-xl-8">
         <div class="form_grid">
           <h4 class="mb5">Send Us An Email</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida quis libero eleifend ornare. Maecenas mattis enim at arcu feugiat, sit amet blandit nisl iaculis. Donec lacus odio, malesuada eu libero sit amet, congue aliquam leo. In hac habitasse platea dictumst.</p>
+          {{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida quis libero eleifend ornare. Maecenas mattis enim at arcu feugiat, sit amet blandit nisl iaculis. Donec lacus odio, malesuada eu libero sit amet, congue aliquam leo. In hac habitasse platea dictumst.</p> --}}
           <form class="contact_form" id="contact_form" name="contact_form" action="{!! route('contactSend') !!}" method="post" novalidate="novalidate">
             @csrf
             <div class="row">

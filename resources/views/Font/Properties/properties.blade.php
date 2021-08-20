@@ -274,9 +274,9 @@ Argo
 					<div class="breadcrumb_content style2">
 						<ol class="breadcrumb">
 						    <li class="breadcrumb-item"><a href="#">Home</a></li>
-						    <li class="breadcrumb-item active text-thm" aria-current="page">Full Width – Grid View</li>
+						    <li class="breadcrumb-item active text-thm" aria-current="page">properties</li>
 						</ol>
-						<h2 class="breadcrumb_title">Full Width Grid View</h2>
+						<h2 class="breadcrumb_title">All properties</h2>
 					</div>
 				</div>
 				<div class="col-md-4 col-lg-6">
@@ -293,7 +293,7 @@ Argo
 						<div class="grid_list_search_result style2">
 							<div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
 								<div class="left_area">
-									<p>9 Search results</p>
+									{{-- <p>{{ DB::table('properties')->count() }} Search results</p> --}}
 								</div>
 							</div>
 							<div class="col-sm-12 col-md-8 col-lg-9 col-xl-9">
@@ -352,7 +352,7 @@ Argo
 										<ul class="prop_details mb0">
 											<li class="list-inline-item"><a class="text-thm3" href="#">Beds: {{ $property->flat_beds }}</a></li>
 											<li class="list-inline-item"><a class="text-thm3" href="#">Baths: {{ $property->flat_baths }}</a></li>
-											<li class="list-inline-item"><a class="text-thm3" href="#">Sq Ft: {{ $property->size }}</a></li>
+											<li class="list-inline-item"><a class="text-thm3" href="#">m<sup>2</sup> : {{ $property->size }}</a></li>
 										</ul>
                   </a>
 									</div>

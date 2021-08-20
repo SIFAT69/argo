@@ -323,10 +323,10 @@ Argo
 								<div class="thumb">
 									<div class="fp_single_item_slider">
                     @foreach ($images as $image)
-										<div class="item">
-											<img class="img-whp" src="../uploads/{{ DB::table('libraries')->where('id', $image)->value('file_name') }}" alt="fp1.jpg">
-										</div>
-                  @endforeach
+  									<div class="item">
+  										<img class="img-whp" src="../uploads/{{ DB::table('libraries')->where('id', $image)->value('file_name') }}" alt="fp1.jpg">
+  									</div>
+                    @endforeach
 									</div>
 									<div class="thmb_cntnt style2">
 										<ul class="tag mb0">

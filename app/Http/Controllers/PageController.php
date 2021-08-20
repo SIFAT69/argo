@@ -30,8 +30,10 @@ class PageController extends Controller
     }
     public function blogs_lists(Request $request)
     {
-      $blogs  = DB::table('blogs')->get();
-      return view('Font.Blogs.blogs',compact('blogs'));
+      $blogs  = DB::table('blogs')->paginate(3);
+      $categories = DB::table('realstatecategories')->get();
+      $is_featured_properties = DB::table('properties')->where('is_featured', 'yes')->get();
+      return view('Font.Blogs.blogs',compact('blogs','categories','is_featured_properties'));
     }
     public function contact(Request $request)
     {
