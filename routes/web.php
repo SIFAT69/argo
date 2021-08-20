@@ -186,6 +186,7 @@ Route::get('/logout', function () {
 
 // FontPages Start
 Route::get('properties/all',[PageController::class, 'properties_lists'])->name('properties_lists');
+Route::get('properties/{slug}',[PageController::class, 'Details_property'])->name('Details_property');
 Route::get('projects/all',[PageController::class, 'projects_lists'])->name('projects_lists');
 Route::get('agencies/all',[PageController::class, 'agencies_lists'])->name('agencies_lists');
 Route::get('blogs/all',[PageController::class, 'blogs_lists'])->name('blogs_lists');

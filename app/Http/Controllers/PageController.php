@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Auth;
 use Carbon\Carbon;
 use Image;
-use Illuminate\Support\Facades\Hash;
+
 
 class PageController extends Controller
 {
