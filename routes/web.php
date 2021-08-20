@@ -16,6 +16,8 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\AgentController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +35,12 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::get('/dashboard', function () {
+  if (Auth::user()->account_role == 'Admin') {
     return view('dashboard');
+  }
+  if(Auth::user()->account_role == "Agent") {
+    return view('Agent.Dashboard.dashboard');
+  }
 })->middleware(['auth'])->name('dashboard');
 
 Route::group(['middleware' => 'auth'], function () {
@@ -160,10 +167,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('all-transactions',[PaymentController::class, 'transactions'])->name('transactions');
     //Payment gateway Setupv
 
-
-
+    // Contact Start
+    Route::get('all-contacts',[ContactController::class, 'allContact'])->name('allContact');
+    Route::post('contacts-status',[ContactController::class, 'statusContact'])->name('statusContact');
+    // Contact End
   });
 
+  // Agent Rounts Start
+  Route::group(['middleware' => 'auth'], function () {
+    Route::get('/agent-dashbord',[AgentController::class, 'AgentDashboard'])->name('AgentDashboard');
+
+  });
 
 Route::get('/logout', function () {
   Auth::logout();
@@ -178,6 +192,7 @@ Route::get('blogs/all',[PageController::class, 'blogs_lists'])->name('blogs_list
 Route::get('contact',[PageController::class, 'contact'])->name('contact');
 // FontPages End
 
+Route::post('contact-post',[ContactController::class, 'contactSend'])->name('contactSend');
 
 
 

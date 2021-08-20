@@ -66,7 +66,7 @@ class PropertyController extends Controller
 
       DB::table('properties')->insert([
         'user_id' => Auth::id(),
-        'status' => $request->status,
+        'status' => 0,
         'title' => $request->title,
         'type' => $request->type,
         'slug' => $slug,

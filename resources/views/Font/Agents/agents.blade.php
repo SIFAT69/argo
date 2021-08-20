@@ -190,216 +190,41 @@ Argo
           </div>
         </div>
         <div class="row">
+
+          @forelse ($agents as $agency)
           <div class="col-lg-12">
             <div class="feat_property list agency">
               <div class="thumb">
-                <img class="img-whp" src="{!! asset('FontAsset') !!}/images/agency/1.jpg" alt="1.jpg">
+                <img class="img-whp" src="../uploads/{{ $agency->avatar }}" alt="1.jpg">
                 <div class="thmb_cntnt">
                   <ul class="tag mb0">
                     <li class="list-inline-item dn"></li>
-                    <li class="list-inline-item"><a href="#">2 Listings</a></li>
+                    <li class="list-inline-item"><a href="#">{{ DB::table('properties')->where('user_id', $agency->id)->count() }} Listings</a></li>
                   </ul>
                 </div>
               </div>
               <div class="details">
                 <div class="tc_content">
-                  <h4>Country House Real Estate</h4>
+                  <h4>{{ $agency->name }}</h4>
                   <p class="text-thm">Agent</p>
                   <ul class="prop_details mb0">
-                    <li><a href="#">Office: 134 456 3210</a></li>
+                    {{-- <li><a href="#">Office: 134 456 3210</a></li>
                     <li><a href="#">Mobile: 891 456 9874</a></li>
-                    <li><a href="#">Fax: 342 654 1258</a></li>
-                    <li><a href="#">Email: pakulla@findhouse.com</a></li>
+                    <li><a href="#">Fax: 342 654 1258</a></li> --}}
+                    <li><a href="#">Email: {{ $agency->email }}</a></li>
                   </ul>
                 </div>
                 <div class="fp_footer">
-                  <ul class="fp_meta float-left mb0">
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
-                  </ul>
                   <div class="fp_pdate float-right text-thm">View My Listings <i class="fa fa-angle-right"></i></div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-12">
-            <div class="feat_property list agency">
-              <div class="thumb">
-                <img class="img-whp" src="{!! asset('FontAsset') !!}/images/agency/2.jpg" alt="2.jpg">
-                <div class="thmb_cntnt">
-                  <ul class="tag mb0">
-                    <li class="list-inline-item dn"></li>
-                    <li class="list-inline-item"><a href="#">2 Listings</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="details">
-                <div class="tc_content">
-                  <h4>High-Rise Real Estate</h4>
-                  <p class="text-thm">Agent</p>
-                  <ul class="prop_details mb0">
-                    <li><a href="#">Office: 134 456 3210</a></li>
-                    <li><a href="#">Mobile: 891 456 9874</a></li>
-                    <li><a href="#">Fax: 342 654 1258</a></li>
-                    <li><a href="#">Email: annaharris@findhouse.com</a></li>
-                  </ul>
-                </div>
-                <div class="fp_footer">
-                  <ul class="fp_meta float-left mb0">
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
-                  </ul>
-                  <div class="fp_pdate float-right text-thm">View My Listings <i class="fa fa-angle-right"></i></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <div class="feat_property list agency">
-              <div class="thumb">
-                <img class="img-whp" src="{!! asset('FontAsset') !!}/images/agency/3.jpg" alt="3.jpg">
-                <div class="thmb_cntnt">
-                  <ul class="tag mb0">
-                    <li class="list-inline-item dn"></li>
-                    <li class="list-inline-item"><a href="#">2 Listings</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="details">
-                <div class="tc_content">
-                  <h4>Modern House Real estate</h4>
-                  <p class="text-thm">Agent</p>
-                  <ul class="prop_details mb0">
-                    <li><a href="#">Office: 134 456 3210</a></li>
-                    <li><a href="#">Mobile: 891 456 9874</a></li>
-                    <li><a href="#">Fax: 342 654 1258</a></li>
-                    <li><a href="#">Email: pakulla@findhouse.com</a></li>
-                  </ul>
-                </div>
-                <div class="fp_footer">
-                  <ul class="fp_meta float-left mb0">
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
-                  </ul>
-                  <div class="fp_pdate float-right text-thm">4 years ago</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <div class="feat_property list agency">
-              <div class="thumb">
-                <img class="img-whp" src="{!! asset('FontAsset') !!}/images/agency/4.jpg" alt="4.jpg">
-                <div class="thmb_cntnt">
-                  <ul class="tag mb0">
-                    <li class="list-inline-item dn"></li>
-                    <li class="list-inline-item"><a href="#">2 Listings</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="details">
-                <div class="tc_content">
-                  <h4>Real estate experts</h4>
-                  <p class="text-thm">Agent</p>
-                  <ul class="prop_details mb0">
-                    <li><a href="#">Office: 134 456 3210</a></li>
-                    <li><a href="#">Mobile: 891 456 9874</a></li>
-                    <li><a href="#">Fax: 342 654 1258</a></li>
-                    <li><a href="#">Email: pakulla@findhouse.com</a></li>
-                  </ul>
-                </div>
-                <div class="fp_footer">
-                  <ul class="fp_meta float-left mb0">
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
-                  </ul>
-                  <div class="fp_pdate float-right text-thm">View My Listings <i class="fa fa-angle-right"></i></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <div class="feat_property list agency">
-              <div class="thumb">
-                <img class="img-whp" src="{!! asset('FontAsset') !!}/images/agency/5.jpg" alt="5.jpg">
-                <div class="thmb_cntnt">
-                  <ul class="tag mb0">
-                    <li class="list-inline-item dn"></li>
-                    <li class="list-inline-item"><a href="#">2 Listings</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="details">
-                <div class="tc_content">
-                  <h4>Luxury House Real Estate</h4>
-                  <p class="text-thm">Agent</p>
-                  <ul class="prop_details mb0">
-                    <li><a href="#">Office: 134 456 3210</a></li>
-                    <li><a href="#">Mobile: 891 456 9874</a></li>
-                    <li><a href="#">Fax: 342 654 1258</a></li>
-                    <li><a href="#">Email: pakulla@findhouse.com</a></li>
-                  </ul>
-                </div>
-                <div class="fp_footer">
-                  <ul class="fp_meta float-left mb0">
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
-                  </ul>
-                  <div class="fp_pdate float-right text-thm">View My Listings <i class="fa fa-angle-right"></i></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <div class="feat_property list agency">
-              <div class="thumb">
-                <img class="img-whp" src="{!! asset('FontAsset') !!}/images/agency/6.jpg" alt="6.jpg">
-                <div class="thmb_cntnt">
-                  <ul class="tag mb0">
-                    <li class="list-inline-item dn"></li>
-                    <li class="list-inline-item"><a href="#">2 Listings</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="details">
-                <div class="tc_content">
-                  <h4>James Estate Agents</h4>
-                  <p class="text-thm">Agent</p>
-                  <ul class="prop_details mb0">
-                    <li><a href="#">Office: 134 456 3210</a></li>
-                    <li><a href="#">Mobile: 891 456 9874</a></li>
-                    <li><a href="#">Fax: 342 654 1258</a></li>
-                    <li><a href="#">Email: pakulla@findhouse.com</a></li>
-                  </ul>
-                </div>
-                <div class="fp_footer">
-                  <ul class="fp_meta float-left mb0">
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
-                  </ul>
-                  <div class="fp_pdate float-right text-thm">4 years ago</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          @empty
+
+          @endforelse
+
+
           <div class="col-lg-12 mt20">
             <div class="mbp_pagination">
               <ul class="page_navigation">

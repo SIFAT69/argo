@@ -34,7 +34,7 @@ Create a new project
                         <div class="form-row">
                             <div class="col-md-12 mb-4">
                                 <label for="validationCustom01">Type :</label>
-                                <select class="form-control" required name="status" name="type">
+                                <select class="form-control" required name="type">
                                   <option value="Sale">Sale</option>
                                   <option value="Rent">Rent</option>
                                 </select>

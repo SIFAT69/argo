@@ -24,69 +24,32 @@ Argo
   			<div class="row">
   				<div class="col-lg-8">
   					<div class="main_blog_post_content">
-  						<div class="for_blog feat_property">
+              @forelse ($blogs as $blog)
+                <div class="for_blog feat_property">
   							<div class="thumb">
-  								<img class="img-whp" src="{!! asset('FontAsset') !!}/images/blog/7.jpg" alt="7.jpg">
-  								<div class="blog_tag">Construction</div>
+  								<img class="img-whp" src="../uploads/{{ $blog->meta_image }}" alt="7.jpg">
   							</div>
   							<div class="details">
   								<div class="tc_content">
-  									<h4 class="mb15">Redfin Ranks the Most Competitive Neighborhoods of 2020</h4>
-  									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mollis et sem sed sollicitudin. Donec non odio neque. Aliquam hendrerit sollicitudin purus, quis rutrum mi accumsan nec. Quisque bibendum orci ac nibh
-  									facilisis, at malesuada orci congue. Nullam tempus sollicitudin cursus. Ut et adipiscing erat. Curabitur this is a text link libero tempus congue.</p>
+  									<h4 class="mb15">{{ $blog->title }}</h4>
+  									<p>{{ $blog->meta_desc }}</p>
   								</div>
   								<div class="fp_footer">
   									<ul class="fp_meta float-left mb0">
-  										<li class="list-inline-item"><a href="#"><img src="{!! asset('FontAsset') !!}/images/property/pposter1.png" alt="pposter1.png"></a></li>
-  										<li class="list-inline-item"><a href="#">Ali Tufan</a></li>
-  										<li class="list-inline-item"><a href="#"><span class="flaticon-calendar pr10"></span> January 16, 2020</a></li>
+                      @php
+                        $author = DB::table('users')->where('id', $blog->posted_by)->first();
+                      @endphp
+  										<li class="list-inline-item"><a href="#"><img src="../uploads/{{ $author->avatar }}" alt="pposter1.png" style="width: 40px; border-radius: 50px"></a></li>
+  										<li class="list-inline-item"><a href="#">{{ $author->name }}</a></li>
+  										<li class="list-inline-item"><a href="#"><span class="flaticon-calendar pr10"></span>{{ Carbon\Carbon::parse($blog->created_at)->format('M-d-Y') }}</a></li>
   									</ul>
   									<a class="fp_pdate float-right text-thm" href="#">Read More <span class="flaticon-next"></span></a>
   								</div>
   							</div>
   						</div>
-  						<div class="for_blog feat_property">
-  							<div class="thumb">
-  								<img class="img-whp" src="{!! asset('FontAsset') !!}/images/blog/8.jpg" alt="8.jpg">
-  								<div class="blog_tag">Construction</div>
-  							</div>
-  							<div class="details">
-  								<div class="tc_content">
-  									<h4 class="mb15">Redfin Ranks the Most Competitive Neighborhoods of 2020</h4>
-  									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mollis et sem sed sollicitudin. Donec non odio neque. Aliquam hendrerit sollicitudin purus, quis rutrum mi accumsan nec. Quisque bibendum orci ac nibh
-  									facilisis, at malesuada orci congue. Nullam tempus sollicitudin cursus. Ut et adipiscing erat. Curabitur this is a text link libero tempus congue.</p>
-  								</div>
-  								<div class="fp_footer">
-  									<ul class="fp_meta float-left mb0">
-  										<li class="list-inline-item"><a href="#"><img src="{!! asset('FontAsset') !!}/images/property/pposter1.png" alt="pposter1.png"></a></li>
-  										<li class="list-inline-item"><a href="#">Ali Tufan</a></li>
-  										<li class="list-inline-item"><a href="#"><span class="flaticon-calendar pr10"></span> January 16, 2020</a></li>
-  									</ul>
-  									<a class="fp_pdate float-right text-thm" href="#">Read More <span class="flaticon-next"></span></a>
-  								</div>
-  							</div>
-  						</div>
-  						<div class="for_blog feat_property">
-  							<div class="thumb">
-  								<img class="img-whp" src="{!! asset('FontAsset') !!}/images/blog/9.jpg" alt="9.jpg">
-  								<div class="blog_tag">Construction</div>
-  							</div>
-  							<div class="details">
-  								<div class="tc_content">
-  									<h4 class="mb15">Redfin Ranks the Most Competitive Neighborhoods of 2020</h4>
-  									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mollis et sem sed sollicitudin. Donec non odio neque. Aliquam hendrerit sollicitudin purus, quis rutrum mi accumsan nec. Quisque bibendum orci ac nibh
-  									facilisis, at malesuada orci congue. Nullam tempus sollicitudin cursus. Ut et adipiscing erat. Curabitur this is a text link libero tempus congue.</p>
-  								</div>
-  								<div class="fp_footer">
-  									<ul class="fp_meta float-left mb0">
-  										<li class="list-inline-item"><a href="#"><img src="{!! asset('FontAsset') !!}/images/property/pposter1.png" alt="pposter1.png"></a></li>
-  										<li class="list-inline-item"><a href="#">Ali Tufan</a></li>
-  										<li class="list-inline-item"><a href="#"><span class="flaticon-calendar pr10"></span> January 16, 2020</a></li>
-  									</ul>
-  									<a class="fp_pdate float-right text-thm" href="#">Read More <span class="flaticon-next"></span></a>
-  								</div>
-  							</div>
-  						</div>
+              @empty
+                <p>No blogs found!</p>
+              @endforelse
   						<div class="row">
   							<div class="col-lg-12">
   								<div class="mbp_pagination mt20">

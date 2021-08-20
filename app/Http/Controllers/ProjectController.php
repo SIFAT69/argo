@@ -92,6 +92,7 @@ class ProjectController extends Controller
           'images' => $JsonImage,
           'category' => $request->category,
           'city' => $request->city,
+          'state' => $request->state,
           'location' => $request->country,
           'latitude' => $request->latitude,
           'longitude' => $request->longitude,

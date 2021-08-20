@@ -20,24 +20,18 @@ class PageController extends Controller
     public function projects_lists(Request $request)
     {
       $projects  = DB::table('projects')->where('status', 1)->get();
-      return view('Font.Projects.projects',[
-        'projects' => 'projects',
-      ]);
+      return view('Font.Projects.projects',compact('projects'));
     }
 
     public function agencies_lists(Request $request)
     {
-      $agents  = DB::table('users')->get();
-      return view('Font.Agents.agents',[
-        'agents' => 'agents',
-      ]);
+      $agents  = DB::table('users')->where('account_role', 'Agent')->get();
+      return view('Font.Agents.agents',compact('agents'));
     }
     public function blogs_lists(Request $request)
     {
       $blogs  = DB::table('blogs')->get();
-      return view('Font.Blogs.blogs',[
-        'blogs' => 'blogs',
-      ]);
+      return view('Font.Blogs.blogs',compact('blogs'));
     }
     public function contact(Request $request)
     {

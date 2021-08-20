@@ -232,7 +232,7 @@
                       </a>
                     </li>
                     <li class="menu">
-                      <a href="javascript:void(0);" aria-expanded="false" class="dropdown-toggle">
+                      <a href="{!! route('allContact') !!}" aria-expanded="false" class="dropdown-toggle">
                         <div class="">
                           <span>Contact</span>
                         </div>

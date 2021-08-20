@@ -364,7 +364,7 @@ Argo
                     @php
                       $section = DB::table('users')->where('id', $property->user_id)->value('created_at');
                     @endphp
-										<div class="fp_pdate float-right">{{ \Carbon\Carbon::parse($section)->diffForHumans() }}</div>
+										<div class="fp_pdate float-right">{{ \Carbon\Carbon::parse($property->created_at)->diffForHumans() }}</div>
 									</div>
 								</div>
 							</div>
