@@ -191,9 +191,10 @@ Route::get('projects/all',[PageController::class, 'projects_lists'])->name('proj
 Route::get('agencies/all',[PageController::class, 'agencies_lists'])->name('agencies_lists');
 Route::get('blogs/all',[PageController::class, 'blogs_lists'])->name('blogs_lists');
 Route::get('contact',[PageController::class, 'contact'])->name('contact');
+Route::post('contact-post',[ContactController::class, 'contactSend'])->name('contactSend');
+Route::get('blog/{slug}',[PageController::class, 'blog_details'])->name('blog_details');
 // FontPages End
 
-Route::post('contact-post',[ContactController::class, 'contactSend'])->name('contactSend');
 
 
 

@@ -28,15 +28,29 @@ class PageController extends Controller
       $agents  = DB::table('users')->where('account_role', 'Agent')->get();
       return view('Font.Agents.agents',compact('agents'));
     }
+
     public function blogs_lists(Request $request)
     {
       $blogs  = DB::table('blogs')->paginate(3);
-      $categories = DB::table('realstatecategories')->get();
-      $is_featured_properties = DB::table('properties')->where('is_featured', 'yes')->get();
-      return view('Font.Blogs.blogs',compact('blogs','categories','is_featured_properties'));
+      return view('Font.Blogs.blogs',compact('blogs'));
     }
+
     public function contact(Request $request)
     {
       return view('Font.Contact.contact');
+    }
+
+    public function blog_details(Request $request)
+    {
+      $blog = DB::table('blogs')->where('slug', $request->slug)->first();
+      DB::table('views')->insert([
+        'post_table' => 'blogs',
+        'post_id' => $blog->id,
+        'view_count' => 1,
+        'created_at' => Carbon::now(),
+      ]);
+
+      $countViews = DB::table('views')->where('post_id', $blog->id)->where('post_table', 'blogs')->count();
+      return view('Font.Blogs.blog_details',compact('blog','countViews'));
     }
 }
