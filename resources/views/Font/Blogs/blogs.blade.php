@@ -54,11 +54,11 @@ Argo
   							<div class="col-lg-12">
   								<div class="mbp_pagination mt20">
   									<ul class="page_navigation">
-  									    <li class="page-item disabled">
-  									    	<a class="page-link" href="{{ $blogs->nextPageUrl() }}" tabindex="-1" aria-disabled="true"> <span class="flaticon-left-arrow"></span> Prev</a>
+  									    <li class="page-item">
+  									    	<a class="page-link" href="{{ $blogs->previousPageUrl() }}" tabindex="-1" aria-disabled="true"> <span class="flaticon-left-arrow"></span> Prev</a>
   									    </li>
   									    <li class="page-item">
-  									    	<a class="page-link" href="{{ $blogs->previousPageUrl() }}"><span class="flaticon-right-arrow"></span></a>
+  									    	<a class="page-link" href="{{ $blogs->nextPageUrl() }}"><span class="flaticon-right-arrow"></span></a>
   									    </li>
   									</ul>
   								</div>

@@ -18,6 +18,7 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AgenciesmessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -193,6 +194,8 @@ Route::get('blogs/all',[PageController::class, 'blogs_lists'])->name('blogs_list
 Route::get('contact',[PageController::class, 'contact'])->name('contact');
 Route::post('contact-post',[ContactController::class, 'contactSend'])->name('contactSend');
 Route::get('blog/{slug}',[PageController::class, 'blog_details'])->name('blog_details');
+Route::get('agenency/{id}',[PageController::class, 'agenency_details'])->name('agenency_details');
+Route::post('agenency/message/sent',[AgenciesmessageController::class, 'agenency_message'])->name('agenency_message');
 // FontPages End
 
 

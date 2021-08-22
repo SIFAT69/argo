@@ -25,7 +25,7 @@ class PageController extends Controller
 
     public function agencies_lists(Request $request)
     {
-      $agents  = DB::table('users')->where('account_role', 'Agent')->get();
+      $agents  = DB::table('users')->where('account_role', 'Agent')->simplePaginate(8);
       return view('Font.Agents.agents',compact('agents'));
     }
 
@@ -52,5 +52,11 @@ class PageController extends Controller
 
       $countViews = DB::table('views')->where('post_id', $blog->id)->where('post_table', 'blogs')->count();
       return view('Font.Blogs.blog_details',compact('blog','countViews'));
+    }
+
+    public function agenency_details(Request $request)
+    {
+      $agents = DB::table('users')->where('account_role', 'Agent')->where('id', $request->id)->first();
+      return view('Font.Agents.agent_view',compact('agents'));
     }
 }

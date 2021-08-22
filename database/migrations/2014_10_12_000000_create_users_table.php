@@ -21,6 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('account_role')->default('Tenant');
             $table->string('avatar')->default('avatar.png');
+            $table->string('about', 2555)->nullable();
+            $table->string('phoneNumber')->nullable();
+            $table->string('address', 2555)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
