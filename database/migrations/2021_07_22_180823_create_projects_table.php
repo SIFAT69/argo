@@ -19,8 +19,8 @@ class CreateProjectsTable extends Migration
             $table->string('slug');
             $table->string('status');
             $table->string('title',255);
-            $table->string('meta_description',255);
-            $table->string('description');
+            $table->string('meta_description',25555);
+            $table->string('description', 2555);
             $table->json('images');
             $table->string('category');
             $table->string('city',255);
