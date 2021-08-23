@@ -98,6 +98,7 @@
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/dashboard-script.js"></script>
     <!-- Custom script for all pages -->
     <script type="text/javascript" src="js/script.js"></script>
+    @yield('script_in_body')
 </body>
 
 <!-- Mirrored from creativelayers.net/themes/findhouse-html/page-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 05 Jul 2021 15:32:57 GMT -->
