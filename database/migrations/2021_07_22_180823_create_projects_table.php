@@ -24,6 +24,7 @@ class CreateProjectsTable extends Migration
             $table->json('images');
             $table->string('category');
             $table->string('city',255);
+            $table->string('state',255);
             $table->string('location',255);
             $table->string('latitude',255);
             $table->string('longitude',255);
