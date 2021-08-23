@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Property;
 use App\Models\User;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class AgentController extends Controller
 {
@@ -40,10 +42,28 @@ class AgentController extends Controller
 			'companyName' => 'bail|nullable|string|max:255',
 			'address' => 'bail|nullable|string|max:2555',
 			'about' => 'bail|nullable|string|max:2555',
+			'avatar' => 'bail|sometimes|file|image|mimes:jpeg,jpg,png|max:1300|dimensions:ratio=1/1',
 		]);
 
-		User::where('id', $id)->update($data);
+		if($request->hasFile('avatar'))
+		{
+			if($request->file('avatar')->isValid())
+			{
+				$path = $request->file('avatar')->store('/images/users');
+				$image = Image::make(asset('storage/'.$path))->fit(250, 250)->save('storage/'.$path);
 
+				$oldFile = User::where('id', $id)->value('avatar');
+
+				$data['avatar'] = $path;
+				User::where('id', $id)->update($data);
+				Storage::delete($oldFile);
+				return back()->with('msg_success', 'Profile Information is Updated');
+			}
+
+			return back()->withErrors(['avatar' => 'Image was invalid or corrupted!'])->withInput();
+		}
+		
+		User::where('id', $id)->update($data);
 		return back()->with('msg_success', "Profile Information is Updated");
 	}
 
