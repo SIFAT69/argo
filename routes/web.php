@@ -177,9 +177,16 @@ Route::group(['middleware' => 'auth'], function () {
     // Contact End
   });
 
-  // Agent Rounts Start
+  // Agent Route Start
   Route::group(['middleware' => 'auth'], function () {
     Route::get('/agent-dashbord',[AgentController::class, 'AgentDashboard'])->name('AgentDashboard');
+
+    //Profile Start
+    Route::get('/agent-profile', [AgentController::class, 'agentProfile'])->name('agent.profile');
+    Route::put('/agent-profile-information/{userId}', [AgentController::class, 'updateProfileInformation'])->name('update.agent.profile.information');
+    Route::put('/agent-profile-socialMedia/{userId}', [AgentController::class, 'updateProfileSocialMedia'])->name('update.agent.profile.socialMedia');
+    Route::put('/agent-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.password');
+    //Profile End
 
   });
 
