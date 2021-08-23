@@ -39,6 +39,7 @@ class CreatePropertiesTable extends Migration
           $table->json('distance')->nullable();
           $table->string('youtube_thumb');
           $table->string('youtube_link');
+          $table->string('is_featured')->default('No');
           $table->timestamps();
         });
     }
