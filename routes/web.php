@@ -40,7 +40,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
   }
   if(Auth::user()->account_role == "Agent") {
-    return view('Agent.Dashboard.dashboard');
+    return redirect('/agent-dashbord');
+  }
+  if (Auth::user()->account_role == "Tenant") {
+    return redirect('/');
   }
 })->middleware(['auth'])->name('dashboard');
 
