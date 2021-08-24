@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Agenciesmessage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class AgentController extends Controller
 {
@@ -45,21 +46,20 @@ class AgentController extends Controller
 			// 'avatar' => 'bail|sometimes|image|mimes:jpeg,jpg,png|dimensions:ratio=1/1',
 		]);
 
-		if($request->hasFile('avatar'))
-		{
-				$path = $request->file('avatar')->store('/images/users');
-				$image = Image::make(asset('storage/'.$path))->fit(250, 250)->save('storage/'.$path);
+    if (!empty($request->avatar)) {
+      $randomNumber =rand();
+      $profile_picture = $request->file('avatar');
+      $profile_picture_rename = $randomNumber.'.'.$profile_picture->getClientOriginalExtension();
+      $newLocation = 'uploads/'.$profile_picture_rename;
+      Image::make($profile_picture)->resize(100, 100)->save($newLocation,100);
 
-				$oldFile = User::where('id', $id)->value('avatar');
+      DB::table('users')->where('id', Auth::id())->update([
+        'avatar' => $profile_picture_rename,
+      ]);
+     }
 
-				$data['avatar'] = $path;
-				User::where('id', $id)->update($data);
-				Storage::delete($oldFile);
-				return back()->with('msg_success', 'Profile Information is Updated');
-		}
-
-		User::where('id', $id)->update($data);
-		return back()->with('msg_success', "Profile Information is Updated");
+		User::where('id', Auth::id())->update($data);
+		return back()->with('success', "Profile Information is Updated");
 	}
 
 	public function updateProfileSocialMedia(Request $request, $id)
@@ -80,7 +80,7 @@ class AgentController extends Controller
 
 		User::where('id', $id)->update($data);
 
-		return back()->with('msg_success', "Social Media is Updated");
+		return back()->with('success', "Social Media is Updated");
 	}
 
 	public function updateProfilePassword(Request $request, $id)
@@ -94,6 +94,12 @@ class AgentController extends Controller
 			'password' => Hash::make($request->newPassword)
 		]);
 
-		return back()->with('msg_success', "Password is Updated");
+		return back()->with('success', "Password is Updated");
 	}
+
+  public function packageHistory(Request $request)
+  {
+    $packages = DB::table('subscriptions')->where('user_id', Auth::id())->get();
+    return view('Agent.Packages.package',compact('packages'));
+  }
 }

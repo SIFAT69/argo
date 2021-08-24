@@ -186,12 +186,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/agent-profile-information/{userId}', [AgentController::class, 'updateProfileInformation'])->name('update.agent.profile.information');
     Route::put('/agent-profile-socialMedia/{userId}', [AgentController::class, 'updateProfileSocialMedia'])->name('update.agent.profile.socialMedia');
     Route::put('/agent-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.password');
+    Route::get('/my-package-history', [AgentController::class, 'packageHistory'])->name('packageHistory');
     //Profile End
 
 
 
 
-    
+
   });
 
 Route::get('/logout', function () {

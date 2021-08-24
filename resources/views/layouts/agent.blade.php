@@ -55,7 +55,7 @@
                 </li>
                 <li><a href="page-my-favorites.html"><i class="flaticon-heart"></i> <span> My Projects</span></a></li>
                 <li class="title"><span>Manage Account</span></li>
-                <li><a href="page-my-packages.html"><i class="flaticon-box"></i> <span>My Package</span></a></li>
+                <li><a href="{!! route('packageHistory') !!}"><i class="flaticon-box"></i> <span>My Package</span></a></li>
                 <li><a href="{!! route('agent.profile') !!}"><i class="flaticon-user"></i> <span>My Profile</span></a></li>
                 <li class="title"><span>Session</span></li>
                 <li><a href="{!! route('welcome') !!}"><i class="flaticon-back"></i> <span>Back To Website</span></a></li>

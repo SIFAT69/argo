@@ -34,6 +34,7 @@
                             <p>We are glad to see you again!</p>
                         </div>
                     </div>
+                    {{-- {{ $user }} --}}
                     <div class="col-lg-12">
                         @include('Alerts.success')
                         @include('Alerts.danger')
@@ -50,7 +51,7 @@
                                             <div class="col-lg-12">
                                                 <div class="wrap-custom-file">
                                                     <input type="file" name="avatar" id="image1" accept=".jpg, .png"/>
-                                                    <label  for="image1" id="img-preview" style="background-image:url({{ asset('storage/' . $user->avatar) }}); background-repeat:no-repeat;">
+                                                    <label  for="image1" id="img-preview" style="background-image:url('../uploads/{{ $user->avatar }}'); background-repeat:no-repeat;">
                                                         <span><i class="flaticon-download"></i> Upload Photo </span>
                                                     </label>
                                                 </div>
