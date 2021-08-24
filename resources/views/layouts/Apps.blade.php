@@ -366,7 +366,7 @@
                     </div>
                     <div class="col-lg-6 col-xl-6">
                         <div class="copyright-widget text-right">
-                            <p>© 2020 Argo. Made by Sifztech.</p>
+                            <p>©2021 Argo. Made by Sifztech.</p>
                         </div>
                     </div>
                 </div>

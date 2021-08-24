@@ -35,7 +35,8 @@
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        @include('layouts.atom.success')
+                        @include('Alerts.success')
+                        @include('Alerts.danger')
                         <div class="my_dashboard_review">
                             <div class="row">
                                 <div class="col-xl-2">
@@ -284,7 +285,7 @@
                                 </div>
                                 <div class="col-xl-10">
                                    <form action="{{ route('update.agent.profile.password', $user->id) }}" method="POST">
-                                       @csrf 
+                                       @csrf
                                        @method("PUT")
                                        <div class="row">
                                             <div class="col-xl-6">
@@ -357,7 +358,7 @@
                     $("#img-preview").css('background-size', `250px 250px`);
                     console.log(`url(${e.target.result})`);
                 };
-            }  
+            }
         });
     });
 </script>

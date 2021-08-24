@@ -75,6 +75,7 @@ class PropertyController extends Controller
         'images' => $JsonImage,
         'category' => $request->category,
         'city' => $request->city,
+        'states' => $request->state,
         'location' => $request->country,
         'latitude' => $request->latitude,
         'longitude' => $request->longitude,
@@ -88,6 +89,7 @@ class PropertyController extends Controller
         'distance' => $JsonDistance,
         'youtube_thumb' => $meta_image_rename,
         'youtube_link' => $request->youtube_link,
+        'is_featured' => 'No',
         'created_at' => Carbon::now(),
       ]);
 

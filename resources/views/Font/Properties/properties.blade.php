@@ -346,7 +346,7 @@ Argo
 								<div class="details">
 									<div class="tc_content">
 										<p class="text-thm">{{ $property->category }}</p>
-                    <a href="#">
+                    <a href="{!! route('properties_view', $property->slug) !!}">
 										<h4>{{ $property->title }}</h4>
 										<p><span class="flaticon-placeholder"></span> {{ $property->city }}, {{ $property->states }}, {{ $property->location }}</p>
 										<ul class="prop_details mb0">
@@ -375,18 +375,11 @@ Argo
 						<div class="col-lg-12 mt20">
 							<div class="mbp_pagination">
 								<ul class="page_navigation">
-								    <li class="page-item disabled">
-								    	<a class="page-link" href="#" tabindex="-1" aria-disabled="true"> <span class="flaticon-left-arrow"></span> Prev</a>
-								    </li>
-								    <li class="page-item"><a class="page-link" href="#">1</a></li>
-								    <li class="page-item active" aria-current="page">
-								    	<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-								    </li>
-								    <li class="page-item"><a class="page-link" href="#">3</a></li>
-								    <li class="page-item"><a class="page-link" href="#">...</a></li>
-								    <li class="page-item"><a class="page-link" href="#">29</a></li>
 								    <li class="page-item">
-								    	<a class="page-link" href="#"><span class="flaticon-right-arrow"></span></a>
+								    	<a class="page-link" href="{{ $properties->previousPageUrl() }}"><span class="flaticon-left-arrow"></span></a>
+								    </li>
+								    <li class="page-item">
+								    	<a class="page-link" href="{{ $properties->nextPageUrl() }}"><span class="flaticon-right-arrow"></span></a>
 								    </li>
 								</ul>
 							</div>

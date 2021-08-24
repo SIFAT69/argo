@@ -13,8 +13,14 @@ class PageController extends Controller
 {
     public function properties_lists(Request $request)
     {
-      $properties = DB::table('properties')->where('moderation_status', 'Approved')->where('status', 1)->get();
+      $properties = DB::table('properties')->where('moderation_status', 'Approved')->where('status', 1)->simplePaginate(8);
       return view('Font.Properties.properties',compact('properties'));
+    }
+
+    public function properties_view(Request $request)
+    {
+      $property = DB::table('properties')->where('slug', $request->slug)->first();
+      return view('Font.Properties.properties_view',compact('property'));
     }
 
     public function projects_lists(Request $request)
