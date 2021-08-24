@@ -188,6 +188,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/agent-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.password');
     //Profile End
 
+
+
+
+    
   });
 
 Route::get('/logout', function () {
