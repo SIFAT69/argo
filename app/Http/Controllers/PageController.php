@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Auth;
 use Carbon\Carbon;
 use Image;
-
+use App\Models\Property;
 
 class PageController extends Controller
 {
