@@ -102,4 +102,20 @@ class AgentController extends Controller
     $packages = DB::table('subscriptions')->where('user_id', Auth::id())->get();
     return view('Agent.Packages.package',compact('packages'));
   }
+
+  public function MyProperties()
+  {
+    return view('Agent.Properties.properties');
+  }
+
+  public function MyPropertiesCreate()
+  {
+    $cities = DB::table('cities')->get();
+    $states = DB::table('states')->get();
+    $countries = DB::table('countries')->get();
+    $realstatefacilities = DB::table('realstatefacilities')->get();
+    $realstatefeatures = DB::table('realstatefeatures')->get();
+    $categories = DB::table('realstatecategories')->get();
+    return view('Agent.Properties.create',compact('cities', 'states', 'countries', 'realstatefacilities','realstatefeatures','categories'));
+  }
 }

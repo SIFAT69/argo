@@ -187,6 +187,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/agent-profile-socialMedia/{userId}', [AgentController::class, 'updateProfileSocialMedia'])->name('update.agent.profile.socialMedia');
     Route::put('/agent-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.password');
     Route::get('/my-package-history', [AgentController::class, 'packageHistory'])->name('packageHistory');
+    Route::get('/agencies/my-properties', [AgentController::class, 'MyProperties'])->name('MyProperties');
+    Route::get('/agencies/my-properties/create', [AgentController::class, 'MyPropertiesCreate'])->name('MyPropertiesCreate');
     //Profile End
 
 

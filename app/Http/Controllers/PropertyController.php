@@ -92,8 +92,11 @@ class PropertyController extends Controller
         'is_featured' => 'No',
         'created_at' => Carbon::now(),
       ]);
-
-      return redirect('/properties-lists')->with('success', 'Your property has been created. Wating for verify!');
+      if (Auth::user()->account_role == "Agent") {
+        return back()->with('success', 'Your property has been created. Wating for verify!');
+      }else {
+        return redirect('/properties-lists')->with('success', 'Your property has been created. Wating for verify!');
+      }
     }
 
     public function property_edit(Request $request)

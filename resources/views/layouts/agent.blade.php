@@ -51,7 +51,7 @@
                 <li class="treeview"><a href="page-message.html"><i class="flaticon-envelope"></i><span> Message</span></a></li>
                 <li class="title"><span>Manage Listings</span></li>
                 <li class="treeview">
-                    <a href="#"><i class="flaticon-home"></i> <span>My Properties</span></a>
+                    <a href="{!! route('MyProperties') !!}"><i class="flaticon-home"></i> <span>My Properties</span></a>
                 </li>
                 <li><a href="page-my-favorites.html"><i class="flaticon-heart"></i> <span> My Projects</span></a></li>
                 <li class="title"><span>Manage Account</span></li>
