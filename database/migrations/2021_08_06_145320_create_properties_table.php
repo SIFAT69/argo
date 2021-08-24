@@ -17,11 +17,12 @@ class CreatePropertiesTable extends Migration
           $table->id();
           $table->string('user_id');
           $table->string('slug');
+          $table->string('type');
           $table->string('status');
           $table->string('moderation_status')->default('Pending');
           $table->string('title',255);
-          $table->string('meta_description',255);
-          $table->string('description');
+          $table->string('meta_description',2555);
+          $table->string('description',2555);
           $table->json('images');
           $table->string('category');
           $table->string('city',255);

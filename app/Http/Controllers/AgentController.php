@@ -14,10 +14,9 @@ class AgentController extends Controller
 {
     public function AgentDashboard()
     {
-		$user_id = Auth::id();
-		$count_of_properties = Property::where('user_id', $user_id)->count();
-		// $count_of_views = Property::where('user_id', $user_id)->count();
-		// dd($count_of_properties);
+
+      $count_of_properties = Property::where('user_id', Auth::id())->count();
+
     	return view('Agent.Dashboard.dashboard', compact('count_of_properties'));
     }
 
@@ -42,13 +41,11 @@ class AgentController extends Controller
 			'companyName' => 'bail|nullable|string|max:255',
 			'address' => 'bail|nullable|string|max:2555',
 			'about' => 'bail|nullable|string|max:2555',
-			'avatar' => 'bail|sometimes|file|image|mimes:jpeg,jpg,png|max:1300|dimensions:ratio=1/1',
+			// 'avatar' => 'bail|sometimes|image|mimes:jpeg,jpg,png|dimensions:ratio=1/1',
 		]);
 
 		if($request->hasFile('avatar'))
 		{
-			if($request->file('avatar')->isValid())
-			{
 				$path = $request->file('avatar')->store('/images/users');
 				$image = Image::make(asset('storage/'.$path))->fit(250, 250)->save('storage/'.$path);
 
@@ -58,11 +55,8 @@ class AgentController extends Controller
 				User::where('id', $id)->update($data);
 				Storage::delete($oldFile);
 				return back()->with('msg_success', 'Profile Information is Updated');
-			}
-
-			return back()->withErrors(['avatar' => 'Image was invalid or corrupted!'])->withInput();
 		}
-		
+
 		User::where('id', $id)->update($data);
 		return back()->with('msg_success', "Profile Information is Updated");
 	}
