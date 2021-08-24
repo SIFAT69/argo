@@ -344,6 +344,7 @@ Argo
 								<div class="details">
 									<div class="tc_content">
 										<p class="text-thm">{{ $project->category }}</p>
+										<a href="{!! route('projects_view', $project->slug) !!}">
 										<h4>{{ $project->title }}</h4>
 										<p><span class="flaticon-placeholder"></span> {{ $project->city }}, {{ $project->state }}, {{ $project->location }}</p>
 									</div>

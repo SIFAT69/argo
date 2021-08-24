@@ -214,6 +214,7 @@ Route::get('blog/{slug}',[PageController::class, 'blog_details'])->name('blog_de
 Route::get('agenency/{id}',[PageController::class, 'agenency_details'])->name('agenency_details');
 Route::post('agenency/message/sent',[AgenciesmessageController::class, 'agenency_message'])->name('agenency_message');
 Route::get('properties/view/{slug}',[PageController::class, 'properties_view'])->name('properties_view');
+Route::get('projects/view/{slug}',[PageController::class, 'projects_view'])->name('projects_view');
 // FontPages End
 
 

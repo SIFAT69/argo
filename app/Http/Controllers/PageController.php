@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\DB;
 use Auth;
 use Carbon\Carbon;
 use Image;
+use App\Models\Project;
 use App\Models\Property;
+use App\Models\User;
 
 class PageController extends Controller
 {
@@ -20,7 +22,24 @@ class PageController extends Controller
     public function properties_view(Request $request)
     {
       $property = DB::table('properties')->where('slug', $request->slug)->first();
-      return view('Font.Properties.properties_view',compact('property'));
+      $property->features = json_decode($property->features, true);
+      $property->facilities = json_decode($property->facilities, true);
+      $property->distance = json_decode($property->distance, true);
+
+      $propertyOwner = User::find($property->user_id);
+
+      $similarProperties = Property::where('moderation_status', 'Approved')->where('status', 1)->where('slug', '<>', $request->slug)->inRandomOrder()->limit(4)->get();
+      foreach($similarProperties as $sp)
+      {
+          $user = User::findOrFail($sp->user_id);
+
+          $sp->user_avatar = $user->avarar;
+          $sp->user_name = $user->name;
+      }
+
+      $featuredProperties = Property::where('moderation_status', 'Approved')->where('status', 1)->where('slug', '<>', $request->slug)->where('is_Featured', 'Yes')->get();
+
+      return view('Font.Properties.properties_view',compact('property', 'similarProperties', 'propertyOwner', 'featuredProperties'));
     }
 
     public function projects_lists(Request $request)
@@ -64,5 +83,27 @@ class PageController extends Controller
     {
       $agents = DB::table('users')->where('account_role', 'Agent')->where('id', $request->id)->first();
       return view('Font.Agents.agent_view',compact('agents'));
+    }
+
+    public function projects_view($slug)
+    {
+      $project  = Project::where('status', 1)->where('slug', $slug)->first();
+      $project->features = json_decode($project->features, true);
+      $project->facilities = json_decode($project->facilities, true);
+      $project->distance = json_decode($project->distance, true);
+
+      $projectOwner = User::find($project->user_id);
+
+      $similarProjects = Project::where('status', 1)->where('slug', '<>', $slug)->inRandomOrder()->limit(4)->get();
+      foreach($similarProjects as $sp)
+      {
+          $user = User::findOrFail($sp->user_id);
+
+          $sp->user_avatar = $user->avarar;
+          $sp->user_name = $user->name;
+      }
+      // dd($project->features);
+      // dd($similarProjects);
+      return view('Font.Projects.projects_view', compact('project', 'similarProjects', 'projectOwner'));
     }
 }
