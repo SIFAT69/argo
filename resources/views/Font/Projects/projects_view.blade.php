@@ -3,7 +3,7 @@
 Argo
 @endsection
 @section('page_name')
-  Property - {{ $property->title }}
+  Project - {{ $project->title }}
 @endsection
 @section('content')
 
@@ -18,7 +18,7 @@ Argo
 								<div class="main-banner-wrapper home10">
 								    <div class="banner-style-one owl-theme owl-carousel">
                       @php
-                        $images = json_decode($property->images, true);
+                        $images = json_decode($project->images, true);
                       @endphp
                       @foreach ($images as $image)
                         @php
@@ -45,14 +45,14 @@ Argo
 			<div class="row">
 				<div class="col-lg-7 col-xl-8">
 					<div class="single_property_title mt30-767 mb30-767">
-						<h2>{{ $property->title }}</h2>
-						<p>{{ $property->city }},{{ $property->states }},{{ $property->location }}</p>
+						<h2>{{ $project->title }}</h2>
+						<p>{{ $project->city }},{{ $project->states }},{{ $project->location }}</p>
 					</div>
 				</div>
 				<div class="col-lg-5 col-xl-4">
 					<div class="single_property_social_share">
 						<div class="price float-left fn-400">
-							<h2>${{ $property->price }} @if($property->type == 'Rent') /mo @endif</h2>
+							<h2>${{ $project->low_price }} - ${{ $project->max_price }}</h2>
 						</div>
 						<div class="spss mt20 text-right tal-400">
 							<ul class="mb0">
@@ -67,15 +67,15 @@ Argo
 							<div class="listing_single_description">
 								<div class="lsd_list">
 									<ul class="mb0">
-										<li class="list-inline-item"><a href="#">{{ $property->category }}</a></li>
-										<li class="list-inline-item"><a href="#">Beds: {{ $property->flat_beds }}</a></li>
-										<li class="list-inline-item"><a href="#">Baths: {{ $property->flat_baths }}</a></li>
-										<li class="list-inline-item"><a href="#">m<sup>2</sup>: {{ $property->size }}</a></li>
+										<li class="list-inline-item"><a href="#">{{ $project->category }}</a></li>
+										<li class="list-inline-item"><a href="#">Beds: {{ $project->flat_beds }}</a></li>
+										<li class="list-inline-item"><a href="#">Baths: {{ $project->flat_baths }}</a></li>
+										<li class="list-inline-item"><a href="#">m<sup>2</sup>: {{ $project->size }}</a></li>
 									</ul>
 								</div>
 								<h4 class="mb30">Description</h4>
 						    	<p class="mb25">
-                    {!! $property->description !!}
+                    {!! $project->description !!}
                   </p>
 							</div>
 						</div>
@@ -83,38 +83,40 @@ Argo
 							<div class="additional_details">
 								<div class="row">
 									<div class="col-lg-12">
-										<h4 class="mb15">Property Details</h4>
+										<h4 class="mb15">Project Details</h4>
 									</div>
 									<div class="col-md-6 col-lg-6 col-xl-4">
 										<ul class="list-inline-item">
-											<li><p>Price :</p></li>
-											<li><p>Property Size :</p></li>
+											<!-- <li><p>Project ID :</p></li> -->
+											<li><p>Flat Blocks :</p></li>
+											<li><p>Flat Floors :</p></li>
+											<li><p>Flat Number :</p></li>
 										</ul>
 										<ul class="list-inline-item">
-											<li><p><span>{{ $property->price }} @if($property->type == 'Rent') /mo @endif</span></p></li>
-											<li><p><span>{{ $property->size }} m<sup>2</sup></span></p></li>
-										</ul>
-									</div>
-									<div class="col-md-6 col-lg-6 col-xl-4">
-										<ul class="list-inline-item">
-											<li><p>Bedrooms :</p></li>
-											<li><p>Bathrooms :</p></li>
-											<li><p>Floors :</p></li>
-										</ul>
-										<ul class="list-inline-item">
-											<li><p><span>{{ $property->flat_beds }}</span></p></li>
-											<li><p><span>{{ $property->flat_baths }}</span></p></li>
-											<li><p><span>{{ $property->flat_floors }}</span></p></li>
+											<!-- <li><p><span>HZ27</span></p></li> -->
+											<li><p><span>{{ $project->flat_blocks }}</span></p></li>
+											<li><p><span>{{ $project->flat_floors }}</span></p></li>
+											<li><p><span>{{ $project->flat_number }}</span></p></li>
 										</ul>
 									</div>
 									<div class="col-md-6 col-lg-6 col-xl-4">
 										<ul class="list-inline-item">
-											<li><p>Property Type :</p></li>
-											<li><p>Property Status :</p></li>
+											<li><p>Minimum Price :</p></li>
+											<li><p>Maximum Price :</p></li>
+										</ul>
+										<ul class="list-inline-item">
+											<li><p><span>{{ $project->low_price }}</span></p></li>
+											<li><p><span>{{ $project->max_price }}</span></p></li>
+										</ul>
+									</div>
+									<div class="col-md-6 col-lg-6 col-xl-4">
+										<ul class="list-inline-item">
+											<li><p>Project Type :</p></li>
+											<li><p>Project Status :</p></li>
 										</ul>
 										<ul class="list-inline-item">
 											<li><p><span>Apartment</span></p></li>
-											<li><p><span>For {{ $property->type }}</span></p></li>
+											<li><p><span>For Sale</span></p></li>
 										</ul>
 									</div>
 								</div>
@@ -128,7 +130,7 @@ Argo
 									</div>
 									<div class="col-sm-6 col-md-6 col-lg-4">
 										<ul class="order_list list-inline-item">
-											@foreach($property->features as $feature)										
+											@foreach($project->features as $feature)										
 												<li><a href="#"><span class="flaticon-tick"></span>{{ $feature }}</a></li>
 												@if($loop->iteration % 5 == 0)
 													</ul>
@@ -138,7 +140,7 @@ Argo
 												@endif
 											@endforeach
 										</ul>
-									</div>
+									</div>									
 								</div>
 							</div>
 						</div>
@@ -146,16 +148,16 @@ Argo
 							<div class="shop_single_tab_content style2 mt30">
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
 									<li class="nav-item">
-									    <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Property video</a>
+									    <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Project video</a>
 									</li>
 								</ul>
 								<div class="tab-content" id="myTabContent2">
 									<div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
 										<div class="property_video">
 											<div class="thumb">
-												<img class="pro_img img-fluid w100" src="{{ asset($property->youtube_thumb) }}" alt="Property Image">
+												<img class="pro_img img-fluid w100" src="{{ asset($project->youtube_thumb) }}" alt="Property Image">
 												<div class="overlay_icon">
-													<a class="video_popup_btn popup-img red popup-youtube" href="{{ $property->youtube_link }}"><span class="flaticon-play"></span></a>
+													<a class="video_popup_btn popup-img red popup-youtube" href="{{ $project->youtube_link }}"><span class="flaticon-play"></span></a>
 												</div>
 											</div>
 										</div>
@@ -167,53 +169,50 @@ Argo
 							<div class="whats_nearby mt30">
 								<h4 class="mb10">What's Nearby</h4>
 								<div class="education_distance mb15">
-									@foreach($property->facilities as $facility)
+									@foreach($project->facilities as $facility)
 										@if($facility != null)
-										<p class="para">{{ $facility }} <span>({{ $property->distance[$loop->index] }} miles)</span></p>
+										<p class="para">{{ $facility }} <span>({{ $project->distance[$loop->index] }} miles)</span></p>
 										@endif
 									@endforeach
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-12">
-							<h4 class="mt30 mb30">Similar Properties</h4>
+							<h4 class="mt30 mb30">Similar Projects</h4>
 						</div>
-						@foreach($similarProperties as $similarProperty)
+						@foreach($similarProjects as $similarProject)
 							<div class="col-lg-6">
 								<div class="feat_property">
 									<div class="thumb">
-										<img class="img-whp" src="{{ asset('FontAsset') }}/images/property/fp2.jpg" alt="fp2.jpg">
+										<img class="img-whp" src="{{ asset($similarProject->youtube_thumb) }}" alt="fp2.jpg">
 										<div class="thmb_cntnt">
 											<ul class="tag mb0">
-												<li class="list-inline-item"><a href="#">For {{ $similarProperty->type }}</a></li>
-												@if($similarProperty->is_featured == 'Yes')
-													<li class="list-inline-item"><a href="#">Featured</a></li>
-												@endif
+												<li class="list-inline-item"><a href="#">For Sale</a></li>
 											</ul>
 											<ul class="icon mb0">
 												<li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
 												<li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
 											</ul>
-											<a class="fp_price" href="#">$ {{ $similarProperty->price }} @if($property->type == 'Rent') <small>/mo</small> @endif</a>
+											<a class="fp_price" href="#">${{ $similarProject->low_price }} - ${{ $similarProject->max_price }}</a>
 										</div>
 									</div>
 									<div class="details">
 										<div class="tc_content">
 											<p class="text-thm">Apartment</p>
-											<h4>{{ $similarProperty->title }}</h4>
-											<p><span class="flaticon-placeholder"></span>{{ $similarProperty->city }}, {{ $similarProperty->state }}, {{ $similarProperty->location }}</p>
+											<h4>{{ $similarProject->title }}</h4>
+											<p><span class="flaticon-placeholder"></span>{{ $similarProject->city }}, {{ $similarProject->state }}, {{ $similarProject->location }}</p>
 											<ul class="prop_details mb0">
-												<li class="list-inline-item"><a href="#">Beds: {{ $similarProperty->flat_beds }}</a></li>
-												<li class="list-inline-item"><a href="#">Baths: {{ $similarProperty->flat_baths }}</a></li>
-												<li class="list-inline-item"><a href="#">Sq Ft: {{ $similarProperty->size }}</a></li>
+												<li class="list-inline-item"><a href="#">Beds: {{ $similarProject->flat_blocks }}</a></li>
+												<li class="list-inline-item"><a href="#">Baths: {{ $similarProject->flat_floors }}</a></li>
+												<li class="list-inline-item"><a href="#">Sq Ft: {{ $similarProject->flat_number }}</a></li>
 											</ul>
 										</div>
 										<div class="fp_footer">
 											<ul class="fp_meta float-left mb0">
-												<li class="list-inline-item"><a href="#"><img src="{{ asset($similarProperty->user_avatar) }}" alt="Owner Image"></a></li>
-												<li class="list-inline-item"><a href="#">{{ $similarProperty->user_name }}</a></li>
+												<li class="list-inline-item"><a href="#"><img src="{{ asset('/FontAsset/' . $similarProject->user_avatar) }}" alt="Owner Image"></a></li>
+												<li class="list-inline-item"><a href="#">{{ $similarProject->user_name }}</a></li>
 											</ul>
-											<div class="fp_pdate float-right">{{ Carbon\Carbon::parse($similarProperty->created_at)->diffForHumans() }}</div>
+											<div class="fp_pdate float-right">{{ Carbon\Carbon::parse($similarProject->created_at)->diffForHumans() }}</div>
 										</div>
 									</div>
 								</div>
@@ -227,12 +226,12 @@ Argo
 							<div class="sl_creator">
 								<h4 class="mb25">Listed By</h4>
 								<div class="media">
-									<img class="mr-3" src="{{ asset($propertyOwner->avatar) }}" alt="Property Owner Image">
+									<img class="mr-3" src="{{ asset($projectOwner->avatar) }}" alt="Property Owner Image">
 									<div class="media-body">
-								    	<h5 class="mt-0 mb0">{{ $propertyOwner->name }}</h5>
-								    	<p class="mb0">{{ $propertyOwner->phoneNumber ?? 'No Phone' }}</p>
-								    	<p class="mb0">{{ $propertyOwner->email }}</p>
-								    	<a class="text-thm" href="{{ route('agenency_details', $propertyOwner->id) }}">View My Listing</a>
+								    	<h5 class="mt-0 mb0">{{ $projectOwner->name }}</h5>
+								    	<p class="mb0">{{ $projectOwner->phoneNumber ?? 'No Phone' }}</p>
+								    	<p class="mb0">{{ $projectOwner->email }}</p>
+								    	<a class="text-thm" href="{{ route('agenency_details', $projectOwner->id) }}">View My Listing</a>
 								  	</div>
 								</div>
 							</div>
@@ -262,40 +261,6 @@ Argo
 									    <button type="submit" class="btn btn-block btn-thm">Submit</button>
 									</div>
 								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="terms_condition_widget">
-						<h4 class="title">Featured Properties</h4>
-						<div class="sidebar_feature_property_slider">
-							@foreach($featuredProperties as $featuredProperty)
-								<div class="item">
-									<div class="feat_property home7 agent">
-										<div class="thumb">
-											<img class="img-whp" src="{{ asset($featuredProperty->youtube_thumb) }}" alt="Featured Image">
-											<div class="thmb_cntnt">
-												<ul class="tag mb0">
-													<li class="list-inline-item"><a href="#">For {{ $featuredProperty->type}}</a></li>
-													<li class="list-inline-item"><a href="#">Featured</a></li>
-												</ul>
-												<a class="fp_price" href="#">${{ $featuredProperty->price }} @if($featuredProperty->type == 'Rent')<small>/mo</small>@endif</a>
-												<h4 class="posr color-white">Renovated Apartment</h4>
-											</div>
-										</div>
-									</div>
-								</div>
-							@endforeach
-						</div>
-					</div>
-					<div class="terms_condition_widget">
-						<h4 class="title">Categories Property</h4>
-						<div class="widget_list">
-							<ul class="list_details">
-								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Apartment <span class="float-right">6 properties</span></a></li>
-								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Condo <span class="float-right">12 properties</span></a></li>
-								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Family House <span class="float-right">8 properties</span></a></li>
-								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Modern Villa <span class="float-right">26 properties</span></a></li>
-								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Town House <span class="float-right">89 properties</span></a></li>
 							</ul>
 						</div>
 					</div>
