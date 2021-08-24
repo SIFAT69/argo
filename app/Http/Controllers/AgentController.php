@@ -105,7 +105,8 @@ class AgentController extends Controller
 
   public function MyProperties()
   {
-    return view('Agent.Properties.properties');
+    $properties = DB::table('properties')->where('user_id', Auth::id())->get();
+    return view('Agent.Properties.properties',compact('properties'));
   }
 
   public function MyPropertiesCreate()
@@ -118,4 +119,5 @@ class AgentController extends Controller
     $categories = DB::table('realstatecategories')->get();
     return view('Agent.Properties.create',compact('cities', 'states', 'countries', 'realstatefacilities','realstatefeatures','categories'));
   }
+
 }

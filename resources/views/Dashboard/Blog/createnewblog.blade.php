@@ -3,16 +3,15 @@
   Create a new blog
 @endsection
 @section('content')
-  <div id="content" class="main-content">
-              <div class="container">
-                  <div class="container">
-                      <div id="basic" class="row layout-spacing  layout-top-spacing">
+  <div id="content" class="content">
+
+                      <div id="basic" class="row layout-top-spacing">
                           <div class="col-md-12">
                             @include('Alerts.success')
                             @include('Alerts.danger')
                             <form class="" action="{!! route('createNewBlogStore') !!}" method="post" enctype="multipart/form-data">
                               @csrf
-                              <div class="statbox widget box box-shadow">
+                              <div class="widget">
                                   <div class="widget-header">
                                       <div class="row">
                                           <div class="col-xl-12 col-md-12 col-sm-12 col-12">
@@ -62,7 +61,5 @@
                             </form>
                           </div>
                       </div>
-                  </div>
-              </div>
           </div>
 @endsection

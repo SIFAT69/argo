@@ -26,7 +26,7 @@
 
 <body>
     <div class="wrapper">
-        <div class="preloader"></div>
+        {{-- <div class="preloader"></div> --}}
 
         <!-- Main Header Nav -->
         <header class="header-nav menu_style_home_one navbar-scrolltofixed stricky main-menu">
