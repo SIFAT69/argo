@@ -206,7 +206,7 @@ Route::get('/logout', function () {
 
 // FontPages Start
 Route::get('properties/all',[PageController::class, 'properties_lists'])->name('properties_lists');
-Route::get('properties/{slug}',[PageController::class, 'Details_property'])->name('Details_property');
+// Route::get('properties/{slug}',[PageController::class, 'Details_property'])->name('Details_property');
 Route::get('projects/all',[PageController::class, 'projects_lists'])->name('projects_lists');
 Route::get('agencies/all',[PageController::class, 'agencies_lists'])->name('agencies_lists');
 Route::get('blogs/all',[PageController::class, 'blogs_lists'])->name('blogs_lists');
@@ -217,6 +217,9 @@ Route::get('agenency/{id}',[PageController::class, 'agenency_details'])->name('a
 Route::post('agenency/message/sent',[AgenciesmessageController::class, 'agenency_message'])->name('agenency_message');
 Route::get('properties/view/{slug}',[PageController::class, 'properties_view'])->name('properties_view');
 Route::get('projects/view/{slug}',[PageController::class, 'projects_view'])->name('projects_view');
+
+Route::get('properties/filter', [PageController::class, 'properties_filter'])->name('properties_filter');
+Route::get('projects/filter', [PageController::class, 'projects_filter'])->name('projects_filter');
 // FontPages End
 
 

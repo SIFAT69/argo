@@ -19,42 +19,24 @@ Argo
 									<ul class="sasw_list style2 mb0">
 										<li class="search_area">
 										    <div class="form-group">
-										    	<input type="text" class="form-control" id="exampleInputName1" placeholder="keyword">
-										    	<label for="exampleInputEmail"><span class="flaticon-magnifying-glass"></span></label>
+										    	<input type="text" class="form-control" id="f-keyword" placeholder="keyword">
+										    	<label for="f-keyword"><span class="flaticon-magnifying-glass"></span></label>
 										    </div>
 										</li>
 										<li class="search_area">
 										    <div class="form-group">
-										    	<input type="text" class="form-control" id="exampleInputEmail" placeholder="Location">
-										    	<label for="exampleInputEmail"><span class="flaticon-maps-and-flags"></span></label>
+										    	<input type="text" class="form-control" id="f-location" placeholder="Location">
+										    	<label for="f-location"><span class="flaticon-maps-and-flags"></span></label>
 										    </div>
 										</li>
 										<li>
 											<div class="search_option_two">
 												<div class="candidate_revew_select">
-													<select class="selectpicker w100 show-tick">
-														<option>Status</option>
-														<option>Apartment</option>
-														<option>Bungalow</option>
-														<option>Condo</option>
-														<option>House</option>
-														<option>Land</option>
-														<option>Single Family</option>
-													</select>
-												</div>
-											</div>
-										</li>
-										<li>
-											<div class="search_option_two">
-												<div class="candidate_revew_select">
-													<select class="selectpicker w100 show-tick">
-														<option>Property Type</option>
-														<option>Apartment</option>
-														<option>Bungalow</option>
-														<option>Condo</option>
-														<option>House</option>
-														<option>Land</option>
-														<option>Single Family</option>
+													<select class="selectpicker w100 show-tick" id="f-category">
+														<option value="">Category</option>
+														@foreach($categories as $category)
+															<option value="{{ $category }}">{{ $category }}</option>
+														@endforeach
 													</select>
 												</div>
 											</div>
@@ -80,14 +62,11 @@ Argo
 										<li>
 											<div class="search_option_two">
 												<div class="candidate_revew_select">
-													<select class="selectpicker w100 show-tick">
-														<option>Bathrooms</option>
-														<option>1</option>
-														<option>2</option>
-														<option>3</option>
-														<option>4</option>
-														<option>5</option>
-														<option>6</option>
+													<select class="selectpicker w100 show-tick"  id="f-blocks">
+														<option value="">Blocks</option>
+														@foreach($blocks as $block)
+															<option value="{{ $block }}">{{ $block }}</option>
+														@endforeach
 													</select>
 												</div>
 											</div>
@@ -95,56 +74,14 @@ Argo
 										<li>
 											<div class="search_option_two">
 												<div class="candidate_revew_select">
-													<select class="selectpicker w100 show-tick">
-														<option>Bedrooms</option>
-														<option>1</option>
-														<option>2</option>
-														<option>3</option>
-														<option>4</option>
-														<option>5</option>
-														<option>6</option>
+													<select class="selectpicker w100 show-tick" id="f-floors">
+														<option value="">Floors</option>
+														@foreach($floors as $floor)
+															<option value="{{ $floor }}">{{ $floor }}</option>
+														@endforeach
 													</select>
 												</div>
 											</div>
-										</li>
-										<li>
-											<div class="search_option_two">
-												<div class="candidate_revew_select">
-													<select class="selectpicker w100 show-tick">
-														<option>Garages</option>
-														<option>Yes</option>
-														<option>No</option>
-														<option>Others</option>
-													</select>
-												</div>
-											</div>
-										</li>
-										<li>
-											<div class="search_option_two">
-												<div class="candidate_revew_select">
-													<select class="selectpicker w100 show-tick">
-														<option>Year built</option>
-														<option>2013</option>
-														<option>2014</option>
-														<option>2015</option>
-														<option>2016</option>
-														<option>2017</option>
-														<option>2018</option>
-														<option>2019</option>
-														<option>2020</option>
-													</select>
-												</div>
-											</div>
-										</li>
-										<li class="min_area style2 list-inline-item">
-										    <div class="form-group">
-										    	<input type="text" class="form-control" id="exampleInputName2" placeholder="Min Area">
-										    </div>
-										</li>
-										<li class="max_area list-inline-item">
-										    <div class="form-group">
-										    	<input type="text" class="form-control" id="exampleInputName3" placeholder="Max Area">
-										    </div>
 										</li>
 										<li>
 										  	<div id="accordion" class="panel-group">
@@ -158,98 +95,14 @@ Argo
 												        <div class="panel-body row">
 												      		<div class="col-lg-12">
 												                <ul class="ui_kit_checkbox selectable-list float-left fn-400">
-												                	<li>
-																		<div class="custom-control custom-checkbox">
-																			<input type="checkbox" class="custom-control-input" id="customCheck1">
-																			<label class="custom-control-label" for="customCheck1">Air Conditioning</label>
-																		</div>
-												                	</li>
-												                	<li>
-																		<div class="custom-control custom-checkbox">
-																			<input type="checkbox" class="custom-control-input" id="customCheck4">
-																			<label class="custom-control-label" for="customCheck4">Barbeque</label>
-																		</div>
-												                	</li>
-												                	<li>
-																		<div class="custom-control custom-checkbox">
-																			<input type="checkbox" class="custom-control-input" id="customCheck10">
-																			<label class="custom-control-label" for="customCheck10">Gym</label>
-																		</div>
-												                	</li>
-												                	<li>
-																		<div class="custom-control custom-checkbox">
-																			<input type="checkbox" class="custom-control-input" id="customCheck5">
-																			<label class="custom-control-label" for="customCheck5">Microwave</label>
-																		</div>
-												                	</li>
-												                	<li>
-																		<div class="custom-control custom-checkbox">
-																			<input type="checkbox" class="custom-control-input" id="customCheck6">
-																			<label class="custom-control-label" for="customCheck6">TV Cable</label>
-																		</div>
-												                	</li>
-												                	<li>
-																		<div class="custom-control custom-checkbox">
-																			<input type="checkbox" class="custom-control-input" id="customCheck2">
-																			<label class="custom-control-label" for="customCheck2">Lawn</label>
-																		</div>
-												                	</li>
-												                	<li>
-																		<div class="custom-control custom-checkbox">
-																			<input type="checkbox" class="custom-control-input" id="customCheck11">
-																			<label class="custom-control-label" for="customCheck11">Refrigerator</label>
-																		</div>
-												                	</li>
-												                	<li>
-																		<div class="custom-control custom-checkbox">
-																			<input type="checkbox" class="custom-control-input" id="customCheck3">
-																			<label class="custom-control-label" for="customCheck3">Swimming Pool</label>
-																		</div>
-												                	</li>
-												                </ul>
-												                <ul class="ui_kit_checkbox selectable-list float-right fn-400">
-												                	<li>
-																		<div class="custom-control custom-checkbox">
-																			<input type="checkbox" class="custom-control-input" id="customCheck12">
-																			<label class="custom-control-label" for="customCheck12">WiFi</label>
-																		</div>
-												                	</li>
-												                	<li>
-																		<div class="custom-control custom-checkbox">
-																			<input type="checkbox" class="custom-control-input" id="customCheck14">
-																			<label class="custom-control-label" for="customCheck14">Sauna</label>
-																		</div>
-												                	</li>
-												                	<li>
-																		<div class="custom-control custom-checkbox">
-																			<input type="checkbox" class="custom-control-input" id="customCheck7">
-																			<label class="custom-control-label" for="customCheck7">Dryer</label>
-																		</div>
-												                	</li>
-												                	<li>
-																		<div class="custom-control custom-checkbox">
-																			<input type="checkbox" class="custom-control-input" id="customCheck9">
-																			<label class="custom-control-label" for="customCheck9">Washer</label>
-																		</div>
-												                	</li>
-												                	<li>
-																		<div class="custom-control custom-checkbox">
-																			<input type="checkbox" class="custom-control-input" id="customCheck13">
-																			<label class="custom-control-label" for="customCheck13">Laundry</label>
-																		</div>
-												                	</li>
-												                	<li>
-																		<div class="custom-control custom-checkbox">
-																			<input type="checkbox" class="custom-control-input" id="customCheck8">
-																			<label class="custom-control-label" for="customCheck8">Outdoor Shower</label>
-																		</div>
-												                	</li>
-												                	<li>
-																		<div class="custom-control custom-checkbox">
-																			<input type="checkbox" class="custom-control-input" id="customCheck15">
-																			<label class="custom-control-label" for="customCheck15">Window Coverings</label>
-																		</div>
-												                	</li>
+																	@foreach($features as $feature)
+																		<li>
+																			<div class="custom-control custom-checkbox">
+																				<input type="checkbox" class="custom-control-input f-feature" id="customCheck15-{{ $feature }}" value="{{ $feature }}">
+																				<label class="custom-control-label" for="customCheck15-{{ $feature }}">{{ $feature }}</label>
+																			</div>
+																		</li>
+																	@endforeach
 												                </ul>
 													        </div>
 												        </div>
@@ -259,7 +112,7 @@ Argo
 										</li>
 										<li>
 											<div class="search_option_button">
-											    <button type="submit" class="btn btn-block btn-thm">Search</button>
+											    <button class="btn btn-block btn-thm" id="search">Search</button>
 											</div>
 										</li>
 									</ul>
@@ -274,9 +127,9 @@ Argo
 					<div class="breadcrumb_content style2">
 						<ol class="breadcrumb">
 						    <li class="breadcrumb-item"><a href="#">Home</a></li>
-						    <li class="breadcrumb-item active text-thm" aria-current="page">Full Width – Grid View</li>
+						    <li class="breadcrumb-item active text-thm" aria-current="page">projects</li>
 						</ol>
-						<h2 class="breadcrumb_title">Full Width Grid View</h2>
+						<h2 class="breadcrumb_title">All Projects</h2>
 					</div>
 				</div>
 				<div class="col-md-4 col-lg-6">
@@ -293,7 +146,7 @@ Argo
 						<div class="grid_list_search_result style2">
 							<div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
 								<div class="left_area">
-									<p>9 Search results</p>
+									<p></p>
 								</div>
 							</div>
 							<div class="col-sm-12 col-md-8 col-lg-9 col-xl-9">
@@ -313,7 +166,7 @@ Argo
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row" id="card-section">
             @forelse ($projects as $project)
               @php
                $images = json_decode($project->images, true);
@@ -362,22 +215,16 @@ Argo
               <p>No projects found!</p>
             @endforelse
 						<div class="col-lg-12 mt20">
-							<div class="mbp_pagination">
-								<ul class="page_navigation">
-								    <li class="page-item disabled">
-								    	<a class="page-link" href="#" tabindex="-1" aria-disabled="true"> <span class="flaticon-left-arrow"></span> Prev</a>
-								    </li>
-								    <li class="page-item"><a class="page-link" href="#">1</a></li>
-								    <li class="page-item active" aria-current="page">
-								    	<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-								    </li>
-								    <li class="page-item"><a class="page-link" href="#">3</a></li>
-								    <li class="page-item"><a class="page-link" href="#">...</a></li>
-								    <li class="page-item"><a class="page-link" href="#">29</a></li>
-								    <li class="page-item">
-								    	<a class="page-link" href="#"><span class="flaticon-right-arrow"></span></a>
-								    </li>
-								</ul>
+								<div class="mbp_pagination">
+									<ul class="page_navigation">
+										<li class="page-item">
+											<a class="page-link" href="{{ $projects->previousPageUrl() }}"><span class="flaticon-left-arrow"></span></a>
+										</li>
+										<li class="page-item">
+											<a class="page-link" href="{{ $projects->nextPageUrl() }}"><span class="flaticon-right-arrow"></span></a>
+										</li>
+									</ul>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -386,4 +233,98 @@ Argo
 		</div>
 	</section>
 
+@endsection
+
+
+
+@section('script_in_body')
+<script>
+	$(document).ready(function(){
+            $("#search").click(function(){
+                let keyword =  $('#f-keyword').val();
+                let location =  $('#f-location').val();
+                let category =  $('#f-category').val();
+                let blocks =  $('#f-blocks').val();
+                let floors =  $('#f-floors').val();
+                // let minArea =  $('#f-minArea').val();
+                // let maxArea =  $('#f-maxArea').val();
+                let features = [];
+
+                $('.f-feature').each(function(){
+                    if(this.checked)
+                        features.push($(this).attr('value'));
+                }) 
+
+                $.ajax({
+                    url: `{{ route('projects_filter') }}`,
+                    type: `GET`,
+                    data: {keyword: keyword, location: location, category: category, blocks: blocks, floors: floors, features: features},
+                    success: function(projects){
+                        console.log(projects);
+                        let cards = "";
+                        for(project of projects)
+                        {
+                            let card = `
+                            <div class="col-md-6 col-lg-4">
+                            <div class="feat_property home7 style4">
+								<div class="thumb">
+									<div class="fp_single_item_slider">
+                                    `;
+                                        for(image of project.images)
+                                        {
+                                            card += `
+                                                <div class="item">
+                                                    <img class="img-whp" src="${image}" alt="no img">
+                                                </div>
+                                            `;
+                                        }
+										
+                                        card += `
+                                        </div>
+									<div class="thmb_cntnt style2">
+										<ul class="tag mb0">
+                                            <li class="list-inline-item"><a href="#"></a></li>
+										</ul>
+									</div>
+									<div class="thmb_cntnt style3">
+                                        
+                                        
+                                        `;
+
+                                        card += `<a class="fp_price" href="#">${project.low_price} - ${project.max_price}</a>`;
+
+									card += `</div>;
+								</div>
+								<div class="details">
+									<div class="tc_content">
+										<p class="text-thm">${project.category}</p>
+                    <a href="{{ url('projects/view') }}/${project.slug}">
+										<h4>${project.title}</h4>
+										<p><span class="flaticon-placeholder"></span> ${project.city}, ${project.state}, ${project.location}</p>
+										<ul class="prop_details mb0">
+											<li class="list-inline-item"><a class="text-thm3" href="#">Blocks: ${project.flat_blocks }</a></li>
+											<li class="list-inline-item"><a class="text-thm3" href="#">Floors: ${project.flat_floors}</a></li>
+										</ul>
+                  </a>
+									</div>
+									<div class="fp_footer">
+										<ul class="fp_meta float-left mb0">
+											<li class="list-inline-item"><a href="#"><img src="${project.user_avatar}" style="width: 40px; border-radius: 50px" alt="pposter1.png"></a></li>
+											<li class="list-inline-item"><a href="#">${project.user_name}</a></li>
+										</ul>
+										<div class="fp_pdate float-right">${project.created_at}</div>
+									</div>
+								</div>
+							</div>
+						</div> `;
+
+                        cards += card;
+                        }
+						console.log(cards);
+                        $('#card-section').html(cards);
+                    },
+                });
+            });
+        });
+</script>
 @endsection

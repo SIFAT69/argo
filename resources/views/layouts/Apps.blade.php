@@ -396,6 +396,7 @@
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/timepicker.js"></script>
     <!-- Custom script for all pages -->
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/script.js"></script>
+    @yield('script_in_body')
 </body>
 
 
