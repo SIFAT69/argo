@@ -162,7 +162,7 @@ class PropertyController extends Controller
         'created_at' => Carbon::now(),
       ]);
 
-      return redirect('/properties-lists')->with('success', 'Your property has been updated. Wating for verify!');
+      return back()->with('success', 'Your property has been updated. Wating for verify!');
     }
 
     public function softDeleteProperties(Request $request)
@@ -193,6 +193,6 @@ class PropertyController extends Controller
     public function HardDeleteProperty(Request $request)
     {
       DB::table('properties')->where('id', $request->id)->delete();
-      return redirect('/properties-view-trash-lists')->with('danger', 'Your property has been removed from collections!');
+      return back()->with('danger', 'Your property has been removed from collections!');
     }
 }

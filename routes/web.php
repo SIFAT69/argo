@@ -179,7 +179,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   // Agent Route Start
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/agent-dashbord',[AgentController::class, 'AgentDashboard'])->name('AgentDashboard');
+    Route::get('/agency-dashbord',[AgentController::class, 'AgentDashboard'])->name('AgentDashboard');
 
     //Profile Start
     Route::get('/agency-settings-profile', [AgentController::class, 'agentProfile'])->name('agent.profile');
@@ -189,8 +189,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/my-package-history', [AgentController::class, 'packageHistory'])->name('packageHistory');
     Route::get('/agencies/my-properties', [AgentController::class, 'MyProperties'])->name('MyProperties');
     Route::get('/agencies/my-properties/create', [AgentController::class, 'MyPropertiesCreate'])->name('MyPropertiesCreate');
+    Route::get('/agencies/my-properties/edit/{id}', [AgentController::class, 'MyPropertiesEdit'])->name('MyPropertiesEdit');
     //Profile End
 
+    Route::get('/agencies/my-project/', [AgentController::class, 'MyProject'])->name('MyProject');
 
 
 

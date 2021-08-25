@@ -63,6 +63,8 @@ $(document).ready(function(){
 							</div>
 						</div>
 						<div class="col-lg-12">
+              @include('Alerts.success')
+              @include('Alerts.danger')
 							<div class="my_dashboard_review mb40">
 								<div class="property_table">
 									<div class="table-responsive mt0">
@@ -104,8 +106,8 @@ $(document).ready(function(){
 										    		{{-- <td>2,345</td> --}}
 										    		<td>
 										    			<ul class="view_edit_delete_list mb0">
-										    				<li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"><a href="#"><span class="flaticon-edit"></span></a></li>
-										    				<li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete"><a href="#"><span class="flaticon-garbage"></span></a></li>
+										    				<li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"><a href="{!! route('MyPropertiesEdit',$property->id) !!}"><span class="flaticon-edit"></span></a></li>
+										    				<li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete"><a href="{!! route('HardDeleteProperty', $property->id) !!}"><span class="flaticon-garbage"></span></a></li>
 										    			</ul>
 										    		</td>
                           </tr>
