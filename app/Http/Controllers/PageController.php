@@ -16,7 +16,30 @@ class PageController extends Controller
     public function properties_lists(Request $request)
     {
       $properties = DB::table('properties')->where('moderation_status', 'Approved')->where('status', 1)->simplePaginate(8);
-      return view('Font.Properties.properties',compact('properties'));
+
+      //filters data start
+      $categories = array_unique(Property::where('moderation_status', 'Approved')->where('status', 1)->pluck('category')->toArray());
+      $bedrooms = array_unique(Property::where('moderation_status', 'Approved')->where('status', 1)->orderBy('flat_beds')->pluck('flat_beds')->toArray());
+      $bathrooms = array_unique(Property::where('moderation_status', 'Approved')->where('status', 1)->orderBy('flat_baths')->pluck('flat_baths')->toArray());
+      $floors = array_unique(Property::where('moderation_status', 'Approved')->where('status', 1)->orderBy('flat_floors')->pluck('flat_floors')->toArray());
+      $minPrice = Property::where('moderation_status', 'Approved')->where('status', 1)->min('price');
+      $maxPrice = Property::where('moderation_status', 'Approved')->where('status', 1)->max('price');
+
+      $fes = Property::where('moderation_status', 'Approved')->where('status', 1)->pluck('features');
+      $features = [];
+      foreach($fes as $feature)
+      {
+        $feature = json_decode($feature, true);
+        foreach($feature as $single)
+        {
+          $features[] = $single;
+        }
+      }
+      $features = array_unique($features);
+      // dd($maxPrice);
+      //filters data end
+
+      return view('Font.Properties.properties',compact('properties', 'categories', 'bedrooms', 'bathrooms', 'floors', 'minPrice', 'maxPrice', 'features'));
     }
 
     public function properties_view(Request $request)
@@ -44,8 +67,30 @@ class PageController extends Controller
 
     public function projects_lists(Request $request)
     {
-      $projects  = DB::table('projects')->where('status', 1)->get();
-      return view('Font.Projects.projects',compact('projects'));
+      $projects  = DB::table('projects')->where('status', 1)->simplePaginate(8);
+
+      //filters data start
+      $categories = array_unique(Project::where('status', 1)->pluck('category')->toArray());
+      $blocks = array_unique(Project::where('status', 1)->orderBy('flat_blocks')->pluck('flat_blocks')->toArray());
+      $floors = array_unique(Project::where('status', 1)->orderBy('flat_floors')->pluck('flat_floors')->toArray());
+      $minPrice = Project::where('status', 1)->min('low_price');
+      $maxPrice = Project::where('status', 1)->max('max_price');
+
+      $fes = Project::where('status', 1)->pluck('features');
+      $features = [];
+      foreach($fes as $feature)
+      {
+        $feature = json_decode($feature, true);
+        foreach($feature as $single)
+        {
+          $features[] = $single;
+        }
+      }
+      $features = array_unique($features);
+      // dd($maxPrice);
+      //filters data end
+
+      return view('Font.Projects.projects',compact('projects', 'categories', 'blocks', 'floors', 'minPrice', 'maxPrice', 'features'));
     }
 
     public function agencies_lists(Request $request)
@@ -105,5 +150,178 @@ class PageController extends Controller
       // dd($project->features);
       // dd($similarProjects);
       return view('Font.Projects.projects_view', compact('project', 'similarProjects', 'projectOwner'));
+    }
+
+    public function properties_filter(Request $request)
+    {
+      // dd($request->all());
+      $query = "SELECT * FROM properties WHERE ";
+      $data = [];
+
+      if($request->keyword !== null)
+      {
+        $query .= "title like ? AND ";
+        $data[] = "%{$request->keyword}%";
+      }
+
+      if($request->location !== null)
+      {
+        $query .= "(city = ? OR states = ? OR location = ?) AND ";
+        $data[] = $request->location;
+        $data[] = $request->location;
+        $data[] = $request->location;
+      }
+
+      if($request->category !== null)
+      {
+        $query .= "category = ? AND ";
+        $data[] = $request->category;
+      }
+
+      if($request->type !== null)
+      {
+        $query .= "type = ? AND ";
+        $data[] = $request->type;
+      }
+
+      if($request->beds !== null)
+      {
+        $query .= "flat_beds = ? AND ";
+        $data[] = $request->beds;
+      }
+
+      if($request->baths !== null)
+      {
+        $query .= "flat_baths = ? AND ";
+        $data[] = $request->baths;
+      }
+
+      if($request->floors !== null)
+      {
+        $query .= "flat_floors = ? AND ";
+        $data[] = $request->floors;
+      }
+
+      if($request->minArea !== null && $request->maxArea !== null)
+      {
+        $query .= "size between ? AND ? AND ";
+        $data[] = $request->minArea;
+        $data[] = $request->maxArea;
+      }
+      elseif($request->minArea != null)
+      {
+        $query .= "size >= ? AND ";
+        $data[] = $request->minArea;
+      }
+      elseif($request->maxArea != null)
+      {
+        $query .= "size <= ? AND ";
+        $data[] = $request->maxArea;
+      }
+
+      if($request->features != [])
+      {
+          foreach($request->features as $feature)
+          {
+            $query .= "features like ? AND ";
+            $data[] = "%{$feature}%";
+          }
+      }
+
+      $query = rtrim($query, "AND ");
+      $query = rtrim($query, "WHERE ");
+      // dd($data);
+      $properties = DB::select($query, $data);
+      foreach($properties as $property)
+      {
+        $images = json_decode($property->images, true);
+        foreach($images as $index => $image)
+        {
+          $image = '../uploads/' . DB::table('libraries')->where('id', $image)->value('file_name');
+          $images[$index] = $image;
+        }
+        $property->images = $images;
+
+        $user = User::find($property->user_id);
+        $property->user_name = $user->name;
+        $property->user_avatar = '../uploads/' . $user->avatar;
+
+        $property->created_at = Carbon::parse($property->created_at)->diffForHumans();
+       }
+
+        return response()->json($properties);
+      // dd($properties);
+    }
+
+    public function projects_filter(Request $request)
+    {
+      // dd($request->all());
+      $query = "SELECT * FROM projects WHERE ";
+      $data = [];
+
+      if($request->keyword !== null)
+      {
+        $query .= "title like ? AND ";
+        $data[] = "%{$request->keyword}%";
+      }
+
+      if($request->location !== null)
+      {
+        $query .= "(city = ? OR state = ? OR location = ?) AND ";
+        $data[] = $request->location;
+        $data[] = $request->location;
+        $data[] = $request->location;
+      }
+
+      if($request->category !== null)
+      {
+        $query .= "category = ? AND ";
+        $data[] = $request->category;
+      }
+
+      if($request->blocks !== null)
+      {
+        $query .= "flat_blocks = ? AND ";
+        $data[] = $request->blocks;
+      }
+
+      if($request->floors !== null)
+      {
+        $query .= "flat_floors = ? AND ";
+        $data[] = $request->floors;
+      }
+
+      if($request->features != [])
+      {
+          foreach($request->features as $feature)
+          {
+            $query .= "features like ? AND ";
+            $data[] = "%{$feature}%";
+          }
+      }
+
+      $query = rtrim($query, "AND ");
+      $query = rtrim($query, "WHERE ");
+      // dd($data);
+      $projects = DB::select($query, $data);
+      foreach($projects as $project)
+      {
+        $images = json_decode($project->images, true);
+        foreach($images as $index => $image)
+        {
+          $image = '../uploads/' . DB::table('libraries')->where('id', $image)->value('file_name');
+          $images[$index] = $image;
+        }
+        $project->images = $images;
+
+        $user = User::find($project->user_id);
+        $project->user_name = $user->name;
+        $project->user_avatar = '../uploads/' . $user->avatar;
+
+        $project->created_at = Carbon::parse($project->created_at)->diffForHumans();
+       }
+
+        return response()->json($projects);
+      // dd($projects);
     }
 }

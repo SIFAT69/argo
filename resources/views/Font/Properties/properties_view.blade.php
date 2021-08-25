@@ -153,7 +153,7 @@ Argo
 									<div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
 										<div class="property_video">
 											<div class="thumb">
-												<img class="pro_img img-fluid w100" src="{{ asset($property->youtube_thumb) }}" alt="Property Image">
+												<img class="pro_img img-fluid w100" src="/uploads/{{ $property->youtube_thumb }}" alt="Property Image">
 												<div class="overlay_icon">
 													<a class="video_popup_btn popup-img red popup-youtube" href="{{ $property->youtube_link }}"><span class="flaticon-play"></span></a>
 												</div>
@@ -168,7 +168,7 @@ Argo
 								<h4 class="mb10">What's Nearby</h4>
 								<div class="education_distance mb15">
 									@foreach($property->facilities as $facility)
-										@if($facility != null)
+										@if($facility != "Null")
 										<p class="para">{{ $facility }} <span>({{ $property->distance[$loop->index] }} miles)</span></p>
 										@endif
 									@endforeach
@@ -182,7 +182,7 @@ Argo
 							<div class="col-lg-6">
 								<div class="feat_property">
 									<div class="thumb">
-										<img class="img-whp" src="{{ asset('FontAsset') }}/images/property/fp2.jpg" alt="fp2.jpg">
+										<img class="img-whp" src="/uploads/{{ $similarProperty->youtube_thumb }}" alt="fp2.jpg">
 										<div class="thmb_cntnt">
 											<ul class="tag mb0">
 												<li class="list-inline-item"><a href="#">For {{ $similarProperty->type }}</a></li>
@@ -210,7 +210,7 @@ Argo
 										</div>
 										<div class="fp_footer">
 											<ul class="fp_meta float-left mb0">
-												<li class="list-inline-item"><a href="#"><img src="{{ asset($similarProperty->user_avatar) }}" alt="Owner Image"></a></li>
+												<li class="list-inline-item"><a href="#"><img src="/uploads/{{ $similarProperty->user_avatar }}" alt="Owner Image"></a></li>
 												<li class="list-inline-item"><a href="#">{{ $similarProperty->user_name }}</a></li>
 											</ul>
 											<div class="fp_pdate float-right">{{ Carbon\Carbon::parse($similarProperty->created_at)->diffForHumans() }}</div>
@@ -227,7 +227,7 @@ Argo
 							<div class="sl_creator">
 								<h4 class="mb25">Listed By</h4>
 								<div class="media">
-									<img class="mr-3" src="{{ asset($propertyOwner->avatar) }}" alt="Property Owner Image">
+									<img class="mr-3" src="/uploads/{{ $propertyOwner->avatar }}" style="border-radius:50px;" alt="Property Owner Image">
 									<div class="media-body">
 								    	<h5 class="mt-0 mb0">{{ $propertyOwner->name }}</h5>
 								    	<p class="mb0">{{ $propertyOwner->phoneNumber ?? 'No Phone' }}</p>
@@ -268,11 +268,11 @@ Argo
 					<div class="terms_condition_widget">
 						<h4 class="title">Featured Properties</h4>
 						<div class="sidebar_feature_property_slider">
-							@foreach($featuredProperties as $featuredProperty)
+							@forelse($featuredProperties as $featuredProperty)
 								<div class="item">
 									<div class="feat_property home7 agent">
 										<div class="thumb">
-											<img class="img-whp" src="{{ asset($featuredProperty->youtube_thumb) }}" alt="Featured Image">
+											<img class="img-whp" src="/uploads/{{ $featuredProperty->youtube_thumb }}" alt="Featured Image">
 											<div class="thmb_cntnt">
 												<ul class="tag mb0">
 													<li class="list-inline-item"><a href="#">For {{ $featuredProperty->type}}</a></li>
@@ -284,7 +284,9 @@ Argo
 										</div>
 									</div>
 								</div>
-							@endforeach
+							@empty
+								<div>No Properties</div>
+							@endforelse
 						</div>
 					</div>
 					<div class="terms_condition_widget">
