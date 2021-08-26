@@ -299,6 +299,27 @@
                         </ul>
                     </li>
                     <li class="menu">
+                        <a href="#home-settings" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <span>Home Settings</span>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </div>
+                        </a>
+                        <ul class="collapse submenu list-unstyled" id="home-settings" data-parent="#accordionExample">
+                            <li>
+                                <a href="{!! route('choices.index') !!}">Choices</a>
+                            </li>
+                            <li>
+                                <a href="{!! route('testimonials.index') !!}">Testimonials</a>
+                            </li>
+                            <li>
+                                <a href="{!! route('partners.index') !!}">Partners</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu">
                         <a href="#settings" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <span> Settings</span>

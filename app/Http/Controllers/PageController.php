@@ -377,4 +377,26 @@ class PageController extends Controller
       // dd($properties);
       return view('Font.Properties.properties_search', compact('properties'));
     }
+
+    public function properties_city_wise($city)
+    {
+       $properties = Property::where('moderation_status', 'Approved')->where('status', 1)->where('city', $city)->get();
+       foreach($properties as $property)
+        {
+          $images = json_decode($property->images, true);
+          foreach($images as $index => $image)
+          {
+            $image = '../uploads/' . DB::table('libraries')->where('id', $image)->value('file_name');
+            $images[$index] = $image;
+          }
+          $property->images = $images;
+
+          $user = User::find($property->user_id);
+          $property->user_name = $user->name;
+          $property->user_avatar = '../uploads/' . $user->avatar;
+
+          $property->time = Carbon::parse($property->created_at)->diffForHumans();
+        }
+       return view('Font.Properties.properties_city_wise', compact('properties', 'city'));
+    }
 }
