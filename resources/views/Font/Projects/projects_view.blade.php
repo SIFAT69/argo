@@ -170,7 +170,7 @@ Argo
 								<h4 class="mb10">What's Nearby</h4>
 								<div class="education_distance mb15">
 									@foreach($project->facilities as $facility)
-										@if($facility != "Null")
+										@if($facility != "Null" && $project->distance[$loop->index] != "Null")
 										<p class="para">{{ $facility }} <span>({{ $project->distance[$loop->index] }} miles)</span></p>
 										@endif
 									@endforeach
