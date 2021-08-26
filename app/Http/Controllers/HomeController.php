@@ -49,7 +49,7 @@ class HomeController extends Controller
         //Featured Properties End
         
 
-        $cities = DB::select("SELECT city as name, count(id) as quantity FROM properties GROUP BY city ORDER BY quantity DESC LIMIT 4");
+        $cities = DB::select("SELECT city as name, count(id) as quantity FROM properties WHERE moderation_status = 'Approved' AND status = 1 GROUP BY city ORDER BY quantity DESC LIMIT 4");
         // dd($cities);
 
         $choices = Choice::all();

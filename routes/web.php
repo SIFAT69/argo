@@ -20,6 +20,9 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AgenciesmessageController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ChoiceController;
+use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\PartnerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -180,6 +183,16 @@ Route::group(['middleware' => 'auth'], function () {
     // Admin Consult Start
     Route::get('consult-all',[ContactController::class, 'allConsult'])->name('allConsult');
     // Admin Consult End
+
+    Route::resource('choices', ChoiceController::class)->except(['destroy', 'show']);
+    Route::get('choices/destroy/{id}',[ChoiceController::class, 'destroy'])->name('choices.destroy');
+
+    Route::resource('testimonials', TestimonialController::class)->except(['destroy', 'show']);
+    Route::get('testimonials/destroy/{id}',[TestimonialController::class, 'destroy'])->name('testimonials.destroy');
+
+    Route::resource('partners', PartnerController::class)->except(['destroy', 'edit', 'update', 'show']);
+    Route::get('partners/destroy/{id}',[PartnerController::class, 'destroy'])->name('partners.destroy');
+
   });
 
   // Agent Route Start
@@ -228,7 +241,10 @@ Route::get('properties/filter', [PageController::class, 'properties_filter'])->n
 Route::get('projects/filter', [PageController::class, 'projects_filter'])->name('projects_filter');
 
 Route::get('properties/search', [PageController::class, 'properties_search'])->name('properties_search');
+
+Route::get('properties-city/{city}/', [PageController::class, 'properties_city_wise'])->name('properties_city_wise');
 // FontPages End
+
 
 
 
