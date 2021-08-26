@@ -7,31 +7,30 @@ Argo
 @endsection
 @section('content')
 
-	<div class="single_page_listing_tab">
+<div class="single_page_listing_tab">
 		<div class="tab-content" id="myTabContent">
 			<div class="tab-pane fade show active" id="slider_tabs" role="tabpanel" aria-labelledby="slider-tab">
-			  	<!-- 10th Home Slider -->
+				<!-- 10th Home Slider -->
 				<div class="home10-mainslider">
 					<div class="container-fluid p0">
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="main-banner-wrapper home10">
-								    <div class="banner-style-one owl-theme owl-carousel">
-                      @php
-                        $images = json_decode($property->images, true);
-                      @endphp
-                      @foreach ($images as $image)
-                        @php
-                          $showImage = DB::table('libraries')->where('id', $image)->value('file_name');
-                        @endphp
-                      @endforeach
-                      <div class="slide slide-one" style="background-image: url('/uploads/{{ $showImage }}');height: 600px;"></div>
-								    </div>
-								    <div class="carousel-btn-block banner-carousel-btn">
-								        <span class="carousel-btn left-btn"><i class="flaticon-left-arrow-1 left"></i></span>
-								        <span class="carousel-btn right-btn"><i class="flaticon-right-arrow right"></i></span>
-
-								    </div><!-- /.carousel-btn-block banner-carousel-btn -->
+									<div class="banner-style-one owl-theme owl-carousel">
+						@php
+						$images = json_decode($property->images, true);
+						@endphp
+						@foreach ($images as $image)
+						@php
+							$showImage = DB::table('libraries')->where('id', $image)->value('file_name');
+						@endphp
+										<div class="slide slide-one" style="background-image: url('/uploads/{{ $showImage }}');height: 600px;"></div>
+						@endforeach
+									</div>
+									<div class="carousel-btn-block banner-carousel-btn">
+										<span class="carousel-btn left-btn"><i class="flaticon-left-arrow-1 left"></i></span>
+										<span class="carousel-btn right-btn"><i class="flaticon-right-arrow right"></i></span>
+									</div><!-- /.carousel-btn-block banner-carousel-btn -->
 								</div><!-- /.main-banner-wrapper -->
 							</div>
 						</div>
