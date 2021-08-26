@@ -39,7 +39,7 @@ class PageController extends Controller
       // dd($maxPrice);
       //filters data end
 
-      return view('Font.Properties.properties',compact('properties', 'categories', 'bedrooms', 'bathrooms', 'floors', 'minPrice', 'maxPrice', 'features'));
+      return view('Font.Properties.properties', compact('properties', 'categories', 'bedrooms', 'bathrooms', 'floors', 'minPrice', 'maxPrice', 'features'));
     }
 
     public function properties_view(Request $request)
@@ -196,7 +196,7 @@ class PageController extends Controller
       return view('Font.Projects.projects_view', compact('project', 'similarProjects', 'projectOwner'));
     }
 
-    public function properties_filter(Request $request)
+    public function properties_filter(Request $request, $src_home = false)
     {
       // dd($request->all());
       $query = "SELECT * FROM properties WHERE ";
@@ -293,8 +293,10 @@ class PageController extends Controller
         $property->created_at = Carbon::parse($property->created_at)->diffForHumans();
        }
 
-        return response()->json($properties);
-      // dd($properties);
+       if($src_home)
+          return $properties;
+       else
+          return response()->json($properties);
     }
 
     public function projects_filter(Request $request)
@@ -367,5 +369,12 @@ class PageController extends Controller
 
         return response()->json($projects);
       // dd($projects);
+    }
+
+    public function properties_search(Request $request)
+    {
+      $properties = $this->properties_filter($request, true);
+      // dd($properties);
+      return view('Font.Properties.properties_search', compact('properties'));
     }
 }

@@ -320,8 +320,20 @@ Argo
 
                         cards += card;
                         }
-						console.log(cards);
-                        $('#card-section').html(cards);
+						
+						if(cards == "")
+						{
+							let msg = `
+								<div class="col-12 h4 text-center" style="height: 50vh">
+									No Project Found!
+								</div>
+							`;
+							$('#card-section').html(msg);
+						}
+						else
+						{
+							$('#card-section').html(cards);
+						}
                     },
                 });
             });

@@ -19,6 +19,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AgenciesmessageController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +32,7 @@ use App\Http\Controllers\AgenciesmessageController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [HomeController::class, 'show_home'])->name('welcome');
 
 Route::get('/dashboard', function () {
   if (Auth::user()->account_role == 'Admin') {
@@ -221,6 +220,8 @@ Route::get('projects/view/{slug}',[PageController::class, 'projects_view'])->nam
 
 Route::get('properties/filter', [PageController::class, 'properties_filter'])->name('properties_filter');
 Route::get('projects/filter', [PageController::class, 'projects_filter'])->name('projects_filter');
+
+Route::get('properties/search', [PageController::class, 'properties_search'])->name('properties_search');
 // FontPages End
 
 

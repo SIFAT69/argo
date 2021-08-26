@@ -60,11 +60,11 @@ Argo
 											    </div>
 											  	<div class="dd_content2 w100">
 												    <div class="pricing_acontent">
-														<!-- <input type="text" class="amount" placeholder="$52,239">
-														<input type="text" class="amount2" placeholder="$985,14">
+														<!-- <input type="text" class="amount" placeholder="$10,000">
+														<input type="text" class="amount2" placeholder="$50,000">
 														<div class="slider-range"></div> -->
-												    	<span id="slider-range-value1">{{ $minPrice}}</span>
-														<span class="mt0" id="slider-range-value2">{{ $maxPrice}}</span>
+												    	<span id="slider-range-value1"></span>
+														<span class="mt0" id="slider-range-value2"></span>
 													    <div id="slider"></div>
 												    </div>
 											  	</div>
@@ -381,7 +381,19 @@ Argo
                         cards += card;
                         }
 
-                        $('#card-section').html(cards);
+						if(cards == "")
+						{
+							let msg = `
+								<div class="col-12 h4 text-center" style="height: 50vh">
+									No Property Found!
+								</div>
+							`;
+							$('#card-section').html(msg);
+						}
+						else
+						{
+							$('#card-section').html(cards);
+						}	
                     },
                 });
             });
