@@ -152,7 +152,7 @@ class PageController extends Controller
 
     public function agenency_details(Request $request)
     {
-      $agents = DB::table('users')->where('account_role', 'Agent')->where('id', $request->id)->first();
+      $agents = DB::table('users')->where('id', $request->id)->first();
       return view('Font.Agents.agent_view',compact('agents'));
     }
 
