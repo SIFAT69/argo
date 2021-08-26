@@ -35,7 +35,7 @@ Argo
 								<li class="list-inline-item"><span class="flaticon-calendar"></span></li>
 								<li class="list-inline-item"><a href="#">{{ Carbon\Carbon::parse($blog->created_at)->format('M-d-Y') }}</a></li>
 								<li class="list-inline-item"><span class="flaticon-view"></span></li>
-								<li class="list-inline-item"><a href="#"> {{ $countViews }} views</a></li>
+								<li class="list-inline-item"><a href="#"> {{ $countViews->view_count }} views</a></li>
 							</ul>
 							<div class="thumb">
 								<img class="img-fluid" src="../uploads/{{ $blog->meta_image }}" alt="bs1.jpg">

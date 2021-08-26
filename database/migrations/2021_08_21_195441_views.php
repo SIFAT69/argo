@@ -17,7 +17,8 @@ class Views extends Migration
           $table->id();
           $table->string('post_table');
           $table->string('post_id');
-          $table->string('view_count');
+          $table->integer('view_count');
+          $table->string('to_id');
           $table->timestamps();
       });
     }

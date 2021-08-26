@@ -44,30 +44,24 @@
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                        <div class="ff_one style2">
-                            <div class="icon"><span class="flaticon-view"></span></div>
+                        <div class="ff_one style3">
+                            <div class="icon"><span class="flaticon-home"></span></div>
                             <div class="detais">
-                                <div class="timer">24</div>
-                                <p>Total Views</p>
+                                <div class="timer">{{ DB::table('projects')->where('user_id', Auth::id())->count() }}</div>
+                                <p>Total Projects</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                        <div class="ff_one style3">
-                            <div class="icon"><span class="flaticon-chat"></span></div>
+                        <div class="ff_one style2">
+                            <div class="icon"><span class="flaticon-view"></span></div>
                             <div class="detais">
-                                <div class="timer">12</div>
-                                <p>Total Visitor Reviews</p>
+                                <div class="timer">{{ $totalView }}</div>
+                                <p>Total Views</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-7">
-                        <div class="application_statics">
-                            <h4>View Statistics</h4>
-                            <div class="c_container"></div>
-                        </div>
-                    </div>
-                    <div class="col-xl-5">
+                    <div class="col-xl-12">
                         <div class="recent_job_activity">
                             <h4 class="title">Recent Activities</h4>
                             <div class="grid">

@@ -18,8 +18,10 @@ class AgentController extends Controller
     {
 
       $count_of_properties = Property::where('user_id', Auth::id())->count();
-
-    	return view('Agent.Dashboard.dashboard', compact('count_of_properties'));
+       $totalViewsProject = DB::table('views')->where('to_id', Auth::id())->where('post_table', 'projects')->sum('view_count');
+       $totalViewsProperties = DB::table('views')->where('to_id', Auth::id())->where('post_table', 'properties')->sum('view_count');
+       $totalView = $totalViewsProject + $totalViewsProperties;
+      return view('Agent.Dashboard.dashboard', compact('count_of_properties','totalView'));
     }
 
 	public function agentProfile()
@@ -136,6 +138,54 @@ class AgentController extends Controller
   {
     $projects = DB::table('projects')->where('user_id', Auth::id())->get();
     return view('Agent.Project.projects',compact('projects'));
+  }
+
+  public function MyProjectCreate(Request $request)
+  {
+    $cities = DB::table('cities')->get();
+    $states = DB::table('states')->get();
+    $countries = DB::table('countries')->get();
+    $realstatefacilities = DB::table('realstatefacilities')->get();
+    $realstatefeatures = DB::table('realstatefeatures')->get();
+    $categories = DB::table('realstatecategories')->get();
+    return view('Agent.Project.create',compact('cities', 'states', 'countries', 'realstatefacilities','realstatefeatures','categories'));
+  }
+
+  public function MyProjectEdit(Request $request)
+  {
+    $cities = DB::table('cities')->get();
+    $states = DB::table('states')->get();
+    $countries = DB::table('countries')->get();
+    $realstatefacilities = DB::table('realstatefacilities')->get();
+    $realstatefeatures = DB::table('realstatefeatures')->get();
+    $categories = DB::table('realstatecategories')->get();
+    $project = DB::table('projects')->where('id', $request->id)->first();
+    return view('Agent.Project.edit',compact('cities', 'states', 'countries', 'realstatefacilities','realstatefeatures','categories','project'));
+  }
+
+  public function MyInbox(Request $request)
+  {
+    $contacts = DB::table('agenciesmessages')->where('to_id', Auth::id())->get();
+    return view('Agent.Contact.contact',compact('contacts'));
+  }
+
+  public function MessageStatus(Request $request)
+  {
+    $check_status = $request->status;
+    if ($check_status == "Unread") {
+      DB::table('agenciesmessages')->where('id', $request->id)->update([
+        'status' => "Unread",
+      ]);
+    }
+    if ($check_status == "Seen") {
+      DB::table('agenciesmessages')->where('id', $request->id)->update([
+        'status' => "Seen",
+      ]);
+    }
+    if ($check_status == "Delete") {
+      DB::table('agenciesmessages')->where('id', $request->id)->delete();
+    }
+    return back()->with('success', 'Your request has been successfully executed!');
   }
 
 }

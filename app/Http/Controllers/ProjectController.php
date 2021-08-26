@@ -109,7 +109,7 @@ class ProjectController extends Controller
           'created_at' => Carbon::now(),
         ]);
 
-        return redirect('/project-list')->with('success', 'Your project has been created. Wating for verify!');
+        return back()->with('success', 'Your project has been created. Wating for verify!');
     }
 
     public function createProjectEditPost(Request $request)
@@ -185,6 +185,6 @@ class ProjectController extends Controller
     public function HardDeleteProject(Request $request)
     {
       DB::table('projects')->where('id', $request->id)->delete();
-      return redirect('/project-view-trash-lists')->with('danger', 'Your project has been removed from collections!');
+      return back()->with('danger', 'Your project has been removed from collections!');
     }
 }

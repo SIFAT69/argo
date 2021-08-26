@@ -40,7 +40,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
   }
   if(Auth::user()->account_role == "Agent") {
-    return redirect('/agent-dashbord');
+    return redirect('/agency-dashbord');
   }
   if (Auth::user()->account_role == "Tenant") {
     return redirect('/');
@@ -193,9 +193,10 @@ Route::group(['middleware' => 'auth'], function () {
     //Profile End
 
     Route::get('/agencies/my-project/', [AgentController::class, 'MyProject'])->name('MyProject');
-
-
-
+    Route::get('/agencies/my-project/create', [AgentController::class, 'MyProjectCreate'])->name('MyProjectCreate');
+    Route::get('/agencies/my-project/edit/{id}', [AgentController::class, 'MyProjectEdit'])->name('MyProjectEdit');
+    Route::get('/agencies/inbox', [AgentController::class, 'MyInbox'])->name('MyInbox');
+    Route::post('/agencies/status/save', [AgentController::class, 'MessageStatus'])->name('MessageStatus');
 
   });
 

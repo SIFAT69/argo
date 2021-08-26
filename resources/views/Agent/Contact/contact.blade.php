@@ -1,9 +1,9 @@
 @extends('layouts.agent')
 @section('page_title')
-  All project
+  - All Contacts
 @endsection
 @section('content')
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {
@@ -14,7 +14,7 @@ $(document).ready(function(){
   });
 });
 </script>
-  <section class="our-dashbord dashbord bgc-f7 pb50">
+<section class="our-dashbord dashbord bgc-f7 pb50">
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-3 col-xl-2 dn-992 pl0"></div>
@@ -56,9 +56,6 @@ $(document).ready(function(){
                         </form>
                     </div>
                   </li>
-                  <li class="list-inline-item">
-                    <a href="{!! route('MyProjectCreate') !!}" class="btn btn-success">Create New</a>
-                  </li>
                 </ul>
               </div>
             </div>
@@ -71,49 +68,39 @@ $(document).ready(function(){
                     <table class="table">
                       <thead class="thead-light">
                           <tr>
-                            <th scope="col">Listing Title</th>
-                            <th scope="col">Date published</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone Number</th>
                             {{-- <th scope="col">View</th> --}}
+                            <th scope="col">Status</th>
                             <th scope="col">Action</th>
                           </tr>
                       </thead>
                       <tbody id="myTable">
-                        @forelse ($projects as $project)
+                        @forelse ($contacts as $contact)
                           <tr>
-                            <th scope="row">
-                            <div class="feat_property list favorite_page style2">
-                              <div class="thumb">
-                                <img class="img-whp" src="../uploads/{{ $project->youtube_thumb }}" alt="fp1.jpg">
-                                <div class="thmb_cntnt">
-                                  <ul class="tag mb0">
-                                    <li class="list-inline-item dn"></li>
-                                    {{-- <li class="list-inline-item"><a href="#">{{ $project->type }}</a></li> --}}
-                                  </ul>
-                                </div>
-                              </div>
-                              <div class="details">
-                                <div class="tc_content">
-                                  <h4>{{ $project->title }}</h4>
-                                  <p><span class="flaticon-placeholder"></span> {{ $project->city }} {{ $project->state }} {{ $project->location }}</p>
-                                  <a class="fp_price text-thm" href="#">${{ $project->low_price }} - ${{ $project->max_price }}</a>
-                                </div>
-                              </div>
-                            </div>
-                            </th>
-                            <td>{{ Carbon\Carbon::parse($project->created_at)->format('Y-M-d') }}</td>
-                            <td><span class="status_tag badge">@if($project->status == 1) Approved @else Pending @endif</span></td>
-                            {{-- <td>2,345</td> --}}
+                            <td>{{ $contact->name }}</td>
+                            <td>{{ $contact->email }}</td>
+                            <td>{{ $contact->phoneNumber }}</td>
+                            <form class="" action="{!! route('MessageStatus') !!}" method="post">
+                              @csrf
+                              <input type="hidden" name="id" value="{{ $contact->id }}">
                             <td>
-                              <ul class="view_edit_delete_list mb0">
-                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"><a href="{!! route('MyProjectEdit',$project->id) !!}"><span class="flaticon-edit"></span></a></li>
-                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete"><a href="{!! route('HardDeleteProject', $project->id) !!}"><span class="flaticon-garbage"></span></a></li>
-                              </ul>
+                              <select class="form-control" name="status">
+                                <option @if($contact->status == 'Unread') selected @endif value="Unread">Unread</option>
+                                <option @if($contact->status == 'Seen') selected @endif  value="Seen">Seen</option>
+                                <option @if($contact->status == 'Delete') selected @endif  value="Delete">Delete</option>
+                              </select>
                             </td>
+                            <td>
+                              <button type="submit" class="btn btn-success">Save</button>
+                            </td>
+                          </form>
+
                           </tr>
                         @empty
                           <tr>
-                            <td colspan="5" class="text-center">No project found!</td>
+                            <td colspan="5" class="text-center">No contact found!</td>
                           </tr>
                         @endforelse
                       </tbody>

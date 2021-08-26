@@ -45,6 +45,22 @@ class PageController extends Controller
     public function properties_view(Request $request)
     {
       $property = DB::table('properties')->where('slug', $request->slug)->first();
+
+      $check_views = DB::table('views')->where('post_id', $property->id)->where('post_table', 'properties')->first();
+      if (!empty($check_views)) {
+        DB::table('views')->where('id', $check_views->id)->update([
+          'view_count' => $check_views->view_count+1,
+          'updated_at' => Carbon::now(),
+        ]);
+      }else {
+        DB::table('views')->insert([
+          'post_table' => 'properties',
+          'post_id' => $property->id,
+          'view_count' => 1,
+          'to_id' => $property->user_id,
+          'created_at' => Carbon::now(),
+        ]);
+      }
       $property->features = json_decode($property->features, true);
       $property->facilities = json_decode($property->facilities, true);
       $property->distance = json_decode($property->distance, true);
@@ -113,14 +129,24 @@ class PageController extends Controller
     public function blog_details(Request $request)
     {
       $blog = DB::table('blogs')->where('slug', $request->slug)->first();
-      DB::table('views')->insert([
-        'post_table' => 'blogs',
-        'post_id' => $blog->id,
-        'view_count' => 1,
-        'created_at' => Carbon::now(),
-      ]);
+      $check_views = DB::table('views')->where('post_id', $blog->id)->first();
+      if (!empty($check_views)) {
+        DB::table('views')->where('post_id', $blog->id)->update([
+          'view_count' => $check_views->view_count+1,
+          'updated_at' => Carbon::now(),
+        ]);
+      }else {
+        DB::table('views')->insert([
+          'post_table' => 'blogs',
+          'post_id' => $blog->id,
+          'view_count' => 1,
+          'to_id' => $blog->posted_by,
+          'created_at' => Carbon::now(),
+        ]);
+      }
 
-      $countViews = DB::table('views')->where('post_id', $blog->id)->where('post_table', 'blogs')->count();
+
+      $countViews = DB::table('views')->where('post_id', $blog->id)->where('post_table', 'blogs')->first();
       return view('Font.Blogs.blog_details',compact('blog','countViews'));
     }
 
@@ -133,6 +159,24 @@ class PageController extends Controller
     public function projects_view($slug)
     {
       $project  = Project::where('status', 1)->where('slug', $slug)->first();
+
+      $check_views = DB::table('views')->where('post_id', $project->id)->where('post_table', 'projects')->first();
+      if (!empty($check_views)) {
+        DB::table('views')->where('id', $check_views->id)->update([
+          'view_count' => $check_views->view_count+1,
+          'updated_at' => Carbon::now(),
+        ]);
+      }else {
+        DB::table('views')->insert([
+          'post_table' => 'projects',
+          'post_id' => $project->id,
+          'view_count' => 1,
+          'to_id' => $project->user_id,
+          'created_at' => Carbon::now(),
+        ]);
+      }
+
+
       $project->features = json_decode($project->features, true);
       $project->facilities = json_decode($project->facilities, true);
       $project->distance = json_decode($project->distance, true);

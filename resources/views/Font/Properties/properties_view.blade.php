@@ -24,12 +24,13 @@ Argo
                         @php
                           $showImage = DB::table('libraries')->where('id', $image)->value('file_name');
                         @endphp
-								        <div class="slide slide-one" style="background-image: url('/uploads/{{ $showImage }}');height: 600px;"></div>
                       @endforeach
+                      <div class="slide slide-one" style="background-image: url('/uploads/{{ $showImage }}');height: 600px;"></div>
 								    </div>
 								    <div class="carousel-btn-block banner-carousel-btn">
 								        <span class="carousel-btn left-btn"><i class="flaticon-left-arrow-1 left"></i></span>
 								        <span class="carousel-btn right-btn"><i class="flaticon-right-arrow right"></i></span>
+
 								    </div><!-- /.carousel-btn-block banner-carousel-btn -->
 								</div><!-- /.main-banner-wrapper -->
 							</div>
@@ -128,7 +129,7 @@ Argo
 									</div>
 									<div class="col-sm-6 col-md-6 col-lg-4">
 										<ul class="order_list list-inline-item">
-											@foreach($property->features as $feature)										
+											@foreach($property->features as $feature)
 												<li><a href="#"><span class="flaticon-tick"></span>{{ $feature }}</a></li>
 												@if($loop->iteration % 5 == 0)
 													</ul>
@@ -222,6 +223,8 @@ Argo
 					</div>
 				</div>
 				<div class="col-lg-4 col-xl-4 mt50">
+          @include('Alerts.success')
+          @include('Alerts.danger')
 					<div class="sidebar_listing_list">
 						<div class="sidebar_advanced_search_widget">
 							<div class="sl_creator">
@@ -236,26 +239,29 @@ Argo
 								  	</div>
 								</div>
 							</div>
+              <form class="" action="{!! route('agenency_message') !!}" method="post">
+                @csrf
+                <input type="hidden" name="to_id" value="{{ $propertyOwner->id }}">
 							<ul class="sasw_list mb0">
 								<li class="search_area">
 								    <div class="form-group">
-								    	<input type="text" class="form-control" id="exampleInputName1" placeholder="Your Name">
+								    	<input type="text" class="form-control" name="name" id="exampleInputName1" placeholder="Your Name">
 								    </div>
 								</li>
 								<li class="search_area">
 								    <div class="form-group">
-								    	<input type="number" class="form-control" id="exampleInputName2" placeholder="Phone">
+								    	<input type="tel" class="form-control" name="phoneNumber" id="exampleInputName2" placeholder="Phone">
 								    </div>
 								</li>
 								<li class="search_area">
 								    <div class="form-group">
-								    	<input type="email" class="form-control" id="exampleInputEmail" placeholder="Email">
+								    	<input type="email" class="form-control" name="email" id="exampleInputEmail" placeholder="Email">
 								    </div>
 								</li>
 								<li class="search_area">
-		                            <div class="form-group">
-		                                <textarea id="form_message" name="form_message" class="form-control required" rows="5" required="required" placeholder="I'm interest in [ Listing Single ]"></textarea>
-		                            </div>
+                  <div class="form-group">
+                      <textarea id="form_message" name="message" class="form-control required" rows="5" required="required" placeholder="I'm interest in [ Listing Single ]"></textarea>
+                  </div>
 								</li>
 								<li>
 									<div class="search_option_button">
@@ -263,6 +269,7 @@ Argo
 									</div>
 								</li>
 							</ul>
+            </form>
 						</div>
 					</div>
 					<div class="terms_condition_widget">

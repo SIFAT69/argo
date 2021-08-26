@@ -48,7 +48,7 @@
                 <li class="header"><img src="{!! asset('FontAsset') !!}/images/header-logo2.png" alt="header-logo2.png"></li>
                 <li class="title"><span>Main</span></li>
                 <li class="treeview"><a href="{!! route('AgentDashboard') !!}"><i class="flaticon-layers"></i><span> Dashboard</span></a></li>
-                <li class="treeview"><a href="page-message.html"><i class="flaticon-envelope"></i><span> Message</span></a></li>
+                <li class="treeview"><a href="{!! route('MyInbox') !!}"><i class="flaticon-envelope"></i><span> Message</span></a></li>
                 <li class="title"><span>Manage Listings</span></li>
                 <li class="treeview">
                     <a href="{!! route('MyProperties') !!}"><i class="flaticon-home"></i> <span>My Properties</span></a>
