@@ -21,10 +21,7 @@ Argo
       </div>
       <div class="col-lg-6">
         <div class="listing_list_style tal-991">
-          <ul>
-            <li class="list-inline-item"><a href="#"><span class="fa fa-th-large"></span></a></li>
-            <li class="list-inline-item"><a href="#"><span class="fa fa-th-list"></span></a></li>
-          </ul>
+
         </div>
       </div>
     </div>

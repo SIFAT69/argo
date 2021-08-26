@@ -209,8 +209,8 @@ Argo
 										</div>
 										<div class="fp_footer">
 											<ul class="fp_meta float-left mb0">
-												<li class="list-inline-item"><a href="#"><img src="/uploads/{{ $similarProject->user_avatar }}" alt="Owner Image"></a></li>
-												<li class="list-inline-item"><a href="#">{{ $similarProject->user_name }}</a></li>
+												<li class="list-inline-item"><a href="{!! route('agenency_details', $similarProject->user_id) !!}"><img src="/uploads/{{ DB::table('users')->where('id', $similarProject->user_id)->value('avatar') }}" style="width:50px; border-radius: 50px" alt="Owner Image"></a></li>
+												<li class="list-inline-item"><a href="{!! route('agenency_details', $similarProject->user_id) !!}">{{ $similarProject->user_name }}</a></li>
 											</ul>
 											<div class="fp_pdate float-right">{{ Carbon\Carbon::parse($similarProject->created_at)->diffForHumans() }}</div>
 										</div>

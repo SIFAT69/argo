@@ -81,9 +81,6 @@
                         @else
                           <li class="list-inline-item list_s"><a href="#" class="btn flaticon-user" data-toggle="modal" data-target=".bd-example-modal-lg"> <span class="dn-lg">Login/Register</span></a></li>
                         @endif
-                        @if (Auth::check())
-                        <li class="list-inline-item add_listing"><a href="page-add-new-property.html"><span class="flaticon-plus"></span><span class="dn-lg"> Create Listing</span></a></li>
-                        @endif
                     </ul>
                 </nav>
             </div>
@@ -341,7 +338,6 @@
                     <li><a href="page-login.html"><span class="flaticon-user"></span> Login</a></li>
                     <li><a href="page-register.html"><span class="flaticon-edit"></span> Register</a></li>
                     @endif
-                    <li class="cl_btn"><a class="btn btn-block btn-lg btn-thm circle" href="#"><span class="flaticon-plus"></span> Create Listing</a></li>
                 </ul>
             </nav>
         </div>

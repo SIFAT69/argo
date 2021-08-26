@@ -44,11 +44,11 @@ $myProperties = DB::table('properties')->where('user_id', $agents->id)->get();
                             </div>
                             <div class="details">
                                 <div class="tc_content">
-                                    <h4>Christopher Pakulla</h4>
+                                    <h4>{{ $agents->name }}</h4>
                                     <p class="text-thm">Agent</p>
                                     <ul class="prop_details mb0">
-                                        <li><a href="#">Address: Dhaka, Bangladesh</a></li>
-                                        <li><a href="#">Mobile: 891 456 9874</a></li>
+                                        <li><a href="#">Address: {{ $agents->address }}</a></li>
+                                        <li><a href="#">Mobile: {{ $agents->mobileNumber }}</a></li>
                                         <li><a href="#">Email: {{ $agents->email }}</a></li>
                                     </ul>
                                 </div>
@@ -69,11 +69,7 @@ $myProperties = DB::table('properties')->where('user_id', $agents->id)->get();
                                         <div class="mbp_pagination_comments">
                                             <div class="mbp_first media">
                                                 <div class="media-body">
-                                                    <p class="mb25">Evans Tower very high demand corner junior one bedroom plus a large balcony boasting full open NYC views. You need to see the views to believe them. Mint condition with new hardwood
-                                                        floors. Lots of closets plus washer and dryer.</p>
-                                                    <p class="mt10 mb0">Fully furnished. Elegantly appointed condominium unit situated on premier location. PS6. The wide entry hall leads to a large living room with dining area. This expansive 2
-                                                        bedroom and 2 renovated marble bathroom apartment has great windows. Despite the interior views, the apartments Southern and Eastern exposures allow for lovely natural light to fill every room.
-                                                        The master suite is surrounded by handcrafted milkwork and features incredible walk-in closet and storage space.</p>
+                                                    <p class="mb25">{!! $agents->about !!}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -92,6 +88,7 @@ $myProperties = DB::table('properties')->where('user_id', $agents->id)->get();
                                                         <a class="fp_price" href="#">${{ $myProperty->price }}</a>
                                                     </div>
                                                     <p class="text-thm">{{ $myProperty->category }}</p>
+                                                    <a href="{!! route('properties_view', $myProperty->slug) !!}">
                                                     <h4>{{ $myProperty->title }}</h4>
                                                     <p><span class="flaticon-placeholder"></span> {{ $myProperty->city }}, {{ $myProperty->states }}, {{ $myProperty->location }}</p>
                                                     <ul class="prop_details mb0">
@@ -99,6 +96,7 @@ $myProperties = DB::table('properties')->where('user_id', $agents->id)->get();
                                                         <li class="list-inline-item"><a href="#">Baths: {{ $myProperty->flat_baths }}</a></li>
                                                         <li class="list-inline-item"><a href="#"> m<sup>2</sup>: {{ $myProperty->size }}</a></li>
                                                     </ul>
+                                                    </a>
                                                 </div>
                                                 <div class="fp_footer">
                                                     <ul class="fp_meta float-left mb0">
@@ -177,7 +175,7 @@ $myProperties = DB::table('properties')->where('user_id', $agents->id)->get();
                                     <div class="thumb">
                                         <img class="img-whp" src="../uploads/{{ $is_featured->youtube_thumb }}" alt="fp2.jpg">
                                         <div class="thmb_cntnt">
-                                            <a class="fp_price" href="#">${{ $is_featured->price }}</a>
+                                            <a class="fp_price" href="{!! route('properties_view', $is_featured->slug) !!}">${{ $is_featured->price }}</a>
                                             <h4 class="posr color-white">{{ $is_featured->title }}</h4>
                                         </div>
                                     </div>

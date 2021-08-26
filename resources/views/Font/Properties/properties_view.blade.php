@@ -190,16 +190,13 @@ Argo
 													<li class="list-inline-item"><a href="#">Featured</a></li>
 												@endif
 											</ul>
-											<ul class="icon mb0">
-												<li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
-												<li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
-											</ul>
 											<a class="fp_price" href="#">$ {{ $similarProperty->price }} @if($property->type == 'Rent') <small>/mo</small> @endif</a>
 										</div>
 									</div>
 									<div class="details">
 										<div class="tc_content">
 											<p class="text-thm">Apartment</p>
+                      <a href="{!! route('properties_view', $similarProperty->slug) !!}">
 											<h4>{{ $similarProperty->title }}</h4>
 											<p><span class="flaticon-placeholder"></span>{{ $similarProperty->city }}, {{ $similarProperty->state }}, {{ $similarProperty->location }}</p>
 											<ul class="prop_details mb0">
@@ -207,11 +204,12 @@ Argo
 												<li class="list-inline-item"><a href="#">Baths: {{ $similarProperty->flat_baths }}</a></li>
 												<li class="list-inline-item"><a href="#">Sq Ft: {{ $similarProperty->size }}</a></li>
 											</ul>
+                      </a>
 										</div>
 										<div class="fp_footer">
 											<ul class="fp_meta float-left mb0">
-												<li class="list-inline-item"><a href="#"><img src="/uploads/{{ $similarProperty->user_avatar }}" alt="Owner Image"></a></li>
-												<li class="list-inline-item"><a href="#">{{ $similarProperty->user_name }}</a></li>
+												<li class="list-inline-item"><a href="{!! route('agenency_details', $similarProperty->user_id) !!}"><img src="/uploads/{{ DB::table('users')->where('id', $similarProperty->user_id)->value('avatar') }}" style="width:50px; border-radius: 50px" alt="Owner Image"></a></li>
+												<li class="list-inline-item"><a href="{!! route('agenency_details', $similarProperty->user_id) !!}">{{ $similarProperty->user_name }}</a></li>
 											</ul>
 											<div class="fp_pdate float-right">{{ Carbon\Carbon::parse($similarProperty->created_at)->diffForHumans() }}</div>
 										</div>
@@ -284,10 +282,10 @@ Argo
 													<li class="list-inline-item"><a href="#">For {{ $featuredProperty->type}}</a></li>
 													<li class="list-inline-item"><a href="#">Featured</a></li>
 												</ul>
-												<a class="fp_price" href="#">${{ $featuredProperty->price }} @if($featuredProperty->type == 'Rent')<small>/mo</small>@endif</a>
-												<h4 class="posr color-white">Renovated Apartment</h4>
+												<a class="fp_price" href="{!! route('properties_view', $featuredProperty->slug) !!}">${{ $featuredProperty->price }} @if($featuredProperty->type == 'Rent')<small>/mo</small>@endif</a>
+												<h4 class="posr color-white">{{ $featuredProperty->title }}</h4>
 											</div>
-										</div>
+                    </div>
 									</div>
 								</div>
 							@empty
@@ -298,12 +296,13 @@ Argo
 					<div class="terms_condition_widget">
 						<h4 class="title">Categories Property</h4>
 						<div class="widget_list">
+              @php
+                $categories = DB::table('realstatecategories')->get();
+              @endphp
 							<ul class="list_details">
-								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Apartment <span class="float-right">6 properties</span></a></li>
-								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Condo <span class="float-right">12 properties</span></a></li>
-								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Family House <span class="float-right">8 properties</span></a></li>
-								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Modern Villa <span class="float-right">26 properties</span></a></li>
-								<li><a href="#"><i class="fa fa-caret-right mr10"></i>Town House <span class="float-right">89 properties</span></a></li>
+                @foreach ($categories as $category)
+                <li><a href="#"><i class="fa fa-caret-right mr10"></i>{{ $category->name }} <span class="float-right">{{ DB::table('properties')->where('category', $category->name)->count() }} properties</span></a></li>
+                @endforeach
 							</ul>
 						</div>
 					</div>

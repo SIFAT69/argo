@@ -30,8 +30,10 @@ $is_featured_properties = DB::table('properties')->where('is_featured', 'yes')->
       <div class="media">
       <img class="align-self-start mr-3" src="../uploads/{{ $featured_properties->youtube_thumb }}" style="width: 90px; height: 80px" alt="fls1.jpg">
       <div class="media-body">
+        <a href="{!! route('properties_view', $featured_properties->slug) !!}">
           <h5 class="mt-0 post_title">{{ $featured_properties->title }}</h5>
-          <a href="#">${{ $featured_properties->price }}</a>
+        </a>
+          <a href="{!! route('properties_view', $featured_properties->slug) !!}">${{ $featured_properties->price }}</a>
           <ul class="mb0">
             <li class="list-inline-item">Beds: {{ $featured_properties->flat_beds }}</li>,
             <li class="list-inline-item">Baths: {{ $featured_properties->flat_baths }}</li>,

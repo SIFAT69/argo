@@ -244,8 +244,8 @@ Argo
 									</div>
 									<div class="fp_footer">
 										<ul class="fp_meta float-left mb0">
-											<li class="list-inline-item"><a href="#"><img src="../uploads/{{ DB::table('users')->where('id', $property->user_id)->value('avatar') }}" style="width: 40px; border-radius: 50px" alt="pposter1.png"></a></li>
-											<li class="list-inline-item"><a href="#">{{ DB::table('users')->where('id', $property->user_id)->value('name') }}</a></li>
+											<li class="list-inline-item"><a href="{!! route('agenency_details', $property->user_id) !!}"><img src="../uploads/{{ DB::table('users')->where('id', $property->user_id)->value('avatar') }}" style="width: 40px; border-radius: 50px" alt="pposter1.png"></a></li>
+											<li class="list-inline-item"><a href="{!! route('agenency_details', $property->user_id) !!}">{{ DB::table('users')->where('id', $property->user_id)->value('name') }}</a></li>
 										</ul>
                     @php
                       $section = DB::table('users')->where('id', $property->user_id)->value('created_at');
@@ -297,8 +297,8 @@ Argo
                 $('.f-feature').each(function(){
                     if(this.checked)
                         features.push($(this).attr('value'));
-                }) 
-                
+                })
+
                 // console.log(keyword);
                 // console.log(location);
                 // console.log(category);
@@ -333,7 +333,7 @@ Argo
                                                 </div>
                                             `;
                                         }
-										
+
                                         card += `
                                         </div>
 									<div class="thmb_cntnt style2">
@@ -342,11 +342,11 @@ Argo
 										</ul>
 									</div>
 									<div class="thmb_cntnt style3">
-                                        
-                                        
+
+
                                         `;
 
-									
+
                                         if(property.type == 'Rent')
                                             card += `<a class="fp_price" href="#">${property.price}<small>/mo</small></a>`;
                                         else
@@ -393,7 +393,7 @@ Argo
 						else
 						{
 							$('#card-section').html(cards);
-						}	
+						}
                     },
                 });
             });

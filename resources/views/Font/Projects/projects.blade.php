@@ -187,10 +187,6 @@ Argo
 										</ul>
 									</div>
 									<div class="thmb_cntnt style3">
-										<ul class="icon mb0">
-											<li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
-											<li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
-										</ul>
 										<a class="fp_price" href="#">${{ $project->max_price }}<small></small></a>
 									</div>
 								</div>
@@ -203,8 +199,8 @@ Argo
 									</div>
 									<div class="fp_footer">
 										<ul class="fp_meta float-left mb0">
-											<li class="list-inline-item"><a href="#"><img src="../uploads/{{ DB::table('users')->where('id', $project->user_id)->value('avatar') }}" style="width: 40px; border-radius: 50px" alt="pposter1.png"></a></li>
-											<li class="list-inline-item"><a href="#">{{ DB::table('users')->where('id', $project->user_id)->value('name') }}</a></li>
+											<li class="list-inline-item"><a href="{!! route('agenency_details', $project->user_id) !!}"><img src="../uploads/{{ DB::table('users')->where('id', $project->user_id)->value('avatar') }}" style="width: 40px; border-radius: 50px" alt="pposter1.png"></a></li>
+											<li class="list-inline-item"><a href="{!! route('agenency_details', $project->user_id) !!}">{{ DB::table('users')->where('id', $project->user_id)->value('name') }}</a></li>
 										</ul>
 										<div class="fp_pdate float-right">{{ \Carbon\Carbon::parse($project->created_at)->diffForHumans() }}</div>
 									</div>
@@ -253,7 +249,7 @@ Argo
                 $('.f-feature').each(function(){
                     if(this.checked)
                         features.push($(this).attr('value'));
-                }) 
+                })
 
                 $.ajax({
                     url: `{{ route('projects_filter') }}`,
@@ -278,7 +274,7 @@ Argo
                                                 </div>
                                             `;
                                         }
-										
+
                                         card += `
                                         </div>
 									<div class="thmb_cntnt style2">
@@ -287,8 +283,8 @@ Argo
 										</ul>
 									</div>
 									<div class="thmb_cntnt style3">
-                                        
-                                        
+
+
                                         `;
 
                                         card += `<a class="fp_price" href="#">${project.low_price} - ${project.max_price}</a>`;
@@ -320,7 +316,7 @@ Argo
 
                         cards += card;
                         }
-						
+
 						if(cards == "")
 						{
 							let msg = `

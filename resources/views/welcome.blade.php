@@ -208,10 +208,6 @@ Argo
                                             @endif
                                             <li class="list-inline-item"><a href="#">Featured</a></li>
                                         </ul>
-                                        <ul class="icon mb0">
-                                            <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
-                                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
-                                        </ul>
                                         @if($featuredProperty->type == 'Rent')
                                             <a class="fp_price" href="#">${{ $featuredProperty->price }}<small>/mo</small></a>
                                         @else
@@ -371,12 +367,12 @@ Argo
                         <div class="details">
                             <div class="tc_content">
                                 <p class="text-thm">{{ $blog->category }}</p>
-                                <h4>{{ $blog->title }}</h4>
+                                <a href="{!! route('blog_details', $blog->slug) !!}"> <h4>{{ $blog->title }}</h4> </a>
                             </div>
                             <div class="fp_footer">
                                 <ul class="fp_meta float-left mb0">
-                                    <li class="list-inline-item"><a href="#"><img src="{{ asset('/uploads/' . $blog->poster_avatar) }}" style="width:50px; border-radius:50px" alt="poster image"></a></li>
-                                    <li class="list-inline-item"><a href="#">{{ $blog->poster_name }}</a></li>
+                                    <li class="list-inline-item"><a href="{!! route('agenency_details', $blog->posted_by) !!}"><img src="{{ asset('/uploads/' . $blog->poster_avatar) }}" style="width:50px; border-radius:50px" alt="poster image"></a></li>
+                                    <li class="list-inline-item"><a href="{!! route('agenency_details', $blog->posted_by) !!}">{{ $blog->poster_name }}</a></li>
                                 </ul>
                                 <a class="fp_pdate float-right" href="#">{{ $blog->time }}</a>
                             </div>
