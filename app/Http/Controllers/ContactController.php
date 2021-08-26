@@ -52,4 +52,10 @@ class ContactController extends Controller
 
       return back()->with('success', 'You have updated contact status!');
     }
+
+    public function allConsult(Request $request)
+    {
+      $consults = DB::table('agenciesmessages')->where('to_id', Auth::id())->get();
+      return view('Dashboard.Consult.contsults',compact('consults'));
+    }
 }

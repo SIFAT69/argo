@@ -36,7 +36,9 @@ Route::get('/', [HomeController::class, 'show_home'])->name('welcome');
 
 Route::get('/dashboard', function () {
   if (Auth::user()->account_role == 'Admin') {
-    return view('dashboard');
+    $properties = DB::table('properties')->orderBy('id','DESC')->limit(7)->get();
+    $projects = DB::table('projects')->orderBy('id','DESC')->limit(7)->get();
+    return view('dashboard',compact('properties','projects'));
   }
   if(Auth::user()->account_role == "Agent") {
     return redirect('/agency-dashbord');
@@ -174,6 +176,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('all-contacts',[ContactController::class, 'allContact'])->name('allContact');
     Route::post('contacts-status',[ContactController::class, 'statusContact'])->name('statusContact');
     // Contact End
+
+    // Admin Consult Start
+    Route::get('consult-all',[ContactController::class, 'allConsult'])->name('allConsult');
+    // Admin Consult End
   });
 
   // Agent Route Start

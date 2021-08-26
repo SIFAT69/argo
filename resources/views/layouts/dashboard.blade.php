@@ -204,7 +204,7 @@
                         </ul>
                     </li>
                     <li class="menu">
-                      <a href="javascript:void(0);" aria-expanded="false" class="dropdown-toggle">
+                      <a href="{!! route('allConsult') !!}" aria-expanded="false" class="dropdown-toggle">
                         <div class="">
                           <span>Consults</span>
                         </div>
