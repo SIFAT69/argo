@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.Apps')
 @section('page_title')
   Checkout
 @endsection
@@ -50,6 +50,19 @@
         </div>
     </div>
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 @php
   $public_key = DB::table('gatewaysettings')->where('id', 1)->value('public_key');
 @endphp
