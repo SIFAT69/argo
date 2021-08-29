@@ -285,7 +285,7 @@ Argo
                         </div>
                     </div>
 =======
-                @endif                   
+                @endif
                         <a href="{{ route('properties_city_wise', $city->name) }}">
                             <div class="properti_city">
                                 <div class="thumb"><img class="img-fluid w100" src="{!! asset('FontAsset') !!}/images/property/pc{{ $loop->iteration}}.jpg" alt="city image"></div>
@@ -295,9 +295,9 @@ Argo
                                         <p>{{ $city->quantity }}</p>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         </a>
-                    </div>               
+                    </div>
 >>>>>>> 04e865d770185df1a9808d816a0aa03e67ab994d
             @endforeach
         </div>
@@ -358,7 +358,7 @@ Argo
                                         <img src="/uploads/{{ $testimonial->avatar }}" alt="commenter image">
                                     @else
                                         <img src="/uploads/avatar.png" alt="commenter image">
-                                    @endif                      
+                                    @endif
                                 </div>
                                 <div class="details">
                                     <h4>{{ $testimonial->user_name }}</h4>
@@ -396,23 +396,13 @@ Argo
                         <div class="details">
                             <div class="tc_content">
                                 <p class="text-thm">{{ $blog->category }}</p>
-<<<<<<< HEAD
                                 <a href="{!! route('blog_details', $blog->slug) !!}"> <h4>{{ $blog->title }}</h4> </a>
                             </div>
                             <div class="fp_footer">
                                 <ul class="fp_meta float-left mb0">
-                                    <li class="list-inline-item"><a href="{!! route('agenency_details', $blog->posted_by) !!}"><img src="{{ asset('/uploads/' . $blog->poster_avatar) }}" style="width:50px; border-radius:50px" alt="poster image"></a></li>
+                                    {{-- <li class="list-inline-item"><a href="{!! route('agenency_details', $blog->posted_by) !!}"><img src="{{ asset('/uploads/' . $blog->poster_avatar) }}" style="width:50px; border-radius:50px" alt="poster image"></a></li> --}}
                                     <li class="list-inline-item"><a href="{!! route('agenency_details', $blog->posted_by) !!}">{{ $blog->poster_name }}</a></li>
-=======
                                 <h4><a href="{{ route('blog_details', $blog->slug) }}">{{ $blog->title }}</a></h4>
-                            </div>
-                            <div class="fp_footer">
-                                <ul class="fp_meta float-left mb0">
-                                    <li class="list-inline-item"><a href="{{ route('agenency_details', $blog->posted_by) }}"><img src="{{ asset('/uploads/' . $blog->poster_avatar) }}" style="width:50px; border-radius:50px" alt="poster image"></a></li>
-                                    <li class="list-inline-item"><a href="{{ route('agenency_details', $blog->posted_by) }}">{{ $blog->poster_name }}</a></li>
->>>>>>> 04e865d770185df1a9808d816a0aa03e67ab994d
-                                </ul>
-                                <a class="fp_pdate float-right" href="#">{{ $blog->time }}</a>
                             </div>
                         </div>
                     </div>
