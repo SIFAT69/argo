@@ -218,12 +218,10 @@ Argo
                                 <div class="details">
                                     <div class="tc_content">
                                         <p class="text-thm">{{ $featuredProperty->categroy }}</p>
-<<<<<<< HEAD
+
                                         <a href="{!! route('properties_view',$featuredProperty->slug) !!}">
                                         <h4>{{ $featuredProperty->title }}</h4>
-=======
                                         <h4><a href="{{ route('properties_view', $featuredProperty->slug) }}">{{ $featuredProperty->title }}</a></h4>
->>>>>>> 04e865d770185df1a9808d816a0aa03e67ab994d
                                         <p><span class="flaticon-placeholder"></span> {{ $featuredProperty->city }}, {{ $featuredProperty->states }}, {{ $featuredProperty->location }}</p>
                                         <ul class="prop_details mb0">
                                             <li class="list-inline-item"><a href="#">Beds: {{ $featuredProperty->flat_beds }}</a></li>
@@ -234,13 +232,11 @@ Argo
                                     </div>
                                     <div class="fp_footer">
                                         <ul class="fp_meta float-left mb0">
-<<<<<<< HEAD
+
                                             <li class="list-inline-item"><a href="{!! route('agenency_details', $featuredProperty->user_id) !!}"><img src="../uploads/{{ $featuredProperty->user_avatar }}" alt="owner image" style="width: 40px; border-radius: 50px"></a></li>
                                             <li class="list-inline-item"><a href="{!! route('agenency_details', $featuredProperty->user_id) !!}">{{ $featuredProperty->user_name }}</a></li>
-=======
                                             <li class="list-inline-item"><a href="{{ route('agenency_details', $featuredProperty->user_id) }}"><img src="../uploads/{{ $featuredProperty->user_avatar }}" alt="owner image" style="width: 40px; border-radius: 50px"></a></li>
                                             <li class="list-inline-item"><a href="{{ route('agenency_details', $featuredProperty->user_id) }}">{{ $featuredProperty->user_name }}</a></li>
->>>>>>> 04e865d770185df1a9808d816a0aa03e67ab994d
                                         </ul>
                                         <div class="fp_pdate float-right">{{ $featuredProperty->time }}</div>
                                     </div>
@@ -272,7 +268,6 @@ Argo
                     <div class="col-lg-4 col-xl-4">
                 @else
                     <div class="col-lg-8 col-xl-8">
-<<<<<<< HEAD
                 @endif
                         <div class="properti_city">
                             <div class="thumb"><img class="img-fluid w100" src="{!! asset('FontAsset') !!}/images/property/pc{{ $loop->iteration}}.jpg" alt="city image"></div>
@@ -284,8 +279,6 @@ Argo
                             </div>
                         </div>
                     </div>
-=======
-                @endif
                         <a href="{{ route('properties_city_wise', $city->name) }}">
                             <div class="properti_city">
                                 <div class="thumb"><img class="img-fluid w100" src="{!! asset('FontAsset') !!}/images/property/pc{{ $loop->iteration}}.jpg" alt="city image"></div>
@@ -298,7 +291,6 @@ Argo
                             </div>
                         </a>
                     </div>
->>>>>>> 04e865d770185df1a9808d816a0aa03e67ab994d
             @endforeach
         </div>
     </div>
@@ -403,6 +395,13 @@ Argo
                                     {{-- <li class="list-inline-item"><a href="{!! route('agenency_details', $blog->posted_by) !!}"><img src="{{ asset('/uploads/' . $blog->poster_avatar) }}" style="width:50px; border-radius:50px" alt="poster image"></a></li> --}}
                                     <li class="list-inline-item"><a href="{!! route('agenency_details', $blog->posted_by) !!}">{{ $blog->poster_name }}</a></li>
                                 <h4><a href="{{ route('blog_details', $blog->slug) }}">{{ $blog->title }}</a></h4>
+                            </div>
+                            <div class="fp_footer">
+                                <ul class="fp_meta float-left mb0">
+                                    <li class="list-inline-item"><a href="{{ route('agenency_details', $blog->posted_by) }}"><img src="{{ asset('/uploads/' . $blog->poster_avatar) }}" style="width:50px; border-radius:50px" alt="poster image"></a></li>
+                                    <li class="list-inline-item"><a href="{{ route('agenency_details', $blog->posted_by) }}">{{ $blog->poster_name }}</a></li>
+                                </ul>
+                                <a class="fp_pdate float-right" href="#">{{ $blog->time }}</a>
                             </div>
                         </div>
                     </div>

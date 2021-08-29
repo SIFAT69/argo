@@ -41,6 +41,7 @@ Argo
 												</div>
 											</div>
 										</li>
+										{{--
 										<li>
 											<div class="small_dropdown2">
 											    <div id="prncgs" class="btn dd_btn">
@@ -59,6 +60,7 @@ Argo
 											  	</div>
 											</div>
 										</li>
+										--}}
 										<li>
 											<div class="search_option_two">
 												<div class="candidate_revew_select">
@@ -82,6 +84,26 @@ Argo
 													</select>
 												</div>
 											</div>
+										</li>
+										<li class="min_area style2 list-inline-item">
+										    <div class="form-group">
+										    	<input type="number" class="form-control pl-2" id="f-lowMinPrice" placeholder="Low Price(Min)">
+										    </div>
+										</li>
+										<li class="max_area list-inline-item">
+										    <div class="form-group">
+										    	<input type="number" class="form-control pl-2" id="f-lowMaxPrice" placeholder="Low Price(Max)">
+										    </div>
+										</li>
+										<li class="min_area style2 list-inline-item">
+										    <div class="form-group">
+										    	<input type="number" class="form-control pl-2" id="f-highMinPrice" placeholder="High Price(Min)">
+										    </div>
+										</li>
+										<li class="max_area list-inline-item">
+										    <div class="form-group">
+										    	<input type="number" class="form-control pl-2" id="f-highMaxPrice" placeholder="High Price(Max)">
+										    </div>
 										</li>
 										<li>
 										  	<div id="accordion" class="panel-group">
@@ -242,8 +264,10 @@ Argo
                 let category =  $('#f-category').val();
                 let blocks =  $('#f-blocks').val();
                 let floors =  $('#f-floors').val();
-                // let minArea =  $('#f-minArea').val();
-                // let maxArea =  $('#f-maxArea').val();
+                let lowMinPrice =  $('#f-lowMinPrice').val();
+                let lowMaxPrice =  $('#f-lowMaxPrice').val();
+                let highMinPrice =  $('#f-highMinPrice').val();
+                let highMaxPrice =  $('#f-highMaxPrice').val();
                 let features = [];
 
                 $('.f-feature').each(function(){
@@ -254,7 +278,7 @@ Argo
                 $.ajax({
                     url: `{{ route('projects_filter') }}`,
                     type: `GET`,
-                    data: {keyword: keyword, location: location, category: category, blocks: blocks, floors: floors, features: features},
+                    data: {keyword: keyword, location: location, category: category, blocks: blocks, floors: floors, lowMinPrice: lowMinPrice, lowMaxPrice: lowMaxPrice, highMinPrice: highMinPrice, highMaxPrice: highMaxPrice, features: features},
                     success: function(projects){
                         console.log(projects);
                         let cards = "";

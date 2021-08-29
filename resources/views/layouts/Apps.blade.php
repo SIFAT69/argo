@@ -388,7 +388,7 @@
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/jquery.counterup.js"></script>
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/wow.min.js"></script>
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/slider.js"></script>
-    <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/pricing-slider.js"></script>
+    <!-- <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/pricing-slider.js"></script> -->
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/timepicker.js"></script>
     <!-- Custom script for all pages -->
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/script.js"></script>
