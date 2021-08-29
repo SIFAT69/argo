@@ -299,6 +299,13 @@
                         </ul>
                     </li>
                     <li class="menu">
+                      <a href="{{ route('users.index') }}" aria-expanded="false" class="dropdown-toggle">
+                        <div class="">
+                          <span>Users</span>
+                        </div>
+                      </a>
+                    </li>
+                    <li class="menu">
                         <a href="#home-settings" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <span>Home Settings</span>

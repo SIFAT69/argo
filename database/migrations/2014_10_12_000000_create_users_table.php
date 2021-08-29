@@ -42,6 +42,7 @@ class CreateUsersTable extends Migration
             $table->string('vimeo')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

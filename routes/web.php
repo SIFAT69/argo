@@ -23,6 +23,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ChoiceController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -193,6 +194,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('partners', PartnerController::class)->except(['destroy', 'edit', 'update', 'show']);
     Route::get('partners/destroy/{id}',[PartnerController::class, 'destroy'])->name('partners.destroy');
 
+    Route::resource('users', UserController::class)->except(['edit', 'update', 'destroy']);
+    Route::get('users/destroy/{id}',[UserController::class, 'destroy'])->name('users.destroy');
   });
 
   // Agent Route Start

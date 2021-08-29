@@ -246,6 +246,23 @@ class PageController extends Controller
         $data[] = $request->floors;
       }
 
+      if($request->minPrice !== null && $request->maxPrice !== null)
+      {
+        $query .= "price between ? AND ? AND ";
+        $data[] = $request->minPrice;
+        $data[] = $request->maxPrice;
+      }
+      elseif($request->minPrice != null)
+      {
+        $query .= "price >= ? AND ";
+        $data[] = $request->minPrice;
+      }
+      elseif($request->maxPrice != null)
+      {
+        $query .= "price <= ? AND ";
+        $data[] = $request->maxPrice;
+      }
+
       if($request->minArea !== null && $request->maxArea !== null)
       {
         $query .= "size between ? AND ? AND ";
@@ -335,6 +352,40 @@ class PageController extends Controller
       {
         $query .= "flat_floors = ? AND ";
         $data[] = $request->floors;
+      }
+
+      if($request->lowMinPrice !== null && $request->lowMaxPrice !== null)
+      {
+        $query .= "low_price between ? AND ? AND ";
+        $data[] = $request->lowMinPrice;
+        $data[] = $request->lowMaxPrice;
+      }
+      elseif($request->lowMinPrice != null)
+      {
+        $query .= "price >= ? AND ";
+        $data[] = $request->lowMinPrice;
+      }
+      elseif($request->lowMaxPrice != null)
+      {
+        $query .= "price <= ? AND ";
+        $data[] = $request->lowMaxPrice;
+      }
+
+      if($request->highMinPrice !== null && $request->highMaxPrice !== null)
+      {
+        $query .= "max_price between ? AND ? AND ";
+        $data[] = $request->highMinPrice;
+        $data[] = $request->highMaxPrice;
+      }
+      elseif($request->highMinPrice != null)
+      {
+        $query .= "price >= ? AND ";
+        $data[] = $request->highMinPrice;
+      }
+      elseif($request->highMaxPrice != null)
+      {
+        $query .= "price <= ? AND ";
+        $data[] = $request->highMaxPrice;
       }
 
       if($request->features != [])

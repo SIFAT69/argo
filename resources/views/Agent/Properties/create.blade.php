@@ -135,7 +135,7 @@
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="validationCustom01">Price:</label>
-                                <input type="text" class="form-control" name="price" placeholder="Currency (USD)" value="">
+                                <input type="number" class="form-control" name="price" placeholder="Currency (USD)" value="">
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="validationCustom01">Size(M<sup>2</sup>):</label>

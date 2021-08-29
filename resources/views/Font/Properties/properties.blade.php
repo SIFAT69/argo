@@ -52,6 +52,7 @@ Argo
 												</div>
 											</div>
 										</li>
+										{{--
 										<li>
 											<div class="small_dropdown2">
 											    <div id="prncgs" class="btn dd_btn">
@@ -70,6 +71,7 @@ Argo
 											  	</div>
 											</div>
 										</li>
+										--}}
 										<li>
 											<div class="search_option_two">
 												<div class="candidate_revew_select">
@@ -105,6 +107,16 @@ Argo
 													</select>
 												</div>
 											</div>
+										</li>
+										<li class="min_area style2 list-inline-item">
+										    <div class="form-group">
+										    	<input type="number" class="form-control" id="f-minPrice" placeholder="Min Price">
+										    </div>
+										</li>
+										<li class="max_area list-inline-item">
+										    <div class="form-group">
+										    	<input type="number" class="form-control" id="f-maxPrice" placeholder="Max Price">
+										    </div>
 										</li>
 										<li class="min_area style2 list-inline-item">
 										    <div class="form-group">
@@ -292,28 +304,21 @@ Argo
                 let floors =  $('#f-floors').val();
                 let minArea =  $('#f-minArea').val();
                 let maxArea =  $('#f-maxArea').val();
+				let minPrice =  $('#f-minPrice').val();
+                let maxPrice =  $('#f-maxPrice').val();
                 let features = [];
 
+				console.log(minPrice);
+				console.log(maxPrice);
                 $('.f-feature').each(function(){
                     if(this.checked)
                         features.push($(this).attr('value'));
                 })
 
-                // console.log(keyword);
-                // console.log(location);
-                // console.log(category);
-                // console.log(type);
-                // console.log(beds);
-                // console.log(baths);
-                // console.log(floors);
-                // console.log(minArea);
-                // console.log(maxArea);
-                // console.log(features);
-
                 $.ajax({
                     url: `{{ route('properties_filter') }}`,
                     type: `GET`,
-                    data: {keyword: keyword, location: location, category: category, type: type, beds: beds, baths: baths, floors: floors, minArea: minArea, maxArea: maxArea, features: features},
+                    data: {keyword: keyword, location: location, category: category, type: type, beds: beds, baths: baths, floors: floors, minPrice: minPrice, maxPrice: maxPrice, minArea: minArea, maxArea: maxArea, features: features},
                     success: function(properties){
                         // console.log(properties);
                         let cards = "";
