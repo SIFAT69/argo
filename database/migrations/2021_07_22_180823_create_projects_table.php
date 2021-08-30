@@ -31,8 +31,8 @@ class CreateProjectsTable extends Migration
             $table->string('flat_blocks');
             $table->string('flat_floors');
             $table->string('flat_number');
-            $table->string('low_price');
-            $table->string('max_price');
+            $table->decimal('low_price', 12, 2);
+            $table->decimal('max_price', 12, 2);
             $table->json('facilities');
             $table->json('features');
             $table->json('distance');

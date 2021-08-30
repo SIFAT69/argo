@@ -34,7 +34,7 @@ class CreatePropertiesTable extends Migration
           $table->string('flat_baths');
           $table->string('flat_floors');
           $table->string('size');
-          $table->string('price');
+          $table->decimal('price', 12, 2);
           $table->json('facilities')->nullable();
           $table->json('features')->nullable();
           $table->json('distance')->nullable();

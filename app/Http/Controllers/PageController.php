@@ -198,101 +198,65 @@ class PageController extends Controller
 
     public function properties_filter(Request $request, $src_home = false)
     {
-      // dd($request->all());
-      $query = "SELECT * FROM properties WHERE ";
-      $data = [];
+      $data = DB::table('properties');
 
-      if($request->keyword !== null)
-      {
-        $query .= "title like ? AND ";
-        $data[] = "%{$request->keyword}%";
+      if($request->keyword !== null){
+        $data = $data->where('title', 'like', "%{$request->keyword}%");
       }
 
-      if($request->location !== null)
-      {
-        $query .= "(city = ? OR states = ? OR location = ?) AND ";
-        $data[] = $request->location;
-        $data[] = $request->location;
-        $data[] = $request->location;
+      if($request->location !== null){
+        $data = $data->where('city', $request->location)
+                      ->where('location', $request->location)
+                      ->where('states', $request->location);
       }
 
-      if($request->category !== null)
-      {
-        $query .= "category = ? AND ";
-        $data[] = $request->category;
+      if($request->category !== null){
+        $data = $data->where('category', $request->category);
       }
 
-      if($request->type !== null)
-      {
-        $query .= "type = ? AND ";
-        $data[] = $request->type;
+      if($request->type !== null){
+        $data = $data->where('type', $request->type);
       }
 
-      if($request->beds !== null)
-      {
-        $query .= "flat_beds = ? AND ";
-        $data[] = $request->beds;
+      if($request->beds !== null){
+        $data = $data->where('flat_beds', $request->beds);
       }
 
-      if($request->baths !== null)
-      {
-        $query .= "flat_baths = ? AND ";
-        $data[] = $request->baths;
+      if($request->baths !== null){
+        $data = $data->where('flat_baths', $request->baths);
       }
 
-      if($request->floors !== null)
-      {
-        $query .= "flat_floors = ? AND ";
-        $data[] = $request->floors;
+      if($request->floors !== null){
+        $data = $data->where('flat_floors', $request->floors);
       }
 
-      if($request->minPrice !== null && $request->maxPrice !== null)
-      {
-        $query .= "price between ? AND ? AND ";
-        $data[] = $request->minPrice;
-        $data[] = $request->maxPrice;
+      if($request->minPrice !== null && $request->maxPrice !== null){
+        $data = $data->whereBetween('price', [$request->minPrice, $request->maxPrice]);
       }
-      elseif($request->minPrice != null)
-      {
-        $query .= "price >= ? AND ";
-        $data[] = $request->minPrice;
+      elseif($request->minPrice != null){
+        $data = $data->where('price', '>=', $request->minPrice);
       }
-      elseif($request->maxPrice != null)
-      {
-        $query .= "price <= ? AND ";
-        $data[] = $request->maxPrice;
+      elseif($request->maxPrice != null){
+        $data = $data->where('price', '<=', $request->maxPrice);
       }
 
-      if($request->minArea !== null && $request->maxArea !== null)
-      {
-        $query .= "size between ? AND ? AND ";
-        $data[] = $request->minArea;
-        $data[] = $request->maxArea;
+      if($request->minArea !== null && $request->maxArea !== null){
+        $data = $data->whereBetween('size', [$request->minArea, $request->maxArea]);
       }
-      elseif($request->minArea != null)
-      {
-        $query .= "size >= ? AND ";
-        $data[] = $request->minArea;
+      elseif($request->minArea != null){
+        $data = $data->where('size', '>=', $request->minArea);
       }
-      elseif($request->maxArea != null)
-      {
-        $query .= "size <= ? AND ";
-        $data[] = $request->maxArea;
+      elseif($request->maxArea != null){
+        $data = $data->where('size', '<=', $request->maxArea);
       }
 
-      if($request->features != [])
-      {
-          foreach($request->features as $feature)
-          {
-            $query .= "features like ? AND ";
-            $data[] = "%{$feature}%";
+      if($request->features != []){
+          foreach($request->features as $feature){
+            $data = $data->where('features', 'like', "%{$feature}%");
           }
       }
 
-      $query = rtrim($query, "AND ");
-      $query = rtrim($query, "WHERE ");
-      // dd($data);
-      $properties = DB::select($query, $data);
+      $properties = $data->get()->toArray();
       foreach($properties as $property)
       {
         $images = json_decode($property->images, true);
@@ -318,89 +282,58 @@ class PageController extends Controller
 
     public function projects_filter(Request $request)
     {
-      // dd($request->all());
-      $query = "SELECT * FROM projects WHERE ";
-      $data = [];
+      $data = DB::table('projects');
 
-      if($request->keyword !== null)
-      {
-        $query .= "title like ? AND ";
-        $data[] = "%{$request->keyword}%";
+      if($request->keyword !== null){
+        $data = $data->where('title', 'like', "%{$request->keyword}%");
       }
 
-      if($request->location !== null)
-      {
-        $query .= "(city = ? OR state = ? OR location = ?) AND ";
-        $data[] = $request->location;
-        $data[] = $request->location;
-        $data[] = $request->location;
+      if($request->location !== null){
+        $data = $data->where('city', $request->location)
+                      ->where('state', $request->location)
+                      ->where('location', $request->location);
       }
 
-      if($request->category !== null)
-      {
-        $query .= "category = ? AND ";
-        $data[] = $request->category;
+      if($request->category !== null){
+        $data = $data->where('category', $request->category);
       }
 
-      if($request->blocks !== null)
-      {
-        $query .= "flat_blocks = ? AND ";
-        $data[] = $request->blocks;
+      if($request->blocks !== null){
+        $data = $data->where('flat_blocks', $request->blocks);
       }
 
-      if($request->floors !== null)
-      {
-        $query .= "flat_floors = ? AND ";
-        $data[] = $request->floors;
+      if($request->floors !== null){
+        $data = $data->where('flat_floors', $request->floors);
       }
 
-      if($request->lowMinPrice !== null && $request->lowMaxPrice !== null)
-      {
-        $query .= "low_price between ? AND ? AND ";
-        $data[] = $request->lowMinPrice;
-        $data[] = $request->lowMaxPrice;
+      if($request->lowMinPrice !== null && $request->lowMaxPrice !== null){
+        $data = $data->whereBetween('low_price', [$request->lowMinPrice, $request->lowMaxPrice]);
       }
-      elseif($request->lowMinPrice != null)
-      {
-        $query .= "price >= ? AND ";
-        $data[] = $request->lowMinPrice;
+      elseif($request->lowMinPrice != null){
+        $data = $data->where('low_price', '>=', $request->lowMinPrice);
       }
-      elseif($request->lowMaxPrice != null)
-      {
-        $query .= "price <= ? AND ";
-        $data[] = $request->lowMaxPrice;
+      elseif($request->lowMaxPrice != null){
+        $data = $data->where('low_price', '<=', $request->lowMaxPrice);
       }
 
-      if($request->highMinPrice !== null && $request->highMaxPrice !== null)
-      {
-        $query .= "max_price between ? AND ? AND ";
-        $data[] = $request->highMinPrice;
-        $data[] = $request->highMaxPrice;
+      if($request->highMinPrice !== null && $request->highMaxPrice !== null){
+        $data = $data->whereBetween('max_price', [$request->highMinPrice, $request->highMaxPrice]);
       }
-      elseif($request->highMinPrice != null)
-      {
-        $query .= "price >= ? AND ";
-        $data[] = $request->highMinPrice;
+      elseif($request->highMinPrice != null){
+        $data = $data->where('max_price', '>=', $request->highMinPrice);
       }
-      elseif($request->highMaxPrice != null)
-      {
-        $query .= "price <= ? AND ";
-        $data[] = $request->highMaxPrice;
+      elseif($request->highMaxPrice != null){
+        $data = $data->where('max_price', '<=', $request->highMaxPrice);
       }
 
-      if($request->features != [])
-      {
-          foreach($request->features as $feature)
-          {
-            $query .= "features like ? AND ";
-            $data[] = "%{$feature}%";
+      if($request->features != []){
+          foreach($request->features as $feature){
+            $data = $data->where('features', 'like', "%{$feature}%");
           }
       }
 
-      $query = rtrim($query, "AND ");
-      $query = rtrim($query, "WHERE ");
-      // dd($data);
-      $projects = DB::select($query, $data);
+      $projects = $data->get()->toArray();
+
       foreach($projects as $project)
       {
         $images = json_decode($project->images, true);
@@ -419,7 +352,6 @@ class PageController extends Controller
        }
 
         return response()->json($projects);
-      // dd($projects);
     }
 
     public function properties_search(Request $request)
