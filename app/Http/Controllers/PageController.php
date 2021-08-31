@@ -10,6 +10,7 @@ use Image;
 use App\Models\Project;
 use App\Models\Property;
 use App\Models\User;
+use App\Models\GeneralContact;
 
 class PageController extends Controller
 {
@@ -44,7 +45,7 @@ class PageController extends Controller
 
     public function properties_view(Request $request)
     {
-      $property = DB::table('properties')->where('slug', $request->slug)->first();
+      $property = Property::where('moderation_status', 'Approved')->where('status', 1)->where('slug', $request->slug)->firstOrFail();
 
       $check_views = DB::table('views')->where('post_id', $property->id)->where('post_table', 'properties')->first();
       if (!empty($check_views)) {
@@ -83,16 +84,16 @@ class PageController extends Controller
 
     public function projects_lists(Request $request)
     {
-      $projects  = DB::table('projects')->where('status', 1)->simplePaginate(8);
+      $projects  = DB::table('projects')->where('moderation_status', 'Approved')->where('status', 1)->simplePaginate(8);
 
       //filters data start
-      $categories = array_unique(Project::where('status', 1)->pluck('category')->toArray());
-      $blocks = array_unique(Project::where('status', 1)->orderBy('flat_blocks')->pluck('flat_blocks')->toArray());
-      $floors = array_unique(Project::where('status', 1)->orderBy('flat_floors')->pluck('flat_floors')->toArray());
-      $minPrice = Project::where('status', 1)->min('low_price');
-      $maxPrice = Project::where('status', 1)->max('max_price');
+      $categories = array_unique(Project::where('moderation_status', 'Approved')->where('status', 1)->pluck('category')->toArray());
+      $blocks = array_unique(Project::where('moderation_status', 'Approved')->where('status', 1)->orderBy('flat_blocks')->pluck('flat_blocks')->toArray());
+      $floors = array_unique(Project::where('moderation_status', 'Approved')->where('status', 1)->orderBy('flat_floors')->pluck('flat_floors')->toArray());
+      $minPrice = Project::where('moderation_status', 'Approved')->where('status', 1)->min('low_price');
+      $maxPrice = Project::where('moderation_status', 'Approved')->where('status', 1)->max('max_price');
 
-      $fes = Project::where('status', 1)->pluck('features');
+      $fes = Project::where('moderation_status', 'Approved')->where('status', 1)->pluck('features');
       $features = [];
       foreach($fes as $feature)
       {
@@ -123,7 +124,11 @@ class PageController extends Controller
 
     public function contact(Request $request)
     {
-      return view('Font.Contact.contact');
+      $gContact = GeneralContact::find(1);
+      if(!$gContact)
+       $gContact = new GeneralContact;
+
+      return view('Font.Contact.contact', ['gContact' => $gContact]);
     }
 
     public function blog_details(Request $request)
@@ -158,7 +163,7 @@ class PageController extends Controller
 
     public function projects_view($slug)
     {
-      $project  = Project::where('status', 1)->where('slug', $slug)->first();
+      $project  = Project::where('moderation_status', 'Approved')->where('status', 1)->where('slug', $slug)->firstOrFail();
 
       $check_views = DB::table('views')->where('post_id', $project->id)->where('post_table', 'projects')->first();
       if (!empty($check_views)) {
@@ -183,7 +188,7 @@ class PageController extends Controller
 
       $projectOwner = User::find($project->user_id);
 
-      $similarProjects = Project::where('status', 1)->where('slug', '<>', $slug)->inRandomOrder()->limit(4)->get();
+      $similarProjects = Project::where('moderation_status', 'Approved')->where('status', 1)->where('slug', '<>', $slug)->inRandomOrder()->limit(4)->get();
       foreach($similarProjects as $sp)
       {
           $user = User::findOrFail($sp->user_id);
@@ -198,7 +203,7 @@ class PageController extends Controller
 
     public function properties_filter(Request $request, $src_home = false)
     {
-      $data = DB::table('properties');
+      $data = DB::table('properties')->where('moderation_status', 'Approved')->where('status', 1);
 
       if($request->keyword !== null){
         $data = $data->where('title', 'like', "%{$request->keyword}%");
@@ -282,7 +287,7 @@ class PageController extends Controller
 
     public function projects_filter(Request $request)
     {
-      $data = DB::table('projects');
+      $data = DB::table('projects')->where('moderation_status', 'Approved')->where('status', 1);
 
       if($request->keyword !== null){
         $data = $data->where('title', 'like', "%{$request->keyword}%");

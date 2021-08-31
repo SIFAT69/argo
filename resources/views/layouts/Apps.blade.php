@@ -35,7 +35,7 @@
                 <nav>
                     <!-- Menu Toggle btn-->
                     <div class="menu-toggle">
-                        <img class="nav_logo_img img-fluid" src="{!! asset('FontAsset') !!}/images/header-logo.png" alt="header-logo.png" width="250px">
+                        <img class="nav_logo_img img-fluid" src="{{ asset('/uploads/header-logo.png') }}" alt="header-logo.png" width="250px">
                         <button type="button" id="menu-btn">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -43,8 +43,8 @@
                         </button>
                     </div>
                     <a href="{!! route('welcome') !!}" class="navbar_brand float-left dn-smd">
-                        <img class="logo1 img-fluid" src="{!! asset('FontAsset') !!}/images/header-logo.png" alt="header-logo.png" width="250px">
-                        <img class="logo2 img-fluid" src="{!! asset('FontAsset') !!}/images/header-logo2.png" alt="header-logo2.png" width="250px">
+                        <img class="logo1 img-fluid" src="{{ asset('/uploads/header-logo.png') }}" alt="header-logo.png" width="250px">
+                        <img class="logo2 img-fluid" src="{{ asset('/uploads/header-logo.png') }}" alt="header-logo.png" width="250px">
                     </a>
                     <!-- Responsive Menu Structure-->
                     <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->

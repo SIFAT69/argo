@@ -3,7 +3,7 @@
 Argo
 @endsection
 @section('page_name')
-  Blogs
+  Contact
 @endsection
 @section('content')
 
@@ -82,30 +82,30 @@ Argo
       <div class="col-lg-5 col-xl-4">
         <div class="contact_localtion">
           <h4>Contact Us</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida quis libero eleifend ornare. habitasse platea dictumst.</p>
+          <p>{{ $gContact->about }}</p>
           <div class="content_list">
             <h5>Address</h5>
-            <p>2301 Ravenswood Rd Madison, <br>WI 53711</p>
+            <p>{{ $gContact->address }}</p>
           </div>
           <div class="content_list">
             <h5>Phone</h5>
-            <p>(315) 905-2321</p>
+            <p>{{ $gContact->phone }}</p>
           </div>
           <div class="content_list">
             <h5>Mail</h5>
-            <p>info@findhouse.com</p>
+            <p>{{ $gContact->mail }}</p>
           </div>
           <div class="content_list">
             <h5>Skype</h5>
-            <p>findhouse.com</p>
+            <p>{{ $gContact->skype }}</p>
           </div>
           <h5>Follow Us</h5>
           <ul class="contact_form_social_area">
-            <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-            <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-            <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-            <li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
-            <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+            <li class="list-inline-item"><a href="{{ $gContact->facebook }}"><i class="fa fa-facebook"></i></a></li>
+            <li class="list-inline-item"><a href="{{ $gContact->twitter }}"><i class="fa fa-twitter"></i></a></li>
+            <li class="list-inline-item"><a href="{{ $gContact->instagram }}"><i class="fa fa-instagram"></i></a></li>
+            <li class="list-inline-item"><a href="{{ $gContact->googlePlus }}"><i class="fa fa-google"></i></a></li>
+            <li class="list-inline-item"><a href="{{ $gContact->pinterest }}"><i class="fa fa-pinterest"></i></a></li>
           </ul>
         </div>
       </div>

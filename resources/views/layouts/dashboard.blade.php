@@ -76,7 +76,7 @@
             <ul class="navbar-item theme-brand flex-row  text-center">
                 <li class="nav-item theme-logo">
                     <a href="{!! route('dashboard') !!}">
-                        <img src="{!! asset('FontAsset') !!}/images/header-logo.png" class="navbar-logo" width="50px" alt="logo">
+                        <img src="{{ asset('/uploads/header-logo.png') }}" class="navbar-logo" width="50px" alt="logo">
                     </a>
                 </li>
 
@@ -299,13 +299,6 @@
                         </ul>
                     </li>
                     <li class="menu">
-                      <a href="{{ route('users.index') }}" aria-expanded="false" class="dropdown-toggle">
-                        <div class="">
-                          <span>Users</span>
-                        </div>
-                      </a>
-                    </li>
-                    <li class="menu">
                         <a href="#home-settings" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <span>Home Settings</span>
@@ -329,7 +322,7 @@
                     <li class="menu">
                         <a href="#settings" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
-                                <span> Settings</span>
+                                <span>Settings</span>
                             </div>
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -337,10 +330,21 @@
                         </a>
                         <ul class="collapse submenu list-unstyled" id="settings" data-parent="#accordionExample">
                             <li>
-                                <a href="javascript:void(0);"> General </a>
+                                <a href="#settings-general" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> General <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
+                                <ul class="collapse list-unstyled sub-submenu" id="settings-general" data-parent="#settings"> 
+                                    <li>
+                                        <a href="{{ route('settings.logo.edit') }}"> Logo </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('settings.metaKeywords.edit') }}"> Meta Keyword </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('settings.generalContact.edit') }}"> Contact </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
-                                <a href="javascript:void(0);"> Email </a>
+                                <a href="{{ route('settings.emailConfig.edit') }}">Email</a>
                             </li>
                         </ul>
                     </li>
@@ -373,20 +377,13 @@
                         </a>
                         <ul class="collapse submenu list-unstyled" id="plat" data-parent="#accordionExample">
                             <li>
-                                <a href="javascript:void(0);"> Roles & Permission </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);"> Users </a>
+                                <a href="{{ route('users.index') }}"> Users </a>
                             </li>
                             <li>
                                 <a href="javascript:void(0);"> Cache Management </a>
                             </li>
                             <li>
                                 <a href="javascript:void(0);"> Activies Log </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0);"> Backup </a>
                             </li>
                         </ul>
                     </li>
@@ -457,6 +454,6 @@
     <script src="{!! asset('BackAsset') !!}/plugins/blockui/custom-blockui.js"></script>
     <script src="{!! asset('BackAsset') !!}/plugins/highlight/highlight.pack.js"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
-
+    @yield('script_in_body')
 </body>
 </html>

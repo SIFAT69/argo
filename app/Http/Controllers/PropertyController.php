@@ -17,6 +17,7 @@ class PropertyController extends Controller
       $properties = DB::table('properties')->where('user_id', Auth::id())->where('moderation_status', 'Approved')->orWhere('moderation_status', 'Pending')->get();
       return view('Dashboard.RealState.Properties.properties',compact('properties'));
     }
+    
     public function property_create(Request $request)
     {
       $cities = DB::table('cities')->get();
@@ -194,5 +195,11 @@ class PropertyController extends Controller
     {
       DB::table('properties')->where('id', $request->id)->delete();
       return back()->with('danger', 'Your property has been removed from collections!');
+    }
+
+    public function ModStatusChangeProperty(Request $request)
+    {
+      DB::table('properties')->where('id', $request->id)->update(['moderation_status' => $request->moderation_status]);
+      return 'Moderation Status is changed';
     }
 }

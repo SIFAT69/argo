@@ -34,7 +34,11 @@
                                       <td>{{ $property->title }}</td>
                                       <td>{{ $property->created_at}}</td>
                                       <td>
-                                        @if ($property->moderation_status == "Pending")<span class="badge bg-danger"> Pending </span>@endif @if ($property->moderation_status == "Approved")<span class="badge bg-success"> Approved </span>@endif
+                                        <select class="form-control mb-3 moderation-status" name="moderation_status" property-id="{{ $property->id }}">
+                                            <option value="Pending" @if($property->moderation_status == "Pending") selected @endif>Pending</option>
+                                            <option value="Approved" @if($property->moderation_status == "Approved") selected @endif>Approved</option>
+                                            <option value="Deny" @if($property->moderation_status == "Deny") selected @endif>Deny</option>
+                                        </select>
                                       </td>
                                       <td>
                                         <a href="{!! route('property_edit',$property->id) !!}" class="btn btn-outline-primary rounded bs-tooltip" data-placement="top" title="Edit"><img src="https://img.icons8.com/material-outlined/24/000000/edit--v4.png"/></a>
@@ -91,4 +95,25 @@
           </div>
       </div>
   </div>
+@endsection
+
+@section('script_in_body')
+<script>
+  $(document).ready(function(){
+    $('.moderation-status').change(function(){
+      let moderation_status = $(this).val();
+      let property_id = $(this).attr('property-id');
+      
+      $.ajax({
+        url: `{{ route('ModStatusChangeProperty') }}`,
+        type: 'GET',
+        data: {moderation_status: moderation_status, id: property_id},
+        success: function(msg){
+          // alert(msg);
+        },
+      });
+
+    });
+  });
+</script>
 @endsection

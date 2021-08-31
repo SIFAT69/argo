@@ -34,7 +34,11 @@
                                       <td>{{ $project->title }}</td>
                                       <td>{{ $project->created_at}}</td>
                                       <td>
-                                        @if ($project->status == 0)<span class="badge bg-danger"> Pending </span>@endif @if ($project->status == 1)<span class="badge bg-success"> Approved </span>@endif
+                                        <select class="form-control mb-3 moderation-status" name="moderation_status" project-id="{{ $project->id }}">
+                                            <option value="Pending" @if($project->moderation_status == "Pending") selected @endif>Pending</option>
+                                            <option value="Approved" @if($project->moderation_status == "Approved") selected @endif>Approved</option>
+                                            <option value="Deny" @if($project->moderation_status == "Deny") selected @endif>Deny</option>
+                                        </select>
                                       </td>
                                       <td>
                                         <a href="{!! route('createProjectEdit',$project->id) !!}" class="btn btn-outline-primary rounded bs-tooltip" data-placement="top" title="Edit"><img src="https://img.icons8.com/material-outlined/24/000000/edit--v4.png"/></a>
@@ -91,4 +95,25 @@
           </div>
       </div>
   </div>
+@endsection
+
+@section('script_in_body')
+<script>
+  $(document).ready(function(){
+    $('.moderation-status').change(function(){
+      let moderation_status = $(this).val();
+      let project = $(this).attr('project-id');
+      
+      $.ajax({
+        url: `{{ route('ModStatusChangeProject') }}`,
+        type: 'GET',
+        data: {moderation_status: moderation_status, id: project},
+        success: function(msg){
+          // alert(msg);
+        },
+      });
+
+    });
+  });
+</script>
 @endsection

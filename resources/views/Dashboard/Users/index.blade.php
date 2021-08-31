@@ -29,11 +29,13 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td><img src="{{ asset('/uploads/' . $user->avatar) }}" class="rounded" width="50px" alt="{{ $user->avatar }}"></td>
-                                    <td>{{ $user->name }}</td>
+                                    <td>
+                                      <a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a>
+                                    </td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->account_role }}</td>
                                     <td>
-                                      {{--<a href="{!! route('users.edit', $user->id) !!}" class="btn btn-outline-primary rounded bs-tooltip"><img src="https://img.icons8.com/material-outlined/24/000000/edit--v4.png"/></a>--}}
+                                      <a href="{!! route('users.edit', $user->id) !!}" class="btn btn-outline-primary rounded bs-tooltip"><img src="https://img.icons8.com/material-outlined/24/000000/edit--v4.png"/></a>
                                       <a href="{!! route('users.destroy', $user->id) !!}" class="btn btn-outline-danger rounded bs-tooltip" data-placement="top" title="@if($user->trashed()) Unlock @else Lock @endif">
                                             @if($user->trashed())
                                                 <img src="https://img.icons8.com/metro/24/000000/unlock-2.png"/>

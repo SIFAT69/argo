@@ -187,4 +187,10 @@ class ProjectController extends Controller
       DB::table('projects')->where('id', $request->id)->delete();
       return back()->with('danger', 'Your project has been removed from collections!');
     }
+
+    public function ModStatusChangeProject(Request $request)
+    {
+      DB::table('projects')->where('id', $request->id)->update(['moderation_status' => $request->moderation_status]);
+      return 'Moderation Status is changed';
+    }
 }

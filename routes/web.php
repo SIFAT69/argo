@@ -24,6 +24,7 @@ use App\Http\Controllers\ChoiceController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -139,6 +140,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/project-view-trash-lists', [ProjectController::class, 'TrashListProjects'])->name('TrashListProjects');
     Route::get('/project-view-restore-{id}', [ProjectController::class, 'restoreProject'])->name('restoreProject');
     Route::get('/project-hard-delete-{id}', [ProjectController::class, 'HardDeleteProject'])->name('HardDeleteProject');
+    Route::get('/project-mod-status-change', [ProjectController::class, 'ModStatusChangeProject'])->name('ModStatusChangeProject');
     // Projects End
 
     // Project Start
@@ -151,6 +153,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/properties-view-trash-lists', [PropertyController::class, 'TrashListProperties'])->name('TrashListProperties');
     Route::get('/properties-view-restore-{id}', [PropertyController::class, 'restoreProperties'])->name('restoreProperties');
     Route::get('/properties-hard-delete-{id}', [PropertyController::class, 'HardDeleteProperty'])->name('HardDeleteProperty');
+    Route::get('/properties-mod-status-change', [PropertyController::class, 'ModStatusChangeProperty'])->name('ModStatusChangeProperty');
     // Project END
 
 
@@ -194,8 +197,23 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('partners', PartnerController::class)->except(['destroy', 'edit', 'update', 'show']);
     Route::get('partners/destroy/{id}',[PartnerController::class, 'destroy'])->name('partners.destroy');
 
-    Route::resource('users', UserController::class)->except(['edit', 'update', 'destroy']);
+    Route::resource('users', UserController::class)->except(['destroy']);
     Route::get('users/destroy/{id}',[UserController::class, 'destroy'])->name('users.destroy');
+    Route::put('users/update-pass/{id}',[UserController::class, 'update_password'])->name('users.update.password');
+
+    //settings strat
+    Route::get('logo',[SettingController::class, 'logo_edit'])->name('settings.logo.edit');
+    Route::post('logo',[SettingController::class, 'logo_update'])->name('settings.logo.update');
+
+    Route::get('metaKeywords',[SettingController::class, 'metaKeywords_edit'])->name('settings.metaKeywords.edit');
+    Route::post('metaKeywords',[SettingController::class, 'metaKeywords_update'])->name('settings.metaKeywords.update');
+
+    Route::get('generalContact',[SettingController::class, 'generalContact_edit'])->name('settings.generalContact.edit');
+    Route::post('generalContact',[SettingController::class, 'generalContact_update'])->name('settings.generalContact.update');
+
+    Route::get('emailConfig',[SettingController::class, 'emailConfig_edit'])->name('settings.emailConfig.edit');
+    Route::post('emailConfig',[SettingController::class, 'emailConfig_update'])->name('settings.emailConfig.update');
+    //settings end
   });
 
   // Agent Route Start
