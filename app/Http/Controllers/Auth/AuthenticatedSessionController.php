@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Events\ActivityHappened;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -32,6 +33,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        ActivityHappened::dispatch(Auth::id(), 'User has loged in.');
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
@@ -43,8 +46,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
+        $id = Auth::guard('web')->id();
+
         Auth::guard('web')->logout();
 
+        ActivityHappened::dispatch($id, 'User has loged out.');
+        
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();

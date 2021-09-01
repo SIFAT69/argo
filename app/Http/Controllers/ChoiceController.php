@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Choice;
 use Image;
+use Illuminate\Support\Facades\Auth;
+use App\Events\ActivityHappened;
 
 class ChoiceController extends Controller
 {
@@ -54,6 +56,8 @@ class ChoiceController extends Controller
             'description' => $request->description,
             'icon' => $icon_rename,
         ]);
+
+        ActivityHappened::dispatch(Auth::id(), 'A new choice has been created.');
 
         return redirect()->route('choices.index')->with('success', 'Choice added successfully');
     }
@@ -114,6 +118,8 @@ class ChoiceController extends Controller
             'description' => $request->description,
         ]);
 
+        ActivityHappened::dispatch(Auth::id(), 'A choice has been updated.');
+
         return redirect()->route('choices.index')->with('success', 'Choice updated successfully');
     }
 
@@ -126,6 +132,9 @@ class ChoiceController extends Controller
     public function destroy($id)
     {
         Choice::destroy($id);
+
+        ActivityHappened::dispatch(Auth::id(), 'A choice has been deleted.');
+
         return redirect()->route('choices.index')->with('danger', 'Choice deleted successfully');
     }
 }

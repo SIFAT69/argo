@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Auth;
 use Carbon\Carbon;
 use Image;
+use App\Events\ActivityHappened;
 
 class BlogController extends Controller
 {
@@ -62,6 +63,8 @@ class BlogController extends Controller
         'updated_at' => Carbon::now(),
       ]);
 
+      ActivityHappened::dispatch(Auth::id(), 'A new blog has been created.');
+
       return redirect('/blog-lists')->with('success', 'You have created a blog successfully!');
     }
 
@@ -97,6 +100,7 @@ class BlogController extends Controller
         'updated_at' => Carbon::now(),
       ]);
 
+      ActivityHappened::dispatch(Auth::id(), 'A blog has been updated.');
 
       return back()->with('success', 'You have updated a blog successfully!');
     }
@@ -104,6 +108,8 @@ class BlogController extends Controller
     public function delete(Request $request)
     {
       DB::table('blogs')->where('id', $request->id)->delete();
+      ActivityHappened::dispatch(Auth::id(), 'A blog has been deleted.');
+
       return back()->with('danger', 'You have deleted a blog successfully!');
     }
     // functional Blogs End

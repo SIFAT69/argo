@@ -383,7 +383,7 @@
                                 <a href="javascript:void(0);"> Cache Management </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0);"> Activies Log </a>
+                                <a href="{{ route('activityLogs.index') }}"> Activies Log </a>
                             </li>
                         </ul>
                     </li>

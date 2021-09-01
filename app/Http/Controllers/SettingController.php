@@ -7,6 +7,9 @@ use Image;
 use App\Models\MetaKeyword;
 use App\Models\GeneralContact;
 use App\Models\EmailConfig;
+use Illuminate\Support\Facades\Auth;
+use App\Events\ActivityHappened;
+
 
 class SettingController extends Controller
 {
@@ -26,6 +29,8 @@ class SettingController extends Controller
                     $constraint->aspectRatio();
                 })
                 ->save('uploads/header-logo.png', 100);
+
+        ActivityHappened::dispatch(Auth::id(), 'The logo has been updated.');
 
         return back();
     }
@@ -49,6 +54,8 @@ class SettingController extends Controller
             ['id' => 1],
             ['data' => $request->metaKeywords]
         );
+
+        ActivityHappened::dispatch(Auth::id(), 'Meta keyword has been updated.');
         
         return back()->with('success', "Successfully updated");
     }
@@ -82,6 +89,8 @@ class SettingController extends Controller
             $data
         );
         
+        ActivityHappened::dispatch(Auth::id(), 'The general contact has been updated.');
+
         return back()->with('success', "Successfully updated");
     }
 
@@ -108,6 +117,8 @@ class SettingController extends Controller
             ['id' => 1],
             $data
         );
+
+        ActivityHappened::dispatch(Auth::id(), 'The email configuration has been updated.');
         
         return back()->with('success', "Successfully updated");
     }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Partner;
 use Image;
+use Illuminate\Support\Facades\Auth;
+use App\Events\ActivityHappened;
 
 class PartnerController extends Controller
 {
@@ -45,12 +47,17 @@ class PartnerController extends Controller
             'image' => $image_rename,
         ]);
 
+        ActivityHappened::dispatch(Auth::id(), 'A new partner has been created.');
+
         return redirect()->route('partners.index')->with('success', 'Partner added successfully');
     }
 
     public function destroy($id)
     {
         Partner::destroy($id);
+
+        ActivityHappened::dispatch(Auth::id(), 'A partner has been deleted.');
+
         return redirect()->route('partners.index')->with('danger', 'Partner deleted successfully');
     }
 }

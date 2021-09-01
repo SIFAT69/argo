@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Image;
+use App\Events\ActivityHappened;
 
 class UserController extends Controller
 {
@@ -108,6 +109,8 @@ class UserController extends Controller
         }
 
 		User::where('id', $id)->update($data);
+        ActivityHappened::dispatch(Auth::id(), 'An user profile information has been updated.');
+
 		return redirect()->route('users.index')->with('success', "Profile Information is Updated");
     }
 
@@ -120,6 +123,7 @@ class UserController extends Controller
 		User::where('id', $id)->update([
 			'password' => Hash::make($request->newPassword)
 		]);
+        ActivityHappened::dispatch(Auth::id(), 'Password of an user has been updated.');
 
 		return redirect()->route('users.index')->with('success', "Password is changed");
     }
@@ -130,11 +134,15 @@ class UserController extends Controller
         if($user->deleted_at == null)
         {  
             $user->delete();
+            ActivityHappened::dispatch(Auth::id(), 'An user has been locked.');
+
             return back()->with('danger', 'User is locked!');
         }
         else
         {
             $user->restore();
+            ActivityHappened::dispatch(Auth::id(), 'An user has been unlocked.');
+
             return back()->with('success', 'User is unlocked!');
         }
     }

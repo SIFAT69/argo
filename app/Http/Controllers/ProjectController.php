@@ -8,6 +8,7 @@ use Auth;
 use Carbon\Carbon;
 use Image;
 use Illuminate\Support\Str;
+use App\Events\ActivityHappened;
 
 class ProjectController extends Controller
 {
@@ -83,6 +84,7 @@ class ProjectController extends Controller
         $slug = Str::slug($request->title);
 
         DB::table('projects')->insert([
+          'code' => 'PROJ_' . date('YmdHisv'),
           'user_id' => Auth::id(),
           'status' => 0,
           'title' => $request->title,
@@ -108,6 +110,8 @@ class ProjectController extends Controller
           'youtube_link' => $request->youtube_link,
           'created_at' => Carbon::now(),
         ]);
+
+        ActivityHappened::dispatch(Auth::id(), 'A project has been created.');
 
         return back()->with('success', 'Your project has been created. Wating for verify!');
     }
@@ -163,6 +167,8 @@ class ProjectController extends Controller
         'created_at' => Carbon::now(),
       ]);
 
+      ActivityHappened::dispatch(Auth::id(), 'A project has been updated.');
+
       return redirect('/project-list')->with('success', 'Your project has been updated. Wating for verify!');
     }
 
@@ -172,19 +178,30 @@ class ProjectController extends Controller
         'status' => 2,
         'updated_at' => Carbon::now(),
       ]);
+
+      ActivityHappened::dispatch(Auth::id(), 'A project has been deleted temporarily.');
+
       return redirect('/project-list')->with('danger', 'Your have deleted a project. You can still restore them from trash!');
     }
+
     public function restoreProject(Request $request)
     {
       DB::table('projects')->where('id', $request->id)->update([
         'status' => 0,
         'updated_at' => Carbon::now(),
       ]);
+
+      ActivityHappened::dispatch(Auth::id(), 'A project has been resored.');
+
       return redirect('/project-view-trash-lists')->with('success', 'Your have restore a project.');
     }
+
     public function HardDeleteProject(Request $request)
     {
       DB::table('projects')->where('id', $request->id)->delete();
+
+      ActivityHappened::dispatch(Auth::id(), 'A project has been deleted permanently.');
+
       return back()->with('danger', 'Your project has been removed from collections!');
     }
 
@@ -192,5 +209,8 @@ class ProjectController extends Controller
     {
       DB::table('projects')->where('id', $request->id)->update(['moderation_status' => $request->moderation_status]);
       return 'Moderation Status is changed';
+
+      ActivityHappened::dispatch(Auth::id(), 'Moderation status of a project has been changed.');
+
     }
 }

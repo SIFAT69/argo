@@ -8,6 +8,7 @@ use Auth;
 use Carbon\Carbon;
 use Image;
 use Illuminate\Support\Str;
+use App\Events\ActivityHappened;
 
 
 class PropertyController extends Controller
@@ -66,6 +67,7 @@ class PropertyController extends Controller
       $slug = Str::slug($request->title);
 
       DB::table('properties')->insert([
+        'code' => 'PROP_' . date('YmdHisv'),
         'user_id' => Auth::id(),
         'status' => 0,
         'title' => $request->title,
@@ -93,6 +95,9 @@ class PropertyController extends Controller
         'is_featured' => 'No',
         'created_at' => Carbon::now(),
       ]);
+
+      ActivityHappened::dispatch(Auth::id(), 'A new property has been created.');
+
       if (Auth::user()->account_role == "Agent") {
         return back()->with('success', 'Your property has been created. Wating for verify!');
       }else {
@@ -163,6 +168,8 @@ class PropertyController extends Controller
         'created_at' => Carbon::now(),
       ]);
 
+      ActivityHappened::dispatch(Auth::id(), 'A property has been updated.');
+
       return back()->with('success', 'Your property has been updated. Wating for verify!');
     }
 
@@ -172,6 +179,9 @@ class PropertyController extends Controller
         'moderation_status' => "Soft_Delete",
         'updated_at' => Carbon::now(),
       ]);
+
+      ActivityHappened::dispatch(Auth::id(), 'A property has been deleted temporarily.');
+
       return redirect('/properties-lists')->with('danger', 'Your have deleted a properties. You can still restore them from trash!');
     }
 
@@ -187,6 +197,9 @@ class PropertyController extends Controller
         'moderation_status' => "Pending",
         'updated_at' => Carbon::now(),
       ]);
+
+      ActivityHappened::dispatch(Auth::id(), 'A property has been resored.');
+
       return redirect('/properties-view-trash-lists')->with('success', 'Your have restore a Property.');
     }
 
@@ -194,12 +207,18 @@ class PropertyController extends Controller
     public function HardDeleteProperty(Request $request)
     {
       DB::table('properties')->where('id', $request->id)->delete();
+
+      ActivityHappened::dispatch(Auth::id(), 'A property has been deleted permanently.');
+
       return back()->with('danger', 'Your property has been removed from collections!');
     }
 
     public function ModStatusChangeProperty(Request $request)
     {
       DB::table('properties')->where('id', $request->id)->update(['moderation_status' => $request->moderation_status]);
+      
+      ActivityHappened::dispatch(Auth::id(), 'Moderation status of a property has been changed.');
+            
       return 'Moderation Status is changed';
     }
 }

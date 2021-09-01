@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Testimonial;
 use Image;
+use App\Events\ActivityHappened;
 
 class TestimonialController extends Controller
 {
@@ -69,6 +71,8 @@ class TestimonialController extends Controller
             ]);
         }
         
+        ActivityHappened::dispatch(Auth::id(), 'A new testimonial has been created.');
+
         return redirect()->route('testimonials.index')->with('success', 'Testimonial added successfully');
     }
 
@@ -136,6 +140,8 @@ class TestimonialController extends Controller
             ]);
         }
 
+        ActivityHappened::dispatch(Auth::id(), 'A testimonial has been updated.');
+
         return redirect()->route('testimonials.index')->with('success', 'Testimonial updated successfully');
     }
 
@@ -148,6 +154,8 @@ class TestimonialController extends Controller
     public function destroy($id)
     {
         Testimonial::destroy($id);
+        ActivityHappened::dispatch(Auth::id(), 'A testimonial has been deleted.');
+
         return redirect()->route('testimonials.index')->with('danger', 'Testimonial deleted successfully');
     }
 }

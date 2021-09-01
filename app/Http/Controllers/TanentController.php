@@ -6,14 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Property;
+use App\Models\Payment;
 use App\Models\User;
 use App\Models\Agenciesmessage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Events\ActivityHappened;
+use App\Mail\TenantCreated;
+use Illuminate\Support\Facades\Mail;
 
-class AgentController extends Controller
+class TanentController extends Controller
 {
     public function AgentDashboard()
     {
@@ -25,10 +28,10 @@ class AgentController extends Controller
       return view('Agent.Dashboard.dashboard', compact('count_of_properties','totalView'));
     }
 
-	public function agentProfile()
+	public function tanentProfile()
 	{
 		$user = Auth::user();
-		return view('Agent.Profile.profile', compact('user'));
+		return view('Tanent.Profile.profile', compact('user'));
 	}
 
 	public function updateProfileInformation(Request $request, $id)
@@ -49,20 +52,20 @@ class AgentController extends Controller
 			// 'avatar' => 'bail|sometimes|image|mimes:jpeg,jpg,png|dimensions:ratio=1/1',
 		]);
 
-    if (!empty($request->avatar)) {
-      $randomNumber =rand();
-      $profile_picture = $request->file('avatar');
-      $profile_picture_rename = $randomNumber.'.'.$profile_picture->getClientOriginalExtension();
-      $newLocation = 'uploads/'.$profile_picture_rename;
-      Image::make($profile_picture)->resize(100, 100)->save($newLocation,100);
+        if (!empty($request->avatar)) {
+        $randomNumber =rand();
+        $profile_picture = $request->file('avatar');
+        $profile_picture_rename = $randomNumber.'.'.$profile_picture->getClientOriginalExtension();
+        $newLocation = 'uploads/'.$profile_picture_rename;
+        Image::make($profile_picture)->resize(100, 100)->save($newLocation,100);
 
-      DB::table('users')->where('id', Auth::id())->update([
-        'avatar' => $profile_picture_rename,
-      ]);
-     }
+        DB::table('users')->where('id', Auth::id())->update([
+            'avatar' => $profile_picture_rename,
+        ]);
+        }
 
-		User::where('id', Auth::id())->update($data);
-    ActivityHappened::dispatch(Auth::id(), 'User profile information has been updated.');
+            User::where('id', Auth::id())->update($data);
+        ActivityHappened::dispatch(Auth::id(), 'User profile information has been updated.');
 
 		return back()->with('success', "Profile Information is Updated");
 	}
@@ -84,7 +87,7 @@ class AgentController extends Controller
 		]);
 
 		User::where('id', $id)->update($data);
-    ActivityHappened::dispatch(Auth::id(), 'User profile information has been updated.');
+        ActivityHappened::dispatch(Auth::id(), 'User profile information has been updated.');
 
 		return back()->with('success', "Social Media is Updated");
 	}
@@ -99,7 +102,7 @@ class AgentController extends Controller
 		User::where('id', $id)->update([
 			'password' => Hash::make($request->newPassword)
 		]);
-    ActivityHappened::dispatch(Auth::id(), 'Password has been updated.');
+        ActivityHappened::dispatch(Auth::id(), 'Password has been updated.');
 
 		return back()->with('success', "Password is Updated");
 	}
@@ -110,10 +113,10 @@ class AgentController extends Controller
     return view('Agent.Packages.package',compact('packages'));
   }
 
-  public function MyProperties()
+  public function properties_index()
   {
-    $properties = DB::table('properties')->where('user_id', Auth::id())->get();
-    return view('Agent.Properties.properties',compact('properties'));
+    $properties = DB::table('properties')->where('moderation_status', 'Approved')->where('status', 1)->get();
+    return view('Tanent.Properties.properties',compact('properties'));
   }
 
   public function MyPropertiesCreate()
@@ -139,10 +142,10 @@ class AgentController extends Controller
     return view('Agent.Properties.edit',compact('cities', 'states', 'countries', 'realstatefacilities','realstatefeatures','categories','project'));
   }
 
-  public function MyProject(Request $request)
+  public function projects_index()
   {
-    $projects = DB::table('projects')->where('user_id', Auth::id())->get();
-    return view('Agent.Project.projects',compact('projects'));
+    $projects = DB::table('projects')->where('moderation_status', 'Approved')->where('status', 1)->get();
+    return view('Tanent.Project.projects', compact('projects'));
   }
 
   public function MyProjectCreate(Request $request)
@@ -168,12 +171,6 @@ class AgentController extends Controller
     return view('Agent.Project.edit',compact('cities', 'states', 'countries', 'realstatefacilities','realstatefeatures','categories','project'));
   }
 
-  public function MyInbox(Request $request)
-  {
-    $contacts = DB::table('agenciesmessages')->where('to_id', Auth::id())->get();
-    return view('Agent.Contact.contact',compact('contacts'));
-  }
-
   public function MessageStatus(Request $request)
   {
     $check_status = $request->status;
@@ -191,6 +188,35 @@ class AgentController extends Controller
       DB::table('agenciesmessages')->where('id', $request->id)->delete();
     }
     return back()->with('success', 'Your request has been successfully executed!');
+  }
+
+  public function tanents_create($email)
+  {
+    $exist = User::withTrashed()->where('email', $email)->exists();
+    if($exist)
+        return redirect()->route('MyInbox')->with('danger', 'The user is already regitered');
+    else
+        return view('Agent.Tenant.create', ['email' => $email]);
+  }
+
+  public function tanents_store(Request $request)
+  {
+    $data =	$request->validate([
+        'email' => "bail|required|email|max:255|unique:App\Models\User,email",
+        'password' => 'bail|required|string|min:8|max:255'
+    ]);
+    return new TenantCreated($request->email, $request->password);
+    User::create([
+        'name' => 'Your name',
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'account_role' => 'Tenant',
+    ]);
+    ActivityHappened::dispatch(Auth::id(), 'A new user has been created');
+    // TenantCreated::dispatch($request->email, $request->password);
+    Mail::to($request->email)->send(new TenantCreated($request->email, $request->password));
+
+    return redirect()->route('MyInbox')->with('success', 'User account is created successfully');
   }
 
 }

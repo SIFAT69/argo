@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
+use App\Events\ActivityHappened;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -53,9 +54,9 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
+        ActivityHappened::dispatch($user->id, 'A new user has been registered.');
 
         Auth::login($user);
-
         return redirect(RouteServiceProvider::HOME);
     }
 }

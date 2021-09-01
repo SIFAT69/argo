@@ -25,36 +25,30 @@ use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\TanentController;
+use App\Events\ActivityHappened;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 
 Route::get('/', [HomeController::class, 'show_home'])->name('welcome');
 
 Route::get('/dashboard', function () {
-  if (Auth::user()->account_role == 'Admin') {
-    $properties = DB::table('properties')->orderBy('id','DESC')->limit(7)->get();
-    $projects = DB::table('projects')->orderBy('id','DESC')->limit(7)->get();
-    return view('dashboard',compact('properties','projects'));
-  }
-  if(Auth::user()->account_role == "Agent") {
-    return redirect('/agency-dashbord');
-  }
-  if (Auth::user()->account_role == "Tenant") {
-    return redirect('/');
-  }
+    if (Auth::user()->account_role == 'Admin') {
+        $properties = DB::table('properties')->orderBy('id','DESC')->limit(7)->get();
+        $projects = DB::table('projects')->orderBy('id','DESC')->limit(7)->get();
+        return view('dashboard',compact('properties','projects'));
+    }
+    if(Auth::user()->account_role == "Agent") {
+        return redirect('/agency-dashbord');
+    }
+    if (Auth::user()->account_role == "Tenant") {
+        return redirect('/tanents/properties');
+    }
 })->middleware(['auth'])->name('dashboard');
 
 Route::group(['middleware' => 'auth'], function () {
-   // Blogs
+    // Blogs
     Route::get('/blog-lists', [BlogController::class, 'blogList'])->name('blogList');
     Route::get('/blog-create-new', [BlogController::class, 'createNewBlog'])->name('createNewBlog');
     Route::post('/blog-create-post', [BlogController::class, 'store'])->name('createNewBlogStore');
@@ -198,8 +192,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('partners/destroy/{id}',[PartnerController::class, 'destroy'])->name('partners.destroy');
 
     Route::resource('users', UserController::class)->except(['destroy']);
-    Route::get('users/destroy/{id}',[UserController::class, 'destroy'])->name('users.destroy');
-    Route::put('users/update-pass/{id}',[UserController::class, 'update_password'])->name('users.update.password');
+    Route::get('users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::put('users/update-pass/{id}', [UserController::class, 'update_password'])->name('users.update.password');
 
     //settings strat
     Route::get('logo',[SettingController::class, 'logo_edit'])->name('settings.logo.edit');
@@ -214,7 +208,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('emailConfig',[SettingController::class, 'emailConfig_edit'])->name('settings.emailConfig.edit');
     Route::post('emailConfig',[SettingController::class, 'emailConfig_update'])->name('settings.emailConfig.update');
     //settings end
-  });
+
+    Route::get('activityLogs',[ActivityLogController::class, 'index'])->name('activityLogs.index');
+
+});
 
   // Agent Route Start
 Route::group(['middleware' => 'auth'], function () {
@@ -237,11 +234,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/agencies/inbox', [AgentController::class, 'MyInbox'])->name('MyInbox');
     Route::post('/agencies/status/save', [AgentController::class, 'MessageStatus'])->name('MessageStatus');
 
-  });
+    Route::get('tanents/create/{email}', [TanentController::class, 'tanents_create'])->name('tanents.create');
+    Route::post('tanents/store', [TanentController::class, 'tanents_store'])->name('tanents.store');
+
+});
 
 Route::get('/logout', function () {
-  Auth::logout();
-  return redirect('/login');
+    $id = Auth::id();
+    Auth::logout();
+    ActivityHappened::dispatch($id, 'User has loged out.');
+    return redirect('/login');
 })->name('logout');
 
 // FontPages Start
@@ -268,7 +270,28 @@ Route::get('properties-city/{city}/', [PageController::class, 'properties_city_w
 
 
 
+// Agent Route Start
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/tanent-dashbord',[TanentController::class, 'TanentDashboard'])->name('TanentDashboard');
 
+    // //Profile Start
+    Route::get('/tanent-settings-profile', [TanentController::class, 'tanentProfile'])->name('tanent.profile');
+    Route::put('/tanent-profile-information/{userId}', [TanentController::class, 'updateProfileInformation'])->name('update.tanent.profile.information');
+    Route::put('/tanent-profile-socialMedia/{userId}', [TanentController::class, 'updateProfileSocialMedia'])->name('update.tanent.profile.socialMedia');
+    Route::put('/tanent-profile-password/{userId}', [TanentController::class, 'updateProfilePassword'])->name('update.tanent.profile.password');
+    // //Profile End
+
+    // Route::get('/my-package-history', [AgentController::class, 'packageHistory'])->name('packageHistory');
+    Route::get('/tanents/properties', [TanentController::class, 'properties_index'])->name('tanents.properties.index');
+    Route::get('/tanents/projects', [TanentController::class, 'projects_index'])->name('tanents.projects.index');
+
+    // Route::get('/tanents/payments', [TanentController::class, 'payments_index'])->name('tanents.payments.index');
+
+
+    // Route::get('/tanents/messages', [TanentController::class, 'MyInbox'])->name('tanent.messages.index');
+    // Route::post('/agencies/status/save', [AgentController::class, 'MessageStatus'])->name('MessageStatus');
+
+});
 
 
 

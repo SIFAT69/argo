@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Auth;
 use Carbon\Carbon;
+use App\Events\ActivityHappened;
 
 class SubscriptionController extends Controller
 {
@@ -84,6 +85,7 @@ class SubscriptionController extends Controller
         }
 
         Plan::create($data);
+        ActivityHappened::dispatch(Auth::id(), 'A new subscription has been created.');
 
         return redirect('/plans')->with('success', 'New subscription package has been created!');
     }

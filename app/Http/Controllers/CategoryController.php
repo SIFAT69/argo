@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Auth;
 use Carbon\Carbon;
 use Image;
+use App\Events\ActivityHappened;
 
 class CategoryController extends Controller
 {
@@ -27,6 +28,9 @@ class CategoryController extends Controller
         'created_at' => Carbon::now(),
         'updated_at' => Carbon::now(),
       ]);
+
+      ActivityHappened::dispatch(Auth::id(), 'A new category has been created.');
+
       return back()->with('success', 'You have created a category successfully.');
     }
 
@@ -37,12 +41,17 @@ class CategoryController extends Controller
         'status' => $request->status,
         'updated_at' => Carbon::now(),
       ]);
+
+      ActivityHappened::dispatch(Auth::id(), 'A category has been updated.');
+
       return back()->with('success', 'You have updated a category successfully.');
     }
 
     public function delete(Request $request)
     {
       DB::table('categories')->where('id', $request->id)->delete();
+      ActivityHappened::dispatch(Auth::id(), 'A category has been deleted.');
+
       return back()->with('danger', 'You just deleted a category!');
     }
     //Funtional Functions
