@@ -13,6 +13,8 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Events\ActivityHappened;
+use App\Models\ActivityLog;
+
 
 class AgentController extends Controller
 {
@@ -20,10 +22,11 @@ class AgentController extends Controller
     {
 
       $count_of_properties = Property::where('user_id', Auth::id())->count();
-       $totalViewsProject = DB::table('views')->where('to_id', Auth::id())->where('post_table', 'projects')->sum('view_count');
-       $totalViewsProperties = DB::table('views')->where('to_id', Auth::id())->where('post_table', 'properties')->sum('view_count');
-       $totalView = $totalViewsProject + $totalViewsProperties;
-      return view('Agent.Dashboard.dashboard', compact('count_of_properties','totalView'));
+      $totalViewsProject = DB::table('views')->where('to_id', Auth::id())->where('post_table', 'projects')->sum('view_count');
+      $totalViewsProperties = DB::table('views')->where('to_id', Auth::id())->where('post_table', 'properties')->sum('view_count');
+      $totalView = $totalViewsProject + $totalViewsProperties;
+      $logs = ActivityLog::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(5)->get();
+      return view('Agent.Dashboard.dashboard', compact('count_of_properties','totalView', 'logs'));
     }
 
 	public function agentProfile()
