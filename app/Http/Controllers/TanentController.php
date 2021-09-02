@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Property;
+use App\Models\Project;
+use App\Models\ActivityLog;
 use App\Models\Payment;
 use App\Models\User;
 use App\Models\Agenciesmessage;
@@ -18,14 +20,12 @@ use Illuminate\Support\Facades\Mail;
 
 class TanentController extends Controller
 {
-    public function AgentDashboard()
+    public function TanentDashboard()
     {
-
-      $count_of_properties = Property::where('user_id', Auth::id())->count();
-       $totalViewsProject = DB::table('views')->where('to_id', Auth::id())->where('post_table', 'projects')->sum('view_count');
-       $totalViewsProperties = DB::table('views')->where('to_id', Auth::id())->where('post_table', 'properties')->sum('view_count');
-       $totalView = $totalViewsProject + $totalViewsProperties;
-      return view('Agent.Dashboard.dashboard', compact('count_of_properties','totalView'));
+      $count_of_properties = Property::where('assigned_to', Auth::id())->count();
+      $count_of_projects = Project::where('assigned_to', Auth::id())->count();
+      $logs = ActivityLog::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(5)->get();
+      return view('Tanent.Dashboard.dashboard', compact('count_of_properties', 'count_of_projects', 'logs'));
     }
 
 	public function tanentProfile()
@@ -115,7 +115,7 @@ class TanentController extends Controller
 
   public function properties_index()
   {
-    $properties = DB::table('properties')->where('moderation_status', 'Approved')->where('status', 1)->get();
+    $properties = DB::table('properties')->where('assigned_to', Auth::id())->get();
     return view('Tanent.Properties.properties',compact('properties'));
   }
 
@@ -144,7 +144,7 @@ class TanentController extends Controller
 
   public function projects_index()
   {
-    $projects = DB::table('projects')->where('moderation_status', 'Approved')->where('status', 1)->get();
+    $projects = DB::table('projects')->where('assigned_to', Auth::id())->get();
     return view('Tanent.Project.projects', compact('projects'));
   }
 
@@ -190,30 +190,31 @@ class TanentController extends Controller
     return back()->with('success', 'Your request has been successfully executed!');
   }
 
-  public function tanents_create($email)
+  public function tanents_create($email, $name)
   {
     $exist = User::withTrashed()->where('email', $email)->exists();
     if($exist)
-        return redirect()->route('MyInbox')->with('danger', 'The user is already regitered');
+        return redirect()->route('MyInbox')->with('danger', 'The user is already registered');
     else
-        return view('Agent.Tenant.create', ['email' => $email]);
+        return view('Agent.Tenant.create', ['email' => $email, 'name' => $name]);
   }
 
   public function tanents_store(Request $request)
   {
     $data =	$request->validate([
+        'name' => 'bail|required|string|max:255',
         'email' => "bail|required|email|max:255|unique:App\Models\User,email",
         'password' => 'bail|required|string|min:8|max:255'
     ]);
-    return new TenantCreated($request->email, $request->password);
+
     User::create([
-        'name' => 'Your name',
+        'name' => $request->name,
         'email' => $request->email,
         'password' => Hash::make($request->password),
         'account_role' => 'Tenant',
     ]);
     ActivityHappened::dispatch(Auth::id(), 'A new user has been created');
-    // TenantCreated::dispatch($request->email, $request->password);
+
     Mail::to($request->email)->send(new TenantCreated($request->email, $request->password));
 
     return redirect()->route('MyInbox')->with('success', 'User account is created successfully');

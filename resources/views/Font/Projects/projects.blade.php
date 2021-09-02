@@ -148,7 +148,7 @@ Argo
 				<div class="col-md-8 col-lg-6">
 					<div class="breadcrumb_content style2">
 						<ol class="breadcrumb">
-						    <li class="breadcrumb-item"><a href="#">Home</a></li>
+						    <li class="breadcrumb-item"><a href="{{ route('welcome') }}">Home</a></li>
 						    <li class="breadcrumb-item active text-thm" aria-current="page">projects</li>
 						</ol>
 						<h2 class="breadcrumb_title">All Projects</h2>
@@ -164,30 +164,7 @@ Argo
 			</div>
 			<div class="row">
 				<div class="col-lg-12">
-					<div class="row">
-						<div class="grid_list_search_result style2">
-							<div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
-								<div class="left_area">
-									<p></p>
-								</div>
-							</div>
-							<div class="col-sm-12 col-md-8 col-lg-9 col-xl-9">
-								<div class="right_area style2 text-right">
-									<ul>
-										<li class="list-inline-item"><span class="shrtby">Sort by:</span>
-											<select class="selectpicker show-tick">
-												<option>Featured First</option>
-												<option>Featured 2nd</option>
-												<option>Featured 3rd</option>
-												<option>Featured 4th</option>
-												<option>Featured 5th</option>
-											</select>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
+					
 					<div class="row" id="card-section">
             @forelse ($projects as $project)
               @php
@@ -205,7 +182,11 @@ Argo
 									</div>
 									<div class="thmb_cntnt style2">
 										<ul class="tag mb0">
-											<li class="list-inline-item"><a href="#">For Sale</a></li>
+											@if($project->assigned_to == null)
+												<li class="list-inline-item"><a href="#">For Sell</a></li>
+											@else
+												<li class="list-inline-item"><a href="#">Sold Out</a></li>
+											@endif
 										</ul>
 									</div>
 									<div class="thmb_cntnt style3">
@@ -302,14 +283,14 @@ Argo
                                         card += `
                                         </div>
 									<div class="thmb_cntnt style2">
-										<ul class="tag mb0">
-                                            <li class="list-inline-item"><a href="#"></a></li>
-										</ul>
+										<ul class="tag mb0">`;
+											if(project.assigned_to == null)
+												card += `<li class="list-inline-item"><a href="#">For Sell</a></li>`;
+											else
+												card += `<li class="list-inline-item"><a href="#">Sold Out</a></li>`;
+									card +=	`</ul>
 									</div>
-									<div class="thmb_cntnt style3">
-
-
-                                        `;
+									<div class="thmb_cntnt style3">`;
 
                                         card += `<a class="fp_price" href="#">${project.low_price} - ${project.max_price}</a>`;
 

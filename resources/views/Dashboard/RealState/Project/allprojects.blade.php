@@ -109,7 +109,11 @@
         type: 'GET',
         data: {moderation_status: moderation_status, id: project},
         success: function(msg){
-          // alert(msg);
+          swal({
+            title: 'Changed successfully',
+            padding: '2em',
+            timer: 1200,
+          });
         },
       });
 

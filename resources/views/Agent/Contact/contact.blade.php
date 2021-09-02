@@ -94,7 +94,7 @@ $(document).ready(function(){
                             </td>
                             <td>
                               <button type="submit" class="btn btn-success">Save</button>
-                              <a type="button" class="btn btn-primary" href="{{ route('tanents.create', $contact->email) }}">Create</a>
+                              <a type="button" class="btn btn-primary" href="{{ route('tanents.create', [$contact->email, $contact->name]) }}">Create</a>
                             </td>
                           </form>
 

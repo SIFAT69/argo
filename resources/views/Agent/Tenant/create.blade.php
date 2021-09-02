@@ -18,6 +18,12 @@
                   @csrf
                   <div class="form-row">
                       <div class="col-md-12 mb-4">
+                          <label for="validationCustom01">Name:</label>
+                          <input type="text" class="form-control" value="{{ $name }}" name="name" required>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="col-md-12 mb-4">
                           <label for="validationCustom01">Email:</label>
                           <input type="email" class="form-control" value="{{ $email }}" name="email" readonly required>
                       </div>

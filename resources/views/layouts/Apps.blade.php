@@ -351,12 +351,12 @@
                     <div class="col-lg-6 col-xl-6">
                         <div class="footer_menu_widget">
                             <ul>
-                                <li class="list-inline-item"><a href="#">Home</a></li>
-                                <li class="list-inline-item"><a href="#">Listing</a></li>
-                                <li class="list-inline-item"><a href="#">Property</a></li>
-                                <li class="list-inline-item"><a href="#">Pages</a></li>
-                                <li class="list-inline-item"><a href="#">Blog</a></li>
-                                <li class="list-inline-item"><a href="#">Contact</a></li>
+                                <li class="list-inline-item"><a href="{{ route('welcome') }}">Home</a></li>
+                                <li class="list-inline-item"><a href="{{ route('properties_lists') }}">Properties</a></li>
+                                <li class="list-inline-item"><a href="{{ route('projects_lists') }}">Projects</a></li>
+                                <li class="list-inline-item"><a href="{{ route('blogs_lists') }}">Blogs</a></li>
+                                <li class="list-inline-item"><a href="{{ route('contact') }}">Contact</a></li>
+                                <li>
                             </ul>
                         </div>
                     </div>

@@ -41,7 +41,7 @@
     <link href="{!! asset('BackAsset') !!}/assets/css/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
     <link href="{!! asset('BackAsset') !!}/plugins/pricing-table/css/component.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="{!! asset('BackAsset') !!}/assets/css/forms/switches.css">
-
+    <link href="{{ asset('/BackAsset/plugins/sweetalerts/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
 
     <!-- END GLOBAL MANDATORY STYLES -->
 
@@ -453,6 +453,7 @@
     <script src="{!! asset('BackAsset') !!}/plugins/blockui/jquery.blockUI.min.js"></script>
     <script src="{!! asset('BackAsset') !!}/plugins/blockui/custom-blockui.js"></script>
     <script src="{!! asset('BackAsset') !!}/plugins/highlight/highlight.pack.js"></script>
+    <script src="{{ asset('/BackAsset/plugins/sweetalerts/sweetalert2.min.js') }}"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
     @yield('script_in_body')
 </body>

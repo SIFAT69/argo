@@ -50,9 +50,9 @@
                 <li class="treeview"><a href="{!! route('TanentDashboard') !!}"><i class="flaticon-layers"></i><span> Dashboard</span></a></li>
                 <li class="title"><span>Manage Listings</span></li>
                 <li class="treeview">
-                    <a href="{!! route('tanents.properties.index') !!}"><i class="flaticon-home"></i> <span> Properties</span></a>
+                    <a href="{!! route('tanents.properties.index') !!}"><i class="flaticon-home"></i> <span> My Properties</span></a>
                 </li>
-                <li><a href="{!! route('tanents.projects.index') !!}"><i class="flaticon-heart"></i> <span> Projects</span></a></li>
+                <li><a href="{!! route('tanents.projects.index') !!}"><i class="flaticon-heart"></i> <span> My Projects</span></a></li>
                 <li class="title"><span>Manage Account</span></li>
                 <li><a href="{!! route('tanent.profile') !!}"><i class="flaticon-user"></i> <span>My Profile</span></a></li>
                 <li class="title"><span>Session</span></li>

@@ -37,13 +37,14 @@ Route::get('/dashboard', function () {
     if (Auth::user()->account_role == 'Admin') {
         $properties = DB::table('properties')->orderBy('id','DESC')->limit(7)->get();
         $projects = DB::table('projects')->orderBy('id','DESC')->limit(7)->get();
-        return view('dashboard',compact('properties','projects'));
+        $logs = DB::table('activity_logs')->orderBy('id','DESC')->limit(9)->get();
+        return view('dashboard',compact('properties','projects', 'logs'));
     }
     if(Auth::user()->account_role == "Agent") {
         return redirect('/agency-dashbord');
     }
     if (Auth::user()->account_role == "Tenant") {
-        return redirect('/tanents/properties');
+        return redirect('/tanent-dashbord');
     }
 })->middleware(['auth'])->name('dashboard');
 
@@ -226,15 +227,20 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/agencies/my-properties', [AgentController::class, 'MyProperties'])->name('MyProperties');
     Route::get('/agencies/my-properties/create', [AgentController::class, 'MyPropertiesCreate'])->name('MyPropertiesCreate');
     Route::get('/agencies/my-properties/edit/{id}', [AgentController::class, 'MyPropertiesEdit'])->name('MyPropertiesEdit');
+    Route::get('/agencies/my-properties/assign/{id}', [AgentController::class, 'MyPropertiesAssign'])->name('MyPropertiesAssign');
+    Route::post('/agencies/my-properties/assign/{id}', [AgentController::class, 'StoreMyPropertiesAssign'])->name('StoreMyPropertiesAssign');
     //Profile End
 
     Route::get('/agencies/my-project/', [AgentController::class, 'MyProject'])->name('MyProject');
     Route::get('/agencies/my-project/create', [AgentController::class, 'MyProjectCreate'])->name('MyProjectCreate');
     Route::get('/agencies/my-project/edit/{id}', [AgentController::class, 'MyProjectEdit'])->name('MyProjectEdit');
+    Route::get('/agencies/my-projects/assign/{id}', [AgentController::class, 'MyProjectsAssign'])->name('MyProjectsAssign');
+    Route::post('/agencies/my-projects/assign/{id}', [AgentController::class, 'StoreMyProjectsAssign'])->name('StoreMyProjectsAssign');
+
     Route::get('/agencies/inbox', [AgentController::class, 'MyInbox'])->name('MyInbox');
     Route::post('/agencies/status/save', [AgentController::class, 'MessageStatus'])->name('MessageStatus');
 
-    Route::get('tanents/create/{email}', [TanentController::class, 'tanents_create'])->name('tanents.create');
+    Route::get('tanents/create/{email}/{name}', [TanentController::class, 'tanents_create'])->name('tanents.create');
     Route::post('tanents/store', [TanentController::class, 'tanents_store'])->name('tanents.store');
 
 });

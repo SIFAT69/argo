@@ -11,6 +11,7 @@ class ActivityLogController extends Controller
     {
         $logs = ActivityLog::select('users.name as user_name', 'activity_logs.activity', 'activity_logs.created_at')
                             ->leftJoin('users', 'users.id', '=', 'activity_logs.user_id')
+                            ->orderBy('activity_logs.id', 'DESC')
                             ->get();
         
         return view('Dashboard.ActivityLog.index', ['logs' => $logs]);

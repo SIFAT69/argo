@@ -66,12 +66,12 @@ Argo
                                                     </div>
                                                     <div class="dd_content2">
                                                         <div class="pricing_acontent">
-                                                            {{-- <input type="text" class="amount" placeholder="$52,239">
-                                                                <input type="text" class="amount2" placeholder="$985,14">
-                                                                <div class="slider-range"></div> --}}
-                                                            <span id="slider-range-value1"></span>
-                                                            <span id="slider-range-value2"></span>
-                                                            <div id="slider"></div>
+                                                            <div class="form-group mb-1">
+                                                                <input type="number" class="form-control" name="minPrice" placeholder="Min Price">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="number" class="form-control" name="maxPrice" placeholder="Max Price">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -202,9 +202,17 @@ Argo
                                     <div class="thmb_cntnt">
                                         <ul class="tag mb0">
                                             @if($featuredProperty->type == 'Rent')
-                                                <li class="list-inline-item"><a href="#">For Rent</a></li>
+                                                @if($featuredProperty->assigned_to == null)
+                                                    <li class="list-inline-item"><a href="#">For Rent</a></li>
+                                                @else
+                                                    <li class="list-inline-item"><a href="#">Rent Out</a></li>
+                                                @endif
                                             @else
-                                                <li class="list-inline-item"><a href="#">For Sale</a></li>
+                                                @if($featuredProperty->assigned_to == null)
+                                                    <li class="list-inline-item"><a href="#">For Sell</a></li>
+                                                @else
+                                                    <li class="list-inline-item"><a href="#">Sold Out</a></li>
+                                                @endif
                                             @endif
                                             <li class="list-inline-item"><a href="#">Featured</a></li>
                                         </ul>
@@ -235,8 +243,6 @@ Argo
 
                                             <li class="list-inline-item"><a href="{!! route('agenency_details', $featuredProperty->user_id) !!}"><img src="../uploads/{{ $featuredProperty->user_avatar }}" alt="owner image" style="width: 40px; border-radius: 50px"></a></li>
                                             <li class="list-inline-item"><a href="{!! route('agenency_details', $featuredProperty->user_id) !!}">{{ $featuredProperty->user_name }}</a></li>
-                                            <li class="list-inline-item"><a href="{{ route('agenency_details', $featuredProperty->user_id) }}"><img src="../uploads/{{ $featuredProperty->user_avatar }}" alt="owner image" style="width: 40px; border-radius: 50px"></a></li>
-                                            <li class="list-inline-item"><a href="{{ route('agenency_details', $featuredProperty->user_id) }}">{{ $featuredProperty->user_name }}</a></li>
                                         </ul>
                                         <div class="fp_pdate float-right">{{ $featuredProperty->time }}</div>
                                     </div>
@@ -392,12 +398,6 @@ Argo
                             </div>
                             <div class="fp_footer">
                                 <ul class="fp_meta float-left mb0">
-                                    {{-- <li class="list-inline-item"><a href="{!! route('agenency_details', $blog->posted_by) !!}"><img src="{{ asset('/uploads/' . $blog->poster_avatar) }}" style="width:50px; border-radius:50px" alt="poster image"></a></li> --}}
-                                    <li class="list-inline-item"><a href="{!! route('agenency_details', $blog->posted_by) !!}">{{ $blog->poster_name }}</a></li>
-                                <h4><a href="{{ route('blog_details', $blog->slug) }}">{{ $blog->title }}</a></h4>
-                            </div>
-                            <div class="fp_footer">
-                                <ul class="fp_meta float-left mb0">
                                     <li class="list-inline-item"><a href="{{ route('agenency_details', $blog->posted_by) }}"><img src="{{ asset('/uploads/' . $blog->poster_avatar) }}" style="width:50px; border-radius:50px" alt="poster image"></a></li>
                                     <li class="list-inline-item"><a href="{{ route('agenency_details', $blog->posted_by) }}">{{ $blog->poster_name }}</a></li>
                                 </ul>
@@ -448,7 +448,7 @@ Argo
             </div>
             <div class="col-lg-4">
                 <div class="parner_reg_btn text-right tac-smd">
-                    <a class="btn btn-thm2" href="#">Register Now</a>
+                    <a href="#" class="btn btn-thm2" data-toggle="modal" data-target=".bd-example-modal-lg">Register Now</a>
                 </div>
             </div>
         </div>
@@ -462,7 +462,7 @@ Argo
             <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 pr0 pl0">
                 <div class="footer_about_widget">
                     <h4>About Site</h4>
-                    <p>We’re reimagining how you buy, sell and rent. It’s now easier to get into a place you love. So let’s do this, together.</p>
+                    <p>{{ $gContact->about }}</p>
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
@@ -481,12 +481,10 @@ Argo
                 <div class="footer_contact_widget">
                     <h4>Contact Us</h4>
                     <ul class="list-unstyled">
-                        <li><a href="#">info<blade findhouse.com</a>
-                        </li> />
-                        <li><a href="#">Collins Street West, Victoria</a></li>
-                        <li><a href="#">8007, Australia.</a></li>
-                        <li><a href="#">+1 246-345-0699</a></li>
-                        <li><a href="#">+1 246-345-0695</a></li>
+                        <li><a href="#">{{ env('APP_URL') }}</a></li>
+                        <li><a href="#">{{ $gContact->address }}</a></li>
+                        <li><a href="#">{{ $gContact->mail }}</a></li>
+                        <li><a href="#">{{ $gContact->phone }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -494,12 +492,11 @@ Argo
                 <div class="footer_social_widget">
                     <h4>Follow us</h4>
                     <ul class="mb30">
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
+                        <li class="list-inline-item"><a href="{{ $gContact->facebook }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="{{ $gContact->twitter }}" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="{{ $gContact->instagram }}" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="{{ $gContact->pinterest }}" target="_blank"><i class="fa fa-pinterest"></i></a></li>
+                        <li class="list-inline-item"><a href="{{ $gContact->googlePlus }}" target="_blank"><i class="fa fa-google"></i></a></li>
                     </ul>
                     <h4>Subscribe</h4>
                     <form class="footer_mailchimp_form">

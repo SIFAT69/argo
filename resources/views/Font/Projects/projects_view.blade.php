@@ -53,6 +53,11 @@ Argo
 					<div class="single_property_social_share">
 						<div class="price float-left fn-400">
 							<h2>${{ $project->low_price }} - ${{ $project->max_price }}</h2>
+							@if($project->assigned_to == null)
+								<span class="badge badge-danger h4">For Sell</span>
+							@else
+								<span class="badge badge-danger h4">Sold Out</span>
+							@endif
 						</div>
 						<div class="spss mt20 text-right tal-400">
 							<ul class="mb0">
@@ -116,7 +121,21 @@ Argo
 										</ul>
 										<ul class="list-inline-item">
 											<li><p><span>Apartment</span></p></li>
-											<li><p><span>For Sale</span></p></li>
+											<li><p>
+												@if($project->assigned_to == null)
+													<span>For Sell</span>
+												@else
+													<span class="text-danger">Sold Out</span>
+												@endif
+											</p></li>
+										</ul>
+									</div>
+									<div class="col-12">
+										<ul class="list-inline-item">
+											<li><p>Project Code :</p></li>
+										</ul>
+										<ul class="list-inline-item">
+											<li><p><span>{{ $project->code }}</span></p></li>
 										</ul>
 									</div>
 								</div>
@@ -170,7 +189,7 @@ Argo
 								<h4 class="mb10">What's Nearby</h4>
 								<div class="education_distance mb15">
 									@foreach($project->facilities as $facility)
-										@if($facility != "Null" && $project->distance[$loop->index] != "Null")
+										@if($facility != "Null" && $project->distance[$loop->index] != null)
 										<p class="para">{{ $facility }} <span>({{ $project->distance[$loop->index] }} miles)</span></p>
 										@endif
 									@endforeach
@@ -187,7 +206,11 @@ Argo
 										<img class="img-whp" src="/uploads/{{ $similarProject->youtube_thumb }}" alt="fp2.jpg">
 										<div class="thmb_cntnt">
 											<ul class="tag mb0">
-												<li class="list-inline-item"><a href="#">For Sale</a></li>
+												@if($similarProject->assigned_to == null)
+													<li class="list-inline-item"><a href="#">For Sale</a></li>
+												@else
+													<<li class="list-inline-item"><a href="#">Sold Out</a></li>
+												@endif
 											</ul>
 											<ul class="icon mb0">
 												<li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>

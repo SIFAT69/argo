@@ -11,6 +11,7 @@ use App\Models\Choice;
 use App\Models\Testimonial;
 use App\Models\Partner;
 use App\Models\Blog;
+use App\Models\GeneralContact;
 
 class HomeController extends Controller
 {
@@ -65,6 +66,10 @@ class HomeController extends Controller
             $blog->time = Carbon::parse($blog->created_at)->diffForHumans();
         }
 
-        return view('welcome', compact('categories', 'bedrooms', 'bathrooms', 'floors', 'minPrice', 'maxPrice', 'features', 'featuredProperties', 'cities', 'choices', 'testimonials', 'partners', 'blogs'));
+        $gContact = GeneralContact::find(1);
+        if(!$gContact)
+            $gContact = new GeneralContact;
+
+        return view('welcome', compact('categories', 'bedrooms', 'bathrooms', 'floors', 'minPrice', 'maxPrice', 'features', 'featuredProperties', 'cities', 'choices', 'testimonials', 'partners', 'blogs', 'gContact'));
     }
 }

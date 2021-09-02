@@ -160,7 +160,6 @@
                                             </div>
                                             <div class="col-xl-12 text-right">
                                                 <div class="my_profile_setting_input">
-                                                    <button class="btn btn1">View Public Profile</button>
                                                     <button type="submit" class="btn btn2">Update Profile</button>
                                                 </div>
                                             </div>
@@ -271,7 +270,7 @@
                                             </div>
                                             <div class="col-xl-12 text-right">
                                                 <div class="my_profile_setting_input">
-                                                    <button type="submit" class="btn btn2">Update Profile</button>
+                                                    <button type="submit" class="btn btn2">Update Social</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -316,11 +315,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-xl-12">
-                                                <div class="my_profile_setting_input float-left fn-520">
-                                                    <button class="btn btn3 btn-dark">Update Profile</button>
-                                                </div>
                                                 <div class="my_profile_setting_input float-right fn-520">
-                                                    <button type="submit" class="btn btn2">Update Profile</button>
+                                                    <button type="submit" class="btn btn2">Update Password</button>
                                                 </div>
                                             </div>
                                         </div>

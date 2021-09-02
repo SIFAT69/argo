@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Property;
+use App\Models\Project;
 use App\Models\User;
 use App\Models\Agenciesmessage;
 use Intervention\Image\Facades\Image;
@@ -193,4 +194,37 @@ class AgentController extends Controller
     return back()->with('success', 'Your request has been successfully executed!');
   }
 
+  public function MyPropertiesAssign($id)
+  {
+    $property = Property::findOrFail($id);
+    $tenants = User::withTrashed()->where('account_role', 'Tenant')->get();
+    return view('Agent.Properties.property_assign', compact('property', 'tenants'));
+  }
+
+  public function StoreMyPropertiesAssign(Request $request, $id)
+  {
+    $request->validate([
+      'tenant_id' => 'bail|required|integer'
+    ]);
+
+    Property::where('id', $id)->update(['assigned_to' => $request->tenant_id]);
+    return redirect()->route('MyProperties')->with('success', 'Successfully assigned');
+  }
+
+  public function MyProjectsAssign($id)
+  {
+    $project = Project::findOrFail($id);
+    $tenants = User::withTrashed()->where('account_role', 'Tenant')->get();
+    return view('Agent.Project.project_assign', compact('project', 'tenants'));
+  }
+
+  public function StoreMyProjectsAssign(Request $request, $id)
+  {
+    $request->validate([
+      'tenant_id' => 'bail|required|integer'
+    ]);
+
+    Project::where('id', $id)->update(['assigned_to' => $request->tenant_id]);
+    return redirect()->route('MyProject')->with('success', 'Successfully assigned');
+  }
 }

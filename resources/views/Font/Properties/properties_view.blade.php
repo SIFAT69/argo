@@ -53,6 +53,19 @@ Argo
 					<div class="single_property_social_share">
 						<div class="price float-left fn-400">
 							<h2>${{ $property->price }} @if($property->type == 'Rent') /mo @endif</h2>
+							@if($property->type == 'Rent')
+								@if($property->assigned_to == null)
+									For Rent
+								@else
+									<span class="badge badge-danger h4">Rent Out</span>
+								@endif
+							@else
+								@if($property->assigned_to == null)
+									For Sell
+								@else
+									<span class="badge badge-danger h4">Sold Out</span>
+								@endif
+							@endif
 						</div>
 						<div class="spss mt20 text-right tal-400">
 							<ul class="mb0">
@@ -114,7 +127,29 @@ Argo
 										</ul>
 										<ul class="list-inline-item">
 											<li><p><span>Apartment</span></p></li>
-											<li><p><span>For {{ $property->type }}</span></p></li>
+											<li><p><span>
+												@if($property->type == 'Rent')
+													@if($property->assigned_to == null)
+														For Rent
+													@else
+														<span class="text-danger">Rent Out</span>
+													@endif
+												@else
+													@if($property->assigned_to == null)
+														For Sell
+													@else
+														<span class="text-danger">Sold Out</span>
+													@endif
+												@endif
+											</span></p></li>
+										</ul>
+									</div>
+									<div class="col-12">
+										<ul class="list-inline-item">
+											<li><p>Property Code :</p></li>
+										</ul>
+										<ul class="list-inline-item">
+											<li><p><span>{{ $property->code }}</span></p></li>
 										</ul>
 									</div>
 								</div>
@@ -168,8 +203,8 @@ Argo
 								<h4 class="mb10">What's Nearby</h4>
 								<div class="education_distance mb15">
 									@foreach($property->facilities as $facility)
-										@if($facility != "Null" && $property->distance[$loop->index] != "Null")
-										<p class="para">{{ $facility }} <span>({{ $property->distance[$loop->index] }} miles)</span></p>
+										@if($facility != "Null" && $property->distance[$loop->index] != null)
+											<p class="para">{{ $facility }} <span>({{ $property->distance[$loop->index] }} miles)</span></p>
 										@endif
 									@endforeach
 								</div>
@@ -185,7 +220,20 @@ Argo
 										<img class="img-whp" src="/uploads/{{ $similarProperty->youtube_thumb }}" alt="fp2.jpg">
 										<div class="thmb_cntnt">
 											<ul class="tag mb0">
-												<li class="list-inline-item"><a href="#">For {{ $similarProperty->type }}</a></li>
+												@if($similarProperty->type == 'Rent')
+													@if($similarProperty->assigned_to == null)
+														<li class="list-inline-item"><a href="#">For Rent</a></li>
+													@else
+														<li class="list-inline-item"><a href="#">Rent Out</a></li>
+													@endif
+												@else
+													@if($similarProperty->assigned_to == null)
+														<li class="list-inline-item"><a href="#">For Sell</a></li>
+													@else
+														<li class="list-inline-item"><a href="#">Sold Out</a></li>
+													@endif
+												@endif
+
 												@if($similarProperty->is_featured == 'Yes')
 													<li class="list-inline-item"><a href="#">Featured</a></li>
 												@endif
@@ -279,7 +327,19 @@ Argo
 											<img class="img-whp" src="/uploads/{{ $featuredProperty->youtube_thumb }}" alt="Featured Image">
 											<div class="thmb_cntnt">
 												<ul class="tag mb0">
-													<li class="list-inline-item"><a href="#">For {{ $featuredProperty->type}}</a></li>
+													@if($featuredProperty->type == 'Rent')
+														@if($featuredProperty->assigned_to == null)
+															<li class="list-inline-item"><a href="#">For Rent</a></li>
+														@else
+															<li class="list-inline-item"><a href="#">Rent Out</a></li>
+														@endif
+													@else
+														@if($featuredProperty->assigned_to == null)
+															<li class="list-inline-item"><a href="#">For Sell</a></li>
+														@else
+															<li class="list-inline-item"><a href="#">Sold Out</a></li>
+														@endif
+													@endif
 													<li class="list-inline-item"><a href="#">Featured</a></li>
 												</ul>
 												<a class="fp_price" href="{!! route('properties_view', $featuredProperty->slug) !!}">${{ $featuredProperty->price }} @if($featuredProperty->type == 'Rent')<small>/mo</small>@endif</a>

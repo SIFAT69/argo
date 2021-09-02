@@ -129,125 +129,25 @@ Dashboard
 
                         <div class="mt-container mx-auto">
                             <div class="timeline-line">
-
-                                <div class="item-timeline timeline-primary">
-                                    <div class="t-dot" data-original-title="" title="">
+                               @foreach($logs as $log)
+                                    <div class="item-timeline  timeline-dark">
+                                        <div class="t-dot" data-original-title="" title="">
+                                        </div>
+                                        <div class="t-text">
+                                            <p>{{ $log->activity }}</p>
+                                            <span class="badge badge-primary">In Progress</span>
+                                            <p class="t-time">{{ date('H:i', strtotime($log->created_at)) }}</p>
+                                        </div>
                                     </div>
-                                    <div class="t-text">
-                                        <p><span>Updated</span> Server Logs</p>
-                                        <span class="badge badge-danger">Pending</span>
-                                        <p class="t-time">Just Now</p>
-                                    </div>
-                                </div>
-
-                                <div class="item-timeline timeline-success">
-                                    <div class="t-dot" data-original-title="" title="">
-                                    </div>
-                                    <div class="t-text">
-                                        <p>Send Mail to <a href="javascript:void(0);">HR</a> and <a href="javascript:void(0);">Admin</a></p>
-                                        <span class="badge badge-success">Completed</span>
-                                        <p class="t-time">2 min ago</p>
-                                    </div>
-                                </div>
-
-                                <div class="item-timeline  timeline-danger">
-                                    <div class="t-dot" data-original-title="" title="">
-                                    </div>
-                                    <div class="t-text">
-                                        <p>Backup <span>Files EOD</span></p>
-                                        <span class="badge badge-danger">Pending</span>
-                                        <p class="t-time">14:00</p>
-                                    </div>
-                                </div>
-
-                                <div class="item-timeline  timeline-dark">
-                                    <div class="t-dot" data-original-title="" title="">
-                                    </div>
-                                    <div class="t-text">
-                                        <p>Collect documents from <a href="javascript:void(0);">Sara</a></p>
-                                        <span class="badge badge-success">Completed</span>
-                                        <p class="t-time">16:00</p>
-                                    </div>
-                                </div>
-
-                                <div class="item-timeline  timeline-warning">
-                                    <div class="t-dot" data-original-title="" title="">
-                                    </div>
-                                    <div class="t-text">
-                                        <p>Conference call with <a href="javascript:void(0);">Marketing Manager</a>.</p>
-                                        <span class="badge badge-primary">In progress</span>
-                                        <p class="t-time">17:00</p>
-                                    </div>
-                                </div>
-
-                                <div class="item-timeline  timeline-secondary">
-                                    <div class="t-dot" data-original-title="" title="">
-                                    </div>
-                                    <div class="t-text">
-                                        <p>Rebooted Server</p>
-                                        <span class="badge badge-success">Completed</span>
-                                        <p class="t-time">17:00</p>
-                                    </div>
-                                </div>
-
-                                <div class="item-timeline  timeline-warning">
-                                    <div class="t-dot" data-original-title="" title="">
-                                    </div>
-                                    <div class="t-text">
-                                        <p>Send contract details to Freelancer</p>
-                                        <span class="badge badge-danger">Pending</span>
-                                        <p class="t-time">18:00</p>
-                                    </div>
-                                </div>
-
-                                <div class="item-timeline  timeline-dark">
-                                    <div class="t-dot" data-original-title="" title="">
-                                    </div>
-                                    <div class="t-text">
-                                        <p>Kelly want to increase the time of the project.</p>
-                                        <span class="badge badge-primary">In Progress</span>
-                                        <p class="t-time">19:00</p>
-                                    </div>
-                                </div>
-
-                                <div class="item-timeline  timeline-success">
-                                    <div class="t-dot" data-original-title="" title="">
-                                    </div>
-                                    <div class="t-text">
-                                        <p>Server down for maintanence</p>
-                                        <span class="badge badge-success">Completed</span>
-                                        <p class="t-time">19:00</p>
-                                    </div>
-                                </div>
-
-                                <div class="item-timeline  timeline-secondary">
-                                    <div class="t-dot" data-original-title="" title="">
-                                    </div>
-                                    <div class="t-text">
-                                        <p>Malicious link detected</p>
-                                        <span class="badge badge-warning">Block</span>
-                                        <p class="t-time">20:00</p>
-                                    </div>
-                                </div>
-
-                                <div class="item-timeline  timeline-warning">
-                                    <div class="t-dot" data-original-title="" title="">
-                                    </div>
-                                    <div class="t-text">
-                                        <p>Rebooted Server</p>
-                                        <span class="badge badge-success">Completed</span>
-                                        <p class="t-time">23:00</p>
-                                    </div>
-                                </div>
-
+                               @endforeach
                             </div>
                         </div>
 
                         <div class="tm-action-btn">
-                            <button class="btn">View All <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            <a class="btn" href="{{ route('activityLogs.index') }}">View All <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                   class="feather feather-chevron-down">
                                     <polyline points="6 9 12 15 18 9"></polyline>
-                                </svg></button>
+                                </svg></a>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 @php
 $categories = DB::table('realstatecategories')->get();
-$is_featured_properties = DB::table('properties')->where('is_featured', 'yes')->limit(5)->inRandomOrder()->get();
+$is_featured_properties = DB::table('properties')->where('moderation_status', 'Approved')->where('status', 1)->where('is_featured', 'yes')->limit(5)->inRandomOrder()->get();
 @endphp
 
 <div class="col-lg-4 col-xl-4">

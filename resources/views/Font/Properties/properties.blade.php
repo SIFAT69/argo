@@ -47,7 +47,7 @@ Argo
 													<select class="selectpicker w100 show-tick" id="f-type">
 														<option value="">Property Type</option>
 														<option value="Rent">Rent</option>
-														<option value="Sell">Sell</option>
+														<option value="Sale">Sale</option>
 													</select>
 												</div>
 											</div>
@@ -171,7 +171,7 @@ Argo
 				<div class="col-md-8 col-lg-6">
 					<div class="breadcrumb_content style2">
 						<ol class="breadcrumb">
-						    <li class="breadcrumb-item"><a href="#">Home</a></li>
+						    <li class="breadcrumb-item"><a href="{{ route('welcome') }}">Home</a></li>
 						    <li class="breadcrumb-item active text-thm" aria-current="page">properties</li>
 						</ol>
 						<h2 class="breadcrumb_title">All properties</h2>
@@ -187,30 +187,6 @@ Argo
 			</div>
 			<div class="row">
 				<div class="col-lg-12">
-					<div class="row">
-						<div class="grid_list_search_result style2">
-							<div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
-								<div class="left_area">
-									{{-- <p>{{ DB::table('properties')->count() }} Search results</p> --}}
-								</div>
-							</div>
-							<div class="col-sm-12 col-md-8 col-lg-9 col-xl-9">
-								<div class="right_area style2 text-right">
-									<ul>
-										<li class="list-inline-item"><span class="shrtby">Sort by:</span>
-											<select class="selectpicker show-tick">
-												<option>Featured First</option>
-												<option>Featured 2nd</option>
-												<option>Featured 3rd</option>
-												<option>Featured 4th</option>
-												<option>Featured 5th</option>
-											</select>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
 					<div class="row" id="card-section">
             @forelse ($properties as $property)
               @php
@@ -229,12 +205,19 @@ Argo
 									</div>
 									<div class="thmb_cntnt style2">
 										<ul class="tag mb0">
-                      @if ($property->type == "Rent" && !empty($property->type))
-                        <li class="list-inline-item"><a href="#">For Rent</a></li>
-                      @endif
-                      @if ($property->type == "Sale" && !empty($property->type))
-                        <li class="list-inline-item"><a href="#">For Sale</a></li>
-                      @endif
+											@if($property->type == 'Rent')
+                                                @if($property->assigned_to == null)
+                                                    <li class="list-inline-item"><a href="#">For Rent</a></li>
+                                                @else
+                                                    <li class="list-inline-item"><a href="#">Rent Out</a></li>
+                                                @endif
+                                            @else
+                                                @if($property->assigned_to == null)
+                                                    <li class="list-inline-item"><a href="#">For Sell</a></li>
+                                                @else
+                                                    <li class="list-inline-item"><a href="#">Sold Out</a></li>
+                                                @endif
+                                            @endif
 										</ul>
 									</div>
 									<div class="thmb_cntnt style3">
@@ -342,15 +325,24 @@ Argo
                                         card += `
                                         </div>
 									<div class="thmb_cntnt style2">
-										<ul class="tag mb0">
-                                            <li class="list-inline-item"><a href="#">For ${property.type}</a></li>
-										</ul>
+										<ul class="tag mb0">`;
+											if(property.type == 'Rent')
+											{
+												if(property.assigned_to == null)
+													card += `<li class="list-inline-item"><a href="#">For Rent</a></li>`;
+												else
+													card += `<li class="list-inline-item"><a href="#">Rent Out</a></li>`;
+											}	
+											else
+											{
+												if(property.assigned_to == null)
+													card += `<li class="list-inline-item"><a href="#">For Sell</a></li>`;
+												else
+													card += `<li class="list-inline-item"><a href="#">Sold Out</a></li>`;
+											}
+									card +=	`</ul>
 									</div>
-									<div class="thmb_cntnt style3">
-
-
-                                        `;
-
+									<div class="thmb_cntnt style3">`;
 
                                         if(property.type == 'Rent')
                                             card += `<a class="fp_price" href="#">${property.price}<small>/mo</small></a>`;
