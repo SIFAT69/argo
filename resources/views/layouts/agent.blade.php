@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="{!! asset('FontAsset') !!}/css/dashbord_navitaion.css">
     <!-- Responsive stylesheet -->
     <link rel="stylesheet" href="{!! asset('FontAsset') !!}/css/responsive.css">
+    <!-- sweetalert2 -->
+    <link href="{{ asset('/BackAsset/plugins/sweetalerts/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
+    
     <!-- Title -->
     <title>Argo @yield('page_title')</title>
     <!-- Favicon -->
@@ -90,6 +93,7 @@
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/timepicker.js"></script>
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/wow.min.js"></script>
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/dashboard-script.js"></script>
+    <script src="{{ asset('/BackAsset/plugins/sweetalerts/sweetalert2.min.js') }}"></script>
     <!-- Custom script for all pages -->
     <script type="text/javascript" src="js/script.js"></script>
     @yield('script_in_body')

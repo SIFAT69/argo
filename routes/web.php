@@ -48,7 +48,7 @@ Route::get('/dashboard', function () {
     }
 })->middleware(['auth'])->name('dashboard');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'admin']], function () {
     // Blogs
     Route::get('/blog-lists', [BlogController::class, 'blogList'])->name('blogList');
     Route::get('/blog-create-new', [BlogController::class, 'createNewBlog'])->name('createNewBlog');
@@ -152,17 +152,17 @@ Route::group(['middleware' => 'auth'], function () {
     // Project END
 
 
-    //Payment Start
-    Route::get('/dashboard/agent/select-package', [PaymentController::class, 'package_index'])->name('package_index');
-    Route::post('/dashboard/agent/select-package-post', [PaymentController::class, 'checkout'])->name('package_payment');
-    // Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
-    Route::post('checkout',[PaymentController::class, 'afterpayment'])->name('checkout.credit-card');
-    //Payment End
+    // //Payment Start
+    // Route::get('/dashboard/agent/select-package', [PaymentController::class, 'package_index'])->name('package_index');
+    // Route::post('/dashboard/agent/select-package-post', [PaymentController::class, 'checkout'])->name('package_payment');
+    // // Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
+    // Route::post('checkout',[PaymentController::class, 'afterpayment'])->name('checkout.credit-card');
+    // //Payment End
 
     // Packages And Subcription Start
     Route::get('plans',[PlanController::class, 'index'])->name('plans.index');
-    Route::get('/plan/{plan}',[PlanController::class, 'show'])->name('plans.show');
-    Route::post('/subscription',[SubscriptionController::class, 'create'])->name('subscription.create');
+    // Route::get('/plan/{plan}',[PlanController::class, 'show'])->name('plans.show');
+    // Route::post('/subscription',[SubscriptionController::class, 'create'])->name('subscription.create');
     Route::get('create/plan',[SubscriptionController::class, 'createPlan'])->name('create.plan');
     Route::post('store/plan',[SubscriptionController::class, 'storePlan'])->name('store.plan');
     Route::get('plan-status-{id}',[PlanController::class, 'PlanStatus'])->name('PlanStatus');
@@ -214,34 +214,40 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
-  // Agent Route Start
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/agency-dashbord',[AgentController::class, 'AgentDashboard'])->name('AgentDashboard');
+// Agent Route Start
+Route::group(['middleware' => ['auth', 'agent']], function () {
+    Route::middleware('check.subscription')->group(function(){
+        Route::get('/agency-dashbord',[AgentController::class, 'AgentDashboard'])->name('AgentDashboard');
 
-    //Profile Start
-    Route::get('/agency-settings-profile', [AgentController::class, 'agentProfile'])->name('agent.profile');
-    Route::put('/agent-profile-information/{userId}', [AgentController::class, 'updateProfileInformation'])->name('update.agent.profile.information');
-    Route::put('/agent-profile-socialMedia/{userId}', [AgentController::class, 'updateProfileSocialMedia'])->name('update.agent.profile.socialMedia');
-    Route::put('/agent-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.password');
+        //Profile Start
+        Route::get('/agency-settings-profile', [AgentController::class, 'agentProfile'])->name('agent.profile');
+        Route::put('/agent-profile-information/{userId}', [AgentController::class, 'updateProfileInformation'])->name('update.agent.profile.information');
+        Route::put('/agent-profile-socialMedia/{userId}', [AgentController::class, 'updateProfileSocialMedia'])->name('update.agent.profile.socialMedia');
+        Route::put('/agent-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.password');
+        
+        Route::get('/agencies/my-properties', [AgentController::class, 'MyProperties'])->name('MyProperties');
+        Route::get('/agencies/my-properties/create', [AgentController::class, 'MyPropertiesCreate'])->name('MyPropertiesCreate');
+        Route::get('/agencies/my-properties/edit/{id}', [AgentController::class, 'MyPropertiesEdit'])->name('MyPropertiesEdit');
+        Route::get('/agencies/my-properties/assign/{id}', [AgentController::class, 'MyPropertiesAssign'])->name('MyPropertiesAssign');
+        Route::post('/agencies/my-properties/assign/{id}', [AgentController::class, 'StoreMyPropertiesAssign'])->name('StoreMyPropertiesAssign');
+        //Profile End
+
+        Route::get('/agencies/my-project/', [AgentController::class, 'MyProject'])->name('MyProject');
+        Route::get('/agencies/my-project/create', [AgentController::class, 'MyProjectCreate'])->name('MyProjectCreate');
+        Route::get('/agencies/my-project/edit/{id}', [AgentController::class, 'MyProjectEdit'])->name('MyProjectEdit');
+        Route::get('/agencies/my-projects/assign/{id}', [AgentController::class, 'MyProjectsAssign'])->name('MyProjectsAssign');
+        Route::post('/agencies/my-projects/assign/{id}', [AgentController::class, 'StoreMyProjectsAssign'])->name('StoreMyProjectsAssign');
+
+        Route::get('/agencies/inbox', [AgentController::class, 'MyInbox'])->name('MyInbox');
+        Route::post('/agencies/status/save', [AgentController::class, 'MessageStatus'])->name('MessageStatus');
+
+        Route::get('tanents/create/{email}/{name}', [TanentController::class, 'tanents_create'])->name('tanents.create');
+        Route::post('tanents/store', [TanentController::class, 'tanents_store'])->name('tanents.store');
+    });
+
     Route::get('/my-package-history', [AgentController::class, 'packageHistory'])->name('packageHistory');
-    Route::get('/agencies/my-properties', [AgentController::class, 'MyProperties'])->name('MyProperties');
-    Route::get('/agencies/my-properties/create', [AgentController::class, 'MyPropertiesCreate'])->name('MyPropertiesCreate');
-    Route::get('/agencies/my-properties/edit/{id}', [AgentController::class, 'MyPropertiesEdit'])->name('MyPropertiesEdit');
-    Route::get('/agencies/my-properties/assign/{id}', [AgentController::class, 'MyPropertiesAssign'])->name('MyPropertiesAssign');
-    Route::post('/agencies/my-properties/assign/{id}', [AgentController::class, 'StoreMyPropertiesAssign'])->name('StoreMyPropertiesAssign');
-    //Profile End
-
-    Route::get('/agencies/my-project/', [AgentController::class, 'MyProject'])->name('MyProject');
-    Route::get('/agencies/my-project/create', [AgentController::class, 'MyProjectCreate'])->name('MyProjectCreate');
-    Route::get('/agencies/my-project/edit/{id}', [AgentController::class, 'MyProjectEdit'])->name('MyProjectEdit');
-    Route::get('/agencies/my-projects/assign/{id}', [AgentController::class, 'MyProjectsAssign'])->name('MyProjectsAssign');
-    Route::post('/agencies/my-projects/assign/{id}', [AgentController::class, 'StoreMyProjectsAssign'])->name('StoreMyProjectsAssign');
-
-    Route::get('/agencies/inbox', [AgentController::class, 'MyInbox'])->name('MyInbox');
-    Route::post('/agencies/status/save', [AgentController::class, 'MessageStatus'])->name('MessageStatus');
-
-    Route::get('tanents/create/{email}/{name}', [TanentController::class, 'tanents_create'])->name('tanents.create');
-    Route::post('tanents/store', [TanentController::class, 'tanents_store'])->name('tanents.store');
+    Route::post('subscription/cancel/{id}', [SubscriptionController::class, 'cancel'])->name('subscription.cancel');
+    Route::post('subscription/resume/{id}', [SubscriptionController::class, 'resume'])->name('subscription.resume');
 
 });
 
@@ -276,8 +282,8 @@ Route::get('properties-city/{city}/', [PageController::class, 'properties_city_w
 
 
 
-// Agent Route Start
-Route::group(['middleware' => 'auth'], function () {
+// Tenant Route Start
+Route::group(['middleware' => ['auth', 'tenant']], function () {
     Route::get('/tanent-dashbord',[TanentController::class, 'TanentDashboard'])->name('TanentDashboard');
 
     // //Profile Start
@@ -287,16 +293,20 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/tanent-profile-password/{userId}', [TanentController::class, 'updateProfilePassword'])->name('update.tanent.profile.password');
     // //Profile End
 
-    // Route::get('/my-package-history', [AgentController::class, 'packageHistory'])->name('packageHistory');
     Route::get('/tanents/properties', [TanentController::class, 'properties_index'])->name('tanents.properties.index');
     Route::get('/tanents/projects', [TanentController::class, 'projects_index'])->name('tanents.projects.index');
 
-    // Route::get('/tanents/payments', [TanentController::class, 'payments_index'])->name('tanents.payments.index');
+    //Payment Start
+    Route::get('/dashboard/agent/select-package', [PaymentController::class, 'package_index'])->name('package_index');
+    Route::post('/dashboard/agent/select-package-post', [PaymentController::class, 'checkout'])->name('package_payment');
+    // Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
+    Route::post('checkout',[PaymentController::class, 'afterpayment'])->name('checkout.credit-card');
+    //Payment End
 
-
-    // Route::get('/tanents/messages', [TanentController::class, 'MyInbox'])->name('tanent.messages.index');
-    // Route::post('/agencies/status/save', [AgentController::class, 'MessageStatus'])->name('MessageStatus');
-
+    // Packages And Subcription Start
+    // Route::get('plans',[PlanController::class, 'index'])->name('plans.index');
+    Route::get('/plan/{plan}',[PlanController::class, 'show'])->name('plans.show');
+    Route::post('/subscription',[SubscriptionController::class, 'create'])->name('subscription.create');
 });
 
 

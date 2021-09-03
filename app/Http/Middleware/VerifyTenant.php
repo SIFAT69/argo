@@ -4,9 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
-class Agent
+
+class VerifyTenant
 {
     /**
      * Handle an incoming request.
@@ -17,11 +18,9 @@ class Agent
      */
     public function handle(Request $request, Closure $next)
     {
-         if (Auth::user()->role == "Agent") {
-           return redirect('/');
-         }else {
-           // code...
-           return $next($request);
-         }
+        if(Auth::user()->account_role == 'Tenant')
+            return $next($request);
+        else
+            abort(404);
     }
 }

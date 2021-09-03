@@ -20,6 +20,12 @@ class AgentController extends Controller
 {
     public function AgentDashboard()
     {
+      // dd(Auth::user()->subscription('default')->recurring());
+      // Auth::user()->subscription('yearly')->cancelNow();
+      // $in = Auth::user()->subscription('monthly')->asStripeSubscription()->current_period_end;
+      // dd(date('Y-m-d H:i:s', $in));
+      // return 5;
+      // dd(Auth::user()->subscription('yearly')->asStripeSubscription());
 
       $count_of_properties = Property::where('user_id', Auth::id())->count();
       $totalViewsProject = DB::table('views')->where('to_id', Auth::id())->where('post_table', 'projects')->sum('view_count');

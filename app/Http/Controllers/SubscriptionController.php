@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Plan;
 use App\Models\User;
+use App\Models\Subscription;
 use Illuminate\Support\Facades\DB;
 use Auth;
 use Carbon\Carbon;
@@ -22,6 +23,7 @@ class SubscriptionController extends Controller
 
     public function create(Request $request, Plan $plan)
     {
+        // dd($request->all());
         $plan = Plan::findOrFail($request->get('plan'));
 
         $user = $request->user();
@@ -29,7 +31,7 @@ class SubscriptionController extends Controller
 
         $user->createOrGetStripeCustomer();
         $user->updateDefaultPaymentMethod($paymentMethod);
-        $user->newSubscription('yearly', $plan->stripe_plan)
+        $user->newSubscription(strtolower($plan->description), $plan->stripe_plan)
             ->create($paymentMethod, [
                 'email' => $user->email,
             ]);
@@ -53,6 +55,7 @@ class SubscriptionController extends Controller
 
     public function storePlan(Request $request)
     {
+        // dd($request->all());
         $data = $request->except('_token');
 
         $data['slug'] = strtolower($data['name']);
@@ -88,5 +91,25 @@ class SubscriptionController extends Controller
         ActivityHappened::dispatch(Auth::id(), 'A new subscription has been created.');
 
         return redirect('/plans')->with('success', 'New subscription package has been created!');
+    }
+
+    public function cancel($id)
+    {
+        $subscription = Subscription::findOrFail($id);
+        Auth::user()->subscription($subscription->name)->cancel();
+        $subscription->stripe_status ="canceled";
+        $subscription->save();
+
+        return redirect()->route('packageHistory')->with('danger', 'Subscription canceled!');
+    }
+
+    public function resume($id)
+    {
+        $subscription = Subscription::findOrFail($id);
+        Auth::user()->subscription($subscription->name)->resume();
+        $subscription->stripe_status ="active";
+        $subscription->save();
+
+        return redirect()->route('packageHistory')->with('success', 'Subscription resumed!');
     }
 }

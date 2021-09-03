@@ -49,6 +49,8 @@
             </div>
           </div>
           <div class="col-lg-12">
+            @include('Alerts.success')
+            @include('Alerts.danger')
             <div class="my_dashboard_review mb40">
               <div class="col-lg-12">
                 <div class="packages_table">
@@ -60,23 +62,31 @@
                             <th scope="col">Package Status</th>
                             {{-- <th scope="col">Package Status</th> --}}
                             <th scope="col">Subsciption Date</th>
+                            <th scope="col">Action</th>
                           </tr>
                       </thead>
                       <tbody>
                         @foreach ($packages as $package)
                           <tr>
                             <th scope="row">{{ $package->name }}</th>
-                            <td>@if($package->stripe_status == "expire") <span class="badge badge-danger"> {{ $package->stripe_status }} </span> @else <span class="badge badge-success"> {{ $package->stripe_status }} </span> @endif </td>
+                            <td>@if($package->stripe_status == "expire" || $package->stripe_status == "canceled") <span class="badge badge-danger"> {{ $package->stripe_status }} </span> @else <span class="badge badge-success"> {{ $package->stripe_status }} </span> @endif </td>
                             <td>{{ Carbon\Carbon::parse($package->created_at)->format('Y-D-M') }}</td>
+                            <td>
+                              @if($package->stripe_status == 'active')
+                                <button type="button" class="btn btn-danger unsubscribe" subscription-id="{{ $package->id }}">Unsubscribe</button>
+                              @else
+                                <button type="button" class="btn btn-success subscribe" subscription-id="{{ $package->id }}">Subscribe</button>
+                              @endif
+                            </td>
                           </tr>
                         @endforeach
                       </tbody>
                     </table>
                   </div>
                 </div>
-                <div class="pck_chng_btn text-right">
+                {{--<div class="pck_chng_btn text-right">
                   <a href="{!! route('dashboard') !!}" class="btn btn-lg btn-thm">Return Dashboard</a>
-                </div>
+                </div>--}}
               </div>
             </div>
           </div>
@@ -92,4 +102,67 @@
     </div>
   </div>
 </section>
+
+<!-- Button trigger modal -->    
+<!-- unsubscribe Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="exampleModalLabel">Do you want to unsubscribe?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <form method="POST" action="" id="unsubscribe-form">
+          @csrf
+          <button type="submit" class="btn btn-danger">Confirm</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button trigger modal -->    
+<!-- unsubscribe Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-success" id="exampleModalLabel">Do you want to subscribe?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <form method="POST" action="" id="subscribe-form">
+          @csrf
+          <button type="submit" class="btn btn-success">Confirm</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection
+
+
+@section('script_in_body')
+<script>
+  $(document).ready(function(){
+        $(".unsubscribe").click(function(){
+          let subscription_id = $(this).attr('subscription-id');
+          $('#unsubscribe-form').attr('action', `{{ url('subscription/cancel') }}/` + subscription_id);
+          $('#exampleModal1').modal('show');
+        });
+
+        $(".subscribe").click(function(){
+          let subscription_id = $(this).attr('subscription-id');
+          $('#subscribe-form').attr('action', `{{ url('subscription/resume') }}/` + subscription_id);
+          $('#exampleModal2').modal('show');
+        });
+  });
+</script>
 @endsection
