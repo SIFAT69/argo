@@ -119,6 +119,15 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-xl-6">
+                                  @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                      <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+                                        @foreach ($errors->all() as $error)
+                                          <li>{{ $error }}</li>
+                                        @endforeach
+                                      </ul>
+                                    </div>
+                                  @endif
                                     <div class="login_form">
                                         <form action="{!! route('login') !!}" method="post">
                                           @csrf
@@ -149,10 +158,9 @@
                                             <div class="form-group custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="exampleCheck1">
                                                 <label class="custom-control-label" for="exampleCheck1">Remember me</label>
-                                                <a class="btn-fpswd float-right" href="#">Lost your password?</a>
+                                                <a class="btn-fpswd float-right" href="{{ route('password.request') }}">Lost your password?</a>
                                             </div>
                                             <button type="submit" class="btn btn-log btn-block btn-thm">Log In</button>
-                                            <p class="text-center">Don't have an account? <a class="text-thm" href="#">Register</a></p>
                                         </form>
                                     </div>
                                 </div>
@@ -164,6 +172,15 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-xl-6">
+                                  @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                      <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+                                        @foreach ($errors->all() as $error)
+                                          <li>{{ $error }}</li>
+                                        @endforeach
+                                      </ul>
+                                    </div>
+                                  @endif
                                     <div class="sign_up_form">
                                         <div class="heading">
                                             <h4>Register</h4>
@@ -205,10 +222,9 @@
                                             </div>
                                             <div class="form-group custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="exampleCheck2">
-                                                <label class="custom-control-label" for="exampleCheck2">I have read and accept the Terms and Privacy Policy?</label>
+                                                <label class="custom-control-label" for="exampleCheck2">I have read and accept the <a href="{!! route('pages.t&c') !!}">Terms & Conditions</a> and <a href="{!! route('pages.privacyPolicy') !!}">Privacy Policy</a>?</label>
                                             </div>
                                             <button type="submit" class="btn btn-log btn-block btn-thm">Sign Up</button>
-                                            <p class="text-center">Already have an account? <a class="text-thm" href="#">Log In</a></p>
                                         </form>
                                     </div>
                                 </div>
