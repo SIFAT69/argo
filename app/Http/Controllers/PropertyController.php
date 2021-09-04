@@ -15,10 +15,10 @@ class PropertyController extends Controller
 {
     public function property_list(Request $request)
     {
-      $properties = DB::table('properties')->where('user_id', Auth::id())->where('moderation_status', 'Approved')->orWhere('moderation_status', 'Pending')->get();
+      $properties = DB::table('properties')->get();
       return view('Dashboard.RealState.Properties.properties',compact('properties'));
     }
-    
+
     public function property_create(Request $request)
     {
       $cities = DB::table('cities')->get();
@@ -216,9 +216,9 @@ class PropertyController extends Controller
     public function ModStatusChangeProperty(Request $request)
     {
       DB::table('properties')->where('id', $request->id)->update(['moderation_status' => $request->moderation_status]);
-      
+
       ActivityHappened::dispatch(Auth::id(), 'Moderation status of a property has been changed.');
-            
+
       return 'Moderation Status is changed';
     }
 }

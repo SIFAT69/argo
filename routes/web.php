@@ -27,6 +27,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\TanentController;
+use App\Http\Controllers\EmailConfigurationController;
 use App\Events\ActivityHappened;
 
 
@@ -211,6 +212,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     //settings end
 
     Route::get('activityLogs',[ActivityLogController::class, 'index'])->name('activityLogs.index');
+    Route::post("configuration", [EmailConfigurationController::class, "createConfiguration"])->name("configuration.store");
+    Route::get("test-mail-sent", [EmailConfigurationController::class, "testMailSend"])->name("testMailSend");
 
 });
 
@@ -224,7 +227,7 @@ Route::group(['middleware' => ['auth', 'agent']], function () {
         Route::put('/agent-profile-information/{userId}', [AgentController::class, 'updateProfileInformation'])->name('update.agent.profile.information');
         Route::put('/agent-profile-socialMedia/{userId}', [AgentController::class, 'updateProfileSocialMedia'])->name('update.agent.profile.socialMedia');
         Route::put('/agent-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.password');
-        
+
         Route::get('/agencies/my-properties', [AgentController::class, 'MyProperties'])->name('MyProperties');
         Route::get('/agencies/my-properties/create', [AgentController::class, 'MyPropertiesCreate'])->name('MyPropertiesCreate');
         Route::get('/agencies/my-properties/edit/{id}', [AgentController::class, 'MyPropertiesEdit'])->name('MyPropertiesEdit');
