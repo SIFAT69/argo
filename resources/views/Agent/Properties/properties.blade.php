@@ -87,8 +87,19 @@ $(document).ready(function(){
 																<img class="img-whp" src="../uploads/{{ $property->youtube_thumb }}" alt="fp1.jpg">
 																<div class="thmb_cntnt">
 																	<ul class="tag mb0">
-																		<li class="list-inline-item dn"></li>
-																		<li class="list-inline-item"><a href="#">{{ $property->type }}</a></li>
+																		@if($property->type == 'Rent')
+																			@if($property->assigned_to == null)
+																				<li class="list-inline-item"><a href="#">For Rent</a></li>
+																			@else
+																				<li class="list-inline-item"><a href="#">Rent Out</a></li>
+																			@endif
+																		@else
+																			@if($property->assigned_to == null)
+																				<li class="list-inline-item"><a href="#">For Sell</a></li>
+																			@else
+																				<li class="list-inline-item"><a href="#">Sold Out</a></li>
+																			@endif
+																		@endif
 																	</ul>
 																</div>
 															</div>
@@ -107,8 +118,8 @@ $(document).ready(function(){
 										    		<td>
 										    			<ul class="view_edit_delete_list mb0">
 										    				<li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"><a href="{!! route('MyPropertiesEdit',$property->id) !!}"><span class="flaticon-edit"></span></a></li>
-										    				<li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete"><a href="{!! route('HardDeleteProperty', $property->id) !!}"><span class="flaticon-garbage"></span></a></li>
-															<li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Assign"><a href="{!! route('MyPropertiesAssign', $property->id) !!}">Assign</a></li>
+										    				<li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete"><a href="{!! route('agent.HardDeleteProperty', $property->id) !!}"><span class="flaticon-garbage"></span></a></li>
+															<li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Assign"><a href="{!! route('MyPropertiesAssign', $property->id) !!}">Ass</li>
 										    			</ul>
 										    		</td>
                           </tr>

@@ -41,7 +41,7 @@ $(document).ready(function(){
             </div>
             <div class="col-lg-4 col-xl-4 mb10">
               <div class="breadcrumb_content style2 mb30-991">
-                <h2 class="breadcrumb_title">My Properties</h2>
+                <h2 class="breadcrumb_title">My Messages</h2>
               </div>
             </div>
             <div class="col-lg-8 col-xl-8">
@@ -71,7 +71,7 @@ $(document).ready(function(){
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
                             <th scope="col">Phone Number</th>
-                            {{-- <th scope="col">View</th> --}}
+                            <th scope="col">View</th>
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
                           </tr>
@@ -82,6 +82,10 @@ $(document).ready(function(){
                             <td>{{ $contact->name }}</td>
                             <td>{{ $contact->email }}</td>
                             <td>{{ $contact->phoneNumber }}</td>
+                            <td>
+                              <button type="button" class="btn btn-info" name="button" data-toggle="modal" data-target="#view{{ $loop->index+1 }}"> <i class="fa fa-eye"></i> </button>
+                            </td>
+
                             <form class="" action="{!! route('MessageStatus') !!}" method="post">
                               @csrf
                               <input type="hidden" name="id" value="{{ $contact->id }}">
@@ -99,6 +103,28 @@ $(document).ready(function(){
                           </form>
 
                           </tr>
+                          <div class="modal fade" id="view{{ $loop->index+1 }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                   <div class="modal-dialog modal-dialog-centered" role="document">
+                                       <div class="modal-content">
+                                           <div class="modal-header">
+                                               <h5 class="modal-title" id="exampleModalCenterTitle">{{ $contact->name }}</h5>
+                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                               </button>
+                                           </div>
+                                           <div class="modal-body">
+                                             <ul class="list-group list-group-flush">
+                                              <li class="list-group-item">Email : {{  $contact->email }}</li>
+                                              <li class="list-group-item">Phone Number : {{  $contact->phoneNumber }}</li>
+                                              <li class="list-group-item">Message : {{  $contact->message }}</li>
+                                            </ul>
+                                           </div>
+                                           <div class="modal-footer">
+                                               <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                                               {{-- <button type="button" class="btn btn-primary">Save</button> --}}
+                                           </div>
+                                       </div>
+                                   </div>
                         @empty
                           <tr>
                             <td colspan="5" class="text-center">No contact found!</td>

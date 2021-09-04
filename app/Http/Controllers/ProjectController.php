@@ -14,7 +14,7 @@ class ProjectController extends Controller
 {
     public function indexProject()
     {
-      $projects = DB::table('projects')->where('user_id', Auth::id())->where('status', 0)->orWhere('status', 1)->get();
+      $projects = DB::table('projects')->where('status', 0)->orWhere('status', 1)->get();
       return view('Dashboard.RealState.Project.allprojects',compact('projects'));
     }
     public function TrashListProjects()
@@ -173,7 +173,11 @@ class ProjectController extends Controller
 
       ActivityHappened::dispatch(Auth::id(), 'A project has been updated.');
 
-      return redirect('/project-list')->with('success', 'Your project has been updated. Wating for verify!');
+      if (Auth::user()->account_role == "Agent") {
+        return redirect()->route('MyProject')->with('success', 'Your project has been updated. Wating for verify!');
+      }else {
+        return redirect()->route('/project-list')->with('success', 'Your project has been updated.');
+      }
     }
 
     public function softDeleteProject(Request $request)

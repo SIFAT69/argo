@@ -232,18 +232,24 @@ Route::group(['middleware' => ['auth', 'agent']], function () {
         Route::put('/agent-profile-socialMedia/{userId}', [AgentController::class, 'updateProfileSocialMedia'])->name('update.agent.profile.socialMedia');
         Route::put('/agent-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.password');
         
+        Route::post('/agencies/properties-create-post', [PropertyController::class, 'property_post'])->name('agency.property_post');
         Route::get('/agencies/my-properties', [AgentController::class, 'MyProperties'])->name('MyProperties');
         Route::get('/agencies/my-properties/create', [AgentController::class, 'MyPropertiesCreate'])->name('MyPropertiesCreate');
         Route::get('/agencies/my-properties/edit/{id}', [AgentController::class, 'MyPropertiesEdit'])->name('MyPropertiesEdit');
+        Route::post('/agencies/my-properties/update/{id}', [PropertyController::class, 'createPropertyEditPost'])->name('MyPropertiesUpdate');
         Route::get('/agencies/my-properties/assign/{id}', [AgentController::class, 'MyPropertiesAssign'])->name('MyPropertiesAssign');
         Route::post('/agencies/my-properties/assign/{id}', [AgentController::class, 'StoreMyPropertiesAssign'])->name('StoreMyPropertiesAssign');
+        Route::get('/agencies/properties-hard-delete/{id}', [PropertyController::class, 'HardDeleteProperty'])->name('agent.HardDeleteProperty');
         //Profile End
 
         Route::get('/agencies/my-project/', [AgentController::class, 'MyProject'])->name('MyProject');
         Route::get('/agencies/my-project/create', [AgentController::class, 'MyProjectCreate'])->name('MyProjectCreate');
+        Route::post('/agencies/project-create-post', [ProjectController::class, 'createProjectPost'])->name('agency.createProjectPost');
         Route::get('/agencies/my-project/edit/{id}', [AgentController::class, 'MyProjectEdit'])->name('MyProjectEdit');
+        Route::post('/agencies/project-edit-post/{id}', [ProjectController::class, 'createProjectEditPost'])->name('agent.createProjectEditPost');
         Route::get('/agencies/my-projects/assign/{id}', [AgentController::class, 'MyProjectsAssign'])->name('MyProjectsAssign');
         Route::post('/agencies/my-projects/assign/{id}', [AgentController::class, 'StoreMyProjectsAssign'])->name('StoreMyProjectsAssign');
+        Route::get('/agencies/project-hard-delete/{id}', [ProjectController::class, 'HardDeleteProject'])->name('agent.HardDeleteProject');
 
         Route::get('/agencies/inbox', [AgentController::class, 'MyInbox'])->name('MyInbox');
         Route::post('/agencies/status/save', [AgentController::class, 'MessageStatus'])->name('MessageStatus');

@@ -3,21 +3,23 @@
 Edit a new property
 @endsection
 @section('content')
-<div class="container">
-  <br>
-  <br>
-  <br>
-  <br>
+<section class="our-dashbord dashbord bgc-f7 pb50">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-3 col-xl-2 dn-992 pl0"></div>
+        <div class="col-sm-12 col-lg-8 col-xl-10 maxw100flex-992">
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
   @include('Alerts.success')
   @include('Alerts.danger')
 <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
     <div class="widget-content widget-content-area br-6">
-        <a href="{!! route('property_list') !!}" class="btn btn-primary float-right" style="margin: 1rem">Back</a>
+        <a href="{!! route('MyProperties') !!}" class="btn btn-primary float-right" style="margin: 1rem">Back</a>
         <br>
         <br>
         <br>
         <br>
-        <form class="needs-validation" novalidate action="{!! route('createPropertyEditPost', $project->id) !!}" method="post" enctype="multipart/form-data">
+        <form class="needs-validation" novalidate action="{!! route('MyPropertiesUpdate', $project->id) !!}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-row">
                 <div class="col-md-12 mb-4">
@@ -208,4 +210,10 @@ Edit a new property
     </div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+                    </section>
 @endsection

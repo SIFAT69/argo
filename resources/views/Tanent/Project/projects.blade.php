@@ -84,8 +84,11 @@ $(document).ready(function(){
                                 <img class="img-whp" src="../uploads/{{ $project->youtube_thumb }}" alt="fp1.jpg">
                                 <div class="thmb_cntnt">
                                   <ul class="tag mb0">
-                                    <li class="list-inline-item dn"></li>
-                                    {{-- <li class="list-inline-item"><a href="#">{{ $project->type }}</a></li> --}}
+                                  @if($project->assigned_to == null)
+                                    <li class="list-inline-item"><a href="#">For Sell</a></li>
+                                  @else
+                                    <li class="list-inline-item"><a href="#">Sold Out</a></li>
+                                  @endif
                                   </ul>
                                 </div>
                               </div>
@@ -99,7 +102,7 @@ $(document).ready(function(){
                             </div>
                             </th>
                             <td>{{ Carbon\Carbon::parse($project->created_at)->format('Y-M-d') }}</td>
-                            <td><span class="status_tag badge">@if($project->status == 1) Approved @else Pending @endif</span></td>
+                            <td><span class="status_tag badge">@if($project->moderation_status == "Approved") Approved @else Pending @endif</span></td>
                             {{-- <td>2,345</td> --}}
                             <td>
                               <ul class="view_edit_delete_list mb0">
