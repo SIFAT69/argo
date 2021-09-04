@@ -3,9 +3,9 @@
   Edit Blog
 @endsection
 @section('content')
-  <div id="content" class="main-content">
-              <div class="container">
-                  <div class="container">
+  <div id="content" class="content">
+
+
                       <div id="basic" class="row layout-spacing  layout-top-spacing">
                           <div class="col-md-12">
                             @include('Alerts.success')
@@ -19,7 +19,7 @@
                                   <div class="widget-header">
                                       <div class="row">
                                           <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                              <h4> Create a new blog </h4>
+                                              <h4> Edit blog </h4>
                                           </div>
                                       </div>
                                   </div>
@@ -65,7 +65,6 @@
                             </form>
                           </div>
                       </div>
-                  </div>
-              </div>
+
           </div>
 @endsection

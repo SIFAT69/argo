@@ -8,6 +8,8 @@ use Auth;
 use Carbon\Carbon;
 use Image;
 use App\Events\ActivityHappened;
+use Illuminate\Support\Str;
+
 
 class BlogController extends Controller
 {
@@ -53,6 +55,7 @@ class BlogController extends Controller
 
       DB::table('blogs')->insert([
         'title' => $request->title,
+        'slug' => Str::slug($request->title),
         'meta_desc' => $request->meta_desc,
         'meta_image' => $meta_image_rename,
         'status' => $request->status,
@@ -91,8 +94,8 @@ class BlogController extends Controller
 
       DB::table('blogs')->where('id', $request->id)->update([
         'title' => $request->title,
+        'slug' => Str::slug($request->title),
         'meta_desc' => $request->meta_desc,
-
         'status' => $request->status,
         'category' => $request->category,
         'description' => $request->description,

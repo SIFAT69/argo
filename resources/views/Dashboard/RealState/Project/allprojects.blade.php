@@ -21,6 +21,7 @@
                                       <th>Title</th>
                                       <th>Created At</th>
                                       <th>Status</th>
+                                      <th>Display</th>
                                       <th>Action</th>
                                   </tr>
                               </thead>
@@ -39,6 +40,14 @@
                                             <option value="Approved" @if($project->moderation_status == "Approved") selected @endif>Approved</option>
                                             <option value="Deny" @if($project->moderation_status == "Deny") selected @endif>Deny</option>
                                         </select>
+                                      </td>
+                                      <td>
+                                        <label class="switch s-success mr-2">
+                                          <a href="{!! route('DisStatusChangeProject', $project->id) !!}">
+                                            <input type="checkbox" @if($project->status == 1) checked @endif>
+                                            <span class="slider round"></span>
+                                          </a>
+                                        </label>
                                       </td>
                                       <td>
                                         <a href="{!! route('createProjectEdit',$project->id) !!}" class="btn btn-outline-primary rounded bs-tooltip" data-placement="top" title="Edit"><img src="https://img.icons8.com/material-outlined/24/000000/edit--v4.png"/></a>
@@ -74,6 +83,7 @@
                                     <th>Title</th>
                                     <th>Created At</th>
                                     <th>Status</th>
+                                    <th>Display</th>
                                     <th>Action</th>
                                 </tr>
                               </tfoot>

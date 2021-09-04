@@ -18,6 +18,7 @@
                                       <th>Sl. No</th>
                                       <th>Email</th>
                                       <th>Subscribe At</th>
+                                      <th>Action</th>
                                   </tr>
                               </thead>
                               <tbody>
@@ -26,6 +27,9 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $subscriber->email }}</td>
                                         <td>{{ \Carbon\Carbon::parse($subscriber->created_at)->diffForhumans() }}</td>
+                                        <td>
+                                            <a href="{!! route('subscribers.destroy', $subscriber->id) !!}" class="btn btn-outline-danger rounded bs-tooltip" data-placement="top" title="Delete"><img src="https://img.icons8.com/material-rounded/24/000000/delete-sign.png"/></a>
+                                        </td>
                                     </tr>   
                                 @endforeach
                               </tbody>
@@ -34,6 +38,7 @@
                                     <th>Sl. No</th>
                                     <th>Email</th>
                                     <th>Subscribe At</th>
+                                    <th>Action</th>
                                 </tr>
                               </tfoot>
                           </table>

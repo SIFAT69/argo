@@ -113,7 +113,11 @@ class ProjectController extends Controller
 
         ActivityHappened::dispatch(Auth::id(), 'A project has been created.');
 
-        return back()->with('success', 'Your project has been created. Wating for verify!');
+        if (Auth::user()->account_role == "Agent") {
+          return back()->with('success', 'Your project has been created. Wating for verify!');
+        }else {
+          return redirect()->route('indexProject')->with('success', 'Your project has been created. Now you should change the status.');
+        }
     }
 
     public function createProjectEditPost(Request $request)
@@ -212,5 +216,22 @@ class ProjectController extends Controller
 
       ActivityHappened::dispatch(Auth::id(), 'Moderation status of a project has been changed.');
 
+    }
+
+    public function DisStatusChangeProject($id)
+    {
+      $isActive = DB::table('projects')->where('id', $id)->value('status');
+
+      if ($isActive == 1) {
+        DB::table('projects')->where('id', $id)->update([
+          'status' => 0,
+        ]);
+        return back()->with('danger', 'Project will be displayed.');
+      }else {
+        DB::table('projects')->where('id', $id)->update([
+          'status' => 1,
+        ]);
+        return back()->with('success', 'Project will not be displayed.');
+      }
     }
 }

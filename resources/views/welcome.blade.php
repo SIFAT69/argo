@@ -338,7 +338,7 @@ Argo
             <div class="col-lg-6 offset-lg-3">
                 <div class="main-title text-center">
                     <h2 class="color-white">Testimonials</h2>
-                    <p class="color-white">Here could be a nice sub title</p>
+                    <p class="color-white">What people think about us</p>
                 </div>
             </div>
         </div>

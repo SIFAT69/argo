@@ -60,7 +60,6 @@ Edit email configurations
         </div>
     </div>
 </div>
-</div>
 
 <script src="{!! asset('BackAsset') !!}/plugins/file-upload/file-upload-with-preview.min.js"></script>
 <script>

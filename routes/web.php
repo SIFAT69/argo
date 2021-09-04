@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LocationController;
-use App\Http\Controllers\AccountController;
 use App\Http\Controllers\RealstatecategoryController;
 use App\Http\Controllers\RealstatefacilitiesController;
 use App\Http\Controllers\RealstatefeatureController;
@@ -87,13 +86,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/cities-delete-{id}', [LocationController::class, 'CitiesDelete'])->name('CitiesDelete');
     // Cities
 
-    // Accounts
-    Route::get('/accounts-list', [AccountController::class, 'AccountList'])->name('AccountList');
-    Route::get('/accounts-edit-{id}', [AccountController::class, 'AccountEdit'])->name('AccountEdit');
-    Route::post('/accounts-edit-post', [AccountController::class, 'AccountEditPost'])->name('AccountEditPost');
-    // Accounts
-
-
     // RealState Categories
     Route::get('/realstate-categories', [RealstatecategoryController::class, 'index'])->name('realstateIndex');
     Route::post('/realstate-categories-post', [RealstatecategoryController::class, 'store'])->name('realstateStore');
@@ -137,9 +129,10 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/project-view-restore-{id}', [ProjectController::class, 'restoreProject'])->name('restoreProject');
     Route::get('/project-hard-delete-{id}', [ProjectController::class, 'HardDeleteProject'])->name('HardDeleteProject');
     Route::get('/project-mod-status-change', [ProjectController::class, 'ModStatusChangeProject'])->name('ModStatusChangeProject');
+    Route::get('/projects-display-status-change/{id}', [ProjectController::class, 'DisStatusChangeProject'])->name('DisStatusChangeProject');
     // Projects End
 
-    // Project Start
+    // Property Start
     Route::get('/properties-lists', [PropertyController::class, 'property_list'])->name('property_list');
     Route::get('/properties-create-new', [PropertyController::class, 'property_create'])->name('property_create');
     Route::post('/properties-create-post', [PropertyController::class, 'property_post'])->name('property_post');
@@ -150,7 +143,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/properties-view-restore-{id}', [PropertyController::class, 'restoreProperties'])->name('restoreProperties');
     Route::get('/properties-hard-delete-{id}', [PropertyController::class, 'HardDeleteProperty'])->name('HardDeleteProperty');
     Route::get('/properties-mod-status-change', [PropertyController::class, 'ModStatusChangeProperty'])->name('ModStatusChangeProperty');
-    // Project END
+    Route::get('/properties-display-status-change/{id}', [PropertyController::class, 'DisStatusChangeProperty'])->name('DisStatusChangeProperty');
+    // Property END
 
 
     // //Payment Start
@@ -182,6 +176,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     // Admin Consult Start
     Route::get('consult-all',[ContactController::class, 'allConsult'])->name('allConsult');
+    Route::post('/consults/status/save', [AgentController::class, 'MessageStatus'])->name('MessageStatusConsult');
     // Admin Consult End
 
     Route::resource('choices', ChoiceController::class)->except(['destroy', 'show']);
@@ -223,11 +218,12 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('activityLogs',[ActivityLogController::class, 'index'])->name('activityLogs.index');
 
     Route::get('subscribersIndex', [SubscriberController::class, 'index'])->name('subscribers.index');
+    Route::get('subscribersDestroy/{id}', [SubscriberController::class, 'destroy'])->name('subscribers.destroy');
 });
 
 // Agent Route Start
 Route::group(['middleware' => ['auth', 'agent']], function () {
-    Route::middleware('check.subscription')->group(function(){
+    Route::middleware('agent')->group(function(){
         Route::get('/agency-dashbord',[AgentController::class, 'AgentDashboard'])->name('AgentDashboard');
 
         //Profile Start
