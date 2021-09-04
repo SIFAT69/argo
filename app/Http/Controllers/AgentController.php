@@ -24,7 +24,6 @@ class AgentController extends Controller
       // Auth::user()->subscription('yearly')->cancelNow();
       // $in = Auth::user()->subscription('monthly')->asStripeSubscription()->current_period_end;
       // dd(date('Y-m-d H:i:s', $in));
-      // return 5;
       // dd(Auth::user()->subscription('yearly')->asStripeSubscription());
 
       $count_of_properties = Property::where('user_id', Auth::id())->count();

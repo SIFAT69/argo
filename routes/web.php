@@ -28,6 +28,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\TanentController;
 use App\Http\Controllers\EmailConfigurationController;
+use App\Http\Controllers\SubscriberController;
 use App\Events\ActivityHappened;
 
 
@@ -198,23 +199,33 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::put('users/update-pass/{id}', [UserController::class, 'update_password'])->name('users.update.password');
 
     //settings strat
-    Route::get('logo',[SettingController::class, 'logo_edit'])->name('settings.logo.edit');
-    Route::post('logo',[SettingController::class, 'logo_update'])->name('settings.logo.update');
+    Route::get('settings/logo',[SettingController::class, 'logo_edit'])->name('settings.logo.edit');
+    Route::post('settings/logo',[SettingController::class, 'logo_update'])->name('settings.logo.update');
 
-    Route::get('metaKeywords',[SettingController::class, 'metaKeywords_edit'])->name('settings.metaKeywords.edit');
-    Route::post('metaKeywords',[SettingController::class, 'metaKeywords_update'])->name('settings.metaKeywords.update');
+    Route::get('settings/metaKeywords',[SettingController::class, 'metaKeywords_edit'])->name('settings.metaKeywords.edit');
+    Route::post('settings/metaKeywords',[SettingController::class, 'metaKeywords_update'])->name('settings.metaKeywords.update');
 
-    Route::get('generalContact',[SettingController::class, 'generalContact_edit'])->name('settings.generalContact.edit');
-    Route::post('generalContact',[SettingController::class, 'generalContact_update'])->name('settings.generalContact.update');
+    Route::get('settings/generalContact',[SettingController::class, 'generalContact_edit'])->name('settings.generalContact.edit');
+    Route::post('settings/generalContact',[SettingController::class, 'generalContact_update'])->name('settings.generalContact.update');
 
-    Route::get('emailConfig',[SettingController::class, 'emailConfig_edit'])->name('settings.emailConfig.edit');
-    Route::post('emailConfig',[SettingController::class, 'emailConfig_update'])->name('settings.emailConfig.update');
+    Route::get('settings/emailConfig',[SettingController::class, 'emailConfig_edit'])->name('settings.emailConfig.edit');
+    Route::post('settings/emailConfig',[SettingController::class, 'emailConfig_update'])->name('settings.emailConfig.update');
+
+    Route::get('settings/aboutUs',[SettingController::class, 'aboutUs_edit'])->name('settings.aboutUs.edit');
+    Route::post('settings/aboutUs',[SettingController::class, 'aboutUs_update'])->name('settings.aboutUs.update');
+
+    Route::get('settings/tAndC',[SettingController::class, 'tAndC_edit'])->name('settings.tAndC.edit');
+    Route::post('settings/tAndC',[SettingController::class, 'tAndC_update'])->name('settings.tAndC.update');
+
+    Route::get('settings/privacyPolicy',[SettingController::class, 'privacyPolicy_edit'])->name('settings.privacyPolicy.edit');
+    Route::post('settings/privacyPolicy',[SettingController::class, 'privacyPolicy_update'])->name('settings.privacyPolicy.update');
     //settings end
 
     Route::get('activityLogs',[ActivityLogController::class, 'index'])->name('activityLogs.index');
     Route::post("configuration", [EmailConfigurationController::class, "createConfiguration"])->name("configuration.store");
     Route::get("test-mail-sent", [EmailConfigurationController::class, "testMailSend"])->name("testMailSend");
 
+    Route::get('subscribersIndex', [SubscriberController::class, 'index'])->name('subscribers.index');
 });
 
 // Agent Route Start
@@ -283,6 +294,11 @@ Route::get('properties/search', [PageController::class, 'properties_search'])->n
 Route::get('properties-city/{city}/', [PageController::class, 'properties_city_wise'])->name('properties_city_wise');
 // FontPages End
 
+Route::post('homeSubscribe', [HomeController::class, 'homeSubscribe'])->name('homeSubscribe');
+
+Route::get('aboutUs', [PageController::class, 'about_us'])->name('pages.aboutUs');
+Route::get('termsConditons', [PageController::class, 't_and_c'])->name('pages.t&c');
+Route::get('privacyPolicy', [PageController::class, 'privacy_policy'])->name('pages.privacyPolicy');
 
 
 // Tenant Route Start

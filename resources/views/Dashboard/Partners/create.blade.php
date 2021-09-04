@@ -23,6 +23,7 @@ Create a new partner
                             <div class="col-md-12 mb-4">
                                 <label for="validationCustom01">Image:</label>
                                 <input type="file" class="form-control-file mb-2" name="image" value="" required>
+                                <small class="text-primary">Image must have same width & height</small>
                                 @error('image')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror

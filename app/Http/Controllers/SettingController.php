@@ -7,6 +7,7 @@ use Image;
 use App\Models\MetaKeyword;
 use App\Models\GeneralContact;
 use App\Models\EmailConfig;
+use App\Models\QuickLink;
 use Illuminate\Support\Facades\Auth;
 use App\Events\ActivityHappened;
 
@@ -121,5 +122,74 @@ class SettingController extends Controller
         ActivityHappened::dispatch(Auth::id(), 'The email configuration has been updated.');
         
         return back()->with('success', "Successfully updated");
+    }
+
+    public function aboutUs_edit()
+    {
+        $discription = QuickLink::where('link_name', 'about us')->value('description');
+        return view('Dashboard.Settings.aboutUs_edit', ['description' => $discription]);
+    }
+
+    public function aboutUs_update(Request $request)
+    {
+        $request->validate([
+            'description' => 'bail|required|string|max:5000',
+        ]);
+
+        QuickLink::updateOrCreate(
+            ['link_name' => 'about us'],
+            [
+                'link_name' => 'about us',
+                'description' => $request->description,
+            ]
+        );
+
+        return redirect()->route('settings.aboutUs.edit')->with('success', 'Successfully saved');
+    }
+
+    public function tAndC_edit()
+    {
+        $discription = QuickLink::where('link_name', 't and c')->value('description');
+        return view('Dashboard.Settings.tAndC_edit', ['description' => $discription]);
+    }
+
+    public function tAndC_update(Request $request)
+    {
+        $request->validate([
+            'description' => 'bail|required|string|max:5000',
+        ]);
+
+        QuickLink::updateOrCreate(
+            ['link_name' => 't and c'],
+            [
+                'link_name' => 't and c',
+                'description' => $request->description,
+            ]
+        );
+
+        return redirect()->route('settings.tAndC.edit')->with('success', 'Successfully saved');
+    }
+
+    public function privacyPolicy_edit()
+    {
+        $discription = QuickLink::where('link_name', 'privacy policy')->value('description');
+        return view('Dashboard.Settings.privacyPolicy_edit', ['description' => $discription]);
+    }
+
+    public function privacyPolicy_update(Request $request)
+    {
+        $request->validate([
+            'description' => 'bail|required|string|max:5000',
+        ]);
+
+        QuickLink::updateOrCreate(
+            ['link_name' => 'privacy policy'],
+            [
+                'link_name' => 'privacy policy',
+                'description' => $request->description,
+            ]
+        );
+
+        return redirect()->route('settings.tAndC.edit')->with('success', 'Successfully saved');
     }
 }

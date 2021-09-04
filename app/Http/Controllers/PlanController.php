@@ -12,22 +12,12 @@ use App\Models\plan;
 
 class PlanController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-    */
     public function index()
     {
         $plans = Plan::all();
         return view('Dashboard.Plans.index', compact('plans'));
     }
 
-    /**
-     * Show the Plan.
-     *
-     * @return mixed
-     */
     public function show(Plan $plan, Request $request)
     {
         $paymentMethods = $request->user()->paymentMethods();

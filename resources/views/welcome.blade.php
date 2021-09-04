@@ -314,7 +314,6 @@ Argo
             </div>
         </div>
         <div class="row">
-
             @foreach($choices as $choice)
                 <div class="col-md-6 col-lg-4 col-xl-4">
                     <div class="why_chose_us">
@@ -328,7 +327,6 @@ Argo
                     </div>
                 </div>
             @endforeach
-
         </div>
     </div>
 </section>
@@ -347,7 +345,6 @@ Argo
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
                 <div class="testimonial_grid_slider">
-
                     @foreach($testimonials as $testimonial)
                         <div class="item">
                             <div class="testimonial_grid">
@@ -366,7 +363,6 @@ Argo
                             </div>
                         </div>
                     @endforeach
-
                 </div>
             </div>
         </div>
@@ -423,7 +419,6 @@ Argo
             </div>
         </div>
         <div class="row">
-
             @foreach($partners as $partner)
                 <div class="col-sm-6 col-md-4 col-lg">
                     <div class="our_partner">
@@ -431,29 +426,11 @@ Argo
                     </div>
                 </div>
             @endforeach
-
         </div>
     </div>
 </section>
 
-<!-- Start Partners -->
-<section class="start-partners bgc-thm pt50 pb50">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="start_partner tac-smd">
-                    <h2>Become a Real Estate Agent</h2>
-                    <p>We only work with the best companies around the globe</p>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="parner_reg_btn text-right tac-smd">
-                    <a href="#" class="btn btn-thm2" data-toggle="modal" data-target=".bd-example-modal-lg">Register Now</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+@include('Font.footer_reg')
 
 <!-- Our Footer -->
 <section class="footer_one">
@@ -469,11 +446,10 @@ Argo
                 <div class="footer_qlink_widget">
                     <h4>Quick Links</h4>
                     <ul class="list-unstyled">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Terms & Conditions</a></li>
-                        <li><a href="#">User’s Guide</a></li>
-                        <li><a href="#">Support Center</a></li>
-                        <li><a href="#">Press Info</a></li>
+                        <li><a href="{{ route('pages.aboutUs') }}">About Us</a></li>
+                        <li><a href="{{ route('pages.t&c') }}">Terms & Conditions</a></li>
+                        <li><a href="{{ route('pages.privacyPolicy') }}">Privacy Policy</a></li>
+                        <li><a href="{{ route('contact') }}">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
@@ -499,15 +475,18 @@ Argo
                         <li class="list-inline-item"><a href="{{ $gContact->googlePlus }}" target="_blank"><i class="fa fa-google"></i></a></li>
                     </ul>
                     <h4>Subscribe</h4>
-                    <form class="footer_mailchimp_form">
+                    <form class="footer_mailchimp_form" method="POST" action="{{ route('homeSubscribe') }}">
+                        @csrf
                         <div class="form-row align-items-center">
                             <div class="col-auto">
-                                <input type="email" class="form-control mb-2" id="inlineFormInput" placeholder="Your email">
+                                <input type="email" class="form-control mb-2" id="inlineFormInput" name="email" placeholder="Your email" required>
                             </div>
                             <div class="col-auto">
                                 <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-angle-right"></i></button>
                             </div>
                         </div>
+                        @include('Alerts.success')
+                        @include('Alerts.danger')
                     </form>
                 </div>
             </div>

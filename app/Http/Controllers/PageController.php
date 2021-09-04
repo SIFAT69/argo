@@ -11,6 +11,11 @@ use App\Models\Project;
 use App\Models\Property;
 use App\Models\User;
 use App\Models\GeneralContact;
+use App\Models\QuickLink;
+use App\Models\Choice;
+use App\Models\Testimonial;
+use App\Models\Partner;
+
 
 class PageController extends Controller
 {
@@ -386,5 +391,28 @@ class PageController extends Controller
           $property->time = Carbon::parse($property->created_at)->diffForHumans();
         }
        return view('Font.Properties.properties_city_wise', compact('properties', 'city'));
+    }
+
+    public function about_us()
+    {
+      $discription = QuickLink::where('link_name', 'about us')->value('description');
+
+      $choices = Choice::all();
+      $testimonials = Testimonial::inRandomOrder()->limit(5)->get();
+      $partners = Partner::all();
+// dd($testimonials);
+      return view('Font.Pages.about_us', compact('discription', 'choices', 'testimonials', 'partners'));
+    }
+
+    public function t_and_c()
+    {
+      $discription = QuickLink::where('link_name', 't and c')->value('description');
+      return view('Font.Pages.t_and_c', ['description' => $discription]);
+    }
+
+    public function privacy_policy()
+    {
+      $discription = QuickLink::where('link_name', 'privacy policy')->value('description');
+      return view('Font.Pages.privacy_policy', ['description' => $discription]);
     }
 }
