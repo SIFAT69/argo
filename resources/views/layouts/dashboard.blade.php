@@ -225,9 +225,9 @@
                       </a>
                     </li>
                     <li class="menu">
-                      <a href="#" aria-expanded="false" class="dropdown-toggle">
+                      <a href="{{ route('subscribers.index') }}" aria-expanded="false" class="dropdown-toggle">
                         <div class="">
-                          <span>Agents</span>
+                          <span>Subscribers</span>
                         </div>
                       </a>
                     </li>
@@ -340,6 +340,15 @@
                                     </li>
                                     <li>
                                         <a href="{{ route('settings.generalContact.edit') }}"> Contact </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('settings.aboutUs.edit') }}"> About Us </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('settings.tAndC.edit') }}"> Terms & Conditions </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('settings.privacyPolicy.edit') }}"> Privacy Policy </a>
                                     </li>
                                 </ul>
                             </li>

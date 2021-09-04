@@ -10,22 +10,12 @@ use App\Events\ActivityHappened;
 
 class PartnerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $partners = Partner::all();
         return view('Dashboard.Partners.index', compact('partners'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('Dashboard.Partners.create');

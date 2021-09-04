@@ -12,6 +12,7 @@ use App\Models\Testimonial;
 use App\Models\Partner;
 use App\Models\Blog;
 use App\Models\GeneralContact;
+use App\Models\Subscriber;
 
 class HomeController extends Controller
 {
@@ -71,5 +72,22 @@ class HomeController extends Controller
             $gContact = new GeneralContact;
 
         return view('welcome', compact('categories', 'bedrooms', 'bathrooms', 'floors', 'minPrice', 'maxPrice', 'features', 'featuredProperties', 'cities', 'choices', 'testimonials', 'partners', 'blogs', 'gContact'));
+    }
+
+    public function homeSubscribe(Request $request)
+    {
+        $request->validate([
+            'email' => 'bail|required|email|max:255'
+        ]);
+
+        $exist = Subscriber::where('email', $request->email)->exists();
+        if($exist)
+            return redirect()->route('welcome')->with('success', 'You have already subscribe');
+        else
+        {
+            Subscriber::create(['email' => $request->email]);
+            return redirect()->route('welcome')->with('success', 'You have subscribed');
+        }
+        
     }
 }
