@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::withTrashed()->where('id', '<>', Auth::id())->get();
+        $users = User::withTrashed()->get();
         return view('Dashboard.Users.index', ['users' => $users]);
     }
 

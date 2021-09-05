@@ -84,8 +84,19 @@ $(document).ready(function(){
 																<img class="img-whp" src="../uploads/{{ $property->youtube_thumb }}" alt="fp1.jpg">
 																<div class="thmb_cntnt">
 																	<ul class="tag mb0">
-																		<li class="list-inline-item dn"></li>
-																		<li class="list-inline-item"><a href="#">{{ $property->type }}</a></li>
+																	@if($property->type == 'Rent')
+																			@if($property->assigned_to == null)
+																				<li class="list-inline-item"><a href="#">For Rent</a></li>
+																			@else
+																				<li class="list-inline-item"><a href="#">Rent Out</a></li>
+																			@endif
+																		@else
+																			@if($property->assigned_to == null)
+																				<li class="list-inline-item"><a href="#">For Sell</a></li>
+																			@else
+																				<li class="list-inline-item"><a href="#">Sold Out</a></li>
+																			@endif
+																		@endif
 																	</ul>
 																</div>
 															</div>

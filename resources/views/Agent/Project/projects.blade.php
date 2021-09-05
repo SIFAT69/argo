@@ -41,7 +41,7 @@ $(document).ready(function(){
             </div>
             <div class="col-lg-4 col-xl-4 mb10">
               <div class="breadcrumb_content style2 mb30-991">
-                <h2 class="breadcrumb_title">My Properties</h2>
+                <h2 class="breadcrumb_title">My Projects</h2>
               </div>
             </div>
             <div class="col-lg-8 col-xl-8">
@@ -87,8 +87,11 @@ $(document).ready(function(){
                                 <img class="img-whp" src="../uploads/{{ $project->youtube_thumb }}" alt="fp1.jpg">
                                 <div class="thmb_cntnt">
                                   <ul class="tag mb0">
-                                    <li class="list-inline-item dn"></li>
-                                    {{-- <li class="list-inline-item"><a href="#">{{ $project->type }}</a></li> --}}
+                                  @if($project->assigned_to == null)
+                                    <li class="list-inline-item"><a href="#">For Sell</a></li>
+                                  @else
+                                    <li class="list-inline-item"><a href="#">Sold Out</a></li>
+                                  @endif
                                   </ul>
                                 </div>
                               </div>
@@ -102,13 +105,13 @@ $(document).ready(function(){
                             </div>
                             </th>
                             <td>{{ Carbon\Carbon::parse($project->created_at)->format('Y-M-d') }}</td>
-                            <td><span class="status_tag badge">@if($project->status == 1) Approved @else Pending @endif</span></td>
+                            <td><span class="status_tag badge">@if($project->moderation_status == "Approved") Approved @else Pending @endif</span></td>
                             {{-- <td>2,345</td> --}}
                             <td>
                               <ul class="view_edit_delete_list mb0">
                                 <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"><a href="{!! route('MyProjectEdit',$project->id) !!}"><span class="flaticon-edit"></span></a></li>
-                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete"><a href="{!! route('HardDeleteProject', $project->id) !!}"><span class="flaticon-garbage"></span></a></li>
-                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Assign"><a href="{!! route('MyProjectsAssign', $project->id) !!}">Assign</a></li>
+                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete"><a href="{!! route('agent.HardDeleteProject', $project->id) !!}"><span class="flaticon-garbage"></span></a></li>
+                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Assign"><a href="{!! route('MyProjectsAssign', $project->id) !!}">Ass</a></li>
                               </ul>
                             </td>
                           </tr>

@@ -3,9 +3,13 @@
   - Create a new project
 @endsection
 @section('content')
-<div class="container">
-  <div class="row layout-top-spacing">
-      <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+<section class="our-dashbord dashbord bgc-f7 pb50">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-3 col-xl-2 dn-992 pl0"></div>
+        <div class="col-sm-12 col-lg-8 col-xl-10 maxw100flex-992">
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
         @include('Alerts.success')
         @include('Alerts.danger')
           <div class="widget-content widget-content-area br-6">
@@ -14,7 +18,7 @@
               <br>
               <br>
               <br>
-              <form class="needs-validation" novalidate action="{!! route('createProjectPost') !!}" method="post" enctype="multipart/form-data">
+              <form class="needs-validation" novalidate action="{!! route('agency.createProjectPost') !!}" method="post" enctype="multipart/form-data">
                   @csrf
                   <div class="form-row">
                       <div class="col-md-12 mb-4">
@@ -189,4 +193,11 @@
       </div>
   </div>
 </div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+                    </section>
 @endsection

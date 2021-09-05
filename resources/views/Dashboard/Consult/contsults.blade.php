@@ -35,7 +35,7 @@
                                     <td>
                                       <button type="button" class="btn btn-info" name="button" data-toggle="modal" data-target="#view{{ $loop->index+1 }}"> <i class="fa fa-eye"></i> </button>
                                     </td>
-                                    <form class="" action="{!! route('MessageStatus') !!}" method="post">
+                                    <form class="" action="{!! route('MessageStatusConsult') !!}" method="post">
                                       @csrf
                                       <input type="hidden" name="id" value="{{ $consult->id }}">
                                       <td>

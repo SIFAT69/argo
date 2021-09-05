@@ -123,7 +123,7 @@ class PageController extends Controller
 
     public function blogs_lists(Request $request)
     {
-      $blogs  = DB::table('blogs')->paginate(3);
+      $blogs  = DB::table('blogs')->where('status', 'Published')->paginate(3);
       return view('Font.Blogs.blogs', compact('blogs'));
     }
 

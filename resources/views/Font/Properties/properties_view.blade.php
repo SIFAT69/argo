@@ -17,20 +17,22 @@ Argo
 							<div class="col-lg-12">
 								<div class="main-banner-wrapper home10">
 									<div class="banner-style-one owl-theme owl-carousel">
-						@php
-						$images = json_decode($property->images, true);
-						@endphp
-						@foreach ($images as $image)
-						@php
-							$showImage = DB::table('libraries')->where('id', $image)->value('file_name');
-						@endphp
-										<div class="slide slide-one" style="background-image: url('/uploads/{{ $showImage }}');height: 600px;"></div>
-						@endforeach
+										@php
+											$images = json_decode($property->images, true);
+										@endphp
+										@foreach ($images as $image)
+
+											@php
+												$showImage = DB::table('libraries')->where('id', $image)->value('file_name');
+												
+											@endphp
+										<div class="slide slide-one" style="background-image: url('../uploads/{{ $showImage }}');height: 600px;"></div>
+										@endforeach
+										<div class="carousel-btn-block banner-carousel-btn">
+											<span class="carousel-btn left-btn"><i class="flaticon-left-arrow-1 left"></i></span>
+											<span class="carousel-btn right-btn"><i class="flaticon-right-arrow right"></i></span>
+										</div><!-- /.carousel-btn-block banner-carousel-btn -->
 									</div>
-									<div class="carousel-btn-block banner-carousel-btn">
-										<span class="carousel-btn left-btn"><i class="flaticon-left-arrow-1 left"></i></span>
-										<span class="carousel-btn right-btn"><i class="flaticon-right-arrow right"></i></span>
-									</div><!-- /.carousel-btn-block banner-carousel-btn -->
 								</div><!-- /.main-banner-wrapper -->
 							</div>
 						</div>

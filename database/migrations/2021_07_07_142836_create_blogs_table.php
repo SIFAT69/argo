@@ -17,11 +17,11 @@ class CreateBlogsTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
-            $table->string('meta_desc')->nullable();
+            $table->string('meta_desc', 2555)->nullable();
             $table->string('meta_image')->nullable();
             $table->string('status')->nullable();
             $table->string('category')->nullable();
-            $table->string('description')->nullable();
+            $table->string('description', 5000)->nullable();
             $table->string('posted_by')->nullable();
             $table->timestamps();
         });

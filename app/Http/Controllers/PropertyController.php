@@ -101,7 +101,7 @@ class PropertyController extends Controller
       if (Auth::user()->account_role == "Agent") {
         return back()->with('success', 'Your property has been created. Wating for verify!');
       }else {
-        return redirect('/properties-lists')->with('success', 'Your property has been created. Wating for verify!');
+        return redirect('/properties-lists')->with('success', 'Your property has been created. Now you should change the status.');
       }
     }
 
@@ -220,5 +220,22 @@ class PropertyController extends Controller
       ActivityHappened::dispatch(Auth::id(), 'Moderation status of a property has been changed.');
 
       return 'Moderation Status is changed';
+    }
+
+    public function DisStatusChangeProperty($id)
+    {
+      $isActive = DB::table('properties')->where('id', $id)->value('status');
+
+      if ($isActive == 1) {
+        DB::table('properties')->where('id', $id)->update([
+          'status' => 0,
+        ]);
+        return back()->with('danger', 'Propery will be displayed.');
+      }else {
+        DB::table('properties')->where('id', $id)->update([
+          'status' => 1,
+        ]);
+        return back()->with('success', 'Propery will not be displayed.');
+      }
     }
 }

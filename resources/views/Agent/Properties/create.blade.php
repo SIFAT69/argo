@@ -19,7 +19,7 @@
                     <br>
                     <br>
                     <br>
-                    <form class="needs-validation" novalidate action="{!! route('property_post') !!}" method="post" enctype="multipart/form-data">
+                    <form class="needs-validation" novalidate action="{!! route('agency.property_post') !!}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
                             <div class="col-md-12 mb-4">

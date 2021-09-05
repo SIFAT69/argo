@@ -275,16 +275,6 @@ Argo
                 @else
                     <div class="col-lg-8 col-xl-8">
                 @endif
-                        <div class="properti_city">
-                            <div class="thumb"><img class="img-fluid w100" src="{!! asset('FontAsset') !!}/images/property/pc{{ $loop->iteration}}.jpg" alt="city image"></div>
-                            <div class="overlay">
-                                <div class="details">
-                                    <h4>{{ $city->name }}</h4>
-                                    <p>{{ $city->quantity }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                         <a href="{{ route('properties_city_wise', $city->name) }}">
                             <div class="properti_city">
                                 <div class="thumb"><img class="img-fluid w100" src="{!! asset('FontAsset') !!}/images/property/pc{{ $loop->iteration}}.jpg" alt="city image"></div>
@@ -338,7 +328,7 @@ Argo
             <div class="col-lg-6 offset-lg-3">
                 <div class="main-title text-center">
                     <h2 class="color-white">Testimonials</h2>
-                    <p class="color-white">Here could be a nice sub title</p>
+                    <p class="color-white">What people think about us</p>
                 </div>
             </div>
         </div>
