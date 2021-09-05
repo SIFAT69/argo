@@ -32,7 +32,7 @@ Edit choice
                         <div class="form-row">
                             <div class="col-md-12 mb-4">
                                 <label for="validationCustom01">Description:</label>
-                                <input type="text" class="form-control" placeholder="Enter a meta description" name="description" value="{{ old('description') ?? $choice->title }}"  required></input>
+                                <input type="text" class="form-control" placeholder="Enter a meta description" name="description" value="{{ old('description') ?? $choice->description }}"  required></input>
                                 @error('description')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror

@@ -14,8 +14,8 @@ use App\Events\ActivityHappened;
 class PropertyController extends Controller
 {
     public function property_list(Request $request)
-    {
-      $properties = DB::table('properties')->where('user_id', Auth::id())->where('moderation_status', 'Approved')->orWhere('moderation_status', 'Pending')->get();
+    { 
+      $properties = DB::table('properties')->get();
       return view('Dashboard.RealState.Properties.properties',compact('properties'));
     }
     
