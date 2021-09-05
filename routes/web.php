@@ -145,6 +145,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/properties-hard-delete-{id}', [PropertyController::class, 'HardDeleteProperty'])->name('HardDeleteProperty');
     Route::get('/properties-mod-status-change', [PropertyController::class, 'ModStatusChangeProperty'])->name('ModStatusChangeProperty');
     Route::get('/properties-display-status-change/{id}', [PropertyController::class, 'DisStatusChangeProperty'])->name('DisStatusChangeProperty');
+    Route::get('/properties-isFeatured-change/{id}', [PropertyController::class, 'IsFeaturedChangeProperty'])->name('IsFeaturedChangeProperty');
     // Property END
 
 

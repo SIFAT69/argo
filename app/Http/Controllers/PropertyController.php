@@ -32,9 +32,9 @@ class PropertyController extends Controller
     }
 
     public function property_post(Request $request){
-    foreach ($request->file('images') as $file)
+    foreach ($request->file('images') as $index => $file)
      {
-       $name = $file->getClientOriginalName();
+       $name = $index . date('YmdHisv') . '.' . $file->getClientOriginalExtension();
        $file->move(public_path('uploads'), $name);
        $files[] = $name;
 
@@ -57,7 +57,7 @@ class PropertyController extends Controller
       $JsonFeature = json_encode($request->features, true);
 
       if (!empty($request->youtube_thumb)) {
-        $randomNumber =rand();
+        $randomNumber = rand();
         $meta_image = $request->file('youtube_thumb');
         $meta_image_rename = $randomNumber.'.'.$meta_image->getClientOriginalExtension();
         $newLocation = 'uploads/'.$meta_image_rename;
@@ -230,12 +230,29 @@ class PropertyController extends Controller
         DB::table('properties')->where('id', $id)->update([
           'status' => 0,
         ]);
-        return back()->with('danger', 'Propery will be displayed.');
+        return back()->with('danger', 'Propery will not be displayed.');
       }else {
         DB::table('properties')->where('id', $id)->update([
           'status' => 1,
         ]);
-        return back()->with('success', 'Propery will not be displayed.');
+        return back()->with('success', 'Propery will be displayed.');
+      }
+    }
+
+    public function IsFeaturedChangeProperty($id)
+    {
+      $isActive = DB::table('properties')->where('id', $id)->value('is_featured');
+
+      if ($isActive == "Yes") {
+        DB::table('properties')->where('id', $id)->update([
+          'is_featured' => "No",
+        ]);
+        return back()->with('danger', 'Not featured property');
+      }else {
+        DB::table('properties')->where('id', $id)->update([
+          'is_featured' => "Yes",
+        ]);
+        return back()->with('success', 'Featured property');
       }
     }
 }

@@ -25,8 +25,9 @@ $myProperties = DB::table('properties')->where('user_id', $agents->id)->get();
                     <div class="col-lg-12">
                         <div class="breadcrumb_content style2 mt30-767 mb30-767">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active text-thm" aria-current="page">Agencies</li>
+                                <li class="breadcrumb-item"><a href="{{ route('welcome') }}">Home</a></li>
+                                <li class="breadcrumb-item "><a href="{{ route('agencies_lists') }}">Agencies</a></li>
+                                <li class="breadcrumb-item active text-thm" aria-current="page">{{ $agents->name }}</li>
                             </ol>
                             <h2 class="breadcrumb_title">{{ $agents->name }}</h2>
                         </div>

@@ -22,6 +22,7 @@
                                       <th>Created At</th>
                                       <th>Status</th>
                                       <th>Display</th>
+                                      <th>Featured</th>
                                       <th>Action</th>
                                   </tr>
                               </thead>
@@ -45,6 +46,14 @@
                                         <label class="switch s-success mr-2">
                                           <a href="{!! route('DisStatusChangeProperty', $property->id) !!}">
                                             <input type="checkbox" @if($property->status == 1) checked @endif>
+                                            <span class="slider round"></span>
+                                          </a>
+                                        </label>
+                                      </td>
+                                      <td>
+                                        <label class="switch s-success mr-2">
+                                          <a href="{!! route('IsFeaturedChangeProperty', $property->id) !!}">
+                                            <input type="checkbox" @if($property->is_featured == "Yes") checked @endif>
                                             <span class="slider round"></span>
                                           </a>
                                         </label>
@@ -84,6 +93,7 @@
                                     <th>Created At</th>
                                     <th>Status</th>
                                     <th>Display</th>
+                                    <th>Featured</th>
                                     <th>Action</th>
                                 </tr>
                               </tfoot>
