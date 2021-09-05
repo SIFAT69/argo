@@ -36,7 +36,6 @@ class BlogController extends Controller
     // functional Blogs start
     public function store(Request $request)
     {
-
       $validated = $request->validate([
           'title' => 'required|unique:blogs|max:255',
           'description' => 'required',

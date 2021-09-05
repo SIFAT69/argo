@@ -5,40 +5,40 @@ Argo
 @section('page_name')
   Project - {{ $project->title }}
 @endsection
-@section('content')
 
-	<div class="single_page_listing_tab">
-		<div class="tab-content" id="myTabContent">
-			<div class="tab-pane fade show active" id="slider_tabs" role="tabpanel" aria-labelledby="slider-tab">
-			  	<!-- 10th Home Slider -->
-				<div class="home10-mainslider">
-					<div class="container-fluid p0">
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="main-banner-wrapper home10">
-								    <div class="banner-style-one owl-theme owl-carousel">
-                      @php
-                        $images = json_decode($project->images, true);
-                      @endphp
-                      @foreach ($images as $image)
-                        @php
-                          $showImage = DB::table('libraries')->where('id', $image)->value('file_name');
-                        @endphp
-								        <div class="slide slide-one" style="background-image: url('/uploads/{{ $showImage }}');height: 600px;"></div>
-                      @endforeach
-								    </div>
-								    <div class="carousel-btn-block banner-carousel-btn">
-								        <span class="carousel-btn left-btn"><i class="flaticon-left-arrow-1 left"></i></span>
-								        <span class="carousel-btn right-btn"><i class="flaticon-right-arrow right"></i></span>
-								    </div><!-- /.carousel-btn-block banner-carousel-btn -->
-								</div><!-- /.main-banner-wrapper -->
-							</div>
+@section('content')
+<div class="single_page_listing_tab">
+	<div class="tab-content" id="myTabContent">
+		<div class="tab-pane fade show active" id="slider_tabs" role="tabpanel" aria-labelledby="slider-tab">
+			<!-- 10th Home Slider -->
+			<div class="home10-mainslider">
+				<div class="container-fluid p0">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="main-banner-wrapper home10">
+								<div class="banner-style-one owl-theme owl-carousel">
+					@php
+					$images = json_decode($project->images, true);
+					@endphp
+					@foreach ($images as $image)
+					@php
+						$showImage = DB::table('libraries')->where('id', $image)->value('file_name');
+					@endphp
+									<div class="slide slide-one" style="background-image: url('/uploads/{{ $showImage }}');height: 600px;"></div>
+					@endforeach
+								</div>
+								<div class="carousel-btn-block banner-carousel-btn">
+									<span class="carousel-btn left-btn"><i class="flaticon-left-arrow-1 left"></i></span>
+									<span class="carousel-btn right-btn"><i class="flaticon-right-arrow right"></i></span>
+								</div><!-- /.carousel-btn-block banner-carousel-btn -->
+							</div><!-- /.main-banner-wrapper -->
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
   <section class="our-agent-single bgc-f7 pb30-991">
 		<div class="container">
@@ -73,9 +73,9 @@ Argo
 								<div class="lsd_list">
 									<ul class="mb0">
 										<li class="list-inline-item"><a href="#">{{ $project->category }}</a></li>
-										<li class="list-inline-item"><a href="#">Beds: {{ $project->flat_beds }}</a></li>
-										<li class="list-inline-item"><a href="#">Baths: {{ $project->flat_baths }}</a></li>
-										<li class="list-inline-item"><a href="#">m<sup>2</sup>: {{ $project->size }}</a></li>
+										<li class="list-inline-item"><a href="#">Blocks: {{ $project->flat_blocks }}</a></li>
+										<li class="list-inline-item"><a href="#">Floors: {{ $project->flat_floors }}</a></li>
+										<li class="list-inline-item"><a href="#">Flat Numbers: {{ $project->flat_number }}</a></li>
 									</ul>
 								</div>
 								<h4 class="mb30">Description</h4>
@@ -221,14 +221,16 @@ Argo
 									</div>
 									<div class="details">
 										<div class="tc_content">
-											<p class="text-thm">Apartment</p>
-											<h4>{{ $similarProject->title }}</h4>
-											<p><span class="flaticon-placeholder"></span>{{ $similarProject->city }}, {{ $similarProject->state }}, {{ $similarProject->location }}</p>
-											<ul class="prop_details mb0">
-												<li class="list-inline-item"><a href="#">Beds: {{ $similarProject->flat_blocks }}</a></li>
-												<li class="list-inline-item"><a href="#">Baths: {{ $similarProject->flat_floors }}</a></li>
-												<li class="list-inline-item"><a href="#">Sq Ft: {{ $similarProject->flat_number }}</a></li>
-											</ul>
+											<p class="text-thm">{{ $similarProject->category }}</p>
+											<a href="{!! route('projects_view', $similarProject->slug) !!}">
+												<h4>{{ $similarProject->title }}</h4>
+												<p><span class="flaticon-placeholder"></span>{{ $similarProject->city }}, {{ $similarProject->state }}, {{ $similarProject->location }}</p>
+												<ul class="prop_details mb0">
+													<li class="list-inline-item"><a href="#">Beds: {{ $similarProject->flat_blocks }}</a></li>
+													<li class="list-inline-item"><a href="#">Baths: {{ $similarProject->flat_floors }}</a></li>
+													<li class="list-inline-item"><a href="#">Sq Ft: {{ $similarProject->flat_number }}</a></li>
+												</ul>
+											</a>
 										</div>
 										<div class="fp_footer">
 											<ul class="fp_meta float-left mb0">

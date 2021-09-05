@@ -139,7 +139,7 @@ class PageController extends Controller
     public function blog_details(Request $request)
     {
       $blog = DB::table('blogs')->where('slug', $request->slug)->first();
-      $check_views = DB::table('views')->where('post_id', $blog->id)->first();
+      $check_views = DB::table('views')->where('post_id', $blog->id)->where('post_table', 'blogs')->first();
       if (!empty($check_views)) {
         DB::table('views')->where('post_id', $blog->id)->update([
           'view_count' => $check_views->view_count+1,

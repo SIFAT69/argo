@@ -4,7 +4,7 @@ $is_featured_properties = DB::table('properties')->where('moderation_status', 'A
 @endphp
 
 <div class="col-lg-4 col-xl-4">
-  <div class="sidebar_search_widget">
+  {{--<div class="sidebar_search_widget">
     <div class="blog_search_widget">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search Here" aria-label="Recipient's username" aria-describedby="button-addon2">
@@ -13,7 +13,7 @@ $is_featured_properties = DB::table('properties')->where('moderation_status', 'A
         </div>
       </div>
     </div>
-  </div>
+  </div>--}}
   <div class="terms_condition_widget">
     <h4 class="title">Categories Property</h4>
     <div class="widget_list">

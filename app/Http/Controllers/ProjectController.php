@@ -49,9 +49,9 @@ class ProjectController extends Controller
 
 
       // Image Uploads start
-      foreach ($request->file('images') as $file)
+      foreach ($request->file('images') as $index => $file)
        {
-         $name = $file->getClientOriginalName();
+         $name = $index . date('YmdHisv') . '.' . $file->getClientOriginalExtension();
          $file->move(public_path('uploads'), $name);
          $files[] = $name;
 

@@ -54,8 +54,8 @@ Argo
             @foreach($choices as $choice)
                 <div class="col-md-6 col-lg-4 col-xl-4">
                     <div class="why_chose_us style2">
-                        <div class="icon">
-                            <span class="{{ $choice->icon }}"></span>
+                        <div>
+                            <img class="rounded-circle" src="{{ asset('/uploads/' . $choice->icon) }}" alt="choice icon">
                         </div>
                         <div class="details">
                             <h4>{{ $choice->title }}</h4>

@@ -221,7 +221,11 @@ Argo
 										</ul>
 									</div>
 									<div class="thmb_cntnt style3">
-										<a class="fp_price" href="#">${{ $property->price }}<small>/mo</small></a>
+										@if($property->type == "Rent")
+											<a class="fp_price" href="#">${{ $property->price }}<small>/mo</small></a>
+										@else
+											<a class="fp_price" href="#">${{ $property->price }}</a>
+										@endif
 									</div>
 								</div>
 								<div class="details">
@@ -366,8 +370,8 @@ Argo
 									</div>
 									<div class="fp_footer">
 										<ul class="fp_meta float-left mb0">
-											<li class="list-inline-item"><a href="#"><img src="${property.user_avatar}" style="width: 40px; border-radius: 50px" alt="pposter1.png"></a></li>
-											<li class="list-inline-item"><a href="#">${property.user_name}</a></li>
+											<li class="list-inline-item"><a href="{{ url('/agenency') }}/${property.user_id}"><img src="${property.user_avatar}" style="width: 40px; border-radius: 50px" alt="pposter1.png"></a></li>
+											<li class="list-inline-item"><a href="{{ url('/agenency') }}/${property.user_id}">${property.user_name}</a></li>
 										</ul>
 										<div class="fp_pdate float-right">${property.created_at}</div>
 									</div>

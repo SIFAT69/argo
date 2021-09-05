@@ -228,7 +228,6 @@ Argo
                                         <p class="text-thm">{{ $featuredProperty->categroy }}</p>
 
                                         <a href="{!! route('properties_view',$featuredProperty->slug) !!}">
-                                        <h4>{{ $featuredProperty->title }}</h4>
                                         <h4><a href="{{ route('properties_view', $featuredProperty->slug) }}">{{ $featuredProperty->title }}</a></h4>
                                         <p><span class="flaticon-placeholder"></span> {{ $featuredProperty->city }}, {{ $featuredProperty->states }}, {{ $featuredProperty->location }}</p>
                                         <ul class="prop_details mb0">
@@ -307,8 +306,8 @@ Argo
             @foreach($choices as $choice)
                 <div class="col-md-6 col-lg-4 col-xl-4">
                     <div class="why_chose_us">
-                        <div class="icon">
-                            <span class="{{ $choice->icon }}"></span>
+                        <div>
+                            <img class="rounded-circle" src="{{ asset('/uploads/' . $choice->icon) }}" alt="choice icon">
                         </div>
                         <div class="details">
                             <h4>{{ $choice->title }}</h4>

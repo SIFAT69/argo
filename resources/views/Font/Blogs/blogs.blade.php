@@ -14,7 +14,7 @@ Argo
   				<div class="col-xl-6">
   					<div class="breadcrumb_content style2">
   						<ol class="breadcrumb">
-  						    <li class="breadcrumb-item"><a href="#">Home</a></li>
+  						    <li class="breadcrumb-item"><a href="{{ route('welcome') }}">Home</a></li>
   						    <li class="breadcrumb-item active text-thm" aria-current="page">Blogs</li>
   						</ol>
   						<h2 class="breadcrumb_title">Blog</h2>
@@ -39,8 +39,8 @@ Argo
                       @php
                         $author = DB::table('users')->where('id', $blog->posted_by)->first();
                       @endphp
-  										<li class="list-inline-item"><a href="#"><img src="../uploads/{{ $author->avatar }}" alt="pposter1.png" style="width: 40px; border-radius: 50px"></a></li>
-  										<li class="list-inline-item"><a href="#">{{ $author->name }}</a></li>
+  										<li class="list-inline-item"><a href="{!! route('agenency_details', $blog->posted_by) !!}"><img src="../uploads/{{ $author->avatar }}" alt="pposter1.png" style="width: 40px; border-radius: 50px"></a></li>
+  										<li class="list-inline-item"><a href="{!! route('agenency_details', $blog->posted_by) !!}">{{ $author->name }}</a></li>
   										<li class="list-inline-item"><a href="#"><span class="flaticon-calendar pr10"></span>{{ Carbon\Carbon::parse($blog->created_at)->format('M-d-Y') }}</a></li>
   									</ul>
   									<a class="fp_pdate float-right text-thm" href="{!! route('blog_details', $blog->slug) !!}">Read More <span class="flaticon-next"></span></a>

@@ -190,7 +190,7 @@ Argo
 										</ul>
 									</div>
 									<div class="thmb_cntnt style3">
-										<a class="fp_price" href="#">${{ $project->max_price }}<small></small></a>
+										<a class="fp_price" href="#">${{ $project->low_price }} - ${{ $project->max_price }}<small></small></a>
 									</div>
 								</div>
 								<div class="details">
@@ -310,8 +310,8 @@ Argo
 									</div>
 									<div class="fp_footer">
 										<ul class="fp_meta float-left mb0">
-											<li class="list-inline-item"><a href="#"><img src="${project.user_avatar}" style="width: 40px; border-radius: 50px" alt="pposter1.png"></a></li>
-											<li class="list-inline-item"><a href="#">${project.user_name}</a></li>
+											<li class="list-inline-item"><a href="{{ url('/agenency') }}/${project.user_id}"><img src="${project.user_avatar}" style="width: 40px; border-radius: 50px" alt="pposter1.png"></a></li>
+											<li class="list-inline-item"><a href="{{ url('/agenency') }}/${project.user_id}">${project.user_name}</a></li>
 										</ul>
 										<div class="fp_pdate float-right">${project.created_at}</div>
 									</div>

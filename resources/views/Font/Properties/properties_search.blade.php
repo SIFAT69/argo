@@ -22,30 +22,6 @@ Argo
 			</div>
 			<div class="row">
 				<div class="col-lg-12">
-					<div class="row">
-						<div class="grid_list_search_result style2">
-							<div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
-								<div class="left_area">
-									{{-- <p>{{ DB::table('properties')->count() }} Search results</p> --}}
-								</div>
-							</div>
-							<div class="col-sm-12 col-md-8 col-lg-9 col-xl-9">
-								<div class="right_area style2 text-right">
-									<ul>
-										<li class="list-inline-item"><span class="shrtby">Sort by:</span>
-											<select class="selectpicker show-tick">
-												<option>Featured First</option>
-												<option>Featured 2nd</option>
-												<option>Featured 3rd</option>
-												<option>Featured 4th</option>
-												<option>Featured 5th</option>
-											</select>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
 					<div class="row" id="card-section">
             @forelse ($properties as $property)
               <div class="col-md-6 col-lg-4">
@@ -61,16 +37,27 @@ Argo
 									</div>
 									<div class="thmb_cntnt style2">
 										<ul class="tag mb0">
-                      @if ($property->type == "Rent" && !empty($property->type))
-                        <li class="list-inline-item"><a href="#">For Rent</a></li>
-                      @endif
-                      @if ($property->type == "Sale" && !empty($property->type))
-                        <li class="list-inline-item"><a href="#">For Sale</a></li>
-                      @endif
+											@if($property->type == 'Rent')
+                                                @if($property->assigned_to == null)
+                                                    <li class="list-inline-item"><a href="#">For Rent</a></li>
+                                                @else
+                                                    <li class="list-inline-item"><a href="#">Rent Out</a></li>
+                                                @endif
+                                            @else
+                                                @if($property->assigned_to == null)
+                                                    <li class="list-inline-item"><a href="#">For Sell</a></li>
+                                                @else
+                                                    <li class="list-inline-item"><a href="#">Sold Out</a></li>
+                                                @endif
+                                            @endif
 										</ul>
 									</div>
 									<div class="thmb_cntnt style3">
-										<a class="fp_price" href="#">${{ $property->price }}<small>/mo</small></a>
+										@if($property->type == "Rent")
+											<a class="fp_price" href="#">${{ $property->price }}<small>/mo</small></a>
+										@else
+											<a class="fp_price" href="#">${{ $property->price }}</a>
+										@endif
 									</div>
 								</div>
 								<div class="details">
@@ -88,8 +75,8 @@ Argo
 									</div>
 									<div class="fp_footer">
 										<ul class="fp_meta float-left mb0">
-											<li class="list-inline-item"><a href="#"><img src="../uploads/{{ DB::table('users')->where('id', $property->user_id)->value('avatar') }}" style="width: 40px; border-radius: 50px" alt="pposter1.png"></a></li>
-											<li class="list-inline-item"><a href="#">{{ DB::table('users')->where('id', $property->user_id)->value('name') }}</a></li>
+											<li class="list-inline-item"><a href="{!! route('agenency_details', $property->user_id) !!}"><img src="../uploads/{{ DB::table('users')->where('id', $property->user_id)->value('avatar') }}" style="width: 40px; border-radius: 50px" alt="pposter1.png"></a></li>
+											<li class="list-inline-item"><a href="{!! route('agenency_details', $property->user_id) !!}">{{ DB::table('users')->where('id', $property->user_id)->value('name') }}</a></li>
 										</ul>
                     @php
                       $section = DB::table('users')->where('id', $property->user_id)->value('created_at');

@@ -24,8 +24,8 @@
         </div>
         <div class="fp_footer">
           <ul class="fp_meta float-left mb0">
-            <li class="list-inline-item"><a href="#"><img src="../uploads/{{ $author->avatar }}" style="width: 50px; border-radius: 50px" alt="pposter1.png"></a></li>
-            <li class="list-inline-item"><a href="#">{{ $author->name }}</a></li>
+            <li class="list-inline-item"><a href="{!! route('agenency_details', $blog->posted_by) !!}"><img src="../uploads/{{ $author->avatar }}" style="width: 50px; border-radius: 50px" alt="pposter1.png"></a></li>
+            <li class="list-inline-item"><a href="{!! route('agenency_details', $blog->posted_by) !!}">{{ $author->name }}</a></li>
           </ul>
           <a class="fp_pdate float-right text-thm" href="{!! route('blog_details', $blog->slug) !!}">Read More <span class="flaticon-next"></span></a>
         </div>
