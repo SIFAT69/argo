@@ -24,7 +24,7 @@ Argo
 					@php
 						$showImage = DB::table('libraries')->where('id', $image)->value('file_name');
 					@endphp
-									<div class="slide slide-one" style="background-image: url('/uploads/{{ $showImage }}');height: 600px;"></div>
+									<div class="slide slide-one" style="background-image: url('../uploads/{{ $showImage }}');height: 600px;"></div>
 					@endforeach
 								</div>
 								<div class="carousel-btn-block banner-carousel-btn">
