@@ -36,7 +36,6 @@ class TanentController extends Controller
 
 	public function updateProfileInformation(Request $request, $id)
 	{
-		// dd($request->all());
 		$data =	$request->validate([
 			'name' => 'bail|required|string|max:255',
 			'email' => "bail|required|email|max:255|unique:App\Models\User,email,{$id}",
@@ -64,7 +63,7 @@ class TanentController extends Controller
         ]);
         }
 
-            User::where('id', Auth::id())->update($data);
+        User::where('id', Auth::id())->update($data);
         ActivityHappened::dispatch(Auth::id(), 'User profile information has been updated.');
 
 		return back()->with('success', "Profile Information is Updated");
@@ -218,6 +217,43 @@ class TanentController extends Controller
     Mail::to($request->email)->send(new TenantCreated($request->email, $request->password));
 
     return redirect()->route('MyInbox')->with('success', 'User account is created successfully');
+  }
+
+  public function AgentTenant(Request $request)
+  {
+      $tenants = DB::table('users')->where('created_by', Auth::id())->where('account_role', 'Tenant')->get();
+      return view('Agent.Tenant.view',compact('tenants'));
+  }
+
+  public function AgentTenantShow(Request $request)
+  {
+      $tenant = DB::table('users')->where('id', $request->id)->first();
+      return view('Agent.Tenant.show',compact('tenant'));
+  }
+
+  public function AgentTenantEdit(Request $request)
+  {
+    $user = DB::table('users')->where('id', $request->id)->first();
+    return view('Agent.Tenant.edit', compact('user'));
+  }
+
+  public function AgentTenantDestroy(Request $request , $id)
+  {
+    $user = User::withTrashed()->findOrFail($id);
+    if($user->deleted_at == null)
+    {
+        $user->delete();
+        ActivityHappened::dispatch(Auth::id(), 'An user has been locked.');
+
+        return back()->with('danger', 'User is locked!');
+    }
+    else
+    {
+        $user->restore();
+        ActivityHappened::dispatch(Auth::id(), 'An user has been unlocked.');
+
+        return back()->with('success', 'User is unlocked!');
+    }
   }
 
 }

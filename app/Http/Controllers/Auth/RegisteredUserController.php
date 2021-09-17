@@ -21,7 +21,7 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return redirect('/');
+        return redirect('/dashboard/agent/select-package');
     }
 
     /**
@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
         if (!empty($request->account_role)) {
           $accouunt_roles = $request->account_role;
         }else {
-          $accouunt_roles = "Tenant";
+          $accouunt_roles = "NewUser";
         }
 
         $user = User::create([

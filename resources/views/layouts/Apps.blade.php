@@ -186,15 +186,6 @@
                                         </div>
                                         <form action="{!! route('register') !!}" method="post">
                                           @csrf
-                                            {{-- <div class="row">
-                                                <div class="col-lg-12">
-                                                    <button type="submit" class="btn btn-block btn-fb"><i class="fa fa-facebook float-left mt5"></i> Login with Facebook</button>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <button type="submit" class="btn btn-block btn-googl"><i class="fa fa-google float-left mt5"></i> Login with Google</button>
-                                                </div>
-                                            </div>
-                                            <hr> --}}
                                             <div class="form-group input-group">
                                                 <input type="text" class="form-control" id="exampleInputName" name="name" :value="old('name')" required autofocus placeholder="User Name">
                                                 <div class="input-group-prepend">

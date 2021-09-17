@@ -40,6 +40,13 @@ class CreateUsersTable extends Migration
             $table->string('youtube')->nullable();
             $table->string('pinterest')->nullable();
             $table->string('vimeo')->nullable();
+            $table->string('bank_name')->nullable();
+            $table->string('bank_account')->nullable();
+            $table->string('bank_sort_code')->nullable();
+            $table->string('contact_number')->nullable();
+            $table->string('payment_type')->nullable();
+            $table->string('dob')->nullable();
+            $table->string('identification_documents')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

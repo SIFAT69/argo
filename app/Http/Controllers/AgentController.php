@@ -54,6 +54,12 @@ class AgentController extends Controller
 			'language' => 'bail|nullable|string|max:255',
 			'companyName' => 'bail|nullable|string|max:255',
 			'address' => 'bail|nullable|string|max:2555',
+			'bank_name' => 'bail|nullable|string|max:2555',
+			'bank_account' => 'bail|nullable|string|max:2555',
+			'bank_sort_code' => 'bail|nullable|string|max:2555',
+			'contact_number' => 'bail|nullable|string|max:2555',
+			'payment_type' => 'bail|nullable|string|max:2555',
+			'dob' => 'bail|nullable|string|max:2555',
 			'about' => 'bail|nullable|string|max:2555',
 			// 'avatar' => 'bail|sometimes|image|mimes:jpeg,jpg,png|dimensions:ratio=1/1',
 		]);
@@ -65,12 +71,12 @@ class AgentController extends Controller
       $newLocation = 'uploads/'.$profile_picture_rename;
       Image::make($profile_picture)->resize(100, 100)->save($newLocation,100);
 
-      DB::table('users')->where('id', Auth::id())->update([
+      DB::table('users')->where('id', $id)->update([
         'avatar' => $profile_picture_rename,
       ]);
      }
 
-		User::where('id', Auth::id())->update($data);
+		User::where('id',$id)->update($data);
     ActivityHappened::dispatch(Auth::id(), 'User profile information has been updated.');
 
 		return back()->with('success', "Profile Information is Updated");

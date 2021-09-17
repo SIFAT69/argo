@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{!! asset('FontAsset') !!}/css/responsive.css">
     <!-- sweetalert2 -->
     <link href="{{ asset('/BackAsset/plugins/sweetalerts/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
-    
+
     <!-- Title -->
     <title>Argo @yield('page_title')</title>
     <!-- Favicon -->
@@ -57,6 +57,12 @@
                     <a href="{!! route('MyProperties') !!}"><i class="flaticon-home"></i> <span>My Properties</span></a>
                 </li>
                 <li><a href="{!! route('MyProject') !!}"><i class="flaticon-heart"></i> <span> My Projects</span></a></li>
+                <li><a href="{!! route('agentsFeaturesList') !!}"><img src="https://img.icons8.com/dusk/64/000000/extra-features.png" style="width:16px"/> <span> Features</span></a></li>
+                <li><a href="{!! route('Agentcatgories.index') !!}"><img src="https://img.icons8.com/office/16/000000/opened-folder.png" style="width:16px"/> <span> Categories</span></a></li>
+                <li><a href="{!! route('Landlord.index') !!}"><img src="https://img.icons8.com/office/16/000000/person-at-home.png" style="width:16px"/> <span> Landlords</span></a></li>
+                <li><a href="{!! route('AgentTenant') !!}"><img src="https://img.icons8.com/fluency/48/000000/person-at-home.png" style="width:16px"/> <span> Tenant</span></a></li>
+                <li><a href="{!! route('MyProject') !!}"><img src="https://img.icons8.com/color/48/000000/services--v2.png" style="width:16px"/> <span> Service Requests</span></a></li>
+                <li><a href="{!! route('MyProject') !!}"><img src="https://img.icons8.com/fluency/48/000000/mortgage.png" style="width:16px"/> <span> Contracts</span></a></li>
                 <li class="title"><span>Manage Account</span></li>
                 <li><a href="{!! route('packageHistory') !!}"><i class="flaticon-box"></i> <span>My Package</span></a></li>
                 <li><a href="{!! route('agent.profile') !!}"><i class="flaticon-user"></i> <span>My Profile</span></a></li>

@@ -1,33 +1,40 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\LocationController;
-use App\Http\Controllers\RealstatecategoryController;
-use App\Http\Controllers\RealstatefacilitiesController;
-use App\Http\Controllers\RealstatefeatureController;
-use App\Http\Controllers\LibraryController;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\PackageController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\SubscriptionController;
-use App\Http\Controllers\PlanController;
-use App\Http\Controllers\PropertyController;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\AgentController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\AgenciesmessageController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ChoiceController;
-use App\Http\Controllers\TestimonialController;
-use App\Http\Controllers\PartnerController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\ActivityLogController;
-use App\Http\Controllers\TanentController;
-use App\Http\Controllers\EmailConfigurationController;
-use App\Http\Controllers\SubscriberController;
+
+use App\Http\Controllers\{
+  BlogController,
+  CategoryController,
+  LocationController,
+  RealstatecategoryController,
+  RealstatefacilitiesController,
+  RealstatefeatureController,
+  LibraryController,
+  ProjectController,
+  PackageController,
+  PaymentController,
+  SubscriptionController,
+  PlanController,
+  PropertyController,
+  PageController,
+  AgentController,
+  ContactController,
+  AgenciesmessageController,
+  HomeController,
+  ChoiceController,
+  TestimonialController,
+  PartnerController,
+  UserController,
+  SettingController,
+  ActivityLogController,
+  TanentController,
+  EmailConfigurationController,
+  SubscriberController,
+  AgentfeaturesController,
+  AgentcategoriesController,
+  LandlordController,
+};
+
 use App\Events\ActivityHappened;
 
 
@@ -35,6 +42,9 @@ use App\Events\ActivityHappened;
 Route::get('/', [HomeController::class, 'show_home'])->name('welcome');
 
 Route::get('/dashboard', function () {
+    if (Auth::user()->account_role == "NewUser") {
+      return redirect('/dashboard/agent/select-package');
+    }
     if (Auth::user()->account_role == 'Admin') {
         $properties = DB::table('properties')->orderBy('id','DESC')->limit(7)->get();
         $projects = DB::table('projects')->orderBy('id','DESC')->limit(7)->get();
@@ -235,12 +245,9 @@ Route::group(['middleware' => ['auth', 'agent']], function () {
         Route::put('/agent-profile-information/{userId}', [AgentController::class, 'updateProfileInformation'])->name('update.agent.profile.information');
         Route::put('/agent-profile-socialMedia/{userId}', [AgentController::class, 'updateProfileSocialMedia'])->name('update.agent.profile.socialMedia');
         Route::put('/agent-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.password');
-<<<<<<< HEAD
 
-=======
-        
+
         Route::post('/agencies/properties-create-post', [PropertyController::class, 'property_post'])->name('agency.property_post');
->>>>>>> ef5471895d315391d91244180f07b8c87c24fbff
         Route::get('/agencies/my-properties', [AgentController::class, 'MyProperties'])->name('MyProperties');
         Route::get('/agencies/my-properties/create', [AgentController::class, 'MyPropertiesCreate'])->name('MyPropertiesCreate');
         Route::get('/agencies/my-properties/edit/{id}', [AgentController::class, 'MyPropertiesEdit'])->name('MyPropertiesEdit');
@@ -264,6 +271,44 @@ Route::group(['middleware' => ['auth', 'agent']], function () {
 
         Route::get('tanents/create/{email}/{name}', [TanentController::class, 'tanents_create'])->name('tanents.create');
         Route::post('tanents/store', [TanentController::class, 'tanents_store'])->name('tanents.store');
+
+        // Agents Features Start
+        Route::get('agencies/features/list/', [AgentfeaturesController::class, 'agentsFeaturesList'])->name('agentsFeaturesList');
+        Route::get('agencies/features/add/', [AgentfeaturesController::class, 'agentsFeaturesAdd'])->name('agentsFeaturesAdd');
+        Route::post('agencies/features/post/', [AgentfeaturesController::class, 'agentsFeaturesPost'])->name('agentsFeaturesPost');
+        Route::get('agencies/features/edit/{id}', [AgentfeaturesControllerAgentfeaturesController::class, 'agentsFeaturesEdit'])->name('agentsFeaturesEdit');
+        Route::post('agencies/features/update/{id}', [AgentfeaturesController::class, 'agentsFeaturesUpdate'])->name('agentsFeaturesUpdate');
+        Route::get('agencies/features/delete/{id}', [AgentfeaturesController::class, 'agentsFeaturesDelete'])->name('agentsFeaturesDelete');
+        // Agents Features End
+
+        // Agent Categories Start
+        Route::get('agencies/categories/list', [AgentcategoriesController::class, 'index'])->name('Agentcatgories.index');
+        Route::get('agencies/categories/create', [AgentcategoriesController::class, 'create'])->name('Agentcatgories.create');
+        Route::post('agencies/categories/store', [AgentcategoriesController::class, 'store'])->name('Agentcatgories.store');
+        Route::get('agencies/categories/edit/{id}', [AgentcategoriesController::class, 'edit'])->name('Agentcatgories.edit');
+        Route::post('agencies/categories/update/{id}', [AgentcategoriesController::class, 'update'])->name('Agentcatgories.update');
+        Route::get('agencies/categories/{id}/delete', [AgentcategoriesController::class, 'destroy'])->name('Agentcatgories.delete');
+
+        // Agent Categories End
+
+        // Agent Landlord Start
+        Route::get('agencies/landlord/list/', [LandlordController::class, 'index'])->name('Landlord.index');
+        Route::get('agencies/landlord/create/', [LandlordController::class, 'create'])->name('Landlord.create');
+        Route::post('agencies/landlord/store/', [LandlordController::class, 'store'])->name('Landlord.store');
+        Route::get('agencies/landlord/{id}/edit/', [LandlordController::class, 'edit'])->name('Landlord.edit');
+        Route::post('agencies/landlord/{id}/update/', [LandlordController::class, 'update'])->name('Landlord.update');
+        Route::get('agencies/landlord/{id}/show/', [LandlordController::class, 'show'])->name('Landlord.show');
+        Route::get('agencies/landlord/{id}/delete/', [LandlordController::class, 'destroy'])->name('Landlord.destroy');
+        // Agent Landlord End
+
+        // Tenant Create Start
+        Route::get('agencies/tenants/', [TanentController::class, 'AgentTenant'])->name('AgentTenant');
+        Route::get('agencies/tenant/show/{id}', [TanentController::class, 'AgentTenantShow'])->name('AgentTenantShow');
+        Route::get('agencies/tenant/{id}/edit/', [TanentController::class, 'AgentTenantEdit'])->name('AgentTenantEdit');
+        Route::get('agencies/tenant/{id}/destroy/', [TanentController::class, 'AgentTenantDestroy'])->name('AgentTenantDestroy');
+        // Tenant Create End
+
+
     });
 
     Route::get('/my-package-history', [AgentController::class, 'packageHistory'])->name('packageHistory');
@@ -306,7 +351,19 @@ Route::post('homeSubscribe', [HomeController::class, 'homeSubscribe'])->name('ho
 Route::get('aboutUs', [PageController::class, 'about_us'])->name('pages.aboutUs');
 Route::get('termsConditons', [PageController::class, 't_and_c'])->name('pages.t&c');
 Route::get('privacyPolicy', [PageController::class, 'privacy_policy'])->name('pages.privacyPolicy');
+Route::group(['middleware' =>'auth'], function () {
+  //Payment Start
+  Route::get('/dashboard/agent/select-package', [PaymentController::class, 'package_index'])->name('package_index');
+  Route::post('/dashboard/agent/select-package-post', [PaymentController::class, 'checkout'])->name('package_payment');
+  // Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
+  Route::post('checkout',[PaymentController::class, 'afterpayment'])->name('checkout.credit-card');
+  //Payment End
 
+  // Packages And Subcription Start
+  // Route::get('plans',[PlanController::class, 'index'])->name('plans.index');
+  Route::get('/plan/{plan}',[PlanController::class, 'show'])->name('plans.show');
+  Route::post('/subscription',[SubscriptionController::class, 'create'])->name('subscription.create');
+});
 
 // Tenant Route Start
 Route::group(['middleware' => ['auth', 'tenant']], function () {
@@ -322,17 +379,6 @@ Route::group(['middleware' => ['auth', 'tenant']], function () {
     Route::get('/tanents/properties', [TanentController::class, 'properties_index'])->name('tanents.properties.index');
     Route::get('/tanents/projects', [TanentController::class, 'projects_index'])->name('tanents.projects.index');
 
-    //Payment Start
-    Route::get('/dashboard/agent/select-package', [PaymentController::class, 'package_index'])->name('package_index');
-    Route::post('/dashboard/agent/select-package-post', [PaymentController::class, 'checkout'])->name('package_payment');
-    // Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
-    Route::post('checkout',[PaymentController::class, 'afterpayment'])->name('checkout.credit-card');
-    //Payment End
-
-    // Packages And Subcription Start
-    // Route::get('plans',[PlanController::class, 'index'])->name('plans.index');
-    Route::get('/plan/{plan}',[PlanController::class, 'show'])->name('plans.show');
-    Route::post('/subscription',[SubscriptionController::class, 'create'])->name('subscription.create');
 });
 
 
