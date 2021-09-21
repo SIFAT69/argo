@@ -61,7 +61,7 @@
                 <li><a href="{!! route('Agentcatgories.index') !!}"><img src="https://img.icons8.com/office/16/000000/opened-folder.png" style="width:16px"/> <span> Categories</span></a></li>
                 <li><a href="{!! route('Landlord.index') !!}"><img src="https://img.icons8.com/office/16/000000/person-at-home.png" style="width:16px"/> <span> Landlords</span></a></li>
                 <li><a href="{!! route('AgentTenant') !!}"><img src="https://img.icons8.com/fluency/48/000000/person-at-home.png" style="width:16px"/> <span> Tenant</span></a></li>
-                <li><a href="{!! route('MyProject') !!}"><img src="https://img.icons8.com/color/48/000000/services--v2.png" style="width:16px"/> <span> Service Requests</span></a></li>
+                <li><a href="{!! route('services.agent.index') !!}"><img src="https://img.icons8.com/color/48/000000/services--v2.png" style="width:16px"/> <span> Service Requests</span></a></li>
                 <li><a href="{!! route('MyProject') !!}"><img src="https://img.icons8.com/fluency/48/000000/mortgage.png" style="width:16px"/> <span> Contracts</span></a></li>
                 <li class="title"><span>Manage Account</span></li>
                 <li><a href="{!! route('packageHistory') !!}"><i class="flaticon-box"></i> <span>My Package</span></a></li>
@@ -78,6 +78,8 @@
         {{-- <a class="scrollToHome" href="#"><i class="flaticon-arrows"></i></a> --}}
     </div>
     <!-- Wrapper End -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/jquery-migrate-3.0.0.min.js"></script>
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/popper.min.js"></script>
