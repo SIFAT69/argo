@@ -93,7 +93,12 @@ class ServicerequestController extends Controller
     {
         $ServiceRequest = DB::table('servicerequests')->where('id', $request->id)->first();
         $servicesComments = DB::table('commentservices')->where('request_id',  $ServiceRequest->id)->get();
-        return view('Tanent.Services.show',compact('ServiceRequest','servicesComments'));
+        $servicesExpense = DB::table('expenses')->where('request_id',  $ServiceRequest->id)->get();
+        if(Auth::user()->account_role == "Agent"){
+            return view('Agent.Services.show',compact('ServiceRequest','servicesComments','servicesExpense'));
+        }else{
+            return view('Tanent.Services.show',compact('ServiceRequest','servicesComments','servicesExpense'));
+        }
     }
 
     /**
@@ -130,5 +135,14 @@ class ServicerequestController extends Controller
         DB::table('servicerequests')->where('id', $request->id)->delete();
 
         return back()->with('danger','You have deleted a service request from the list!');
+    }
+
+    public function updateStatus(Request $request)
+    {
+       DB::table('servicerequests')->where('id', $request->id)->update([
+           'status' => $request->status,
+       ]);
+
+       return back()->with('success', 'Your status has been upadated!');
     }
 }

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Events\ActivityHappened;
 use App\Models\ActivityLog;
+use Carbon\Carbon;
 
 
 class AgentController extends Controller
@@ -218,7 +219,40 @@ class AgentController extends Controller
   public function StoreMyPropertiesAssign(Request $request, $id)
   {
     $request->validate([
-      'tenant_id' => 'bail|required|integer'
+      'tenant_id' => 'bail|required|integer',
+      'description' => 'required',
+      'contract_interval_amount' => 'required',
+      'contract_interval' => 'required',
+    ]);
+
+     $contract_duration = $request->contract_interval_amount." ".$request->contract_interval;
+
+     if($request->hasfile('files')) {
+        foreach($request->file('files') as $file)
+        {
+            $name = $file->getClientOriginalName();
+            $file->move(public_path().'/uploads/Files/', $name);
+            $imgData[] = $name;
+
+        }
+        $ContractFiles  =  json_encode($imgData);
+    }else{
+        $ContractFiles = 'NULL';
+    }
+
+    DB::table('contracts')
+    ->insert([
+        'contract_name' => $request->tanent_name,
+        'contract_property' => $request->property_name,
+        'contract_property_id' => $request->contract_property_id,
+        'contract_property_type' => $request->contract_property_code,
+        'description' => $request->description,
+        'tenant_id' => $request->tenant_id,
+        'agent_id' => Auth::id(),
+        'contract_duration' => $contract_duration,
+        'status' => 'Active',
+        'files' => $ContractFiles,
+        'created_at' => Carbon::now(),
     ]);
 
     Property::where('id', $id)->update(['assigned_to' => $request->tenant_id]);

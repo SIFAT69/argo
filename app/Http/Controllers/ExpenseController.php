@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Expense;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Auth;
+use Carbon\Carbon;
+
 
 class ExpenseController extends Controller
 {
@@ -35,7 +39,16 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::table('expenses')->insert([
+            'expense_name' => $request->expense_name,
+            'expense' => $request->price,
+            'date' => $request->date,
+            'desc' => $request->desc,
+            'request_id' => $request->request_id,
+            'created_at' => Carbon::now(),
+        ]);
+
+        return back()->with('success', 'Your expense added successfully');
     }
 
     /**
@@ -69,7 +82,16 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, Expense $expense)
     {
-        //
+        DB::table('expenses')->where('id', $request->id)->update([
+            'expense_name' => $request->expense_name,
+            'expense' => $request->price,
+            'date' => $request->date,
+            'desc' => $request->desc,
+            'request_id' => $request->request_id,
+            'created_at' => Carbon::now(),
+        ]);
+
+        return back()->with('success', 'Your expense updated successfully');
     }
 
     /**
@@ -78,8 +100,9 @@ class ExpenseController extends Controller
      * @param  \App\Models\Expense  $expense
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Expense $expense)
+    public function destroy(Request $request)
     {
-        //
+        DB::table('expenses')->where('id', $request->id)->delete();
+        return back()->with('danger', 'Your expense deleted!');
     }
 }

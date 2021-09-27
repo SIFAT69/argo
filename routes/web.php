@@ -35,6 +35,8 @@ use App\Http\Controllers\{
   LandlordController,
   ServicerequestController,
   CommentserviceController,
+    ContractController,
+    ExpenseController,
 };
 
 use App\Events\ActivityHappened;
@@ -314,7 +316,20 @@ Route::group(['middleware' => ['auth', 'agent']], function () {
         Route::get('agencies/tenant/services/requests', [ServicerequestController::class, 'index'])->name('services.agent.index');
         Route::get('agencies/tenant/services/delete/{id}/', [ServicerequestController::class, 'destroy'])->name('services.agent.destroy');
         Route::get('agencies/services/request/view/{id}', [ServicerequestController::class, 'show'])->name('services.agent.show');
+        Route::get('agencies/update/status/{id}', [ServicerequestController::class, 'updateStatus'])->name('expense.agent.update.status');
         // Agent Service Request End
+
+        // Expense Starts
+        Route::post('agencies/create/expense', [ExpenseController::class, 'store'])->name('expense.agent.store');
+        Route::post('agencies/create/edit', [ExpenseController::class, 'update'])->name('expense.agent.update');
+        Route::get('agencies/create/delete/{id}', [ExpenseController::class, 'destroy'])->name('expense.agent.destroy');
+        // Expense End
+
+        // Contracts Start
+        Route::get('agencies/contracts/', [ContractController::class, 'contracts'])->name('contracts.agent.index');
+        Route::get('agencies/contracts/view/{id}', [ContractController::class, 'show'])->name('contracts.agent.show');
+        Route::get('agencies/contracts/remove/{code}/{id}', [ContractController::class, 'remove'])->name('contracts.agent.remove');
+        // Contracts End
 
     });
 
@@ -394,12 +409,12 @@ Route::group(['middleware' => ['auth', 'tenant']], function () {
     // Services Request End
 
     // Service Comments Start
-    Route::post('/tanents/commnets/post', [CommentserviceController::class, 'store'])->name('services.comments.store');
+
     Route::get('/tanents/commnets/cancel/{id}', [CommentserviceController::class, 'cancel'])->name('services.comments.cancel');
     // Service Comments End
 
 });
-
+Route::post('/tanents/commnets/post', [CommentserviceController::class, 'store'])->name('services.comments.store');
 
 
 

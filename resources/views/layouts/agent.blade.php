@@ -62,7 +62,7 @@
                 <li><a href="{!! route('Landlord.index') !!}"><img src="https://img.icons8.com/office/16/000000/person-at-home.png" style="width:16px"/> <span> Landlords</span></a></li>
                 <li><a href="{!! route('AgentTenant') !!}"><img src="https://img.icons8.com/fluency/48/000000/person-at-home.png" style="width:16px"/> <span> Tenant</span></a></li>
                 <li><a href="{!! route('services.agent.index') !!}"><img src="https://img.icons8.com/color/48/000000/services--v2.png" style="width:16px"/> <span> Service Requests</span></a></li>
-                <li><a href="{!! route('MyProject') !!}"><img src="https://img.icons8.com/fluency/48/000000/mortgage.png" style="width:16px"/> <span> Contracts</span></a></li>
+                <li><a href="{!! route('contracts.agent.index') !!}"><img src="https://img.icons8.com/fluency/48/000000/mortgage.png" style="width:16px"/> <span> Contracts</span></a></li>
                 <li class="title"><span>Manage Account</span></li>
                 <li><a href="{!! route('packageHistory') !!}"><i class="flaticon-box"></i> <span>My Package</span></a></li>
                 <li><a href="{!! route('agent.profile') !!}"><i class="flaticon-user"></i> <span>My Profile</span></a></li>
