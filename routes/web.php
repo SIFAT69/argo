@@ -35,8 +35,10 @@ use App\Http\Controllers\{
   LandlordController,
   ServicerequestController,
   CommentserviceController,
-    ContractController,
-    ExpenseController,
+  ContractController,
+  ExpenseController,
+  TenantmessageController,
+  RentControllerController,
 };
 
 use App\Events\ActivityHappened;
@@ -60,6 +62,10 @@ Route::get('/dashboard', function () {
     }
     if (Auth::user()->account_role == "Tenant") {
         return redirect('/tanent-dashbord');
+    }
+    if (Auth::user()->account_role == "Service Providers") {
+        $serviceRequests = DB::table('servicerequests')->orderBy('id','DESC')->limit(9)->get();
+        return view('ServiceDashboard.index');
     }
 })->middleware(['auth'])->name('dashboard');
 
@@ -331,14 +337,32 @@ Route::group(['middleware' => ['auth', 'agent']], function () {
         Route::get('agencies/contracts/remove/{code}/{id}', [ContractController::class, 'remove'])->name('contracts.agent.remove');
         // Contracts End
 
+        // Users Roles and Permission Start
+        Route::get('agencies/users/', [UserController::class, 'agentUsers'])->name('users.agent.index');
+        Route::post('agencies/users/', [UserController::class, 'agentUsersUpdate'])->name('users.agent.update');
+        Route::get('agencies/users/create', [UserController::class, 'createnewuser'])->name('users.agent.create');
+        // Users Roles and Permission End\
+
+        // Tenant Message Start
+        Route::get('/tenant-messages', [TenantmessageController::class, 'index'])->name('tenant.message.index');
+        Route::get('/messages/{name}/{id}', [TenantmessageController::class, 'openCoversation'])->name('tenant.message.openCoversation');
+        // Tenant Message End
+
+        // Agent Rent Details Start
+        Route::get('/agent/rent/transaction', [RentControllerController::class, 'allTransactions'])->name('agent.transaction.history');
+        // Agent Rent Details End
+
     });
 
     Route::get('/my-package-history', [AgentController::class, 'packageHistory'])->name('packageHistory');
     Route::post('subscription/cancel/{id}', [SubscriptionController::class, 'cancel'])->name('subscription.cancel');
     Route::post('subscription/resume/{id}', [SubscriptionController::class, 'resume'])->name('subscription.resume');
 
+
+
 });
 
+Route::post('/messages/sent/{id}', [TenantmessageController::class, 'messageSentPost'])->name('tenant.message.messageSentPost');
 Route::get('/logout', function () {
     $id = Auth::id();
     Auth::logout();
@@ -347,6 +371,7 @@ Route::get('/logout', function () {
 })->name('logout');
 
 // FontPages Start
+
 Route::get('properties/all',[PageController::class, 'properties_lists'])->name('properties_lists');
 // Route::get('properties/{slug}',[PageController::class, 'Details_property'])->name('Details_property');
 Route::get('projects/all',[PageController::class, 'projects_lists'])->name('projects_lists');
@@ -410,14 +435,58 @@ Route::group(['middleware' => ['auth', 'tenant']], function () {
 
     // Service Comments Start
 
-    Route::get('/tanents/commnets/cancel/{id}', [CommentserviceController::class, 'cancel'])->name('services.comments.cancel');
     // Service Comments End
 
+    // Message Start
+    Route::get('/inbox/{name}/{id}', [TenantmessageController::class, 'tenantIndex'])->name('tenant.message.tenantIndex');
+    // Message End
+
+    // Rent Payment Start
+    Route::get('/rent/payment/{property_id}', [PaymentController::class, 'tenantRentPayment'])->name('tenant.payments.rentpay');
+    Route::get('/rent/transactions/', [RentControllerController::class, 'allTransactions'])->name('tenant.payments.history');
+    // Rent Payment End
+
+
+
+
 });
+Route::get('/tanents/commnets/cancel/{id}', [CommentserviceController::class, 'cancel'])->name('services.comments.cancel');
 Route::post('/tanents/commnets/post', [CommentserviceController::class, 'store'])->name('services.comments.store');
 
 
+Route::group(['middleware' => ['auth', 'servicerequest']], function () {
+  Route::get('/service-providers/services', [ServicerequestController::class, 'servicesForServiceProviders'])->name('servicesForServiceProviders');
+  Route::get('agencies/tenant/services/delete/{id}/', [ServicerequestController::class, 'destroy'])->name('services.agent.destroy');
+  Route::get('services/request/request/view/{id}', [ServicerequestController::class, 'show'])->name('services.agent.show');
+  Route::get('agencies/update/status/{id}', [ServicerequestController::class, 'updateStatus'])->name('expense.agent.update.status');
 
+  // Route::get('/agency-settings-profile', [AgentController::class, 'agentProfile'])->name('agent.profile');
+  Route::put('/agent-profile-information/{userId}', [AgentController::class, 'updateProfileInformation'])->name('update.agent.profile.information');
+  Route::put('/agent-profile-socialMedia/{userId}', [AgentController::class, 'updateProfileSocialMedia'])->name('update.agent.profile.socialMedia');
+  Route::put('/agent-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.password');
 
+});
+
+Route::get('/purchase', function (Request $request) {
+      $stripe = new Stripe(env('STRIPE_SECRET'));
+      $token = $stripe->tokens()->create([
+          'card' => [
+              'number' => $request->get('cardnumber'),
+              'exp_month' => $request->get('ccExpiryMonth'),
+              'exp_year' => $request->get('ccExpiryYear'),
+              'cvc' => $request->get('cvv'),
+          ],
+      ]);
+
+      $charge = $stripe->charges()->create([
+          'card' => $token['id'],
+          'currency' => 'USD',
+          'amount' => 10,
+          'description' => 'Transcription Service',
+          'capture' => 'true',
+          'statement_descriptor' => "cheaptranscription.io",
+      ]);
+
+});
 
 require __DIR__.'/auth.php';

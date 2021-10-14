@@ -34,7 +34,7 @@
                             <p>We are glad to see you again!</p>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
                         <div class="ff_one">
                             <div class="icon"><span class="flaticon-home"></span></div>
                             <div class="detais">
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
                         <div class="ff_one style3">
                             <div class="icon"><span class="flaticon-home"></span></div>
                             <div class="detais">
@@ -52,12 +52,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
                         <div class="ff_one style2">
                             <div class="icon"><span class="flaticon-view"></span></div>
                             <div class="detais">
                                 <div class="timer">{{ $totalView }}</div>
                                 <p>Total Views</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                        <div class="ff_one style2">
+                            <div class="icon"> <img src="https://img.icons8.com/external-those-icons-lineal-color-those-icons/48/000000/external-dollar-money-currency-those-icons-lineal-color-those-icons-1.png" alt=""> </div>
+                            <div class="detais">
+                                <div class="timer">${{ Auth::user()->balance }}</div>
+                                <p>Total Balance</p>
                             </div>
                         </div>
                     </div>

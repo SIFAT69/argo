@@ -29,6 +29,8 @@
                         </div>
                     </div>
                     <div class="col-lg-12 mb10">
+                      @include('Alerts.success')
+                      @include('Alerts.danger')
                         <div class="breadcrumb_content style2">
                             <h2 class="breadcrumb_title">Hello, {{ Auth::user()->name }}!</h2>
                             <p>We are glad to see you again!</p>
@@ -49,6 +51,15 @@
                             <div class="detais">
                                 <div class="timer">{{ $count_of_projects }}</div>
                                 <p>Projects</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
+                        <div class="ff_one style3">
+                            <div class="icon"><span class="flaticon-home"></span></div>
+                            <div class="detais">
+                                <div class="timer">{{ DB::table('servicerequests')->where('user_id', Auth::id())->count(); }}</div>
+                                <p>Service Request</p>
                             </div>
                         </div>
                     </div>

@@ -70,6 +70,7 @@ $(document).ready(function(){
 										    	<tr>
 										    		<th scope="col">Listing Title</th>
 										    		<th scope="col">Date published</th>
+                            <th scope="col">Payment</th>
 										    		<th scope="col">Status</th>
 										    		{{-- <th scope="col">View</th> --}}
 										    		<th scope="col">Action</th>
@@ -110,11 +111,14 @@ $(document).ready(function(){
 														</div>
 										    		</th>
 										    		<td>{{ Carbon\Carbon::parse($property->created_at)->format('Y-M-d') }}</td>
+										    		<td>
+                              <a href="{!! route('tenant.payments.rentpay', $property->id) !!}" class="btn rounded-pill btn-info">Pay Rent</a>
+                            </td>
 										    		<td><span class="status_tag badge">{{ $property->moderation_status }}</span></td>
 										    		{{-- <td>2,345</td> --}}
 										    		<td>
 										    			<ul class="view_edit_delete_list mb0">
-										    				<li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"><a href="{!! route('properties_view', $property->slug) !!}" target="_blank">Show</a></li>
+										    				<li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"><a href="{!! route('properties_view', $property->slug) !!}" target="_blank" class="btn btn-success">Show</a></li>
 										    			</ul>
 										    		</td>
                           </tr>

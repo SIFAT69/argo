@@ -19,9 +19,40 @@ Assign project
         <br>
         <br>
         <br>
-        <form class="needs-validation" novalidate action="{!! route('StoreMyProjectsAssign', $project->id) !!}" method="post">
+        <form class="needs-validation" novalidate action="{!! route('StoreMyPropertiesAssign', $project->id) !!}" method="post" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="property_name" value=" {{ $project->title }} ">
+            <input type="hidden" name="contract_property_id" value=" {{ $project->id }} ">
+            <input type="hidden" name="contract_property_code" value=" {{ $project->code }} ">
             <div class="form-row">
+                <div class="col-md-6 mb-4">
+                    <label for="">Contract interval amount :</label>
+                    <input type="text" name="contract_interval_amount" class="form-control">
+                </div>
+                  <div class="col-md-6 mb-4">
+                    <label for="">Contract Interval :</label>
+                    <select name="contract_interval" class="form-control">
+                        <option value="Days">Days</option>
+                        <option value="Months">Months</option>
+                        <option value="Years">Years</option>
+                    </select>
+                </div>
+                <div class="col-md-12 mb-4">
+                    <label for="validationCustom01">Tenant Name :</label>
+                    <select class="form-control" name="tanent_name" required @if($project->moderation_status != "Approved") disabled @endif>
+                        <option value="">Select Tenant</option>
+                        @foreach($tenants as $tenant)
+                            @if($tenant->id == $project->assigned_to)
+                                <option value="{{ $project->name }}" selected>{{ $tenant->name }}</option>
+                            @else
+                                <option value="{{ $tenant->name }}">{{ $tenant->name }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    @if($project->moderation_status != "Approved")
+                        <small class="text-danger">The property is not approved by admin. So assignment is not possible.</small>
+                    @endif
+                </div>
                 <div class="col-md-12 mb-4">
                     <label for="validationCustom01">Tenant List :</label>
                     <select class="form-control" name="tenant_id" required @if($project->moderation_status != "Approved") disabled @endif>
@@ -35,8 +66,17 @@ Assign project
                         @endforeach
                     </select>
                     @if($project->moderation_status != "Approved")
-                        <small class="text-danger">The project is not approved by admin. So assignment is not possible.</small>
+                        <small class="text-danger">The property is not approved by admin. So assignment is not possible.</small>
                     @endif
+                </div>
+
+                <div class="col-md-12 mb-4">
+                    <label for="">Description :</label>
+                    <textarea name="description" class="form-control" id="" cols="30" rows="10" placeholder="Write here ...."></textarea>
+                </div>
+                <div class="col-md-12 mb-4">
+                    <label for="">Files :</label>
+                    <input type="file" class="form-control-file" multiple name="files[]">
                 </div>
             </div>
             <button class="btn btn-primary mt-3 mb-3" type="submit" @if($project->moderation_status != "Approved") disabled @endif>Save</button>

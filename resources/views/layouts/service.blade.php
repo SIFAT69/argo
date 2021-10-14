@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="{!! asset('FontAsset') !!}/css/dashbord_navitaion.css">
     <!-- Responsive stylesheet -->
     <link rel="stylesheet" href="{!! asset('FontAsset') !!}/css/responsive.css">
+    <!-- sweetalert2 -->
+    <link href="{{ asset('/BackAsset/plugins/sweetalerts/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
+
     <!-- Title -->
     <title>Argo @yield('page_title')</title>
     <!-- Favicon -->
@@ -41,25 +44,17 @@
 
             </div>
         </header>
-        @php
-          $name = DB::table('users')->where('id', Auth::user()->id)->first();
-        @endphp
+
         {{-- Side bar --}}
         <div class="dashboard_sidebar_menu dn-992">
             <ul class="sidebar-menu">
                 <li class="header"><img src="{{ asset('/uploads/header-logo.png') }}" alt="header logo"></li>
                 <li class="title"><span>Main</span></li>
-                <li class="treeview"><a href="{!! route('TanentDashboard') !!}"><i class="flaticon-layers"></i><span> Dashboard</span></a></li>
-                <li class="treeview"><a href="{!! route('tenant.message.tenantIndex', [$name->name, $name->id]) !!}"><i class="flaticon-envelope"></i><span>Tenant Message</span></a></li>
+                <li class="treeview"><a href="{!! route('dashboard') !!}"><i class="flaticon-layers"></i><span> Dashboard</span></a></li>
                 <li class="title"><span>Manage Listings</span></li>
-                <li class="treeview">
-                    <a href="{!! route('tanents.properties.index') !!}"><i class="flaticon-home"></i> <span> My Properties</span></a>
-                </li>
-                <li><a href="{!! route('tanents.projects.index') !!}"><i class="flaticon-heart"></i> <span> My Projects</span></a></li>
-                <li><a href="{!! route('services.request.index') !!}"><i class="flaticon-heart"></i> <span> Service Request</span></a></li>
+                <li><a href="{!! route('servicesForServiceProviders') !!}"><img src="https://img.icons8.com/color/48/000000/services--v2.png" style="width:16px"/> <span> Service Requests</span></a></li>
                 <li class="title"><span>Manage Account</span></li>
-                <li><a href="{!! route('tenant.payments.history') !!}"><i class="flaticon-user"></i> <span>My Payments</span></a></li>
-                <li><a href="{!! route('tanent.profile') !!}"><i class="flaticon-user"></i> <span>My Profile</span></a></li>
+                <li><a href="{!! route('agent.profile') !!}"><i class="flaticon-user"></i> <span>My Profile</span></a></li>
                 <li class="title"><span>Session</span></li>
                 <li><a href="{!! route('welcome') !!}"><i class="flaticon-back"></i> <span>Back To Website</span></a></li>
                 <li><a href="{!! route('logout') !!}"><i class="flaticon-logout"></i> <span>Logout</span></a></li>
@@ -72,6 +67,8 @@
         {{-- <a class="scrollToHome" href="#"><i class="flaticon-arrows"></i></a> --}}
     </div>
     <!-- Wrapper End -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/jquery-migrate-3.0.0.min.js"></script>
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/popper.min.js"></script>
@@ -93,6 +90,7 @@
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/timepicker.js"></script>
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/wow.min.js"></script>
     <script type="text/javascript" src="{!! asset('FontAsset') !!}/js/dashboard-script.js"></script>
+    <script src="{{ asset('/BackAsset/plugins/sweetalerts/sweetalert2.min.js') }}"></script>
     <!-- Custom script for all pages -->
     <script type="text/javascript" src="js/script.js"></script>
     @yield('script_in_body')

@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\VerifyAdmin::class,
         'agent' => \App\Http\Middleware\VerifyAgent::class,
         'tenant' => \App\Http\Middleware\VerifyTenant::class,
+        'servicerequest' => \App\Http\Middleware\ServiceproviderVerify::class,
         'check.subscription' => \App\Http\Middleware\CheckSubscription::class,
 
     ];

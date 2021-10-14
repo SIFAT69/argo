@@ -109,9 +109,11 @@ $(document).ready(function(){
                             {{-- <td>2,345</td> --}}
                             <td>
                               <ul class="view_edit_delete_list mb0">
+                                  @if ($project->assigned_to == Null)
+                                  <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Assign"><a href="{!! route('MyProjectsAssign', $project->id) !!}"> <img src="https://img.icons8.com/ios-glyphs/30/000000/batch-assign.png" width="22px" alt=""> </li>
+                                  @endif
                                 <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"><a href="{!! route('MyProjectEdit',$project->id) !!}"><span class="flaticon-edit"></span></a></li>
                                 <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete"><a href="{!! route('agent.HardDeleteProject', $project->id) !!}"><span class="flaticon-garbage"></span></a></li>
-                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Assign"><a href="{!! route('MyProjectsAssign', $project->id) !!}">Ass</a></li>
                               </ul>
                             </td>
                           </tr>

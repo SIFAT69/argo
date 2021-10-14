@@ -60,7 +60,8 @@ class EmailConfigurationController extends Controller
 
     public function testMailSend(Request $request)
     {
-      $toEmail = Auth::user()->email;
+    //   $toEmail = Auth::user()->email;
+      $toEmail = "kazi.sifat1999@gmail.com";
       $details = [
         'message' => 'Your mail is config is success!',
       ];
@@ -68,6 +69,6 @@ class EmailConfigurationController extends Controller
       // pass dynamic message to mail class
       Mail::to($toEmail)->send(new TestMail($details));
 
-      return back()->with('success', 'Please check your mail if you get the mail thats mean your configuration is working.');
+      return back()->with('success', 'Please check your mail if you get the mail thats mean your configuration is working. Check at : '.$toEmail);
     }
 }

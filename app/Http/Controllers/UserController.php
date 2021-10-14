@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Image;
 use App\Events\ActivityHappened;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -15,6 +16,25 @@ class UserController extends Controller
     {
         $users = User::withTrashed()->get();
         return view('Dashboard.Users.index', ['users' => $users]);
+    }
+
+    public function agentUsers()
+    {   $users = DB::table('users')->where('created_by', Auth::id())->get();
+        return view('Agent.User.index', compact('users'));
+    }
+
+    public function agentUsersUpdate(Request $request)
+    {
+        DB::table('users')->where('id', $request->user_id)->update([
+            'account_role' => $request->account_role,
+         ]);
+
+         return back()->with('success', 'Your user permission has been set to '.$request->account_role);
+    }
+
+    public function createnewuser(Request $request)
+    {
+        return view('Agent.User.create');
     }
 
     /**
@@ -126,12 +146,12 @@ class UserController extends Controller
 
 		return redirect()->route('users.index')->with('success', "Password is changed");
     }
-   
+
     public function destroy($id)
     {
         $user = User::withTrashed()->findOrFail($id);
         if($user->deleted_at == null)
-        {  
+        {
             $user->delete();
             ActivityHappened::dispatch(Auth::id(), 'An user has been locked.');
 

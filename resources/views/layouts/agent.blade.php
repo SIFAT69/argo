@@ -51,7 +51,8 @@
                 <li class="header"><img src="{{ asset('/uploads/header-logo.png') }}" alt="header logo"></li>
                 <li class="title"><span>Main</span></li>
                 <li class="treeview"><a href="{!! route('AgentDashboard') !!}"><i class="flaticon-layers"></i><span> Dashboard</span></a></li>
-                <li class="treeview"><a href="{!! route('MyInbox') !!}"><i class="flaticon-envelope"></i><span> Message</span></a></li>
+                <li class="treeview"><a href="{!! route('MyInbox') !!}"><i class="flaticon-envelope"></i><span> Contacts</span></a></li>
+                <li class="treeview"><a href="{!! route('tenant.message.index') !!}"><i class="flaticon-envelope"></i><span>Tenant Message</span></a></li>
                 <li class="title"><span>Manage Listings</span></li>
                 <li class="treeview">
                     <a href="{!! route('MyProperties') !!}"><i class="flaticon-home"></i> <span>My Properties</span></a>
@@ -63,7 +64,11 @@
                 <li><a href="{!! route('AgentTenant') !!}"><img src="https://img.icons8.com/fluency/48/000000/person-at-home.png" style="width:16px"/> <span> Tenant</span></a></li>
                 <li><a href="{!! route('services.agent.index') !!}"><img src="https://img.icons8.com/color/48/000000/services--v2.png" style="width:16px"/> <span> Service Requests</span></a></li>
                 <li><a href="{!! route('contracts.agent.index') !!}"><img src="https://img.icons8.com/fluency/48/000000/mortgage.png" style="width:16px"/> <span> Contracts</span></a></li>
+                <li class="title"><span>Payment Informations</span></li>
+                <li><a href="{!! route('agent.transaction.history') !!}"><i class="flaticon-box"></i> <span>My Wallet (${{ Auth::user()->balance }} USD)</span></a></li>
+                <li><a href="{!! route('agent.profile') !!}"><i class="flaticon-user"></i> <span>Payment History</span></a></li>
                 <li class="title"><span>Manage Account</span></li>
+                <li><a href="{!! route('users.agent.index') !!}"> <img src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/50/000000/external-user-advertising-kiranshastry-lineal-color-kiranshastry-2.png" alt="" style="width:16px"> <span>Users & Roles/Permission</span></a></li>
                 <li><a href="{!! route('packageHistory') !!}"><i class="flaticon-box"></i> <span>My Package</span></a></li>
                 <li><a href="{!! route('agent.profile') !!}"><i class="flaticon-user"></i> <span>My Profile</span></a></li>
                 <li class="title"><span>Session</span></li>

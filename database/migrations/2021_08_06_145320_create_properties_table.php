@@ -43,6 +43,8 @@ class CreatePropertiesTable extends Migration
           $table->string('youtube_thumb');
           $table->string('youtube_link');
           $table->string('is_featured')->default('No');
+          $table->string('rent_status')->nullable();
+          $table->string('remaining_days')->nullable();
           $table->timestamps();
         });
     }

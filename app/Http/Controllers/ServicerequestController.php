@@ -96,8 +96,10 @@ class ServicerequestController extends Controller
         $servicesExpense = DB::table('expenses')->where('request_id',  $ServiceRequest->id)->get();
         if(Auth::user()->account_role == "Agent"){
             return view('Agent.Services.show',compact('ServiceRequest','servicesComments','servicesExpense'));
-        }else{
+        }else if(Auth::user()->account_role == "Tenant"){
             return view('Tanent.Services.show',compact('ServiceRequest','servicesComments','servicesExpense'));
+        }else {
+          return view('ServiceDashboard.show',compact('ServiceRequest','servicesComments','servicesExpense'));
         }
     }
 
@@ -144,5 +146,12 @@ class ServicerequestController extends Controller
        ]);
 
        return back()->with('success', 'Your status has been upadated!');
+    }
+
+    public function servicesForServiceProviders()
+    {
+      $agent_id = Auth::user()->created_by;
+      $servicesRequests = DB::table('servicerequests')->where('agent_id', $agent_id)->get();
+      return view('ServiceDashboard.servicerequest',compact('servicesRequests'));
     }
 }
