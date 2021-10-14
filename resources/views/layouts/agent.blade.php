@@ -66,7 +66,7 @@
                 <li><a href="{!! route('contracts.agent.index') !!}"><img src="https://img.icons8.com/fluency/48/000000/mortgage.png" style="width:16px"/> <span> Contracts</span></a></li>
                 <li class="title"><span>Payment Informations</span></li>
                 <li><a href="{!! route('agent.transaction.history') !!}"><i class="flaticon-box"></i> <span>My Wallet (${{ Auth::user()->balance }} USD)</span></a></li>
-                <li><a href="{!! route('agent.profile') !!}"><i class="flaticon-user"></i> <span>Payment History</span></a></li>
+                <li><a href="{!! route('agent.transaction.withdraw.requests') !!}"><i class="flaticon-user"></i> <span>Payment History</span></a></li>
                 <li class="title"><span>Manage Account</span></li>
                 <li><a href="{!! route('users.agent.index') !!}"> <img src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/50/000000/external-user-advertising-kiranshastry-lineal-color-kiranshastry-2.png" alt="" style="width:16px"> <span>Users & Roles/Permission</span></a></li>
                 <li><a href="{!! route('packageHistory') !!}"><i class="flaticon-box"></i> <span>My Package</span></a></li>

@@ -72,7 +72,7 @@ $(document).ready(function(){
 										    		<th scope="col">Date published</th>
                             <th scope="col">Payment</th>
 										    		<th scope="col">Status</th>
-										    		{{-- <th scope="col">View</th> --}}
+										    		<th scope="col">Remain Days</th>
 										    		<th scope="col">Action</th>
 										    	</tr>
 											</thead>
@@ -112,10 +112,19 @@ $(document).ready(function(){
 										    		</th>
 										    		<td>{{ Carbon\Carbon::parse($property->created_at)->format('Y-M-d') }}</td>
 										    		<td>
-                              <a href="{!! route('tenant.payments.rentpay', $property->id) !!}" class="btn rounded-pill btn-info">Pay Rent</a>
+                              @if ($property->rent_status == "Paid")
+                                <span class="badge badge-success">Paid</span>
+                              @else
+                                <a href="{!! route('tenant.payments.rentpay', $property->id) !!}" class="btn rounded-pill btn-warning">Pay Rent</a>
+                              @endif
                             </td>
 										    		<td><span class="status_tag badge">{{ $property->moderation_status }}</span></td>
-										    		{{-- <td>2,345</td> --}}
+                            <td>
+                              {{ $property->remaining_days }} Days
+                              @if ($property->remaining_days <= 5)
+                              <small class="badge badge-danger">Due Incoming.</small>
+                              @endif
+                            </td>
 										    		<td>
 										    			<ul class="view_edit_delete_list mb0">
 										    				<li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"><a href="{!! route('properties_view', $property->slug) !!}" target="_blank" class="btn btn-success">Show</a></li>

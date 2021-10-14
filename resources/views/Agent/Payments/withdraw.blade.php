@@ -39,7 +39,7 @@
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">Withdraw Balance</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -90,35 +90,58 @@
                             <tr>
                               <th scope="col">Sl No.</th>
                               <th scope="col">Name</th>
-                              <th scope="col">Apartment</th>
                               <th scope="col">Amount</th>
+                              <th scope="col">Bank Details</th>
                               <th scope="col">Status</th>
-                              <th scope="col">Last Updated</th>
+                              <th scope="col">Submited At</th>
                             </tr>
                           </tr>
                       </thead>
                       <tbody>
-                        @forelse ($payments as $payment)
-                          @php
-                            $user = DB::table('users')->where('id', $payment->user_id)->first();
-                            $properties = DB::table('properties')->where('id', $payment->property_id)->first();
-                          @endphp
+                        @forelse ($withdraws as $withdraw)
                           <tr>
                             <th scope="row"> {{ $loop->index+1 }} </th>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $properties->title }}</td>
-                            <td>{{ $payment->amount }}</td>
-                            @if ($payment->status == "Complete")
-                              <td> <span class="badge badge-success">{{ $payment->status }} </span></td>
-                            @else
-                              <td> <span class="badge badge-danger">{{ $payment->status }} </span></td>
-                            @endif
-                            @if (empty($payment->updated_at))
-                              <td>{{ \Carbon\Carbon::parse($payment->created_at)->diffForHumans() }}</td>
-                            @else
-                              <td>{{ \Carbon\Carbon::parse($payment->updated_at)->diffForHumans() }}</td>
-                            @endif
-                          </tr>
+                            <td>{{ $withdraw->name }}</td>
+                            <td>{{ $withdraw->amount }}</td>
+                            <td>
+                              <button type="button" name="button"  data-toggle="modal" data-target="#bankDetails{{ $loop->index+1 }}" class="btn btn-info">See Details</button>
+                            </td>
+                            <td>
+                              @if ($withdraw->status == "Pending")
+                                <span class="badge badge-warning">Pending</span>
+                              @endif
+                              @if ($withdraw->status == "Complete")
+                                <span class="badge badge-success">Complete</span>
+                              @endif
+                              @if ($withdraw->status == "Canceled")
+                                <span class="badge badge-danger">Canceled</span>
+                              @endif
+                            </td>
+                            <td>{{ \Carbon\Carbon::parse($withdraw->created_at)->format('d-M-Y (h:m A)') }}</td>
+
+                            <!-- Modal -->
+
+                            <div class="modal fade" id="bankDetails{{ $loop->index+1 }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Bank Details:</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    {{ $withdraw->bank_info }}
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    {{-- <button type="submit" class="btn btn-success">Withdraw</button> --}}
+                                  </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Modal -->
                         @empty
                           <tr>
                             <th colspan="6"> No Records Found! </th>
@@ -127,7 +150,7 @@
                       </tbody>
                     </table>
                   </div>
-                  {{ $payments->links() }}
+                  {{ $withdraws->links() }}
                 </div>
                 {{--<div class="pck_chng_btn text-right">
                   <a href="{!! route('dashboard') !!}" class="btn btn-lg btn-thm">Return Dashboard</a>
@@ -148,49 +171,6 @@
   </div>
 </section>
 
-<!-- Button trigger modal -->
-<!-- unsubscribe Modal -->
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title text-danger" id="exampleModalLabel">Do you want to unsubscribe?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <form method="POST" action="" id="unsubscribe-form">
-          @csrf
-          <button type="submit" class="btn btn-danger">Confirm</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Button trigger modal -->
-<!-- unsubscribe Modal -->
-<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title text-success" id="exampleModalLabel">Do you want to subscribe?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <form method="POST" action="" id="subscribe-form">
-          @csrf
-          <button type="submit" class="btn btn-success">Confirm</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 @endsection
 
 

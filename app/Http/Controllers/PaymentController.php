@@ -54,9 +54,12 @@ class PaymentController extends Controller
             'updated_at' => Carbon::now(),
           ]);
 
+          $remaining_days = DB::table('properties')->where('id', $request->property_id)->value('remaining_days');
+          $newDays = $remaining_days+30;
+
           DB::table('properties')->where('id', $request->property_id)->update([
             'rent_status' => 'Paid',
-            'remaining_days' => 30,
+            'remaining_days' => $newDays,
             'updated_at' => Carbon::now(),
           ]);
 
@@ -109,5 +112,17 @@ class PaymentController extends Controller
           'created_at' => Carbon::now(),
         ]);
         return view('Tanent.Payments.rentpay',compact('property','intent','rent_id'));
+      }
+
+      public function paymentOffline(Request $request)
+      {
+        $remaining_days = DB::table('properties')->where('id', $request->property_id)->value('remaining_days');
+        $newDays = $remaining_days+30;
+
+        DB::table('properties')->where('id', $request->property_id)->update([
+          'rent_status' => 'Paid',
+          'remaining_days' => $newDays,
+          'updated_at' => Carbon::now(),
+        ]);
       }
 }

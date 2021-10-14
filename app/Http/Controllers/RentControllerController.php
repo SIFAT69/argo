@@ -22,4 +22,10 @@ class RentControllerController extends Controller
         return "admin";
       }
     }
+
+    public function adminAllTransaction(Request $request)
+    {
+      $payments = DB::table('rent_controllers')->orderBy('created_at', 'desc')->get();
+      return view('dashboard.PaymentGateway.alltransactions',compact('payments'));
+    }
 }

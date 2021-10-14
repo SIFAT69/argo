@@ -248,6 +248,12 @@
                                 <a href="{!! route('transactions') !!}"> Transactions </a>
                             </li>
                             <li>
+                                <a href="{!! route('admin.transaction.history') !!}">Rent Transactions</a>
+                            </li>
+                            <li>
+                                <a href="{!! route('admin.withdraw.request.index') !!}">Withdraw Request</a>
+                            </li>
+                            <li>
                                 <a href="{!! route('editpayment') !!}"> Payment Method </a>
                             </li>
                         </ul>
@@ -327,7 +333,7 @@
                         <ul class="collapse submenu list-unstyled" id="settings" data-parent="#accordionExample">
                             <li>
                                 <a href="#settings-general" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> General <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
-                                <ul class="collapse list-unstyled sub-submenu" id="settings-general" data-parent="#settings"> 
+                                <ul class="collapse list-unstyled sub-submenu" id="settings-general" data-parent="#settings">
                                     <li>
                                         <a href="{{ route('settings.logo.edit') }}"> Logo </a>
                                     </li>

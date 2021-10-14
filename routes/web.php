@@ -39,6 +39,7 @@ use App\Http\Controllers\{
   ExpenseController,
   TenantmessageController,
   RentControllerController,
+  WithdrawController,
 };
 
 use App\Events\ActivityHappened;
@@ -58,10 +59,10 @@ Route::get('/dashboard', function () {
         return view('dashboard',compact('properties','projects', 'logs'));
     }
     if(Auth::user()->account_role == "Agent") {
-        return redirect('/agency-dashbord');
+        return redirect('/agency-dashboard');
     }
     if (Auth::user()->account_role == "Tenant") {
-        return redirect('/tanent-dashbord');
+        return redirect('/tanent-dashboard');
     }
     if (Auth::user()->account_role == "Service Providers") {
         $serviceRequests = DB::table('servicerequests')->orderBy('id','DESC')->limit(9)->get();
@@ -168,14 +169,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/properties-isFeatured-change/{id}', [PropertyController::class, 'IsFeaturedChangeProperty'])->name('IsFeaturedChangeProperty');
     // Property END
 
-
-    // //Payment Start
-    // Route::get('/dashboard/agent/select-package', [PaymentController::class, 'package_index'])->name('package_index');
-    // Route::post('/dashboard/agent/select-package-post', [PaymentController::class, 'checkout'])->name('package_payment');
-    // // Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
-    // Route::post('checkout',[PaymentController::class, 'afterpayment'])->name('checkout.credit-card');
-    // //Payment End
-
     // Packages And Subcription Start
     Route::get('plans',[PlanController::class, 'index'])->name('plans.index');
     // Route::get('/plan/{plan}',[PlanController::class, 'show'])->name('plans.show');
@@ -243,6 +236,15 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     Route::get('subscribersIndex', [SubscriberController::class, 'index'])->name('subscribers.index');
     Route::get('subscribersDestroy/{id}', [SubscriberController::class, 'destroy'])->name('subscribers.destroy');
+
+    // All Rent Transactions Start
+    Route::get('admin/all/transactions', [RentControllerController::class, 'adminAllTransaction'])->name('admin.transaction.history');
+    Route::get('admin/all/withdraw/requests', [WithdrawController::class, 'index'])->name('admin.withdraw.request.index');
+    Route::get('admin/withdraw/requests/complete/{id}', [WithdrawController::class, 'complete'])->name('admin.withdraw.request.complete');
+    Route::get('admin/withdraw/requests/undo/{id}', [WithdrawController::class, 'undo'])->name('admin.withdraw.request.undo');
+    Route::get('admin/withdraw/requests/cancel/{id}', [WithdrawController::class, 'cancel'])->name('admin.withdraw.request.cancel');
+
+    // All Rent Transactions End
 });
 
 // Agent Route Start
@@ -350,8 +352,13 @@ Route::group(['middleware' => ['auth', 'agent']], function () {
 
         // Agent Rent Details Start
         Route::get('/agent/rent/transaction', [RentControllerController::class, 'allTransactions'])->name('agent.transaction.history');
+        Route::post('/agent/withdraw/', [WithdrawController::class, 'withdraw'])->name('agent.transaction.withdraw');
+        Route::get('/agent/all/withdraw/', [WithdrawController::class, 'withdrawRequests'])->name('agent.transaction.withdraw.requests');
         // Agent Rent Details End
 
+        // Offline Paid Start
+        Route::get('/agent/offline/paid/{property_id}', [PaymentController::class, 'paymentOffline'])->name('agent.offline.payment');
+        // Offline Paid End
     });
 
     Route::get('/my-package-history', [AgentController::class, 'packageHistory'])->name('packageHistory');
