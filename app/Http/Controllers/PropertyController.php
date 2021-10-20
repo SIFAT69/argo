@@ -32,6 +32,30 @@ class PropertyController extends Controller
     }
 
     public function property_post(Request $request){
+
+      $validatedData = $request->validate([
+          'title' => ['required', 'unique:posts'],
+          'type' => ['required'],
+          'meta_description' => ['required'],
+          'description' => ['required'],
+          'location' => ['required'],
+          'city' => ['required'],
+          'category' => ['required'],
+          'latitude' => ['required'],
+          'longitude' => ['required'],
+          'flat_beds' => ['required'],
+          'flat_baths' => ['required'],
+          'flat_floors' => ['required'],
+          'size' => ['required'],
+          'price' => ['required'],
+          'facilities' => ['required'],
+          'features' => ['required'],
+          'distance' => ['required'],
+          'youtube_thumb' => ['required'],
+          'youtube_link' => ['required'],
+      ]);
+
+
     foreach ($request->file('images') as $index => $file)
      {
        $name = $index . date('YmdHisv') . '.' . $file->getClientOriginalExtension();
@@ -60,7 +84,7 @@ class PropertyController extends Controller
         $randomNumber = rand();
         $meta_image = $request->file('youtube_thumb');
         $meta_image_rename = $randomNumber.'.'.$meta_image->getClientOriginalExtension();
-        $newLocation = 'uploads/'.$meta_image_rename;
+        $newLocation = public_path('uploads/'.$meta_image_rename);
         Image::make($meta_image)->save($newLocation,100);
       }
 
@@ -125,7 +149,7 @@ class PropertyController extends Controller
         $randomNumber =rand();
         $meta_image = $request->file('youtube_thumb');
         $meta_image_rename = $randomNumber.'.'.$meta_image->getClientOriginalExtension();
-        $newLocation = 'uploads/'.$meta_image_rename;
+        $newLocation = public_path('uploads/'.$meta_image_rename);
         Image::make($meta_image)->save($newLocation,100);
       }else {
         $meta_image_rename = $project->youtube_thumb;

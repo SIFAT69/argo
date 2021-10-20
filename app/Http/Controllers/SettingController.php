@@ -29,11 +29,11 @@ class SettingController extends Controller
                 ->resize(650, null, function ($constraint) {
                     $constraint->aspectRatio();
                 })
-                ->save('uploads/header-logo.png', 100);
+                ->save(public_path('uploads/header-logo.png'), 100);
 
         ActivityHappened::dispatch(Auth::id(), 'The logo has been updated.');
 
-        return back();
+        return back()->with('success', 'Your logo has been updated.');
     }
 
     public function metaKeywords_edit()

@@ -120,7 +120,7 @@ class UserController extends Controller
             $randomNumber =rand();
             $profile_picture = $request->file('avatar');
             $profile_picture_rename = $randomNumber.'.'.$profile_picture->getClientOriginalExtension();
-            $newLocation = 'uploads/'.$profile_picture_rename;
+            $newLocation = public_path('uploads/'.$profile_picture_rename);
             Image::make($profile_picture)->resize(100, 100)->save($newLocation,100);
             User::where('id', $id)->update([
                 'avatar' => $profile_picture_rename,

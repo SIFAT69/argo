@@ -51,7 +51,7 @@ $(document).ready(function(){
 									<li class="list-inline-item">
                                         <div class="candidate_revew_search_box course fn-520">
                                             <form class="form-inline my-2">
-                                                <input class="form-control mr-sm-2" type="search" id="myInput" placeholder="Search properties" aria-label="Search">
+                                                <input class="form-control mr-sm-2" type="search" id="myInput" placeholder="Search Services" aria-label="Search">
 										    	<button class="btn my-2 my-sm-0" type="submit"><span class="flaticon-magnifying-glass"></span></button>
 										    </form>
 										</div>

@@ -179,7 +179,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="menu">
+                    {{-- <li class="menu">
                         <a href="#submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <span> Real Estate</span>
@@ -205,7 +205,7 @@
                                 <a href="{!! route('realstateIndex') !!}"> Categories </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li class="menu">
                       <a href="{!! route('allConsult') !!}" aria-expanded="false" class="dropdown-toggle">
                         <div class="">

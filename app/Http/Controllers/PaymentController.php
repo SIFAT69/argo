@@ -8,7 +8,7 @@ use Auth;
 use Carbon\Carbon;
 use Image;
 use App\Models\User;
-use App\Models\plan;
+use App\Models\Plan;
 
 use App\Events\ActivityHappened;
 
@@ -79,12 +79,12 @@ class PaymentController extends Controller
       public function editpayment(Request $request)
       {
         $paymentgateway_keys = DB::table('gatewaysettings')->first();
-        return view('Dashboard.Paymentgateway.paymentgateway', compact('paymentgateway_keys'));
+        return view('Dashboard.PaymentGateway.paymentgateway', compact('paymentgateway_keys'));
       }
 
       public function transactions()
       {
-        return view('Dashboard.Paymentgateway.transaction');
+        return view('Dashboard.PaymentGateway.transaction');
       }
 
       public function tenantRentPayment(Request $request)

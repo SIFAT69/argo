@@ -26,12 +26,12 @@
 <body>
     <div class="wrapper">
         {{-- <div class="preloader"></div> --}}
-
         <!-- Main Header Nav -->
         <header class="header-nav menu_style_home_one navbar-scrolltofixed stricky main-menu">
             <div class="container-fluid p0">
                 <!-- Ace Responsive Menu -->
                 <nav>
+
                     <!-- Menu Toggle btn-->
                     <div class="menu-toggle">
                         <img class="nav_logo_img img-fluid" src="{{ asset('/uploads/header-logo.png') }}" alt="header-logo.png" width="250px">
@@ -78,6 +78,7 @@
                         @if (Auth::check())
                           <li class="list-inline-item list_s"><a href="{!! route('dashboard') !!}" class="btn flaticon-user"> <span class="dn-lg">Dashboard</span></a></li>
                         @else
+
                           <li class="list-inline-item list_s"><a href="#" class="btn flaticon-user" data-toggle="modal" data-target=".bd-example-modal-lg"> <span class="dn-lg">Login/Register</span></a></li>
                         @endif
                     </ul>
@@ -85,11 +86,18 @@
             </div>
         </header>
         <!-- Modal -->
-        <div class="sign_up_modal modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+
+        <div class="sign_up_modal modal fade bd-example-modal-lg active show" tabindex="-1" role="dialog" aria-hidden="true" @if ($errors->any()) style="display: block; padding-right: 17px;" @endif>
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
+                       @if ($errors->any())
+                         <a href="{!! route('welcome') !!}">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </a>
+                       @else
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                       @endif
                     </div>
                     <div class="modal-body container pb20">
                         <div class="row">
@@ -347,6 +355,7 @@
                 </ul>
             </nav>
         </div>
+
         @yield('content')
 
 

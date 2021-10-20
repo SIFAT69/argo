@@ -139,7 +139,7 @@
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="validationCustom01">Size(M<sup>2</sup>):</label>
-                                <input type="text" class="form-control" name="size" placeholder="Meter Squre" value="">
+                                <input type="text" class="form-control" name="size" placeholder="Meter Square" value="">
                             </div>
                             <div class="col-md-12 mb-4">
                                 <label for="validationCustom01">Category:</label>

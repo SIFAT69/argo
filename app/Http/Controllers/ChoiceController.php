@@ -48,7 +48,7 @@ class ChoiceController extends Controller
         $randomNumber =rand();
         $icon = $request->file('icon');
         $icon_rename = $randomNumber.'.'.$icon->getClientOriginalExtension();
-        $newLocation = 'uploads/'.$icon_rename;
+        $newLocation = public_path('uploads/'.$icon_rename);
         Image::make($icon)->resize(100, 100)->save($newLocation, 100);
     
         Choice::create([
@@ -105,7 +105,7 @@ class ChoiceController extends Controller
             $randomNumber =rand();
             $icon = $request->file('icon');
             $icon_rename = $randomNumber.'.'.$icon->getClientOriginalExtension();
-            $newLocation = 'uploads/'.$icon_rename;
+            $newLocation = public_path('uploads/'.$icon_rename);
             Image::make($icon)->resize(100, 100)->save($newLocation,100);
       
             Choice::where('id', $id)->update([

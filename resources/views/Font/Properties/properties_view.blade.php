@@ -7,6 +7,8 @@ Argo
 @endsection
 
 @section('content')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <div class="single_page_listing_tab">
 	<div class="tab-content" id="myTabContent">
 		<div class="tab-pane fade show active" id="slider_tabs" role="tabpanel" aria-labelledby="slider-tab">
@@ -14,18 +16,18 @@ Argo
 			<div class="home10-mainslider">
 				<div class="container-fluid p0">
 					<div class="row">
-						<div class="col-lg-12">
+				        <div class="col-lg-12">
 							<div class="main-banner-wrapper home10">
 								<div class="banner-style-one owl-theme owl-carousel">
-					@php
-					$images = json_decode($property->images, true);
-					@endphp
-					@foreach ($images as $image)
-					@php
-						$showImage = DB::table('libraries')->where('id', $image)->value('file_name');
-					@endphp
-									<div class="slide slide-one" style="background-image: url('../uploads/{{ $showImage }}');height: 600px;"></div>
-					@endforeach
+                					@php
+                					$images = json_decode($property->images, true);
+                					@endphp
+                					@foreach ($images as $image)
+                					@php
+                						$showImage = DB::table('libraries')->where('id', $image)->value('file_name');
+                					@endphp
+                			         <div class="slide slide-one" style="background-image: url(../uploads/{{ $showImage }});height: 600px;"></div>
+                					@endforeach
 								</div>
 								<div class="carousel-btn-block banner-carousel-btn">
 									<span class="carousel-btn left-btn"><i class="flaticon-left-arrow-1 left"></i></span>
@@ -44,6 +46,7 @@ Argo
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-7 col-xl-8">
+          <div id="success"></div>
 					<div class="single_property_title mt30-767 mb30-767">
 						<h2>{{ $property->title }}</h2>
 						<p>{{ $property->city }},{{ $property->states }},{{ $property->location }}</p>
@@ -69,7 +72,25 @@ Argo
 						</div>
 						<div class="spss mt20 text-right tal-400">
 							<ul class="mb0">
-								<li class="list-inline-item"><a href="#"><span class="flaticon-share"></span></a></li>
+							    <input type="text" style="display:none" value="{!! route('properties_view', $property->slug) !!}" id="myInput">
+								<li class="list-inline-item" onclick="myFunction()"><a href="#"><span class="flaticon-share"></span></a></li>
+								<script>
+                function myFunction() {
+                  /* Get the text field */
+                  var copyText = document.getElementById("myInput");
+
+                  /* Select the text field */
+                  copyText.select();
+                  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+                  /* Copy the text inside the text field */
+                  navigator.clipboard.writeText(copyText.value);
+
+                  /* Alert the copied text */
+                  // alert("Copied the text: " + copyText.value);
+                   $("#success").append("<div class='alert alert-success alert-dismissable' id='myAlert2'> <button type='button' class='close' data-dismiss='alert'  aria-hidden='true'>&times;</button> Success! Link copied to clipboard!.</div>");
+                }
+                </script>
 							</ul>
 						</div>
 					</div>

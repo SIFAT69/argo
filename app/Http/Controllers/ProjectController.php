@@ -77,7 +77,7 @@ class ProjectController extends Controller
           $randomNumber =rand();
           $meta_image = $request->file('youtube_thumb');
           $meta_image_rename = $randomNumber.'.'.$meta_image->getClientOriginalExtension();
-          $newLocation = 'uploads/'.$meta_image_rename;
+          $newLocation = public_path('uploads/'.$meta_image_rename);
           Image::make($meta_image)->save($newLocation,100);
         }
 
@@ -128,7 +128,7 @@ class ProjectController extends Controller
         $randomNumber =rand();
         $meta_image = $request->file('youtube_thumb');
         $meta_image_rename = $randomNumber.'.'.$meta_image->getClientOriginalExtension();
-        $newLocation = 'uploads/'.$meta_image_rename;
+        $newLocation = public_path('uploads/'.$meta_image_rename);
         Image::make($meta_image)->save($newLocation,100);
       }else {
         $meta_image_rename = $project->youtube_thumb;

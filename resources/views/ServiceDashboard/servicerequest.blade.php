@@ -119,7 +119,7 @@ All Service Request
                                                 </td>
                                                 <td> {{ \Carbon\Carbon::parse($servicesRequest->created_at)->diffForHumans() }} </td>
                                                 <td>
-                                                    <a href="{!! route('services.agent.show', $servicesRequest->id) !!}" class="btn btn-outline-primary" title="See Details"><img src="https://img.icons8.com/ios-glyphs/30/000000/visible--v2.gif"
+                                                    <a href="{!! route('services.services.show', $servicesRequest->id) !!}" class="btn btn-outline-primary" title="See Details"><img src="https://img.icons8.com/ios-glyphs/30/000000/visible--v2.gif"
                                                           width="20px" alt=""></a>
                                                     <a href="{!! route('services.comments.cancel', $servicesRequest->id) !!}" class="btn btn-outline-warning" title="Cancel Request"><img src="https://img.icons8.com/color/48/000000/cancel--v3.png"
                                                           width="20px" alt=""></a>

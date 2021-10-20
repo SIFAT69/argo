@@ -3,7 +3,7 @@
 Argo
 @endsection
 @section('page_name')
-  Home
+ Home
 @endsection
 
 @section('content')
@@ -16,7 +16,7 @@ Argo
                 <div class="home_content">
                     <div class="home-text text-center">
                         <h2 class="fz55">Find Your Dream Home</h2>
-                        <p class="fz18 color-white">From as low as $10 per day with limited time offer discounts.</p>
+                        <p class="fz18 color-white">From as low as $1,000 per day with limited time offer discounts.</p>
                     </div>
                     <div class="home_adv_srch_opt">
                         <ul class="nav nav-pills" id="pills-tab" role="tablist">
@@ -161,6 +161,7 @@ Argo
                 </div>
             </div>
         </div>
+
     </div>
 </section>
 

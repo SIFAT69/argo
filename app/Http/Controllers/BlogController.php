@@ -48,7 +48,7 @@ class BlogController extends Controller
         $randomNumber =rand();
         $meta_image = $request->file('meta_image');
         $meta_image_rename = $randomNumber.'.'.$meta_image->getClientOriginalExtension();
-        $newLocation = 'uploads/'.$meta_image_rename;
+        $newLocation = public_path('uploads/'.$meta_image_rename);
         Image::make($meta_image)->resize(689, 380)->save($newLocation,100);
       }
 
@@ -84,7 +84,7 @@ class BlogController extends Controller
         $randomNumber =rand();
         $meta_image = $request->file('meta_image');
         $meta_image_rename = $randomNumber.'.'.$meta_image->getClientOriginalExtension();
-        $newLocation = 'uploads/'.$meta_image_rename;
+        $newLocation = public_path('uploads/'.$meta_image_rename);
         Image::make($meta_image)->resize(689, 380)->save($newLocation,100);
         DB::table('blogs')->where('id', $request->id)->update([
           'meta_image' => $meta_image_rename,

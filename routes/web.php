@@ -59,10 +59,10 @@ Route::get('/dashboard', function () {
         return view('dashboard',compact('properties','projects', 'logs'));
     }
     if(Auth::user()->account_role == "Agent") {
-        return redirect('/agency-dashboard');
+        return redirect('/agency-dashbord');
     }
     if (Auth::user()->account_role == "Tenant") {
-        return redirect('/tanent-dashboard');
+        return redirect('/tanent-dashbord');
     }
     if (Auth::user()->account_role == "Service Providers") {
         $serviceRequests = DB::table('servicerequests')->orderBy('id','DESC')->limit(9)->get();
@@ -464,8 +464,8 @@ Route::post('/tanents/commnets/post', [CommentserviceController::class, 'store']
 Route::group(['middleware' => ['auth', 'servicerequest']], function () {
   Route::get('/service-providers/services', [ServicerequestController::class, 'servicesForServiceProviders'])->name('servicesForServiceProviders');
   Route::get('agencies/tenant/services/delete/{id}/', [ServicerequestController::class, 'destroy'])->name('services.agent.destroy');
-  Route::get('services/request/request/view/{id}', [ServicerequestController::class, 'show'])->name('services.agent.show');
-  Route::get('agencies/update/status/{id}', [ServicerequestController::class, 'updateStatus'])->name('expense.agent.update.status');
+  Route::get('services/request/request/view/{id}', [ServicerequestController::class, 'show'])->name('services.services.show');
+  Route::get('services/update/status/{id}', [ServicerequestController::class, 'updateStatus'])->name('expense.services.update.status');
 
   // Route::get('/agency-settings-profile', [AgentController::class, 'agentProfile'])->name('agent.profile');
   Route::put('/agent-profile-information/{userId}', [AgentController::class, 'updateProfileInformation'])->name('update.agent.profile.information');

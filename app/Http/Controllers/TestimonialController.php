@@ -52,7 +52,7 @@ class TestimonialController extends Controller
             $randomNumber =rand();
             $avatar = $request->file('avatar');
             $avatar_rename = $randomNumber.'.'.$avatar->getClientOriginalExtension();
-            $newLocation = 'uploads/'.$avatar_rename;
+            $newLocation = public_path('/uploads/'.$avatar_rename);
             Image::make($avatar)->resize(100, 100)->save($newLocation,100);
       
             Testimonial::create([

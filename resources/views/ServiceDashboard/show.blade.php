@@ -75,15 +75,15 @@ Services Details
                                             <li class="list-group-item"> <strong>Property ID : </strong> {{ $ServiceRequest->code_id }} </li>
                                             <li class="list-group-item"> <strong>Requested By(Name) : </strong> {{ $ServiceRequest->requester }} </li>
                                             <li class="list-group-item"> <strong>Status : </strong>
-                                                <form action="{!! route('expense.agent.update.status', $ServiceRequest->id) !!}">
+                                                <form action="{!! route('expense.services.update.status', $ServiceRequest->id) !!}">
                                                     @csrf
                                                     <select name="status" class="form-control">
                                                         <option value="New" @if( $ServiceRequest->status == "New") selected @endif>New</option>
-                                                            <option value="Assigned" @if( $ServiceRequest->status == "Assigned") selected @endif>Assigned</option>
-                                                                <option value="In progress" @if( $ServiceRequest->status == "In progress") selected @endif>In progress</option>
-                                                                    <option value="Complete" @if( $ServiceRequest->status == "Complete") selected @endif>Complete</option>
-                                                                        <option value="Hold" @if( $ServiceRequest->status == "Hold") selected @endif>Hold</option>
-                                                                            <option value="Cancelled" @if( $ServiceRequest->status == "Cancelled") selected @endif>Cancelled</option>
+                                                        <option value="Assigned" @if( $ServiceRequest->status == "Assigned") selected @endif>Assigned</option>
+                                                        <option value="In progress" @if( $ServiceRequest->status == "In progress") selected @endif>In progress</option>
+                                                        <option value="Complete" @if( $ServiceRequest->status == "Complete") selected @endif>Complete</option>
+                                                        <option value="Hold" @if( $ServiceRequest->status == "Hold") selected @endif>Hold</option>
+                                                        <option value="Cancelled" @if( $ServiceRequest->status == "Cancelled") selected @endif>Cancelled</option>
                                                     </select>
                                                     <button type="submit" class="btn btn-sm btn-success mt-2">Save</button>
                                                 </form>

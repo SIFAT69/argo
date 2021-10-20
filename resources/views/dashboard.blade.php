@@ -37,7 +37,7 @@ Dashboard
                         </div>
                         <div class="w-action">
                             <div class="card-like">
-                                <h2>{{ DB::table('Projects')->count() }}</h2>
+                                <h2>{{ DB::table('properties')->count() }}</h2>
                             </div>
                         </div>
                     </div>

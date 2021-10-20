@@ -15,20 +15,20 @@ class LocationController extends Controller
     public function indexCountries(Request $request)
     {
       $countries = DB::table('countries')->get();
-      return view('dashboard.Location.Countriesindex',compact('countries'));
+      return view('Dashboard.Location.Countriesindex',compact('countries'));
     }
     public function indexStates(Request $request)
     {
       $countries = DB::table('countries')->get();
       $states = DB::table('states')->get();
-      return view('dashboard.Location.statesindex',compact('states','countries'));
+      return view('Dashboard.Location.statesindex',compact('states','countries'));
     }
     public function indexCities(Request $request)
     {
       $countries = DB::table('countries')->get();
       $states = DB::table('states')->get();
       $cities = DB::table('cities')->get();
-      return view('dashboard.Location.citiesindex',compact('states','countries','cities'));
+      return view('Dashboard.Location.citiesindex',compact('states','countries','cities'));
     }
     // View Funtions
 

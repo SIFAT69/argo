@@ -8,7 +8,7 @@ use App\Events\ActivityHappened;
 use Auth;
 use Carbon\Carbon;
 use Image;
-use App\Models\plan;
+use App\Models\Plan;
 
 class PlanController extends Controller
 {
