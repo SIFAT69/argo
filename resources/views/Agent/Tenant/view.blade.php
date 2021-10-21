@@ -38,12 +38,12 @@
                                 <td>{{ $tenant->email }}</td>
                                 <td>{{ \Carbon\Carbon::parse($tenant->created_at)->diffForHumans() }}</td>
                                 <td>
-                                    <a href="{!! route('AgentTenantShow', $tenant->id) !!}" class="btn btn-outline-info rounded bs-tooltip" data-placement="top" title="View"><img src="https://img.icons8.com/ios/50/000000/visible.png" width="25px" /></a>
-                                    <a href="{!! route('AgentTenantEdit', $tenant->id) !!}" class="btn btn-outline-primary rounded bs-tooltip" data-placement="top" title="Edit"><img src="https://img.icons8.com/material-outlined/24/000000/edit--v4.png" /></a>
+                                    <a href="{!! route('AgentTenantShow', $tenant->id) !!}" class="btn btn-outline-info rounded bs-tooltip" data-placement="top" title="View"><i class="fas fa-eye"></i></a>
+                                    <a href="{!! route('AgentTenantEdit', $tenant->id) !!}" class="btn btn-outline-primary rounded bs-tooltip" data-placement="top" title="Edit"><i class="far fa-edit"></i></a>
                                     @if (empty($tenant->deleted_at))
-                                    <a href="{!! route('AgentTenantDestroy', $tenant->id) !!}" class="btn btn-outline-danger rounded bs-tooltip" data-placement="top" title="Lock"><img src="https://img.icons8.com/ios-filled/64/000000/lock.png"  width="24px"/></a>
+                                    <a href="{!! route('AgentTenantDestroy', $tenant->id) !!}" class="btn btn-outline-danger rounded bs-tooltip" data-placement="top" title="Lock"><i class="fas fa-lock"></i></a>
                                     @else
-                                    <a href="{!! route('AgentTenantDestroy', $tenant->id) !!}" class="btn btn-outline-warning rounded bs-tooltip" data-placement="top" title="Unlock"><img src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-unlock-multimedia-kiranshastry-solid-kiranshastry.png" width="24px"/></a>
+                                    <a href="{!! route('AgentTenantDestroy', $tenant->id) !!}" class="btn btn-outline-warning rounded bs-tooltip" data-placement="top" title="Unlock"><i class="fas fa-unlock"></i></a>
                                     @endif
 
                                 </td>

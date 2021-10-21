@@ -112,8 +112,8 @@ $(document).ready(function(){
                                   @if ($project->assigned_to == Null)
                                   <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Assign"><a href="{!! route('MyProjectsAssign', $project->id) !!}"> <img src="https://img.icons8.com/ios-glyphs/30/000000/batch-assign.png" width="22px" alt=""> </li>
                                   @endif
-                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"><a href="{!! route('MyProjectEdit',$project->id) !!}"><span class="flaticon-edit"></span></a></li>
-                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete"><a href="{!! route('agent.HardDeleteProject', $project->id) !!}"><span class="flaticon-garbage"></span></a></li>
+                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"><a href="{!! route('MyProjectEdit',$project->id) !!}"><i class="far fa-edit"></i></a></li>
+                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete"><a href="{!! route('agent.HardDeleteProject', $project->id) !!}"><i class="far fa-trash-alt"></i></a></li>
                               </ul>
                             </td>
                           </tr>

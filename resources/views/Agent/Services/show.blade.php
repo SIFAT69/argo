@@ -111,8 +111,8 @@ $(document).ready(function(){
                                                       <td>${{ $expense->expense }}</td>
                                                       <td>{{ \Carbon\Carbon::parse($expense->date)->diffForHumans() }}</td>
                                                       <td>
-                                                          <a data-bs-toggle="modal" data-bs-target="#edit{{ $expense->id }}" class="btn btn-outline-info"> <img src="https://img.icons8.com/material-outlined/24/000000/edit--v4.gif" alt="" width="22px"> </a>
-                                                          <a data-bs-toggle="modal" data-bs-target="#delete{{ $expense->id }}" class="btn btn-outline-danger"> <img src="https://img.icons8.com/ios/50/000000/delete--v2.gif" width="22px" alt=""> </a>
+                                                          <a data-bs-toggle="modal" data-bs-target="#edit{{ $expense->id }}" class="btn btn-outline-info"> <i class="fas fa-edit"></i> </a>
+                                                          <a data-bs-toggle="modal" data-bs-target="#delete{{ $expense->id }}" class="btn btn-outline-danger"> <i class="far fa-trash-alt"></i> </a>
                                                       </td>
                                                     </tr>
                                                     {{-- Delete Modal --}}
@@ -170,7 +170,7 @@ $(document).ready(function(){
                                               </table>
                                         </div>
                                       </div>
-                                          <button class="btn btn-info mt-4">Total Expense: ${{ DB::table('expenses')->where('request_id', $ServiceRequest->id)->sum('expense') }}</button>
+                                          <button class="btn btn-info mt-4" disabled>Total Expense: ${{ DB::table('expenses')->where('request_id', $ServiceRequest->id)->sum('expense') }}</button>
                                     </div>
 
 

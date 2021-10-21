@@ -24,6 +24,9 @@
     <!-- Favicon -->
     <link href="{!! asset('FontAsset') !!}/images/favicon.ico" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
     <link href="{!! asset('FontAsset') !!}/images/favicon.ico" sizes="128x128" rel="shortcut icon" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -51,24 +54,24 @@
                 <li class="header"><img src="{{ asset('/uploads/header-logo.png') }}" alt="header logo"></li>
                 <li class="title"><span>Main</span></li>
                 <li class="treeview"><a href="{!! route('AgentDashboard') !!}"><i class="flaticon-layers"></i><span> Dashboard</span></a></li>
-                <li class="treeview"><a href="{!! route('MyInbox') !!}"><i class="flaticon-envelope"></i><span> Contacts</span></a></li>
+                <li class="treeview"><a href="{!! route('MyInbox') !!}"><i class="far fa-address-book"></i><span> Contacts</span></a></li>
                 <li class="treeview"><a href="{!! route('tenant.message.index') !!}"><i class="flaticon-envelope"></i><span>Tenant Message</span></a></li>
                 <li class="title"><span>Manage Listings</span></li>
                 <li class="treeview">
                     <a href="{!! route('MyProperties') !!}"><i class="flaticon-home"></i> <span>My Properties</span></a>
                 </li>
-                <li><a href="{!! route('MyProject') !!}"><i class="flaticon-heart"></i> <span> My Projects</span></a></li>
-                <li><a href="{!! route('agentsFeaturesList') !!}"><img src="https://img.icons8.com/dusk/64/000000/extra-features.png" style="width:16px"/> <span> Features</span></a></li>
-                <li><a href="{!! route('Agentcatgories.index') !!}"><img src="https://img.icons8.com/office/16/000000/opened-folder.png" style="width:16px"/> <span> Categories</span></a></li>
-                <li><a href="{!! route('Landlord.index') !!}"><img src="https://img.icons8.com/office/16/000000/person-at-home.png" style="width:16px"/> <span> Landlords</span></a></li>
-                <li><a href="{!! route('AgentTenant') !!}"><img src="https://img.icons8.com/fluency/48/000000/person-at-home.png" style="width:16px"/> <span> Tenant</span></a></li>
-                <li><a href="{!! route('services.agent.index') !!}"><img src="https://img.icons8.com/color/48/000000/services--v2.png" style="width:16px"/> <span> Service Requests</span></a></li>
-                <li><a href="{!! route('contracts.agent.index') !!}"><img src="https://img.icons8.com/fluency/48/000000/mortgage.png" style="width:16px"/> <span> Contracts</span></a></li>
+                <li><a href="{!! route('MyProject') !!}"><i class="far fa-heart"></i> <span> My Projects</span></a></li>
+                <li><a href="{!! route('agentsFeaturesList') !!}"><i class="far fa-file-alt"></i> <span> Features</span></a></li>
+                <li><a href="{!! route('Agentcatgories.index') !!}"><i class="far fa-folder-open"></i> <span> Categories</span></a></li>
+                <li><a href="{!! route('Landlord.index') !!}"><i class="fas fa-house-user"></i> <span> Landlords</span></a></li>
+                <li><a href="{!! route('AgentTenant') !!}"><i class="fas fa-home"></i> <span> Tenant</span></a></li>
+                <li><a href="{!! route('services.agent.index') !!}"><i class="fas fa-cogs"></i> <span> Service Requests</span></a></li>
+                <li><a href="{!! route('contracts.agent.index') !!}"><i class="fas fa-funnel-dollar"></i> <span> Contracts</span></a></li>
                 <li class="title"><span>Payment Informations</span></li>
                 <li><a href="{!! route('agent.transaction.history') !!}"><i class="flaticon-box"></i> <span>My Wallet (${{ Auth::user()->balance }} USD)</span></a></li>
                 <li><a href="{!! route('agent.transaction.withdraw.requests') !!}"><i class="flaticon-user"></i> <span>Payment History</span></a></li>
                 <li class="title"><span>Manage Account</span></li>
-                <li><a href="{!! route('users.agent.index') !!}"> <img src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/50/000000/external-user-advertising-kiranshastry-lineal-color-kiranshastry-2.png" alt="" style="width:16px"> <span>Users & Roles/Permission</span></a></li>
+                <li><a href="{!! route('users.agent.index') !!}"> <i class="fas fa-users"></i> <span>Users & Roles/Permission</span></a></li>
                 <li><a href="{!! route('packageHistory') !!}"><i class="flaticon-box"></i> <span>My Package</span></a></li>
                 <li><a href="{!! route('agent.profile') !!}"><i class="flaticon-user"></i> <span>My Profile</span></a></li>
                 <li class="title"><span>Session</span></li>

@@ -68,9 +68,8 @@ Feature
                                                     <td>{{ $category->name }}</td>
                                                     <td>{{ $category->created_at }}</td>
                                                     <td>
-                                                        <a href="{!! route('Agentcatgories.edit', $category->id) !!}" class="btn btn-outline-primary rounded bs-tooltip" data-placement="top" title="Edit"><img src="https://img.icons8.com/material-outlined/24/000000/edit--v4.png" /></a>
-                                                        <a href="{!! route('Agentcatgories.delete', $category->id) !!}" class="btn btn-outline-danger rounded bs-tooltip" data-placement="top" title="Delete"><img
-                                                              src="https://img.icons8.com/material-rounded/24/000000/delete-sign.png" /></a>
+                                                        <a href="{!! route('Agentcatgories.edit', $category->id) !!}" class="btn btn-outline-primary rounded bs-tooltip" data-placement="top" title="Edit"><i class="far fa-edit"></i></a>
+                                                        <a href="{!! route('Agentcatgories.delete', $category->id) !!}" class="btn btn-outline-danger rounded bs-tooltip" data-placement="top" title="Delete"><i class="far fa-trash-alt"></i></a>
                                                     </td>
                                                 </tr>
 

@@ -21,6 +21,7 @@
     <!-- Favicon -->
     <link href="{!! asset('FontAsset') !!}/images/favicon.ico" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
     <link href="{!! asset('FontAsset') !!}/images/favicon.ico" sizes="128x128" rel="shortcut icon" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -56,7 +57,7 @@
                     <a href="{!! route('tanents.properties.index') !!}"><i class="flaticon-home"></i> <span> My Properties</span></a>
                 </li>
                 <li><a href="{!! route('tanents.projects.index') !!}"><i class="flaticon-heart"></i> <span> My Projects</span></a></li>
-                <li><a href="{!! route('services.request.index') !!}"><img src="https://img.icons8.com/color/48/000000/services--v2.png" style="width:16px"/> <span> Service Requests</span></a></a></li>
+                <li><a href="{!! route('services.request.index') !!}"><i class="fas fa-cogs"></i> <span> Service Requests</span></a></a></li>
                 <li class="title"><span>Manage Account</span></li>
                 <li><a href="{!! route('tenant.payments.history') !!}"><i class="flaticon-user"></i> <span>My Payments</span></a></li>
                 <li><a href="{!! route('tanent.profile') !!}"><i class="flaticon-user"></i> <span>My Profile</span></a></li>

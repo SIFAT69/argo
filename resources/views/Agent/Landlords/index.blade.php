@@ -72,9 +72,9 @@
                                                     <td>{{ $lordlord->email }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($lordlord->created_at)->diffForHumans() }}</td>
                                                     <td>
-                                                        <a href="{!! route('Landlord.show', $lordlord->id) !!}" class="btn btn-outline-info rounded bs-tooltip" data-placement="top" title="View"><img src="https://img.icons8.com/ios/50/000000/visible.png" width="25px" /></a>
-                                                        <a href="{!! route('Landlord.edit', $lordlord->id) !!}" class="btn btn-outline-primary rounded bs-tooltip" data-placement="top" title="Edit"><img src="https://img.icons8.com/material-outlined/24/000000/edit--v4.png" /></a>
-                                                        <a href="{!! route('Landlord.destroy', $lordlord->id) !!}" class="btn btn-outline-danger rounded bs-tooltip" data-placement="top" title="Delete"><img src="https://img.icons8.com/material-rounded/24/000000/delete-sign.png" /></a>
+                                                        <a href="{!! route('Landlord.show', $lordlord->id) !!}" class="btn btn-outline-info rounded bs-tooltip" data-placement="top" title="View"><i class="fas fa-eye"></i></a>
+                                                        <a href="{!! route('Landlord.edit', $lordlord->id) !!}" class="btn btn-outline-primary rounded bs-tooltip" data-placement="top" title="Edit"><i class="far fa-edit"></i></a>
+                                                        <a href="{!! route('Landlord.destroy', $lordlord->id) !!}" class="btn btn-outline-danger rounded bs-tooltip" data-placement="top" title="Delete"><i class="far fa-trash-alt"></i></a>
                                                     </td>
                                                 </tr>
 

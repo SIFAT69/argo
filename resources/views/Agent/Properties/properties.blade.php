@@ -131,9 +131,8 @@ All properties
                                                         @if ($property->remaining_days <= 5)
                                                         <a href="{!! route('agent.offline.payment',$property->id) !!}" class="btn btn-warning" class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Paid Offline">Paid Offline</a>
                                                         @endif
-                                                        <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"><a href="{!! route('MyPropertiesEdit',$property->id) !!}"><span class="flaticon-edit"></span></a></li>
-                                                        <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete"><a href="{!! route('agent.HardDeleteProperty', $property->id) !!}"><span
-                                                                  class="flaticon-garbage"></span></a></li>
+                                                        <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"><a href="{!! route('MyPropertiesEdit',$property->id) !!}"><i class="far fa-edit"></i></a></li>
+                                                        <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete"><a href="{!! route('agent.HardDeleteProperty', $property->id) !!}"><i class="far fa-trash-alt"></i></a></li>
                                                     </ul>
                                                 </td>
                                             </tr>

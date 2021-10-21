@@ -48,7 +48,7 @@
                     														<h5 class="name">{{ $tenant->name }}</h5>
                     														<p class="preview">Click to start the coversation.</p>
                     													</div>
-                    													<div class="m_notif">2</div>
+                    													{{-- <div class="m_notif">2</div> --}}
                     												</div>
                     											</a>
                     										</li>

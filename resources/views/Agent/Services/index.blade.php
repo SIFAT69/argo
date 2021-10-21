@@ -120,9 +120,9 @@ $(document).ready(function(){
                                                 </td>
                                                 <td> {{ \Carbon\Carbon::parse($servicesRequest->created_at)->diffForHumans() }} </td>
                                                 <td>
-                                                    <a href="{!! route('services.agent.show', $servicesRequest->id) !!}" class="btn btn-outline-primary" title="See Details"><img src="https://img.icons8.com/ios-glyphs/30/000000/visible--v2.gif" width="20px" alt=""></a>
-                                                    <a href="{!! route('services.comments.cancel', $servicesRequest->id) !!}" class="btn btn-outline-warning" title="Cancel Request"><img src="https://img.icons8.com/color/48/000000/cancel--v3.png" width="20px" alt=""></a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#hardDeleteRequest{{ $loop->index+1 }}" class="btn btn-outline-danger" title="Hard Delete Request"><img src="https://img.icons8.com/ios/50/000000/delete--v2.gif" width="20px" alt=""></a>
+                                                    <a href="{!! route('services.agent.show', $servicesRequest->id) !!}" class="btn btn-outline-primary" title="See Details"><i class="fas fa-eye"></i></a>
+                                                    <a href="{!! route('services.comments.cancel', $servicesRequest->id) !!}" class="btn btn-outline-warning" title="Cancel Request"><i class="far fa-window-close"></i></a>
+                                                    <a data-bs-toggle="modal" data-bs-target="#hardDeleteRequest{{ $loop->index+1 }}" class="btn btn-outline-danger" title="Hard Delete Request"><i class="far fa-trash-alt"></i></a>
                                                     <!-- Modal -->
                                                     <div class="modal fade" id="hardDeleteRequest{{ $loop->index+1 }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                         <div class="modal-dialog">

@@ -90,8 +90,8 @@ $(document).ready(function(){
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('contracts.agent.show',$contract->id ) }}" class="btn btn-outline-info" title="View"> <img src="https://img.icons8.com/office/16/000000/visible--v2.gif" alt="" width="22px"> </a>
-                                                        <a href="{{ route('contracts.agent.remove', [$contract->contract_property_type, $contract->id]) }}" class="btn btn-outline-danger" title="Unlink Contract"> <img src="https://img.icons8.com/ios/50/000000/delete-link.png" alt="" width="22px"> </a>
+                                                        <a href="{{ route('contracts.agent.show',$contract->id ) }}" class="btn btn-outline-info" title="View"> <i class="fas fa-eye"></i> </a>
+                                                        <a href="{{ route('contracts.agent.remove', [$contract->contract_property_type, $contract->id]) }}" class="btn btn-outline-danger" title="Unlink Contract"><i class="fas fa-unlink"></i> </a>
                                                     </td>
                                                 </tr>
                                                     @empty
