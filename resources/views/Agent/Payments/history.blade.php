@@ -28,53 +28,13 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-xl-4 mb10">
+          <div class="col-lg-12 col-xl-12 mb10">
             <div class="breadcrumb_content style2 mb30-991">
-              <h2 class="breadcrumb_title">My Balance : ${{ Auth::user()->balance }}</h2>
-              <button type="button" class="btn btn-success" name="button" data-toggle="modal" data-target="#WithdrawBalance">Withdraw Balance</button>
-
-              <!-- Modal -->
-
-              <div class="modal fade" id="WithdrawBalance" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <form class="" action="{!! route('agent.transaction.withdraw') !!}" method="post">
-                        @csrf
-                      <h4>Your Current Balance is: ${{ Auth::user()->balance }} USD</h4>
-                      <input type="hidden" name="balance" value="{{ Auth::user()->balance }}">
-                      <small> Provide your bank information we will deposite your money into your bank.</small>
-                      <textarea name="bank_info" rows="8" class="form-control" cols="80" placeholder="Write your bank information here...." required></textarea>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-success">Withdraw</button>
-                    </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Modal -->
-            </div>
-          </div>
-          <div class="col-lg-8 col-xl-8">
-            <div class="candidate_revew_select style2 text-right mb30-991">
-              <ul class="mb0">
-                <li class="list-inline-item">
-                  <div class="candidate_revew_search_box course fn-520">
-                    <form class="form-inline my-2">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search here ..." aria-label="Search">
-                        <button class="btn my-2 my-sm-0" type="submit"><span class="flaticon-magnifying-glass"></span></button>
-                      </form>
-                  </div>
-                </li>
-              </ul>
+              @if (Auth::user()->is_active_account == 'Yes')
+                <button href="#" class="btn btn-block btn-success" disabled style="text-decoration: none; background-color: #05b63e;"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Stripe_logo%2C_revised_2014.png/1200px-Stripe_logo%2C_revised_2014.png" alt="" width="50px"> <b> Account Connected</b> </button>
+              @else
+                <a href="{!! route('stripe.connect') !!}" class="btn btn-block btn-dark" style="text-decoration: none;"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/2560px-Stripe_Logo%2C_revised_2016.svg.png" alt="" width="50px"> <b> Connect to stripe</b> </a>
+              @endif
             </div>
           </div>
           <div class="col-lg-12">

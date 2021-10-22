@@ -37,6 +37,18 @@
 </head>
 
 <body>
+  @php
+  \Stripe\Stripe::setApiKey('sk_test_51Ic31vAvjSDpdiu41rDwfhxI6EGPESq6fageb4qYq180X7c8HqtjBp7L6s9WdI8igbxIPfY1ZeQCW60TGygSythc00GitPxO12');
+  $balance = \Stripe\Balance::retrieve(
+    ['stripe_account' => Auth::user()->account_id]
+  );
+
+  $balanceObject = $balance->pending;
+  foreach ($balanceObject as $value) {
+    $amount =  $value->amount;
+    $amount = $amount/100;
+  }
+  @endphp
     <div class="wrapper">
         {{-- <div class="preloader"></div> --}}
 
@@ -68,8 +80,8 @@
                 <li><a href="{!! route('services.agent.index') !!}"><i class="fas fa-cogs"></i> <span> Service Requests</span></a></li>
                 <li><a href="{!! route('contracts.agent.index') !!}"><i class="fas fa-funnel-dollar"></i> <span> Contracts</span></a></li>
                 <li class="title"><span>Payment Informations</span></li>
-                <li><a href="{!! route('agent.transaction.history') !!}"><i class="flaticon-box"></i> <span>My Wallet (${{ Auth::user()->balance }} USD)</span></a></li>
-                <li><a href="{!! route('agent.transaction.withdraw.requests') !!}"><i class="flaticon-user"></i> <span>Payment History</span></a></li>
+                <li><a href="{!! route('agent.transaction.history') !!}"><i class="flaticon-box"></i> <span>My Wallet (${{ $amount}} USD)</span></a></li>
+                {{-- <li><a href="{!! route('agent.transaction.withdraw.requests') !!}"><i class="flaticon-user"></i> <span>Payment History</span></a></li> --}}
                 <li class="title"><span>Manage Account</span></li>
                 <li><a href="{!! route('users.agent.index') !!}"> <i class="fas fa-users"></i> <span>Users & Roles/Permission</span></a></li>
                 <li><a href="{!! route('packageHistory') !!}"><i class="flaticon-box"></i> <span>My Package</span></a></li>

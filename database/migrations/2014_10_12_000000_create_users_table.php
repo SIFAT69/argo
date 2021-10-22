@@ -48,6 +48,7 @@ class CreateUsersTable extends Migration
             $table->string('payment_type')->nullable();
             $table->string('dob')->nullable();
             $table->string('identification_documents')->nullable();
+            $table->string('account_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

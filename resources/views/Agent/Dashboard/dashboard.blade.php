@@ -3,6 +3,18 @@
   Accounts
 @endsection
 @section('content')
+  @php
+  \Stripe\Stripe::setApiKey('sk_test_51Ic31vAvjSDpdiu41rDwfhxI6EGPESq6fageb4qYq180X7c8HqtjBp7L6s9WdI8igbxIPfY1ZeQCW60TGygSythc00GitPxO12');
+  $balance = \Stripe\Balance::retrieve(
+    ['stripe_account' => Auth::user()->account_id]
+  );
+
+  $balanceObject = $balance->pending;
+  foreach ($balanceObject as $value) {
+    $amount =  $value->amount;
+    $amount = $amount/100;
+  }
+  @endphp
 <section class="our-dashbord dashbord bgc-f7 pb50">
     <div class="container-fluid">
         <div class="row">
@@ -65,7 +77,7 @@
                         <div class="ff_one style2">
                             <div class="icon"> <img src="https://img.icons8.com/external-those-icons-lineal-color-those-icons/48/000000/external-dollar-money-currency-those-icons-lineal-color-those-icons-1.png" alt=""> </div>
                             <div class="detais">
-                                <div class="timer">${{ Auth::user()->balance }}</div>
+                                <div class="timer">${{ $amount }}</div>
                                 <p>Total Balance</p>
                             </div>
                         </div>

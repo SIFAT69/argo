@@ -83,7 +83,7 @@ Rent Payment checkout
 
                                           <form action="{{route('checkout.credit-card')}}"  method="post" id="payment-form">
                                               @csrf
-                                              {{ $rent_id }}
+                                              {{-- {{ $rent_id }} --}}
                                               <input type="hidden" name="rent_id" value="{{ $rent_id }}">
                                               <input type="hidden" name="property_id" value="{{ $property->id }}">
                                               <input type="hidden" name="agent_id" value="{{ $property->user_id }}">

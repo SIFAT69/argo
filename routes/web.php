@@ -40,6 +40,7 @@ use App\Http\Controllers\{
   TenantmessageController,
   RentControllerController,
   WithdrawController,
+  ConnectstripeController,
 };
 
 use App\Events\ActivityHappened;
@@ -359,6 +360,11 @@ Route::group(['middleware' => ['auth', 'agent']], function () {
         // Offline Paid Start
         Route::get('/agent/offline/paid/{property_id}', [PaymentController::class, 'paymentOffline'])->name('agent.offline.payment');
         // Offline Paid End
+
+        // Connect Stripe End
+        Route::get('/connecting/stripe', [ConnectstripeController::class, 'connection'])->name('stripe.connect');
+        Route::get('/agent/connect/stripe/success', [ConnectstripeController::class, 'successConnected'])->name('stripe.connect.success');
+        // Connect Stripe Start
     });
 
     Route::get('/my-package-history', [AgentController::class, 'packageHistory'])->name('packageHistory');

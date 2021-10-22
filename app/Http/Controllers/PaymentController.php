@@ -73,7 +73,7 @@ class PaymentController extends Controller
 
          }
           ActivityHappened::dispatch(Auth::id(), 'You just completed a transaction.');
-          return redirect('/dashboard')->with('success', 'Congratulations! Payment complete! Now you can act as an Agent.');
+          return redirect('/dashboard')->with('success', 'Congratulations! Payment complete!');
       }
 
       public function editpayment(Request $request)
@@ -90,20 +90,25 @@ class PaymentController extends Controller
       public function tenantRentPayment(Request $request)
       {
         $property = DB::table('properties')->where('id', $request->property_id)->first();
+        $agent_id = Auth::user()->created_by;
+        $agent_stripe_account_id = DB::table('users')->where('id', $agent_id)->value('account_id');
         \Stripe\Stripe::setApiKey('sk_test_51Ic31vAvjSDpdiu41rDwfhxI6EGPESq6fageb4qYq180X7c8HqtjBp7L6s9WdI8igbxIPfY1ZeQCW60TGygSythc00GitPxO12');
 
         $amount = $property->price;
         $amount *= 100;
         $amount = (int) $amount;
 
-          $payment_intent = \Stripe\PaymentIntent::create([
-          'description' => 'Argo Tenant Rent Payment',
-          'amount' => $amount,
-          'currency' => 'USD',
+        $payment_intent = \Stripe\PaymentIntent::create([
           'payment_method_types' => ['card'],
+          'amount' => $amount,
+          'description' => 'Rent payment from ARGO',
+          'currency' => 'usd',
+          'application_fee_amount' => 0,
+          'transfer_data' => [
+              'destination' => $agent_stripe_account_id,
+            ],
         ]);
         $intent = $payment_intent->client_secret;
-
         $rent_id = DB::table('rent_controllers')->insertGetId([
           'user_id' => Auth::id(),
           'property_id' => $request->property_id,
