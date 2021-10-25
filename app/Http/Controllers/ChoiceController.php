@@ -42,7 +42,7 @@ class ChoiceController extends Controller
         $request->validate([
             'title' => 'bail|required|string|max:255',
             'description' => 'bail|required|string|max:255',
-            'icon' => 'bail|required|file|image|mimes:jpg,jpeg,png|max:1000|dimensions:ratio=1/1',
+            'icon' => 'bail|required|file|image|mimes:jpg,jpeg,png',
         ]);
 
         $randomNumber =rand();
@@ -50,7 +50,7 @@ class ChoiceController extends Controller
         $icon_rename = $randomNumber.'.'.$icon->getClientOriginalExtension();
         $newLocation = public_path('uploads/'.$icon_rename);
         Image::make($icon)->resize(100, 100)->save($newLocation, 100);
-    
+
         Choice::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -70,7 +70,7 @@ class ChoiceController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
@@ -100,14 +100,14 @@ class ChoiceController extends Controller
             'icon' => 'bail|sometimes|file|image|mimes:jpg,jpeg,png|max:1000|dimensions:ratio=1/1',
         ]);
 
-        if (!empty($request->icon)) 
+        if (!empty($request->icon))
         {
             $randomNumber =rand();
             $icon = $request->file('icon');
             $icon_rename = $randomNumber.'.'.$icon->getClientOriginalExtension();
             $newLocation = public_path('uploads/'.$icon_rename);
             Image::make($icon)->resize(100, 100)->save($newLocation,100);
-      
+
             Choice::where('id', $id)->update([
                 'icon' => $icon_rename,
             ]);

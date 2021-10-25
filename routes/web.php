@@ -41,6 +41,7 @@ use App\Http\Controllers\{
   RentControllerController,
   WithdrawController,
   ConnectstripeController,
+  AgentfacilityController,
 };
 
 use App\Events\ActivityHappened;
@@ -301,8 +302,17 @@ Route::group(['middleware' => ['auth', 'agent']], function () {
         Route::get('agencies/categories/edit/{id}', [AgentcategoriesController::class, 'edit'])->name('Agentcatgories.edit');
         Route::post('agencies/categories/update/{id}', [AgentcategoriesController::class, 'update'])->name('Agentcatgories.update');
         Route::get('agencies/categories/{id}/delete', [AgentcategoriesController::class, 'destroy'])->name('Agentcatgories.delete');
-
         // Agent Categories End
+
+        // Agent Facility Start
+        Route::get('agencies/facilities/list', [AgentfacilityController::class, 'index'])->name('Agentfacility.index');
+        Route::get('agencies/facilities/create', [AgentfacilityController::class, 'create'])->name('Agentfacility.create');
+        Route::post('agencies/facilities/store', [AgentfacilityController::class, 'store'])->name('Agentfacility.store');
+        Route::get('agencies/facilities/edit/{id}', [AgentfacilityController::class, 'edit'])->name('Agentfacility.edit');
+        Route::post('agencies/facilities/update/{id}', [AgentfacilityController::class, 'update'])->name('Agentfacility.update');
+        Route::get('agencies/facilities/{id}/delete', [AgentfacilityController::class, 'destroy'])->name('Agentfacility.delete');
+
+        // Agent Facility End
 
         // Agent Landlord Start
         Route::get('agencies/landlord/list/', [LandlordController::class, 'index'])->name('Landlord.index');
@@ -446,10 +456,6 @@ Route::group(['middleware' => ['auth', 'tenant']], function () {
     Route::get('/tanents/services/request/view/{id}', [ServicerequestController::class, 'show'])->name('services.request.show');
     // Services Request End
 
-    // Service Comments Start
-
-    // Service Comments End
-
     // Message Start
     Route::get('/inbox/{name}/{id}', [TenantmessageController::class, 'tenantIndex'])->name('tenant.message.tenantIndex');
     // Message End
@@ -459,6 +465,11 @@ Route::group(['middleware' => ['auth', 'tenant']], function () {
     Route::get('/rent/transactions/', [RentControllerController::class, 'allTransactions'])->name('tenant.payments.history');
     // Rent Payment End
 
+
+    // Contracts Start
+    Route::get('tenant/contracts/', [ContractController::class, 'contracts'])->name('contracts.tenant.index');
+    Route::get('tenant/contracts/view/{id}', [ContractController::class, 'show'])->name('contracts.tenant.show');
+    // Contracts End
 
 
 
@@ -474,7 +485,7 @@ Route::group(['middleware' => ['auth', 'servicerequest']], function () {
   Route::get('services/update/status/{id}', [ServicerequestController::class, 'updateStatus'])->name('expense.services.update.status');
 
   // Route::get('/agency-settings-profile', [AgentController::class, 'agentProfile'])->name('agent.profile');
-  Route::put('/agent-profile-information/{userId}', [AgentController::class, 'updateProfileInformation'])->name('update.agent.profile.information');
+  Route::put('/services-profile-information/{userId}', [AgentController::class, 'updateProfileInformation'])->name('update.service.profile.information');
   Route::put('/agent-profile-socialMedia/{userId}', [AgentController::class, 'updateProfileSocialMedia'])->name('update.agent.profile.socialMedia');
   Route::put('/agent-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.password');
 

@@ -32,7 +32,7 @@ class PartnerController extends Controller
         $image_rename = $randomNumber.'.'.$image->getClientOriginalExtension();
         $newLocation = public_path('uploads/'.$image_rename);
         Image::make($image)->resize(100, 100)->save($newLocation, 100);
-    
+
         Partner::create([
             'image' => $image_rename,
         ]);

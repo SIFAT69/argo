@@ -58,6 +58,7 @@
                 </li>
                 <li><a href="{!! route('tanents.projects.index') !!}"><i class="flaticon-heart"></i> <span> My Projects</span></a></li>
                 <li><a href="{!! route('services.request.index') !!}"><i class="fas fa-cogs"></i> <span> Service Requests</span></a></a></li>
+                <li><a href="{!! route('contracts.tenant.index') !!}"><i class="fas fa-funnel-dollar"></i> <span> Contracts</span></a></a></li>
                 <li class="title"><span>Manage Account</span></li>
                 <li><a href="{!! route('tenant.payments.history') !!}"><i class="flaticon-user"></i> <span>My Payments</span></a></li>
                 <li><a href="{!! route('tanent.profile') !!}"><i class="flaticon-user"></i> <span>My Profile</span></a></li>

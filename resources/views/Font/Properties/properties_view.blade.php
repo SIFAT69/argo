@@ -16,8 +16,37 @@ Argo
 			<div class="home10-mainslider">
 				<div class="container-fluid p0">
 					<div class="row">
-				        <div class="col-lg-12">
+				    <div class="col-lg-12">
+
 							<div class="main-banner-wrapper home10">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img class="d-block w-100" src="{!! asset('uploads') !!}/{{ $property->youtube_thumb }}" style="height: 600px" alt="Second slide">
+                    </div>
+                    @php
+                    $images = json_decode($property->images, true);
+                    @endphp
+                    @foreach ($images as $image)
+                    @php
+                      $showImage = DB::table('libraries')->where('id', $image)->value('file_name');
+                    @endphp
+                         <div class="carousel-item">
+                           <img class="d-block w-100" src="{!! asset('uploads') !!}/{{ $showImage }}" style="height: 600px" alt="First slide">
+                         </div>
+                    @endforeach
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+							</div>
+							{{-- <div class="main-banner-wrapper home10">
 								<div class="banner-style-one owl-theme owl-carousel">
                 					@php
                 					$images = json_decode($property->images, true);
@@ -32,8 +61,8 @@ Argo
 								<div class="carousel-btn-block banner-carousel-btn">
 									<span class="carousel-btn left-btn"><i class="flaticon-left-arrow-1 left"></i></span>
 									<span class="carousel-btn right-btn"><i class="flaticon-right-arrow right"></i></span>
-								</div><!-- /.carousel-btn-block banner-carousel-btn -->
-							</div><!-- /.main-banner-wrapper -->
+								</div>
+							</div> --}}
 						</div>
 					</div>
 				</div>

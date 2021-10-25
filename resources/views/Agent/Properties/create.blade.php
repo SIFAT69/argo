@@ -13,6 +13,15 @@
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
               @include('Alerts.success')
               @include('Alerts.danger')
+              @if ($errors->any())
+                  <div class="alert alert-danger">
+                      <ul>
+                          @foreach ($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                          @endforeach
+                      </ul>
+                  </div>
+              @endif
                 <div class="widget-content widget-content-area br-6">
                     <a href="{!! route('MyProperties') !!}" class="btn btn-primary float-right" style="margin: 1rem">Back</a>
                     <br>
@@ -159,7 +168,7 @@
                                 <label for="validationCustom01">Select Facility:</label>
                                 <select class="form-control" name="facility[]">
                                     @foreach ($realstatefacilities as $facility)
-                                    <option value="{{ $facility->facility }}">{{ $facility->facility }}</option>
+                                    <option value="{{ $facility->facilities }}">{{ $facility->facilities }}</option>
                                     @endforeach
                                 </select>
                             </div>

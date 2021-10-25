@@ -21,8 +21,8 @@ class ConnectstripeController extends Controller
       \Stripe\Stripe::setApiKey('sk_test_51Ic31vAvjSDpdiu41rDwfhxI6EGPESq6fageb4qYq180X7c8HqtjBp7L6s9WdI8igbxIPfY1ZeQCW60TGygSythc00GitPxO12');
       $account_links = \Stripe\AccountLink::create([
         'account' => $account->id,
-        'refresh_url' => 'http://127.0.0.1:8000/agent/rent/transaction',
-        'return_url' => 'http://127.0.0.1:8000/agent/connect/stripe/success',
+        'refresh_url' => 'https://argo.sifztech.com/agent/rent/transaction',
+        'return_url' => 'https://argo.sifztech.com/agent/connect/stripe/success',
         'type' => 'account_onboarding',
       ]);
 

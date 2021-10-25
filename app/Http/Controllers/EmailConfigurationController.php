@@ -60,8 +60,8 @@ class EmailConfigurationController extends Controller
 
     public function testMailSend(Request $request)
     {
-    //   $toEmail = Auth::user()->email;
-      $toEmail = "kazi.sifat1999@gmail.com";
+      $toEmail = Auth::user()->email;
+      // $toEmail = "kazi.sifat1999@gmail.com";
       $details = [
         'message' => 'Your mail is config is success!',
       ];

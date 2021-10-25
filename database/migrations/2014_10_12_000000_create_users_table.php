@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('created_by')->nullable();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('balance')->default(0);
@@ -48,7 +49,9 @@ class CreateUsersTable extends Migration
             $table->string('payment_type')->nullable();
             $table->string('dob')->nullable();
             $table->string('identification_documents')->nullable();
+            $table->string('contractual_documents')->nullable();
             $table->string('account_id')->nullable();
+            $table->string('is_active_account')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

@@ -21,7 +21,7 @@ class CreatePropertiesTable extends Migration
           $table->string('slug');
           $table->string('type');
           $table->string('status');
-          $table->string('moderation_status')->default('Pending');
+          $table->string('moderation_status')->default('Approved');
           $table->string('title',255);
           $table->string('meta_description',2555);
           $table->string('description',2555);

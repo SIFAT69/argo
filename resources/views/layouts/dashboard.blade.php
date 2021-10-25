@@ -179,7 +179,7 @@
                             </li>
                         </ul>
                     </li>
-                    {{-- <li class="menu">
+                    <li class="menu">
                         <a href="#submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <span> Real Estate</span>
@@ -205,7 +205,7 @@
                                 <a href="{!! route('realstateIndex') !!}"> Categories </a>
                             </li>
                         </ul>
-                    </li> --}}
+                    </li>
                     <li class="menu">
                       <a href="{!! route('allConsult') !!}" aria-expanded="false" class="dropdown-toggle">
                         <div class="">
@@ -247,7 +247,7 @@
                             <li>
                                 <a href="{!! route('transactions') !!}"> Transactions </a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="{!! route('admin.transaction.history') !!}">Rent Transactions</a>
                             </li>
                             <li>
@@ -255,7 +255,7 @@
                             </li>
                             <li>
                                 <a href="{!! route('editpayment') !!}"> Payment Method </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </li>
                     <li class="menu">

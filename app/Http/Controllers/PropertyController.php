@@ -33,12 +33,14 @@ class PropertyController extends Controller
 
     public function property_post(Request $request){
 
+      // print_r($request->all());
+      // die();
       $validatedData = $request->validate([
-          'title' => ['required', 'unique:posts'],
+          'title' => ['required', 'unique:properties'],
           'type' => ['required'],
-          'meta_description' => ['required'],
+          // 'meta_description' => ['required'],
           'description' => ['required'],
-          'location' => ['required'],
+          // 'location' => ['required'],
           'city' => ['required'],
           'category' => ['required'],
           'latitude' => ['required'],
@@ -48,7 +50,7 @@ class PropertyController extends Controller
           'flat_floors' => ['required'],
           'size' => ['required'],
           'price' => ['required'],
-          'facilities' => ['required'],
+          // 'facilities' => ['required'],
           'features' => ['required'],
           'distance' => ['required'],
           'youtube_thumb' => ['required'],
@@ -93,7 +95,7 @@ class PropertyController extends Controller
       DB::table('properties')->insert([
         'code' => 'PROP_' . date('YmdHisv'),
         'user_id' => Auth::id(),
-        'status' => 0,
+        'status' => 1,
         'title' => $request->title,
         'type' => $request->type,
         'slug' => $slug,

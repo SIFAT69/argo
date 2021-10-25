@@ -109,7 +109,7 @@ All properties
                                             </table>
                                         </div>
                                     </div>
-                                    <button class="btn btn-info mt-4">Total Expense: ${{ DB::table('expenses')->where('request_id', $ServiceRequest->id)->sum('expense') }}</button>
+                                    <button class="btn btn-info mt-4" disabled>Total Expense: ${{ DB::table('expenses')->where('request_id', $ServiceRequest->id)->sum('expense') }}</button>
                                 </div>
 
 

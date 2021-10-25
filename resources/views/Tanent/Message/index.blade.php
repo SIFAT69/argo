@@ -41,7 +41,7 @@
                                                 <span class="contact-status online"></span>
                                                 <img class="img-fluid" src="{{ asset('uploads') }}/{{ $myAgent->avatar }}" width="55px" alt="s5.jpg" />
                                                 <div class="meta">
-                                                    <h5 class="name">{{ $name }}</h5>
+                                                    <h5 class="name">{{ $myAgent->name }}</h5>
                                                       <p class="badge badge-dark">Write a message</p>
                                                 </div>
                                             </div>
@@ -54,7 +54,7 @@
                                             <li class="media sent">
                                               <img class="img-fluid align-self-start mr-3" src="{{ asset('uploads') }}/{{ $myAgent->avatar }}"  width="55px" alt="s6.jpg" />
                                               <div class="media-body">
-                                                <div class="date_time">Today, 10:31</div>
+                                                <div class="date_time">{{ \Carbon\Carbon::parse($message->created_at)->diffForHumans() }}</div>
                                                 <p>{{ $message->message }}</p>
                                               </div>
                                             </li>

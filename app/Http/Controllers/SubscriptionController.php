@@ -18,7 +18,7 @@ class SubscriptionController extends Controller
     public function __construct()
     {
         $private_key = DB::table('gatewaysettings')->where('id', 1)->value('private_key');
-        $this->stripe = new \Stripe\StripeClient($private_key);
+        $this->stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
     }
 
     public function create(Request $request, Plan $plan)

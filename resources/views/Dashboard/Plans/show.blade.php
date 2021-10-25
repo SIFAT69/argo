@@ -64,7 +64,7 @@
 <br>
 <br>
 @php
-  $public_key = DB::table('gatewaysettings')->where('id', 1)->value('public_key');
+  $public_key = env('STRIPE_KEY');
 @endphp
 <script src="https://js.stripe.com/v3/"></script>
 <script>

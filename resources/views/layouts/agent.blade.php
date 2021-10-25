@@ -74,6 +74,7 @@
                 </li>
                 <li><a href="{!! route('MyProject') !!}"><i class="far fa-heart"></i> <span> My Projects</span></a></li>
                 <li><a href="{!! route('agentsFeaturesList') !!}"><i class="far fa-file-alt"></i> <span> Features</span></a></li>
+                <li><a href="{!! route('Agentfacility.index') !!}"><i class="fas fa-bezier-curve"></i> <span> Facilities</span></a></li>
                 <li><a href="{!! route('Agentcatgories.index') !!}"><i class="far fa-folder-open"></i> <span> Categories</span></a></li>
                 <li><a href="{!! route('Landlord.index') !!}"><i class="fas fa-house-user"></i> <span> Landlords</span></a></li>
                 <li><a href="{!! route('AgentTenant') !!}"><i class="fas fa-home"></i> <span> Tenant</span></a></li>

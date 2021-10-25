@@ -12,7 +12,7 @@
     <br>
     <br>
     @php
-        $stripe_key = 'pk_test_51Ic31vAvjSDpdiu4vOxF5gxK9aporITPSDwopdAdtRcOD05U12cRDDUzrGBE68VxenB20YCmMWH1EMkMpdolsLXn00RH2s1mwB';
+        $stripe_key = env('STRIPE_SECRET');
     @endphp
     <div class="container" style="margin-top:10%;margin-bottom:10%">
         <div class="row justify-content-center">
@@ -26,6 +26,7 @@
                     <li class="list-group-item"> Tenant Management</li>
                     <li class="list-group-item"> CRM access</li>
                   </ul>
+
                     <form action="{{route('checkout.credit-card')}}"  method="post" id="payment-form">
                         @csrf
                         <input type="hidden" name="package_id" value="{{ $package->id }}">

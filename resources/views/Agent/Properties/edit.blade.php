@@ -154,7 +154,7 @@ Edit a new property
                     <select class="form-control" name="facility[]">
                         <option value="Null">Null</option>
                         @foreach ($variable =json_decode($project->facilities) as $faci)
-                        <option @if($faci == $facility->facility) selected
+                        <option @if($faci == $facility->facilities) selected
                         @endif value="{{ $faci }}">{{ $faci }}</option>
                         @endforeach
                     </select>

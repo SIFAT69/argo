@@ -149,7 +149,7 @@
                           <label for="validationCustom01">Select Facility:</label>
                           <select class="form-control" name="facility[]">
                               @foreach ($realstatefacilities as $facility)
-                              <option value="{{ $facility->facility }}">{{ $facility->facility }}</option>
+                              <option value="{{ $facility->facilities }}">{{ $facility->facilities }}</option>
                               @endforeach
                           </select>
                       </div>

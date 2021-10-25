@@ -17,7 +17,7 @@ class RentControllerController extends Controller
         return view('Tanent.Payments.history', compact('payments'));
       }else if(Auth::user()->account_role == 'Agent'){
         $payments = DB::table('rent_controllers')->where('agent_id', Auth::id())->orderBy('created_at', 'desc')->simplePaginate(15);
-        return view('Agent.Payments.history', compact('payments','amount'));
+        return view('Agent.Payments.history', compact('payments'));
       }else {
         $payments = DB::table('rent_controllers')->orderBy('created_at', 'desc')->get();
         return "admin";

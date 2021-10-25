@@ -141,9 +141,9 @@ class AgentController extends Controller
     $cities = DB::table('cities')->get();
     $states = DB::table('states')->get();
     $countries = DB::table('countries')->get();
-    $realstatefacilities = DB::table('realstatefacilities')->get();
-    $realstatefeatures = DB::table('realstatefeatures')->get();
-    $categories = DB::table('realstatecategories')->get();
+    $realstatefacilities = DB::table('agentfacilities')->where('added_by', Auth::id())->get();
+    $realstatefeatures = DB::table('agentfeatures')->where('added_by', Auth::id())->get();
+    $categories = DB::table('agentcategories')->where('added_by', Auth::id())->get();
     return view('Agent.Properties.create',compact('cities', 'states', 'countries', 'realstatefacilities','realstatefeatures','categories'));
   }
 
@@ -152,9 +152,9 @@ class AgentController extends Controller
     $cities = DB::table('cities')->get();
     $states = DB::table('states')->get();
     $countries = DB::table('countries')->get();
-    $realstatefacilities = DB::table('realstatefacilities')->get();
-    $realstatefeatures = DB::table('realstatefeatures')->get();
-    $categories = DB::table('realstatecategories')->get();
+    $realstatefacilities = DB::table('agentfacilities')->where('added_by', Auth::id())->get();
+    $realstatefeatures = DB::table('agentfeatures')->where('added_by', Auth::id())->get();
+    $categories = DB::table('agentcategories')->where('added_by', Auth::id())->get();
     $project = DB::table('properties')->where('id', $request->id)->first();
     return view('Agent.Properties.edit',compact('cities', 'states', 'countries', 'realstatefacilities','realstatefeatures','categories','project'));
   }
@@ -170,9 +170,9 @@ class AgentController extends Controller
     $cities = DB::table('cities')->get();
     $states = DB::table('states')->get();
     $countries = DB::table('countries')->get();
-    $realstatefacilities = DB::table('realstatefacilities')->get();
-    $realstatefeatures = DB::table('realstatefeatures')->get();
-    $categories = DB::table('realstatecategories')->get();
+    $realstatefacilities = DB::table('agentfacilities')->where('added_by', Auth::id())->get();
+    $realstatefeatures = DB::table('agentfeatures')->where('added_by', Auth::id())->get();
+    $categories = DB::table('agentcategories')->where('added_by', Auth::id())->get();
     return view('Agent.Project.create',compact('cities', 'states', 'countries', 'realstatefacilities','realstatefeatures','categories'));
   }
 
@@ -181,9 +181,9 @@ class AgentController extends Controller
     $cities = DB::table('cities')->get();
     $states = DB::table('states')->get();
     $countries = DB::table('countries')->get();
-    $realstatefacilities = DB::table('realstatefacilities')->get();
-    $realstatefeatures = DB::table('realstatefeatures')->get();
-    $categories = DB::table('realstatecategories')->get();
+    $realstatefacilities = DB::table('agentfacilities')->where('added_by', Auth::id())->get();
+    $realstatefeatures = DB::table('agentfeatures')->where('added_by', Auth::id())->get();
+    $categories = DB::table('agentcategories')->where('added_by', Auth::id())->get();
     $project = DB::table('projects')->where('id', $request->id)->first();
     return view('Agent.Project.edit',compact('cities', 'states', 'countries', 'realstatefacilities','realstatefeatures','categories','project'));
   }
