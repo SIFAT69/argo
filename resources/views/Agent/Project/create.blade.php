@@ -6,6 +6,7 @@
 <section class="our-dashbord dashbord bgc-f7 pb50">
     <div class="container-fluid">
       <div class="row">
+        @include('layouts.menu.agentmenu')
         <div class="col-lg-3 col-xl-2 dn-992 pl0"></div>
         <div class="col-sm-12 col-lg-8 col-xl-10 maxw100flex-992">
           <div class="row">

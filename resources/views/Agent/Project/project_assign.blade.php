@@ -9,6 +9,7 @@ Assign project
         <div class="col-lg-3 col-xl-2 dn-992 pl0"></div>
         <div class="col-sm-12 col-lg-8 col-xl-10 maxw100flex-992">
           <div class="row">
+
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
   @include('Alerts.success')
   @include('Alerts.danger')
