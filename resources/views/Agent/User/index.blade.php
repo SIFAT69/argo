@@ -43,10 +43,8 @@
                                     <input type="hidden" name="user_id" value="{{ $user->id }}">
                                     <td>
                                         <select name="account_role" id="" class="form-control">
-                                            <option value="Agent" @if($user->account_role == "Agent") selected @endif>Agent</option>
                                             <option value="Tenant" @if($user->account_role == "Tenant") selected @endif>Tenant</option>
                                             <option value="Service Providers" @if($user->account_role == "Service Providers") selected @endif>Service Providers</option>
-                                            <option value="Admin" @if($user->account_role == "Admin") selected @endif>Admin</option>
                                         </select>
                                     </td>
                                     <td>

@@ -484,7 +484,7 @@ Route::group(['middleware' => ['auth', 'servicerequest']], function () {
   Route::get('services/request/request/view/{id}', [ServicerequestController::class, 'show'])->name('services.services.show');
   Route::get('services/update/status/{id}', [ServicerequestController::class, 'updateStatus'])->name('expense.services.update.status');
 
-  // Route::get('/agency-settings-profile', [AgentController::class, 'agentProfile'])->name('agent.profile');
+  Route::get('/services-settings-profile', [AgentController::class, 'agentProfile'])->name('services.profile');
   Route::put('/services-profile-information/{userId}', [AgentController::class, 'updateProfileInformation'])->name('update.service.profile.information');
   Route::put('/agent-profile-socialMedia/{userId}', [AgentController::class, 'updateProfileSocialMedia'])->name('update.agent.profile.socialMedia');
   Route::put('/agent-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.password');
