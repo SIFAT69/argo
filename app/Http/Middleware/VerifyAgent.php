@@ -18,7 +18,7 @@ class VerifyAgent
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->account_role == 'Agent')
+        if( Auth::user()->account_role == 'Agent' ||Auth::user()->account_role == 'Agent Stuff')
             return $next($request);
         else
             abort(404);

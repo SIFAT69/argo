@@ -130,5 +130,27 @@ class LocationController extends Controller
     }
     // Cities Functiona Functions
 
+    public function CitiesFeatureStatus(Request $request)
+    {
+      $featured_count = DB::table('cities')->where('is_featured', 'Yes')->count();
+      $check_featured = DB::table('cities')->where('id', $request->id)->value('is_featured');
+
+      if ( $featured_count >= 4) {
+        return back()->with('danger', 'Your feature cities limite has been extended .You can only add four cities as featured cities.');
+      }
+
+
+      if ($check_featured == 'No') {
+        DB::table('cities')->where('id', $request->id)->update([
+          'is_featured' => 'Yes',
+        ]);
+      }else {
+        DB::table('cities')->where('id', $request->id)->update([
+          'is_featured' => 'No',
+        ]);
+      }
+      return back();
+    }
+
 
 }

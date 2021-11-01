@@ -48,6 +48,8 @@ class CreateUsersTable extends Migration
             $table->string('contact_number')->nullable();
             $table->string('payment_type')->nullable();
             $table->string('dob')->nullable();
+            $table->string('limite')->default(0);
+            $table->string('role')->nullable();
             $table->string('identification_documents')->nullable();
             $table->string('contractual_documents')->nullable();
             $table->string('account_id')->nullable();

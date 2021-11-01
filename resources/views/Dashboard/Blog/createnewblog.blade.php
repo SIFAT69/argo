@@ -30,10 +30,10 @@
                                   @endif
                                   <div class="widget-content widget-content-area">
                                     <label for="">Title:</label>
-                                    <input type="text" class="form-control mb-3" name="title" value="">
+                                    <input type="text" class="form-control mb-3" name="title" value="{{ old('title') }}">
                                     <label for="">Meta Description:</label>
                                       <textarea class="form-control mb-3" name="meta_desc">
-
+                                        {{ old('meta_desc') }}
                                       </textarea>
                                     <label for="">Category:</label>
                                     <select class="form-control mb-3" name="category">
@@ -52,7 +52,7 @@
 
                                      <label for="demo1">Blog description:</label>
                                       <textarea id="demo1" name="description">
-
+                                        {{ old('description') }}
                                       </textarea>
                                       <button type="submit" class="btn btn-primary" name="button">Save</button>
 

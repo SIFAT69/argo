@@ -10,7 +10,7 @@
                 @include('Alerts.success')
                 @include('Alerts.danger')
                   <div class="widget-content widget-content-area br-6">
-                    <a href="{!! route('createProject') !!}" class="btn btn-primary float-right" style="margin: 1rem">Create new</a>
+                    {{-- <a href="{!! route('createProject') !!}" class="btn btn-primary float-right" style="margin: 1rem">Create new</a> --}}
                     <h4 href="#" class="float-left" style="margin: 1rem">All Projects</h4>
                       <div class="table-responsive mb-4 mt-4">
                           <table id="zero-config" class="table table-hover" style="width:100%">
@@ -113,7 +113,7 @@
     $('.moderation-status').change(function(){
       let moderation_status = $(this).val();
       let project = $(this).attr('project-id');
-      
+
       $.ajax({
         url: `{{ route('ModStatusChangeProject') }}`,
         type: 'GET',

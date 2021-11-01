@@ -10,7 +10,7 @@
                 @include('Alerts.success')
                 @include('Alerts.danger')
                   <div class="widget-content widget-content-area br-6">
-                    <a href="{!! route('property_create') !!}" class="btn btn-primary float-right" style="margin: 1rem">Create new</a>
+                    {{-- <a href="{!! route('property_create') !!}" class="btn btn-primary float-right" style="margin: 1rem">Create new</a> --}}
                     <h4 href="#" class="float-left" style="margin: 1rem">All Property</h4>
                       <div class="table-responsive mb-4 mt-4">
                           <table id="zero-config" class="table table-hover" style="width:100%">
@@ -123,7 +123,7 @@
     $('.moderation-status').change(function(){
       let moderation_status = $(this).val();
       let property_id = $(this).attr('property-id');
-      
+
       $.ajax({
         url: `{{ route('ModStatusChangeProperty') }}`,
         type: 'GET',

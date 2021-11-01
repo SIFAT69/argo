@@ -38,6 +38,7 @@ class SubscriptionController extends Controller
 
         DB::table('users')->where('id', Auth::id())->update([
           'account_role' => 'Agent',
+          'limite' => $plan->limite,
         ]);
         DB::table('transactions')->insert([
           'amount' => $request->amount,

@@ -49,9 +49,9 @@ class HomeController extends Controller
             $fp->time = Carbon::parse($fp->created_at)->diffForHumans();
         }
         //Featured Properties End
-        
 
-        $cities = DB::select("SELECT city as name, count(id) as quantity FROM properties WHERE moderation_status = 'Approved' AND status = 1 GROUP BY city ORDER BY quantity DESC LIMIT 4");
+
+        $cities = DB::table("cities")->where('is_featured', 'Yes')->get();
         // dd($cities);
 
         $choices = Choice::all();
@@ -62,7 +62,7 @@ class HomeController extends Controller
         foreach($blogs as $blog)
         {
             $user = User::find($blog->posted_by);
-            $blog->poster_name = $user->name; 
+            $blog->poster_name = $user->name;
             $blog->poster_avatar = $user->avatar;
             $blog->time = Carbon::parse($blog->created_at)->diffForHumans();
         }
@@ -88,6 +88,6 @@ class HomeController extends Controller
             Subscriber::create(['email' => $request->email]);
             return redirect()->route('welcome')->with('success', 'You have subscribed');
         }
-        
+
     }
 }

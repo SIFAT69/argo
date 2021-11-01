@@ -206,13 +206,13 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="menu">
+                    {{-- <li class="menu">
                       <a href="{!! route('allConsult') !!}" aria-expanded="false" class="dropdown-toggle">
                         <div class="">
                           <span>Consults</span>
                         </div>
                       </a>
-                    </li>
+                    </li> --}}
                     <li class="menu">
                       <a href="{!! route('plans.index') !!}" aria-expanded="false" class="dropdown-toggle">
                         <div class="">

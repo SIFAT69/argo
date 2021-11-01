@@ -18,6 +18,7 @@ class Cities extends Migration
              $table->string('city');
              $table->string('state');
              $table->string('country');
+             $table->string('is_featured')->default('No');
              $table->timestamps();
          });
      }

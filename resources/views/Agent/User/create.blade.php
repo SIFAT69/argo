@@ -10,7 +10,7 @@ Create New Tenant
             <div class="col-lg-9 col-xl-10 maxw100flex-992">
                 <div class="row">
                     @include('layouts.menu.agentmenu')
-                    <a href="{!! route('MyInbox') !!}" class="btn btn-danger float-right" style="margin: 1rem">Back to Message</a>
+                    <a href="{!! route('users.agent.index') !!}" class="btn btn-danger float-right" style="margin: 1rem">Go Back</a>
                     {{-- {{ $user }} --}}
                     <div class="col-lg-12">
 

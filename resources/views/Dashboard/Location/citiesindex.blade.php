@@ -20,6 +20,7 @@
                                     <th>City</th>
                                     <th>States</th>
                                     <th>Countries</th>
+                                    <th>Featured</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -30,6 +31,14 @@
                                     <td>{{ $city->city }}</td>
                                     <td>{{ $city->state }}</td>
                                     <td>{{ $city->country }}</td>
+                                    <td>
+                                      <label class="switch s-success mr-2">
+                                        <a href="{!! route('CitiesFeatureStatus', $city->id) !!}">
+                                          <input type="checkbox" @if($city->is_featured == "Yes") Checked @endif>
+                                          <span class="slider round"></span>
+                                        </a>
+                                      </label>
+                                    </td>
                                     <td>
                                       <a href="#" class="btn btn-outline-primary rounded bs-tooltip" data-placement="top" title="Edit" data-toggle="modal" data-target="#EditModal{{ $loop->index+1 }}"><img src="https://img.icons8.com/material-outlined/24/000000/edit--v4.png"/></a>
                                       <a href="{!! route('CitiesDelete',$city->id) !!}" class="btn btn-outline-danger rounded bs-tooltip" data-placement="top" title="Delete"><img src="https://img.icons8.com/material-rounded/24/000000/delete-sign.png"/></a>
@@ -72,10 +81,12 @@
                             </tbody>
                             <tfoot>
                               <tr>
-                                <th>Sl. No</th>
-                                <th>States</th>
-                                <th>Countries</th>
-                                <th>Action</th>
+                                  <th>Sl. No</th>
+                                  <th>City</th>
+                                  <th>States</th>
+                                  <th>Countries</th>
+                                  <th>Featured</th>
+                                  <th>Action</th>
                               </tr>
                             </tfoot>
                         </table>

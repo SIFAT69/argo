@@ -42,6 +42,7 @@ use App\Http\Controllers\{
   WithdrawController,
   ConnectstripeController,
   AgentfacilityController,
+  RolesController,
 };
 
 use App\Events\ActivityHappened;
@@ -60,7 +61,7 @@ Route::get('/dashboard', function () {
         $logs = DB::table('activity_logs')->orderBy('id','DESC')->limit(9)->get();
         return view('dashboard',compact('properties','projects', 'logs'));
     }
-    if(Auth::user()->account_role == "Agent") {
+    if(Auth::user()->account_role == "Agent" || Auth::user()->account_role == "Agent Stuff") {
         return redirect('/agency-dashbord');
     }
     if (Auth::user()->account_role == "Tenant") {
@@ -108,6 +109,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::post('/cities-post', [LocationController::class, 'CitiesPost'])->name('CitiesPost');
     Route::post('/cities-edit-{id}', [LocationController::class, 'CitiesEdit'])->name('CitiesEdit');
     Route::get('/cities-delete-{id}', [LocationController::class, 'CitiesDelete'])->name('CitiesDelete');
+    Route::get('/cities-features-status-{id}', [LocationController::class, 'CitiesFeatureStatus'])->name('CitiesFeatureStatus');
     // Cities
 
     // RealState Categories
@@ -245,15 +247,29 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('admin/withdraw/requests/complete/{id}', [WithdrawController::class, 'complete'])->name('admin.withdraw.request.complete');
     Route::get('admin/withdraw/requests/undo/{id}', [WithdrawController::class, 'undo'])->name('admin.withdraw.request.undo');
     Route::get('admin/withdraw/requests/cancel/{id}', [WithdrawController::class, 'cancel'])->name('admin.withdraw.request.cancel');
-
     // All Rent Transactions End
+
+
 });
 
 // Agent Route Start
-Route::group(['middleware' => ['auth', 'agent']], function () {
+Route::group(['middleware' => ['auth','agent', 'agentstuff']], function () {
     Route::middleware('agent')->group(function(){
         Route::get('/agency-dashbord',[AgentController::class, 'AgentDashboard'])->name('AgentDashboard');
 
+        // Roles And Permission Start
+        Route::get('agent/roles/', [RolesController::class, 'index'])->name('agent.roles');
+        Route::get('agent/roles/create', [RolesController::class, 'createRoles'])->name('agent.create.roles');
+        Route::post('agent/roles/create/post', [RolesController::class, 'createRolesPost'])->name('agent.create.store');
+        Route::get('agent/roles/edit/{id}', [RolesController::class, 'rolesEdit'])->name('agent.roles.edit');
+        Route::post('agent/roles/update/{id}', [RolesController::class, 'rolesUpdate'])->name('agent.roles.update');
+        Route::get('agent/roles/delete/{id}', [RolesController::class, 'rolesDelete'])->name('agent.roles.delete');
+
+        Route::get('agent/stuff/create', [TanentController::class, 'stuff_create'])->name('agent.stuff.create');
+        Route::post('agent/stuff/create/post', [TanentController::class, 'stuff_store'])->name('agent.stuff.store');
+        Route::get('agent/stuff/', [UserController::class, 'stuffUsers'])->name('agent.stuff');
+        Route::post('agent/stuff/update', [UserController::class, 'stuffUserUpdate'])->name('agent.stuff.update');
+        // Roles And Permission End
         //Profile Start
         Route::get('/agency-settings-profile', [AgentController::class, 'agentProfile'])->name('agent.profile');
         Route::put('/agent-profile-information/{userId}', [AgentController::class, 'updateProfileInformation'])->name('update.agent.profile.information');
@@ -290,7 +306,7 @@ Route::group(['middleware' => ['auth', 'agent']], function () {
         Route::get('agencies/features/list/', [AgentfeaturesController::class, 'agentsFeaturesList'])->name('agentsFeaturesList');
         Route::get('agencies/features/add/', [AgentfeaturesController::class, 'agentsFeaturesAdd'])->name('agentsFeaturesAdd');
         Route::post('agencies/features/post/', [AgentfeaturesController::class, 'agentsFeaturesPost'])->name('agentsFeaturesPost');
-        Route::get('agencies/features/edit/{id}', [AgentfeaturesControllerAgentfeaturesController::class, 'agentsFeaturesEdit'])->name('agentsFeaturesEdit');
+        Route::get('agencies/features/edit/{id}', [AgentfeaturesController::class, 'agentsFeaturesEdit'])->name('agentsFeaturesEdit');
         Route::post('agencies/features/update/{id}', [AgentfeaturesController::class, 'agentsFeaturesUpdate'])->name('agentsFeaturesUpdate');
         Route::get('agencies/features/delete/{id}', [AgentfeaturesController::class, 'agentsFeaturesDelete'])->name('agentsFeaturesDelete');
         // Agents Features End
@@ -376,6 +392,7 @@ Route::group(['middleware' => ['auth', 'agent']], function () {
         Route::get('/agent/connect/stripe/success', [ConnectstripeController::class, 'successConnected'])->name('stripe.connect.success');
         // Connect Stripe Start
     });
+
 
     Route::get('/my-package-history', [AgentController::class, 'packageHistory'])->name('packageHistory');
     Route::post('subscription/cancel/{id}', [SubscriptionController::class, 'cancel'])->name('subscription.cancel');

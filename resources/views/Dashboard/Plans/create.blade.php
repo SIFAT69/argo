@@ -25,6 +25,10 @@
                     <input type="text" class="form-control" name="cost" placeholder="Enter Cost">
                 </div>
                 <div class="form-group">
+                    <label for="cost">Limite:</label>
+                    <input type="number" class="form-control" name="limite" placeholder="Enter property/project limite">
+                </div>
+                <div class="form-group">
                     <label for="cost">Mouthly / Yearly:</label>
                     <select class="form-control" required name="description">
                       <option value="Monthly">Monthly</option>

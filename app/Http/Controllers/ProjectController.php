@@ -46,7 +46,9 @@ class ProjectController extends Controller
 
     public function createProjectPost(Request $request)
     {
-
+      if (Auth::user()->limite == 0) {
+        return back()->with('danger', 'Your limite is extends please buy new packages.');
+      }
 
       // Image Uploads start
       foreach ($request->file('images') as $index => $file)
@@ -96,6 +98,7 @@ class ProjectController extends Controller
           'city' => $request->city,
           'state' => $request->state,
           'location' => $request->country,
+          'address' => $request->address,
           'latitude' => $request->latitude,
           'longitude' => $request->longitude,
           'flat_blocks' => $request->flat_blocks,
@@ -110,7 +113,9 @@ class ProjectController extends Controller
           'youtube_link' => $request->youtube_link,
           'created_at' => Carbon::now(),
         ]);
-
+        DB::table('users')->where('id', Auth::user()->id)->update([
+          'limite' => Auth::user()->limite-1,
+        ]);
         ActivityHappened::dispatch(Auth::id(), 'A project has been created.');
 
         if (Auth::user()->account_role == "Agent") {
@@ -157,6 +162,7 @@ class ProjectController extends Controller
         'city' => $request->city,
         'location' => $request->country,
         'latitude' => $request->latitude,
+        'address' => $request->address,
         'longitude' => $request->longitude,
         'flat_blocks' => $request->flat_blocks,
         'flat_floors' => $request->flat_floors,
@@ -207,7 +213,9 @@ class ProjectController extends Controller
     public function HardDeleteProject(Request $request)
     {
       DB::table('projects')->where('id', $request->id)->delete();
-
+      DB::table('users')->where('id', Auth::user()->id)->update([
+        'limite' => Auth::user()->limite+1,
+      ]);
       ActivityHappened::dispatch(Auth::id(), 'A project has been deleted permanently.');
 
       return back()->with('danger', 'Your project has been removed from collections!');

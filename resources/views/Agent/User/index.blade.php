@@ -13,7 +13,7 @@
         @include('Alerts.success')
         @include('Alerts.danger')
           <div class="widget-content widget-content-area br-6">
-              <a href="{!! route('users.agent.create') !!}" class="btn btn-success float-right" style="margin: 1rem">Create new user</a>
+              <a href="{!! route('users.agent.create') !!}" class="btn btn-success float-right" style="margin: 1rem">Create user</a>
               <br>
               <br>
               <br>
@@ -33,11 +33,13 @@
                         </thead>
                         <tbody>
                             @forelse ($users as $user)
+                              @if ($user->account_role != "Agent Stuff")
                             <tr>
                                 <td>{{ $loop->index+1 }}.</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</td>
+
                                 <form action="{!! route('users.agent.update') !!}" method="post">
                                     @csrf
                                     <input type="hidden" name="user_id" value="{{ $user->id }}">
@@ -59,6 +61,7 @@
 
                                 </td>
                             </tr>
+                          @endif
 
                             @empty
                             <tr>

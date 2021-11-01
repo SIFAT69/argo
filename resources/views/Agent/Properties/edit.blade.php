@@ -94,18 +94,24 @@ Edit a new property
                 </div>
             </div>
             <div class="form-row">
+                <div class="col-md-12 mb-4">
+                    <label for="validationCustom01">Address:</label>
+                    <textarea name="address" class="form-control" rows="8" cols="80">{{ $project->address }}</textarea>
+                </div>
+            </div>
+            <div class="form-row">
                 <div class="col-md-6 mb-4">
                     <label for="validationCustom01">Latitude:</label>
                     <input type="text" class="form-control mb-2" name="latitude" value="{{ $project->latitude }}">
                     <div class="alert alert-primary">
-                        <a href="https://www.latlong.net/convert-address-to-lat-long.html">Go here to get Latitude from address.</a>
+                        <a target="_blank" href="https://www.latlong.net/convert-address-to-lat-long.html">Go here to get Latitude from address.</a>
                     </div>
                 </div>
                 <div class="col-md-6 mb-4">
                     <label for="validationCustom01">Longitude:</label>
                     <input type="text" class="form-control mb-2" name="longitude" value="{{ $project->longitude }}">
                     <div class="alert alert-primary">
-                        <a href="https://www.latlong.net/convert-address-to-lat-long.html">Go here to get Longitude from address.</a>
+                        <a target="_blank" href="https://www.latlong.net/convert-address-to-lat-long.html">Go here to get Longitude from address.</a>
                     </div>
                 </div>
             </div>

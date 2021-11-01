@@ -19,14 +19,28 @@ class UserController extends Controller
     }
 
     public function agentUsers()
-    {   $users = DB::table('users')->where('created_by', Auth::id())->get();
+    {   $users = DB::table('users')->where('created_by', Auth::id())->orWhere('account_role', 'Tenant')->orWhere('account_role', 'Service Providers')->get();
         return view('Agent.User.index', compact('users'));
+    }
+
+
+    public function stuffusers()
+    {   $users = DB::table('users')->where('created_by', Auth::id())->where('account_role', 'Agent Stuff')->get();
+        return view('Agent.User.stuffs', compact('users'));
     }
 
     public function agentUsersUpdate(Request $request)
     {
         DB::table('users')->where('id', $request->user_id)->update([
             'account_role' => $request->account_role,
+         ]);
+
+         return back()->with('success', 'Your user permission has been set to '.$request->account_role);
+    }
+    public function stuffUserUpdate(Request $request)
+    {
+        DB::table('users')->where('id', $request->user_id)->update([
+            'role' => $request->role,
          ]);
 
          return back()->with('success', 'Your user permission has been set to '.$request->account_role);

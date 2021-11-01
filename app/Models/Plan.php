@@ -14,6 +14,7 @@ class Plan extends Model
         'slug',
         'stripe_plan',
         'cost',
+        'limite',
         'description'
     ];
 

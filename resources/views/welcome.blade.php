@@ -275,13 +275,13 @@ Argo
                 @else
                     <div class="col-lg-8 col-xl-8">
                 @endif
-                        <a href="{{ route('properties_city_wise', $city->name) }}">
+                        <a href="{{ route('properties_city_wise', $city->city) }}">
                             <div class="properti_city">
                                 <div class="thumb"><img class="img-fluid w100" src="{!! asset('FontAsset') !!}/images/property/pc{{ $loop->iteration}}.jpg" alt="city image"></div>
                                 <div class="overlay">
                                     <div class="details">
-                                        <h4>{{ $city->name }}</h4>
-                                        <p>{{ $city->quantity }}</p>
+                                        <h4>{{ $city->city }}</h4>
+                                        {{-- <p>{{ $city->quantity }}</p> --}}
                                     </div>
                                 </div>
                             </div>

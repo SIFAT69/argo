@@ -21,7 +21,7 @@ $(document).ready(function(){
 				<div class="col-sm-12 col-lg-8 col-xl-10 maxw100flex-992">
 					<div class="row">
             @include('layouts.menu.agentmenu')
-						<div class="col-lg-8 col-xl-8">
+						<div class="col-lg-12 col-xl-12">
 
 							<div class="candidate_revew_select style2 text-right mb30-991">
 								<ul class="mb0">

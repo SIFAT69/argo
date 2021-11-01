@@ -4,15 +4,15 @@
 @endsection
 @section('content')
 <section class="our-dashbord dashbord bgc-f7 pb50">
+  @include('layouts.menu.agentmenu')
     <div class="container-fluid">
       <div class="row">
-        @include('layouts.menu.agentmenu')
         <div class="col-lg-3 col-xl-2 dn-992 pl0"></div>
         <div class="col-sm-12 col-lg-8 col-xl-10 maxw100flex-992">
           <div class="row">
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-        @include('Alerts.success')
-        @include('Alerts.danger')
+              @include('Alerts.success')
+              @include('Alerts.danger')
           <div class="widget-content widget-content-area br-6">
               <a href="{!! route('MyProject') !!}" class="btn btn-primary float-right" style="margin: 1rem">Back</a>
               <br>
@@ -93,18 +93,24 @@
                       </div>
                   </div>
                   <div class="form-row">
+                      <div class="col-md-12 mb-4">
+                          <label for="validationCustom01">Address:</label>
+                          <textarea name="address" class="form-control" rows="8" cols="80"></textarea>
+                      </div>
+                  </div>
+                  <div class="form-row">
                       <div class="col-md-6 mb-4">
                           <label for="validationCustom01">Latitude:</label>
                           <input type="text" class="form-control mb-2" name="latitude" value="">
                           <div class="alert alert-primary">
-                              <a href="https://www.latlong.net/convert-address-to-lat-long.html">Go here to get Latitude from address.</a>
+                              <a target="_blank" href="https://www.latlong.net/convert-address-to-lat-long.html">Go here to get Latitude from address.</a>
                           </div>
                       </div>
                       <div class="col-md-6 mb-4">
                           <label for="validationCustom01">Longitude:</label>
                           <input type="text" class="form-control mb-2" name="longitude" value="">
                           <div class="alert alert-primary">
-                              <a href="https://www.latlong.net/convert-address-to-lat-long.html">Go here to get Longitude from address.</a>
+                              <a target="_blank" href="https://www.latlong.net/convert-address-to-lat-long.html">Go here to get Longitude from address.</a>
                           </div>
                       </div>
                   </div>

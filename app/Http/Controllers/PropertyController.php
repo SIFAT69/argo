@@ -33,8 +33,9 @@ class PropertyController extends Controller
 
     public function property_post(Request $request){
 
-      // print_r($request->all());
-      // die();
+      if (Auth::user()->limite == 0) {
+        return back()->with('danger', 'Your limite is extends please buy new packages.');
+      }
       $validatedData = $request->validate([
           'title' => ['required', 'unique:properties'],
           'type' => ['required'],
@@ -105,6 +106,7 @@ class PropertyController extends Controller
         'category' => $request->category,
         'city' => $request->city,
         'states' => $request->state,
+        'address' => $request->address,
         'location' => $request->country,
         'latitude' => $request->latitude,
         'longitude' => $request->longitude,
@@ -120,6 +122,10 @@ class PropertyController extends Controller
         'youtube_link' => $request->youtube_link,
         'is_featured' => 'No',
         'created_at' => Carbon::now(),
+      ]);
+
+      DB::table('users')->where('id', Auth::user()->id)->update([
+        'limite' => Auth::user()->limite-1,
       ]);
 
       ActivityHappened::dispatch(Auth::id(), 'A new property has been created.');
@@ -179,6 +185,7 @@ class PropertyController extends Controller
         'category' => $request->category,
         'city' => $request->city,
         'location' => $request->country,
+        'address' => $request->address,
         'latitude' => $request->latitude,
         'longitude' => $request->longitude,
         'flat_beds' => $request->flat_beds,
@@ -233,7 +240,9 @@ class PropertyController extends Controller
     public function HardDeleteProperty(Request $request)
     {
       DB::table('properties')->where('id', $request->id)->delete();
-
+      DB::table('users')->where('id', Auth::user()->id)->update([
+        'limite' => Auth::user()->limite+1,
+      ]);
       ActivityHappened::dispatch(Auth::id(), 'A property has been deleted permanently.');
 
       return back()->with('danger', 'Your property has been removed from collections!');
