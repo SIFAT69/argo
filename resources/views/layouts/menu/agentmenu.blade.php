@@ -15,11 +15,13 @@
               <li><a href="{!! route('AgentTenant') !!}"><span class="fas fa-home"></span>  Tenant</a></li>
               <li><a href="{!! route('services.agent.index') !!}"><span class="fas fa-cogs"></span>  Service Requests</a></li>
               <li><a href="{!! route('contracts.agent.index') !!}"><span class="fas fa-funnel-dollar"></span>  Contracts</a></li>
+              @if (Auth::user()->account_role == 'Agent')
               <li><a href="{!! route('agent.transaction.history') !!}"><span class="flaticon-box"></span> My Wallet</a></li>
               <li><a href="{!! route('agent.roles') !!}"> <span class="fas fa-users"></span> Roles & Permission</a></li>
               <li><a href="{!! route('users.agent.index') !!}"> <span class="fas fa-users"></span> Tenant/Service Providers</a></li>
               <li><a href="{!! route('packageHistory') !!}"><span class="flaticon-box"></span> My Package</a></li>
               <li><a href="{!! route('agent.profile') !!}"><span class="flaticon-user"></span> My Profile</a></li>
+              @endif
               <li><a href="{!! route('welcome') !!}"><span class="flaticon-back"></span> Back To Website</a></li>
               <li><a href="{!! route('logout') !!}"><span class="flaticon-logout"></span> Logout</a></li>
             </ul>

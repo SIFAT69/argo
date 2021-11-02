@@ -32,9 +32,16 @@ class PropertyController extends Controller
     }
 
     public function property_post(Request $request){
-
-      if (Auth::user()->limite == 0) {
-        return back()->with('danger', 'Your limite is extends please buy new packages.');
+      if (Auth::user()->account_role == "Agent") {
+        if (Auth::user()->limite == 0) {
+          return back()->with('danger', 'Your limite is extends please buy new packages.');
+        }
+      }else {
+        $agent_id = Auth::user()->created_by;
+        $agent_limite = DB::table('users')->where('id', $agent_id)->value('limite');
+        if ($agent_limite == 0) {
+          return back()->with('danger', 'Your agent limite is extends please buy new packages.');
+        }
       }
       $validatedData = $request->validate([
           'title' => ['required', 'unique:properties'],
@@ -93,45 +100,84 @@ class PropertyController extends Controller
 
       $slug = Str::slug($request->title);
 
-      DB::table('properties')->insert([
-        'code' => 'PROP_' . date('YmdHisv'),
-        'user_id' => Auth::id(),
-        'status' => 1,
-        'title' => $request->title,
-        'type' => $request->type,
-        'slug' => $slug,
-        'meta_description' => $request->meta_desc,
-        'description' => $request->description,
-        'images' => $JsonImage,
-        'category' => $request->category,
-        'city' => $request->city,
-        'states' => $request->state,
-        'address' => $request->address,
-        'location' => $request->country,
-        'latitude' => $request->latitude,
-        'longitude' => $request->longitude,
-        'flat_beds' => $request->flat_beds,
-        'flat_baths' => $request->flat_baths,
-        'flat_floors' => $request->flat_floors,
-        'size' => $request->size,
-        'price' => $request->price,
-        'facilities' => $JsonFacility,
-        'features' => $JsonFeature,
-        'distance' => $JsonDistance,
-        'youtube_thumb' => $meta_image_rename,
-        'youtube_link' => $request->youtube_link,
-        'is_featured' => 'No',
-        'created_at' => Carbon::now(),
-      ]);
+      if (Auth::user()->account_role == "Agent") {
+        DB::table('properties')->insert([
+          'code' => 'PROP_' . date('YmdHisv'),
+          'user_id' => Auth::id(),
+          'status' => 1,
+          'title' => $request->title,
+          'type' => $request->type,
+          'slug' => $slug,
+          'meta_description' => $request->meta_desc,
+          'description' => $request->description,
+          'images' => $JsonImage,
+          'category' => $request->category,
+          'city' => $request->city,
+          'states' => $request->state,
+          'address' => $request->address,
+          'location' => $request->country,
+          'latitude' => $request->latitude,
+          'longitude' => $request->longitude,
+          'flat_beds' => $request->flat_beds,
+          'flat_baths' => $request->flat_baths,
+          'flat_floors' => $request->flat_floors,
+          'size' => $request->size,
+          'price' => $request->price,
+          'facilities' => $JsonFacility,
+          'features' => $JsonFeature,
+          'distance' => $JsonDistance,
+          'youtube_thumb' => $meta_image_rename,
+          'youtube_link' => $request->youtube_link,
+          'is_featured' => 'No',
+          'created_at' => Carbon::now(),
+        ]);
+      }else {
+        DB::table('properties')->insert([
+          'code' => 'PROP_' . date('YmdHisv'),
+          'user_id' => Auth::user()->created_by,
+          'status' => 1,
+          'title' => $request->title,
+          'type' => $request->type,
+          'slug' => $slug,
+          'meta_description' => $request->meta_desc,
+          'description' => $request->description,
+          'images' => $JsonImage,
+          'category' => $request->category,
+          'city' => $request->city,
+          'states' => $request->state,
+          'address' => $request->address,
+          'location' => $request->country,
+          'latitude' => $request->latitude,
+          'longitude' => $request->longitude,
+          'flat_beds' => $request->flat_beds,
+          'flat_baths' => $request->flat_baths,
+          'flat_floors' => $request->flat_floors,
+          'size' => $request->size,
+          'price' => $request->price,
+          'facilities' => $JsonFacility,
+          'features' => $JsonFeature,
+          'distance' => $JsonDistance,
+          'youtube_thumb' => $meta_image_rename,
+          'youtube_link' => $request->youtube_link,
+          'is_featured' => 'No',
+          'created_at' => Carbon::now(),
+        ]);
+      }
 
-      DB::table('users')->where('id', Auth::user()->id)->update([
-        'limite' => Auth::user()->limite-1,
-      ]);
+      if (Auth::user()->account_role == "Agent") {
+        DB::table('users')->where('id', Auth::user()->id)->update([
+          'limite' => Auth::user()->limite-1,
+        ]);
+      }else {
+        DB::table('users')->where('id', Auth::user()->created_by)->update([
+          'limite' => $agent_limite-1,
+        ]);
+      }
 
       ActivityHappened::dispatch(Auth::id(), 'A new property has been created.');
 
-      if (Auth::user()->account_role == "Agent") {
-        return back()->with('success', 'Your property has been created. Wating for verify!');
+      if (Auth::user()->account_role == "Agent" || Auth::user()->account_role == "Agent Stuff") {
+        return back()->with('success', 'Your property has been created.');
       }else {
         return redirect('/properties-lists')->with('success', 'Your property has been created. Now you should change the status.');
       }
@@ -175,7 +221,7 @@ class PropertyController extends Controller
       $slug = Str::slug($request->title);
 
       DB::table('properties')->where('id', $request->id)->update([
-        'user_id' => Auth::id(),
+        // 'user_id' => Auth::id(),
         'status' => 0,
         'title' => $request->title,
         'slug' => $slug,

@@ -16,7 +16,7 @@
         @include('Alerts.success')
         @include('Alerts.danger')
           <div class="widget-content widget-content-area br-6">
-              <a href="{!! route('users.agent.create') !!}" class="btn btn-success float-right" style="margin: 1rem">Create user</a>
+              <a href="{!! route('users.agent.index') !!}" class="btn btn-danger float-right" style="margin: 1rem">Go back</a>
               <br>
               <br>
               <br>

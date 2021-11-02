@@ -27,11 +27,20 @@ class AgentController extends Controller
       // dd(date('Y-m-d H:i:s', $in));
       // dd(Auth::user()->subscription('yearly')->asStripeSubscription());
 
-      $count_of_properties = Property::where('user_id', Auth::id())->count();
-      $totalViewsProject = DB::table('views')->where('to_id', Auth::id())->where('post_table', 'projects')->sum('view_count');
-      $totalViewsProperties = DB::table('views')->where('to_id', Auth::id())->where('post_table', 'properties')->sum('view_count');
-      $totalView = $totalViewsProject + $totalViewsProperties;
-      $logs = ActivityLog::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(5)->get();
+      if (Auth::user()->account_role == 'Agent') {
+        // code...
+        $count_of_properties = Property::where('user_id', Auth::id())->count();
+        $totalViewsProject = DB::table('views')->where('to_id', Auth::id())->where('post_table', 'projects')->sum('view_count');
+        $totalViewsProperties = DB::table('views')->where('to_id', Auth::id())->where('post_table', 'properties')->sum('view_count');
+        $totalView = $totalViewsProject + $totalViewsProperties;
+        $logs = ActivityLog::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(5)->get();
+      }else {
+        $count_of_properties = Property::where('user_id', Auth::user()->created_by)->count();
+        $totalViewsProject = DB::table('views')->where('to_id', Auth::user()->created_by)->where('post_table', 'projects')->sum('view_count');
+        $totalViewsProperties = DB::table('views')->where('to_id', Auth::user()->created_by)->where('post_table', 'properties')->sum('view_count');
+        $totalView = $totalViewsProject + $totalViewsProperties;
+        $logs = ActivityLog::where('user_id', Auth::user()->created_by)->orderBy('id', 'desc')->limit(5)->get();
+      }
       return view('Agent.Dashboard.dashboard', compact('count_of_properties','totalView', 'logs'));
     }
 
@@ -132,65 +141,115 @@ class AgentController extends Controller
 
   public function MyProperties()
   {
-    $properties = DB::table('properties')->where('user_id', Auth::id())->get();
+    if (Auth::user()->account_role == 'Agent') {
+      $properties = DB::table('properties')->where('user_id', Auth::id())->get();
+    }else {
+      $properties = DB::table('properties')->where('user_id', Auth::user()->created_by)->get();
+    }
     return view('Agent.Properties.properties',compact('properties'));
   }
 
   public function MyPropertiesCreate()
   {
-    $cities = DB::table('cities')->get();
-    $states = DB::table('states')->get();
-    $countries = DB::table('countries')->get();
-    $realstatefacilities = DB::table('agentfacilities')->where('added_by', Auth::id())->get();
-    $realstatefeatures = DB::table('agentfeatures')->where('added_by', Auth::id())->get();
-    $categories = DB::table('agentcategories')->where('added_by', Auth::id())->get();
+    if (Auth::user()->account_role == 'Agent') {
+      $cities = DB::table('cities')->get();
+      $states = DB::table('states')->get();
+      $countries = DB::table('countries')->get();
+      $realstatefacilities = DB::table('agentfacilities')->where('added_by', Auth::id())->get();
+      $realstatefeatures = DB::table('agentfeatures')->where('added_by', Auth::id())->get();
+      $categories = DB::table('agentcategories')->where('added_by', Auth::id())->get();
+    }else {
+      $cities = DB::table('cities')->get();
+      $states = DB::table('states')->get();
+      $countries = DB::table('countries')->get();
+      $realstatefacilities = DB::table('agentfacilities')->where('added_by', Auth::user()->created_by)->get();
+      $realstatefeatures = DB::table('agentfeatures')->where('added_by',Auth::user()->created_by)->get();
+      $categories = DB::table('agentcategories')->where('added_by', Auth::user()->created_by)->get();
+    }
     return view('Agent.Properties.create',compact('cities', 'states', 'countries', 'realstatefacilities','realstatefeatures','categories'));
   }
 
   public function MyPropertiesEdit(Request $request)
   {
-    $cities = DB::table('cities')->get();
-    $states = DB::table('states')->get();
-    $countries = DB::table('countries')->get();
-    $realstatefacilities = DB::table('agentfacilities')->where('added_by', Auth::id())->get();
-    $realstatefeatures = DB::table('agentfeatures')->where('added_by', Auth::id())->get();
-    $categories = DB::table('agentcategories')->where('added_by', Auth::id())->get();
-    $project = DB::table('properties')->where('id', $request->id)->first();
+    if (Auth::user()->account_role == 'Agent') {
+      $cities = DB::table('cities')->get();
+      $states = DB::table('states')->get();
+      $countries = DB::table('countries')->get();
+      $realstatefacilities = DB::table('agentfacilities')->where('added_by', Auth::id())->get();
+      $realstatefeatures = DB::table('agentfeatures')->where('added_by', Auth::id())->get();
+      $categories = DB::table('agentcategories')->where('added_by', Auth::id())->get();
+      $project = DB::table('properties')->where('id', $request->id)->first();
+    }else {
+      $cities = DB::table('cities')->get();
+      $states = DB::table('states')->get();
+      $countries = DB::table('countries')->get();
+      $realstatefacilities = DB::table('agentfacilities')->where('added_by', Auth::user()->created_by)->get();
+      $realstatefeatures = DB::table('agentfeatures')->where('added_by', Auth::user()->created_by)->get();
+      $categories = DB::table('agentcategories')->where('added_by', Auth::user()->created_by)->get();
+      $project = DB::table('properties')->where('id', $request->id)->first();
+    }
     return view('Agent.Properties.edit',compact('cities', 'states', 'countries', 'realstatefacilities','realstatefeatures','categories','project'));
   }
 
   public function MyProject(Request $request)
   {
-    $projects = DB::table('projects')->where('user_id', Auth::id())->get();
+    if (Auth::user()->account_role == 'Agent') {
+      $projects = DB::table('projects')->where('user_id', Auth::id())->get();
+    }else {
+      $projects = DB::table('projects')->where('user_id', Auth::user()->created_by)->get();
+    }
     return view('Agent.Project.projects',compact('projects'));
   }
 
   public function MyProjectCreate(Request $request)
   {
-    $cities = DB::table('cities')->get();
-    $states = DB::table('states')->get();
-    $countries = DB::table('countries')->get();
-    $realstatefacilities = DB::table('agentfacilities')->where('added_by', Auth::id())->get();
-    $realstatefeatures = DB::table('agentfeatures')->where('added_by', Auth::id())->get();
-    $categories = DB::table('agentcategories')->where('added_by', Auth::id())->get();
+    if (Auth::user()->account_role == 'Agent') {
+      $cities = DB::table('cities')->get();
+      $states = DB::table('states')->get();
+      $countries = DB::table('countries')->get();
+      $realstatefacilities = DB::table('agentfacilities')->where('added_by', Auth::id())->get();
+      $realstatefeatures = DB::table('agentfeatures')->where('added_by', Auth::id())->get();
+      $categories = DB::table('agentcategories')->where('added_by', Auth::id())->get();
+    }else {
+      $cities = DB::table('cities')->get();
+      $states = DB::table('states')->get();
+      $countries = DB::table('countries')->get();
+      $realstatefacilities = DB::table('agentfacilities')->where('added_by', Auth::user()->created_by)->get();
+      $realstatefeatures = DB::table('agentfeatures')->where('added_by', Auth::user()->created_by)->get();
+      $categories = DB::table('agentcategories')->where('added_by', Auth::user()->created_by)->get();
+    }
     return view('Agent.Project.create',compact('cities', 'states', 'countries', 'realstatefacilities','realstatefeatures','categories'));
   }
 
   public function MyProjectEdit(Request $request)
   {
-    $cities = DB::table('cities')->get();
-    $states = DB::table('states')->get();
-    $countries = DB::table('countries')->get();
-    $realstatefacilities = DB::table('agentfacilities')->where('added_by', Auth::id())->get();
-    $realstatefeatures = DB::table('agentfeatures')->where('added_by', Auth::id())->get();
-    $categories = DB::table('agentcategories')->where('added_by', Auth::id())->get();
-    $project = DB::table('projects')->where('id', $request->id)->first();
+    if (Auth::user()->account_role == 'Agent') {
+      $cities = DB::table('cities')->get();
+      $states = DB::table('states')->get();
+      $countries = DB::table('countries')->get();
+      $realstatefacilities = DB::table('agentfacilities')->where('added_by', Auth::id())->get();
+      $realstatefeatures = DB::table('agentfeatures')->where('added_by', Auth::id())->get();
+      $categories = DB::table('agentcategories')->where('added_by', Auth::id())->get();
+      $project = DB::table('projects')->where('id', $request->id)->first();
+    }else {
+      $cities = DB::table('cities')->get();
+      $states = DB::table('states')->get();
+      $countries = DB::table('countries')->get();
+      $realstatefacilities = DB::table('agentfacilities')->where('added_by', Auth::user()->created_by)->get();
+      $realstatefeatures = DB::table('agentfeatures')->where('added_by', Auth::user()->created_by)->get();
+      $categories = DB::table('agentcategories')->where('added_by', Auth::user()->created_by)->get();
+      $project = DB::table('projects')->where('id', $request->id)->first();
+    }
     return view('Agent.Project.edit',compact('cities', 'states', 'countries', 'realstatefacilities','realstatefeatures','categories','project'));
   }
 
   public function MyInbox(Request $request)
   {
-    $contacts = DB::table('agenciesmessages')->where('to_id', Auth::id())->get();
+    if (Auth::user()->account_role == 'Agent') {
+      $contacts = DB::table('agenciesmessages')->where('to_id', Auth::id())->get();
+    }else {
+      $contacts = DB::table('agenciesmessages')->where('to_id', Auth::user()->created_by)->get();
+    }
     return view('Agent.Contact.contact',compact('contacts'));
   }
 
@@ -244,8 +303,9 @@ class AgentController extends Controller
         $ContractFiles = 'NULL';
     }
 
-    DB::table('contracts')
-    ->insert([
+    if (Auth::user()->account_role == "Agent") {
+      DB::table('contracts')
+      ->insert([
         'contract_name' => $request->tanent_name,
         'contract_property' => $request->property_name,
         'contract_property_id' => $request->contract_property_id,
@@ -257,7 +317,23 @@ class AgentController extends Controller
         'status' => 'Active',
         'files' => $ContractFiles,
         'created_at' => Carbon::now(),
-    ]);
+      ]);
+    }else {
+      DB::table('contracts')
+      ->insert([
+        'contract_name' => $request->tanent_name,
+        'contract_property' => $request->property_name,
+        'contract_property_id' => $request->contract_property_id,
+        'contract_property_type' => $request->contract_property_code,
+        'description' => $request->description,
+        'tenant_id' => $request->tenant_id,
+        'agent_id' => Auth::user()->created_by,
+        'contract_duration' => $contract_duration,
+        'status' => 'Active',
+        'files' => $ContractFiles,
+        'created_at' => Carbon::now(),
+      ]);
+    }
 
     Property::where('id', $id)->update(['assigned_to' => $request->tenant_id]);
     return redirect()->route('MyProperties')->with('success', 'Successfully assigned');

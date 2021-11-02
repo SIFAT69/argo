@@ -508,26 +508,26 @@ Route::group(['middleware' => ['auth', 'servicerequest']], function () {
 
 });
 
-Route::get('/purchase', function (Request $request) {
-      $stripe = new Stripe(env('STRIPE_SECRET'));
-      $token = $stripe->tokens()->create([
-          'card' => [
-              'number' => $request->get('cardnumber'),
-              'exp_month' => $request->get('ccExpiryMonth'),
-              'exp_year' => $request->get('ccExpiryYear'),
-              'cvc' => $request->get('cvv'),
-          ],
-      ]);
-
-      $charge = $stripe->charges()->create([
-          'card' => $token['id'],
-          'currency' => 'USD',
-          'amount' => 10,
-          'description' => 'Transcription Service',
-          'capture' => 'true',
-          'statement_descriptor' => "cheaptranscription.io",
-      ]);
-
-});
+// Route::get('/purchase', function (Request $request) {
+//       $stripe = new Stripe(env('STRIPE_SECRET'));
+//       $token = $stripe->tokens()->create([
+//           'card' => [
+//               'number' => $request->get('cardnumber'),
+//               'exp_month' => $request->get('ccExpiryMonth'),
+//               'exp_year' => $request->get('ccExpiryYear'),
+//               'cvc' => $request->get('cvv'),
+//           ],
+//       ]);
+//
+//       $charge = $stripe->charges()->create([
+//           'card' => $token['id'],
+//           'currency' => 'USD',
+//           'amount' => 10,
+//           'description' => 'Transcription Service',
+//           'capture' => 'true',
+//           'statement_descriptor' => "cheaptranscription.io",
+//       ]);
+//
+// });
 
 require __DIR__.'/auth.php';

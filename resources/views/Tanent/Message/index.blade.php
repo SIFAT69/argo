@@ -15,7 +15,7 @@
                         @include('Alerts.danger')
                         <div class="row">
                             <div class="col-lg-12 col-xl-12">
-                                <a href="{!! route('tenant.message.index') !!}" class="btn btn-danger mb-3"> Back </a>
+                                <a href="{!! route('dashboard') !!}" class="btn btn-danger mb-3"> Back </a>
                                 <div class="message_container">
                                     <div class="user_heading">
                                         <a href="#">

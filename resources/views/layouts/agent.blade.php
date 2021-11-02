@@ -48,6 +48,10 @@
     $amount =  $value->amount;
     $amount = $amount/100;
   }
+
+  $user = Auth::user();
+
+  $role = DB::table('roles')->where('rolesname', '=', $user->role)->first();
   @endphp
     <div class="wrapper">
         {{-- <div class="preloader"></div> --}}
@@ -65,21 +69,47 @@
             <ul class="sidebar-menu">
                 <li class="header"><img src="{{ asset('/uploads/header-logo.png') }}" alt="header logo"></li>
                 <li class="title"><span>Main</span></li>
-                <li class="treeview"><a href="{!! route('AgentDashboard') !!}"><i class="flaticon-layers"></i><span> Dashboard</span></a></li>
+                @if ($user->account_role == "Agent Stuff" && $role->dashboard == "on" || $user->account_role == "Agent")
+                  <li class="treeview"><a href="{!! route('AgentDashboard') !!}"><i class="flaticon-layers"></i><span> Dashboard</span></a></li>
+                @endif
+                @if ($user->account_role == "Agent Stuff" && $role->contacts == "on" || $user->account_role == "Agent")
                 <li class="treeview"><a href="{!! route('MyInbox') !!}"><i class="far fa-address-book"></i><span> Contacts</span></a></li>
+                @endif
+                @if ($user->account_role == "Agent Stuff" && $role->message == "on" || $user->account_role == "Agent")
                 <li class="treeview"><a href="{!! route('tenant.message.index') !!}"><i class="flaticon-envelope"></i><span>Tenant Message</span></a></li>
+                @endif
                 <li class="title"><span>Manage Listings</span></li>
+                @if ($user->account_role == "Agent Stuff" && $role->properties == "on" || $user->account_role == "Agent")
                 <li class="treeview">
                     <a href="{!! route('MyProperties') !!}"><i class="flaticon-home"></i> <span>My Properties</span></a>
                 </li>
+                @endif
+                @if ($user->account_role == "Agent Stuff" && $role->projects == "on" || $user->account_role == "Agent")
                 <li><a href="{!! route('MyProject') !!}"><i class="far fa-heart"></i> <span> My Projects</span></a></li>
+                @endif
+                @if ($user->account_role == "Agent Stuff" && $role->features == "on" || $user->account_role == "Agent")
                 <li><a href="{!! route('agentsFeaturesList') !!}"><i class="far fa-file-alt"></i> <span> Features</span></a></li>
+                @endif
+                @if ($user->account_role == "Agent Stuff" && $role->facilities == "on" || $user->account_role == "Agent")
                 <li><a href="{!! route('Agentfacility.index') !!}"><i class="fas fa-bezier-curve"></i> <span> Facilities</span></a></li>
+                @endif
+                @if ($user->account_role == "Agent Stuff" && $role->categories == "on" || $user->account_role == "Agent")
                 <li><a href="{!! route('Agentcatgories.index') !!}"><i class="far fa-folder-open"></i> <span> Categories</span></a></li>
+                @endif
+                @if ($user->account_role == "Agent Stuff" && $role->landlord == "on" || $user->account_role == "Agent")
                 <li><a href="{!! route('Landlord.index') !!}"><i class="fas fa-house-user"></i> <span> Landlords</span></a></li>
+                @endif
+                @if ($user->account_role == "Agent Stuff" && $role->tenant_list == "on" || $user->account_role == "Agent")
                 <li><a href="{!! route('AgentTenant') !!}"><i class="fas fa-home"></i> <span> Tenant</span></a></li>
+                @endif
+                @if ($user->account_role == "Agent Stuff" && $role->service_request == "on" || $user->account_role == "Agent")
                 <li><a href="{!! route('services.agent.index') !!}"><i class="fas fa-cogs"></i> <span> Service Requests</span></a></li>
+                @endif
+                @if ($user->account_role == "Agent Stuff" && $role->contracts == "on" || $user->account_role == "Agent")
                 <li><a href="{!! route('contracts.agent.index') !!}"><i class="fas fa-funnel-dollar"></i> <span> Contracts</span></a></li>
+                @endif
+                @if (Auth::user()->account_role == 'Agent')
+
                 <li class="title"><span>Payment Informations</span></li>
                 <li><a href="{!! route('agent.transaction.history') !!}"><i class="flaticon-box"></i> <span>My Wallet</span></a></li>
                 {{-- <li><a href="{!! route('agent.transaction.withdraw.requests') !!}"><i class="flaticon-user"></i> <span>Payment History</span></a></li> --}}
@@ -88,6 +118,7 @@
                 <li><a href="{!! route('users.agent.index') !!}"> <i class="fas fa-users"></i> <span>Tenant/Service Providers</span></a></li>
                 <li><a href="{!! route('packageHistory') !!}"><i class="flaticon-box"></i> <span>My Package</span></a></li>
                 <li><a href="{!! route('agent.profile') !!}"><i class="flaticon-user"></i> <span>My Profile</span></a></li>
+                @endif
                 <li class="title"><span>Session</span></li>
                 <li><a href="{!! route('welcome') !!}"><i class="flaticon-back"></i> <span>Back To Website</span></a></li>
                 <li><a href="{!! route('logout') !!}"><i class="flaticon-logout"></i> <span>Logout</span></a></li>

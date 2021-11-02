@@ -129,5 +129,7 @@ class PaymentController extends Controller
           'remaining_days' => $newDays,
           'updated_at' => Carbon::now(),
         ]);
+
+        return back()->with('success', 'This payment has been marked as complete.');
       }
 }

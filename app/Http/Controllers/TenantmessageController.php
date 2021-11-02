@@ -11,15 +11,25 @@ class TenantmessageController extends Controller
 {
     public function index()
     {
-      $tenants = DB::table('users')->where('created_by', Auth::id())->get();
+      if (Auth::user()->account_role == 'Agent') {
+        $tenants = DB::table('users')->where('created_by', Auth::id())->get();
+      }else {
+        $tenants = DB::table('users')->where('created_by', Auth::user()->created_by)->get();
+      }
       return view('Agent.Tenantmessage.index', compact('tenants'));
     }
 
     public function openCoversation(Request $request)
     {
-      $tenants = DB::table('users')->where('created_by', Auth::id())->get();
-      $user_id = $request->id;
-      $messages = DB::table('tenantmessages')->where('sender_id', Auth::id())->orWhere('receiver_id', $user_id)->orWhere('sender_id',  $user_id)->orWhere('receiver_id', Auth::id())->get();
+      if (Auth::user()->account_role == 'Agent') {
+        $tenants = DB::table('users')->where('created_by', Auth::id())->get();
+        $user_id = $request->id;
+        $messages = DB::table('tenantmessages')->where('sender_id', Auth::id())->orWhere('receiver_id', $user_id)->orWhere('sender_id',  $user_id)->orWhere('receiver_id', Auth::id())->get();
+      }else {
+        $tenants = DB::table('users')->where('created_by', Auth::user()->created_by)->get();
+        $user_id = $request->id;
+        $messages = DB::table('tenantmessages')->where('sender_id', Auth::user()->created_by)->orWhere('receiver_id', $user_id)->orWhere('sender_id',  $user_id)->orWhere('receiver_id',  Auth::user()->created_by)->get();
+      }
       // foreach ($messages as $message) {
       //
       //   // die();
@@ -46,13 +56,31 @@ class TenantmessageController extends Controller
 
     public function messageSentPost(Request $request)
     {
-      DB::table('tenantmessages')->insert([
-        'sender_id' => Auth::id(),
-        'receiver_id' => $request->id,
-        'message' => $request->message,
-        'status' => 'Unseen',
-        'created_at' => Carbon::now(),
-      ]);
+         if (Auth::user()->account_role == 'Agent') {
+           DB::table('tenantmessages')->insert([
+             'sender_id' => Auth::id(),
+             'receiver_id' => $request->id,
+             'message' => $request->message,
+             'status' => 'Unseen',
+             'created_at' => Carbon::now(),
+           ]);
+         }elseif (Auth::user()->account_role == 'Agent Stuff') {
+           DB::table('tenantmessages')->insert([
+             'sender_id' => Auth::user()->created_by,
+             'receiver_id' => $request->id,
+             'message' => $request->message,
+             'status' => 'Unseen',
+             'created_at' => Carbon::now(),
+           ]);
+         }else {
+           DB::table('tenantmessages')->insert([
+             'sender_id' => Auth::id(),
+             'receiver_id' => $request->id,
+             'message' => $request->message,
+             'status' => 'Unseen',
+             'created_at' => Carbon::now(),
+           ]);
+         }
 
       return back()->with('success', 'Message deliverd');
     }
