@@ -19,7 +19,7 @@ class UserController extends Controller
     }
 
     public function agentUsers()
-    {   $users = DB::table('users')->where('created_by', Auth::id())->orWhere('account_role', 'Tenant')->orWhere('account_role', 'Service Providers')->get();
+    {   $users = DB::table('users')->where('created_by', Auth::id())->where('account_role', 'Service Providers')->get();
         return view('Agent.User.index', compact('users'));
     }
 

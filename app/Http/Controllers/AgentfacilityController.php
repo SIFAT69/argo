@@ -11,7 +11,11 @@ class AgentfacilityController extends Controller
 {
     public function index(Request $request)
     {
-      $facilities = DB::table('agentfacilities')->where('added_by', Auth::id())->get();
+      if (Auth::user()->account_role == "Agent") {
+        $facilities = DB::table('agentfacilities')->where('added_by', Auth::id())->get();
+      }else {
+        $facilities = DB::table('agentfacilities')->where('added_by', Auth::user()->created_by)->get();
+      }
       return view('Agent.Facility.facilities', compact('facilities'));
     }
 
@@ -22,11 +26,19 @@ class AgentfacilityController extends Controller
 
     public function store(Request $request)
     {
+      if (Auth::user()->account_role == "Agent") {
         DB::table('agentfacilities')->insert([
-            'facilities' => $request->facilities,
-            'added_by' => $request->added_by,
-            'created_at' => Carbon::now(),
+          'facilities' => $request->facilities,
+          'added_by' => $request->added_by,
+          'created_at' => Carbon::now(),
         ]);
+      }else {
+        DB::table('agentfacilities')->insert([
+          'facilities' => $request->facilities,
+          'added_by' => Auth::user()->created_by,
+          'created_at' => Carbon::now(),
+        ]);
+      }
 
         return back()->with('success', 'Your facility has been created successfully!');
     }
@@ -39,11 +51,19 @@ class AgentfacilityController extends Controller
 
     public function update(Request $request)
     {
+      if (Auth::user()->account_role == "Agent") {
         DB::table('agentfacilities')->where('id', $request->id)->update([
             'facilities' => $request->facilities,
             'added_by' => $request->added_by,
             'updated_at' => Carbon::now(),
         ]);
+      }else {
+        DB::table('agentfacilities')->where('id', $request->id)->update([
+          'facilities' => $request->facilities,
+          'added_by' => Auth::user()->created_by,
+          'updated_at' => Carbon::now(),
+        ]);
+      }
 
         return back()->with('success', 'Your category has been updated!');
     }

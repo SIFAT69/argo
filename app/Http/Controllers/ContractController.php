@@ -14,7 +14,11 @@ class ContractController extends Controller
         if (Auth::user()->account_role == "Agent") {
           $contracts = DB::table('contracts')->where('agent_id', Auth::id())->get();
           return view('Agent.Contracts.contracts',compact('contracts'));
-        }else {
+        }elseif (Auth::user()->account_role == "Agent Stuff") {
+          $contracts = DB::table('contracts')->where('agent_id', Auth::user()->created_by)->get();
+          return view('Agent.Contracts.contracts',compact('contracts'));
+        }
+        else {
           $contracts = DB::table('contracts')->where('tenant_id', Auth::id())->get();
           return view('Tanent.Contracts.contracts',compact('contracts'));
         }
@@ -23,6 +27,9 @@ class ContractController extends Controller
     public function show(Request $request)
     {
       if (Auth::user()->account_role == "Agent") {
+        $contract = DB::table('contracts')->where('id', $request->id)->first();
+        return view('Agent.Contracts.view', compact('contract'));
+      }elseif (Auth::user()->account_role == "Agent Stuff") {
         $contract = DB::table('contracts')->where('id', $request->id)->first();
         return view('Agent.Contracts.view', compact('contract'));
       }else {

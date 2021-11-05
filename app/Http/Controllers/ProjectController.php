@@ -46,8 +46,16 @@ class ProjectController extends Controller
 
     public function createProjectPost(Request $request)
     {
-      if (Auth::user()->limite == 0) {
-        return back()->with('danger', 'Your limite is extends please buy new packages.');
+      if (Auth::user()->account_role == "Agent") {
+        if (Auth::user()->limite == 0) {
+          return back()->with('danger', 'Your limite is extends please buy new packages.');
+        }
+      }else {
+        $agent_id = Auth::user()->created_by;
+        $agent_limite = DB::table('users')->where('id', $agent_id)->value('limite');
+        if ($agent_limite == 0) {
+          return back()->with('danger', 'Your agent limite is extends please buy new packages.');
+        }
       }
 
       // Image Uploads start
@@ -84,44 +92,80 @@ class ProjectController extends Controller
         }
 
         $slug = Str::slug($request->title);
-
-        DB::table('projects')->insert([
-          'code' => 'PROJ_' . date('YmdHisv'),
-          'user_id' => Auth::id(),
-          'status' => 1,
-          'title' => $request->title,
-          'slug' => $slug,
-          'meta_description' => $request->meta_desc,
-          'description' => $request->description,
-          'images' => $JsonImage,
-          'category' => $request->category,
-          'city' => $request->city,
-          'state' => $request->state,
-          'location' => $request->country,
-          'address' => $request->address,
-          'latitude' => $request->latitude,
-          'longitude' => $request->longitude,
-          'flat_blocks' => $request->flat_blocks,
-          'flat_floors' => $request->flat_floors,
-          'flat_number' => $request->flat_number,
-          'low_price' => $request->low_price,
-          'max_price' => $request->max_price,
-          'facilities' => $JsonFacility,
-          'features' => $JsonFeature,
-          'distance' => $JsonDistance,
-          'youtube_thumb' => $meta_image_rename,
-          'youtube_link' => $request->youtube_link,
-          'created_at' => Carbon::now(),
-        ]);
-        DB::table('users')->where('id', Auth::user()->id)->update([
-          'limite' => Auth::user()->limite-1,
-        ]);
+        if (Auth::user()->account_role == "Agent") {
+          DB::table('projects')->insert([
+            'code' => 'PROJ_' . date('YmdHisv'),
+            'user_id' => Auth::id(),
+            'status' => 1,
+            'title' => $request->title,
+            'slug' => $slug,
+            'meta_description' => $request->meta_desc,
+            'description' => $request->description,
+            'images' => $JsonImage,
+            'category' => $request->category,
+            'city' => $request->city,
+            'state' => $request->state,
+            'location' => $request->country,
+            'address' => $request->address,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'flat_blocks' => $request->flat_blocks,
+            'flat_floors' => $request->flat_floors,
+            'flat_number' => $request->flat_number,
+            'low_price' => $request->low_price,
+            'max_price' => $request->max_price,
+            'facilities' => $JsonFacility,
+            'features' => $JsonFeature,
+            'distance' => $JsonDistance,
+            'youtube_thumb' => $meta_image_rename,
+            'youtube_link' => $request->youtube_link,
+            'created_at' => Carbon::now(),
+          ]);
+        }else {
+          DB::table('projects')->insert([
+            'code' => 'PROJ_' . date('YmdHisv'),
+            'user_id' => Auth::user()->created_by,
+            'status' => 1,
+            'title' => $request->title,
+            'slug' => $slug,
+            'meta_description' => $request->meta_desc,
+            'description' => $request->description,
+            'images' => $JsonImage,
+            'category' => $request->category,
+            'city' => $request->city,
+            'state' => $request->state,
+            'location' => $request->country,
+            'address' => $request->address,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'flat_blocks' => $request->flat_blocks,
+            'flat_floors' => $request->flat_floors,
+            'flat_number' => $request->flat_number,
+            'low_price' => $request->low_price,
+            'max_price' => $request->max_price,
+            'facilities' => $JsonFacility,
+            'features' => $JsonFeature,
+            'distance' => $JsonDistance,
+            'youtube_thumb' => $meta_image_rename,
+            'youtube_link' => $request->youtube_link,
+            'created_at' => Carbon::now(),
+          ]);
+        }
+        if (Auth::user()->account_role == "Agent") {
+          DB::table('users')->where('id', Auth::user()->id)->update([
+            'limite' => Auth::user()->limite-1,
+          ]);
+        }else {
+          DB::table('users')->where('id', Auth::user()->created_by)->update([
+            'limite' => $agent_limite-1,
+          ]);
+        }
         ActivityHappened::dispatch(Auth::id(), 'A project has been created.');
 
         if (Auth::user()->account_role == "Agent") {
           return back()->with('success', 'Your project has been created. Wating for verify!');
         }else {
-          return redirect()->route('indexProject')->with('success', 'Your project has been created. Now you should change the status.');
+          return back()->with('success', 'Your project has been created. Now you should change the status.');
         }
     }
 
@@ -151,7 +195,7 @@ class ProjectController extends Controller
       $slug = Str::slug($request->title);
 
       DB::table('projects')->where('id', $request->id)->update([
-        'user_id' => Auth::id(),
+        // 'user_id' => Auth::id(),
         'status' => 0,
         'title' => $request->title,
         'slug' => $slug,
@@ -182,7 +226,7 @@ class ProjectController extends Controller
       if (Auth::user()->account_role == "Agent") {
         return redirect()->route('MyProject')->with('success', 'Your project has been updated. Wating for verify!');
       }else {
-        return redirect()->route('/project-list')->with('success', 'Your project has been updated.');
+        return back()->with('success', 'Your project has been updated.');
       }
     }
 

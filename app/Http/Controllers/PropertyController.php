@@ -249,7 +249,7 @@ class PropertyController extends Controller
 
       ActivityHappened::dispatch(Auth::id(), 'A property has been updated.');
 
-      return back()->with('success', 'Your property has been updated. Wating for verify!');
+      return back()->with('success', 'Your property has been updated.');
     }
 
     public function softDeleteProperties(Request $request)

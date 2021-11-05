@@ -115,7 +115,7 @@
                 {{-- <li><a href="{!! route('agent.transaction.withdraw.requests') !!}"><i class="flaticon-user"></i> <span>Payment History</span></a></li> --}}
                 <li class="title"><span>Manage Account</span></li>
                 <li><a href="{!! route('agent.roles') !!}"> <i class="fas fa-user"></i> <span>Roles & Permission</span></a></li>
-                <li><a href="{!! route('users.agent.index') !!}"> <i class="fas fa-users"></i> <span>Tenant/Service Providers</span></a></li>
+                <li><a href="{!! route('users.agent.index') !!}"> <i class="fas fa-users"></i> <span>Service Providers</span></a></li>
                 <li><a href="{!! route('packageHistory') !!}"><i class="flaticon-box"></i> <span>My Package</span></a></li>
                 <li><a href="{!! route('agent.profile') !!}"><i class="flaticon-user"></i> <span>My Profile</span></a></li>
                 @endif

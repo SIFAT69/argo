@@ -274,7 +274,7 @@ Route::group(['middleware' => ['auth','agent', 'agentstuff']], function () {
         Route::get('/agency-settings-profile', [AgentController::class, 'agentProfile'])->name('agent.profile');
         Route::put('/agent-profile-information/{userId}', [AgentController::class, 'updateProfileInformation'])->name('update.agent.profile.information');
         Route::put('/agent-profile-socialMedia/{userId}', [AgentController::class, 'updateProfileSocialMedia'])->name('update.agent.profile.socialMedia');
-        Route::put('/agent-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.password');
+        Route::post('/agent-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.passwords');
 
 
         Route::post('/agencies/properties-create-post', [PropertyController::class, 'property_post'])->name('agency.property_post');
@@ -284,6 +284,7 @@ Route::group(['middleware' => ['auth','agent', 'agentstuff']], function () {
         Route::post('/agencies/my-properties/update/{id}', [PropertyController::class, 'createPropertyEditPost'])->name('MyPropertiesUpdate');
         Route::get('/agencies/my-properties/assign/{id}', [AgentController::class, 'MyPropertiesAssign'])->name('MyPropertiesAssign');
         Route::post('/agencies/my-properties/assign/{id}', [AgentController::class, 'StoreMyPropertiesAssign'])->name('StoreMyPropertiesAssign');
+        Route::post('/agencies/my-properties/assign/{id}', [AgentController::class, 'StoreMyProjectAssign'])->name('StoreMyProjectAssign');
         Route::get('/agencies/properties-hard-delete/{id}', [PropertyController::class, 'HardDeleteProperty'])->name('agent.HardDeleteProperty');
         //Profile End
 
@@ -504,7 +505,7 @@ Route::group(['middleware' => ['auth', 'servicerequest']], function () {
   Route::get('/services-settings-profile', [AgentController::class, 'agentProfile'])->name('services.profile');
   Route::put('/services-profile-information/{userId}', [AgentController::class, 'updateProfileInformation'])->name('update.service.profile.information');
   Route::put('/agent-profile-socialMedia/{userId}', [AgentController::class, 'updateProfileSocialMedia'])->name('update.agent.profile.socialMedia');
-  Route::put('/agent-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.password');
+  Route::put('/services-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.password');
 
 });
 

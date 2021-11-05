@@ -22,6 +22,11 @@ class ServicerequestController extends Controller
             $servicesRequests = DB::table('servicerequests')->where('agent_id', Auth::id())->get();
             return view('Agent.Services.index',compact('servicesRequests'));
         }
+        if(Auth::user()->account_role == "Agent Stuff")
+        {
+            $servicesRequests = DB::table('servicerequests')->where('agent_id', Auth::user()->created_by)->get();
+            return view('Agent.Services.index',compact('servicesRequests'));
+        }
         if(Auth::user()->account_role == "Tenant"){
             $servicesRequests = DB::table('servicerequests')->where('user_id', Auth::id())->get();
             return view('Tanent.Services.services',compact('servicesRequests'));
@@ -60,10 +65,10 @@ class ServicerequestController extends Controller
 
         if($request->type == "Project")
         {
-            echo $agent_id = DB::table('projects')->where('code', $request->code_id)->value('user_id');
+             $agent_id = DB::table('projects')->where('code', $request->code_id)->value('user_id');
         }
         else{
-            echo $agent_id = DB::table('properties')->where('code', $request->code_id)->value('user_id');
+             $agent_id = DB::table('properties')->where('code', $request->code_id)->value('user_id');
         }
         DB::table('servicerequests')->insert([
             'title' => $request->title,
@@ -96,6 +101,8 @@ class ServicerequestController extends Controller
         $servicesExpense = DB::table('expenses')->where('request_id',  $ServiceRequest->id)->get();
         if(Auth::user()->account_role == "Agent"){
             return view('Agent.Services.show',compact('ServiceRequest','servicesComments','servicesExpense'));
+        }else if (Auth::user()->account_role == "Agent Stuff") {
+          return view('Agent.Services.show',compact('ServiceRequest','servicesComments','servicesExpense'));
         }else if(Auth::user()->account_role == "Tenant"){
             return view('Tanent.Services.show',compact('ServiceRequest','servicesComments','servicesExpense'));
         }else {

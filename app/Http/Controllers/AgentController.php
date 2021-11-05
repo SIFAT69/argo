@@ -30,18 +30,20 @@ class AgentController extends Controller
       if (Auth::user()->account_role == 'Agent') {
         // code...
         $count_of_properties = Property::where('user_id', Auth::id())->count();
+        $count_of_project = Project::where('user_id', Auth::id())->count();
         $totalViewsProject = DB::table('views')->where('to_id', Auth::id())->where('post_table', 'projects')->sum('view_count');
         $totalViewsProperties = DB::table('views')->where('to_id', Auth::id())->where('post_table', 'properties')->sum('view_count');
         $totalView = $totalViewsProject + $totalViewsProperties;
         $logs = ActivityLog::where('user_id', Auth::id())->orderBy('id', 'desc')->limit(5)->get();
       }else {
         $count_of_properties = Property::where('user_id', Auth::user()->created_by)->count();
+        $count_of_project = Project::where('user_id', Auth::user()->created_by)->count();
         $totalViewsProject = DB::table('views')->where('to_id', Auth::user()->created_by)->where('post_table', 'projects')->sum('view_count');
         $totalViewsProperties = DB::table('views')->where('to_id', Auth::user()->created_by)->where('post_table', 'properties')->sum('view_count');
         $totalView = $totalViewsProject + $totalViewsProperties;
         $logs = ActivityLog::where('user_id', Auth::user()->created_by)->orderBy('id', 'desc')->limit(5)->get();
       }
-      return view('Agent.Dashboard.dashboard', compact('count_of_properties','totalView', 'logs'));
+      return view('Agent.Dashboard.dashboard', compact('count_of_properties','count_of_project','totalView', 'logs'));
     }
 
 	public function agentProfile()
@@ -337,6 +339,66 @@ class AgentController extends Controller
 
     Property::where('id', $id)->update(['assigned_to' => $request->tenant_id]);
     return redirect()->route('MyProperties')->with('success', 'Successfully assigned');
+  }
+
+  public function StoreMyProjectAssign(Request $request, $id)
+  {
+    $request->validate([
+      'tenant_id' => 'bail|required|integer',
+      'description' => 'required',
+      'contract_interval_amount' => 'required',
+      'contract_interval' => 'required',
+    ]);
+
+     $contract_duration = $request->contract_interval_amount." ".$request->contract_interval;
+
+     if($request->hasfile('files')) {
+        foreach($request->file('files') as $file)
+        {
+            $name = $file->getClientOriginalName();
+            $file->move(public_path().'/uploads/Files/', $name);
+            $imgData[] = $name;
+
+        }
+        $ContractFiles  =  json_encode($imgData);
+    }else{
+        $ContractFiles = 'NULL';
+    }
+
+    if (Auth::user()->account_role == "Agent") {
+      DB::table('contracts')
+      ->insert([
+        'contract_name' => $request->tanent_name,
+        'contract_property' => $request->property_name,
+        'contract_property_id' => $request->contract_property_id,
+        'contract_property_type' => $request->contract_property_code,
+        'description' => $request->description,
+        'tenant_id' => $request->tenant_id,
+        'agent_id' => Auth::id(),
+        'contract_duration' => $contract_duration,
+        'status' => 'Active',
+        'files' => $ContractFiles,
+        'created_at' => Carbon::now(),
+      ]);
+    }else {
+      DB::table('contracts')
+      ->insert([
+        'contract_name' => $request->tanent_name,
+        'contract_property' => $request->property_name,
+        'contract_property_id' => $request->contract_property_id,
+        'contract_property_type' => $request->contract_property_code,
+        'description' => $request->description,
+        'tenant_id' => $request->tenant_id,
+        'agent_id' => Auth::user()->created_by,
+        'contract_duration' => $contract_duration,
+        'status' => 'Active',
+        'files' => $ContractFiles,
+        'created_at' => Carbon::now(),
+      ]);
+    }
+
+    Project::where('id', $id)->update(['assigned_to' => $request->tenant_id]);
+    return back()->with('success', 'Successfully assigned');
   }
 
   public function MyProjectsAssign($id)

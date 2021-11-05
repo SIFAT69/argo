@@ -22,6 +22,12 @@
             <div class="col-lg-9 col-xl-10 maxw100flex-992">
                 <div class="row">
                     @include('layouts.menu.agentmenu')
+                    <div class="col-lg-12 mb10">
+                      <div class="breadcrumb_content style2">
+                        <h2 class="breadcrumb_title">Hello, {{ Auth::user()->name }}!</h2>
+                        <p>We are glad to see you again!</p>
+                      </div>
+                    </div>
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
                         <div class="ff_one">
                             <div class="icon"><span class="flaticon-home"></span></div>
@@ -35,7 +41,7 @@
                         <div class="ff_one style3">
                             <div class="icon"><span class="flaticon-home"></span></div>
                             <div class="detais">
-                                <div class="timer">{{ DB::table('projects')->where('user_id', Auth::id())->count() }}</div>
+                                <div class="timer">{{ $count_of_project }}</div>
                                 <p>Total Projects</p>
                             </div>
                         </div>

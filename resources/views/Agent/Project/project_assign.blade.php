@@ -20,7 +20,7 @@ Assign project
         <br>
         <br>
         <br>
-        <form class="needs-validation" novalidate action="{!! route('StoreMyPropertiesAssign', $project->id) !!}" method="post" enctype="multipart/form-data">
+        <form class="needs-validation" novalidate action="{!! route('StoreMyProjectAssign', $project->id) !!}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="property_name" value=" {{ $project->title }} ">
             <input type="hidden" name="contract_property_id" value=" {{ $project->id }} ">

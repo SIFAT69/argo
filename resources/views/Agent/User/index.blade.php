@@ -1,6 +1,6 @@
 @extends('layouts.agent')
 @section('page_title')
-  - Users & Roles/Permission
+  - Service Providers
 @endsection
 @section('content')
 <section class="our-dashbord dashbord bgc-f7 pb50">

@@ -3,6 +3,17 @@
 - Landlord List
 @endsection
 @section('content')
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+      $(document).ready(function() {
+          $("#myInput").on("keyup", function() {
+              var value = $(this).val().toLowerCase();
+              $("#myTable tr").filter(function() {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+          });
+      });
+  </script>
 <section class="our-dashbord dashbord bgc-f7 pb50">
     <div class="container-fluid">
         <div class="row">
@@ -11,16 +22,24 @@
                 <div class="row">
                     @include('layouts.menu.agentmenu')
                     <div class="col-lg-12 col-xl-12">
+
                         <div class="candidate_revew_select style2 text-right mb30-991">
                             <ul class="mb0">
                                 <li class="list-inline-item">
                                     <div class="candidate_revew_search_box course fn-520">
-                                        <a class="btn btn-success text-white mb-2" href="{!! route('Landlord.create') !!}"> Create Landlords </a>
+                                        <form class="form-inline my-2">
+                                            <input class="form-control mr-sm-2" type="search" id="myInput" placeholder="Search landlords" aria-label="Search">
+                                            <button class="btn my-2 my-sm-0" type="submit"><span class="flaticon-magnifying-glass"></span></button>
+                                        </form>
                                     </div>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="{!! route('Landlord.create') !!}" class="btn btn-success">Create Landlords</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
+
                     <div class="col-lg-12">
                         @include('Alerts.success')
                         @include('Alerts.danger')

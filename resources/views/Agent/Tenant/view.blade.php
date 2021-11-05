@@ -13,6 +13,7 @@
         @include('Alerts.success')
         @include('Alerts.danger')
           <div class="widget-content widget-content-area br-6">
+            <a href="{!! route('users.agent.create') !!}" class="btn btn-info float-right" style="margin: 1rem">Create Tenant</a>
               <a href="{!! route('AgentDashboard') !!}" class="btn btn-danger float-right" style="margin: 1rem">Go Back</a>
               <br>
               <br>

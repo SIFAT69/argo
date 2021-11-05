@@ -19,7 +19,11 @@ class AgentfeaturesController extends Controller
 {
     public function agentsFeaturesList(Request $request)
     {
-      $features = DB::table('agentfeatures')->where('added_by', Auth::id())->get();
+      if (Auth::user()->account_role == 'Agent') {
+        $features = DB::table('agentfeatures')->where('added_by', Auth::id())->get();
+      }else {
+        $features = DB::table('agentfeatures')->where('added_by', Auth::user()->created_by)->get();
+      }
       return view('Agent.Feature.feature',compact('features'));
     }
 
@@ -35,20 +39,34 @@ class AgentfeaturesController extends Controller
 
     public function agentsFeaturesPost(Request $request)
     {
-      DB::table('agentfeatures')->insert([
-        'feature' => $request->feature,
-        'added_by' => Auth::id(),
-      ]);
+      if (Auth::user()->account_role == 'Agent') {
+        DB::table('agentfeatures')->insert([
+          'feature' => $request->feature,
+          'added_by' => Auth::id(),
+        ]);
+      }else {
+        DB::table('agentfeatures')->insert([
+          'feature' => $request->feature,
+          'added_by' => Auth::user()->created_by,
+        ]);
+      }
 
       return back()->with('success', 'You have successfully added a new feature!');
     }
 
     public function agentsFeaturesUpdate(Request $request)
     {
-      DB::table('agentfeatures')->where('id', $request->id)->update([
-        'feature' => $request->feature,
-        'added_by' => Auth::id(),
-      ]);
+      if (Auth::user()->account_role == 'Agent') {
+        DB::table('agentfeatures')->where('id', $request->id)->update([
+          'feature' => $request->feature,
+          'added_by' => Auth::id(),
+        ]);
+      }else {
+        DB::table('agentfeatures')->where('id', $request->id)->update([
+          'feature' => $request->feature,
+          'added_by' => Auth::user()->created_by,
+        ]);
+      }
 
       return back()->with('success', 'You have successfully updated a new feature!');
     }

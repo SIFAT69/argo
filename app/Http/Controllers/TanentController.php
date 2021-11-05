@@ -58,12 +58,12 @@ class TanentController extends Controller
         $newLocation = 'uploads/'.$profile_picture_rename;
         Image::make($profile_picture)->resize(100, 100)->save($newLocation,100);
 
-        DB::table('users')->where('id', Auth::id())->update([
+        DB::table('users')->where('id', Auth::user()->email)->update([
             'avatar' => $profile_picture_rename,
         ]);
         }
 
-        User::where('id', Auth::id())->update($data);
+        User::where('id', Auth::user()->email)->update($data);
         ActivityHappened::dispatch(Auth::id(), 'User profile information has been updated.');
 
 		return back()->with('success', "Profile Information is Updated");
@@ -218,14 +218,14 @@ class TanentController extends Controller
         'name' => $request->name,
         'email' => $request->email,
         'password' => Hash::make($password),
-        'account_role' => 'Tenant',
+        'account_role' => $request->account_role,
         'created_by' => Auth::id(),
     ]);
     ActivityHappened::dispatch(Auth::id(), 'A new user has been created');
 
     Mail::to($request->email)->send(new TenantCreated($request->email, $password));
 
-    return redirect()->route('MyInbox')->with('success', 'User account is created successfully');
+    return back()->with('success', 'User account is created successfully');
   }
 
   public function stuff_create()
@@ -265,7 +265,21 @@ class TanentController extends Controller
 
   public function AgentTenant(Request $request)
   {
+    if (Auth::user()->account_role == "Agent") {
       $tenants = DB::table('users')->where('created_by', Auth::id())->where('account_role', 'Tenant')->get();
+    }else {
+      $tenants = DB::table('users')->where('created_by', Auth::user()->created_by)->where('account_role', 'Tenant')->get();
+    }
+      return view('Agent.Tenant.view',compact('tenants'));
+  }
+
+  public function AgentServiceProviders(Request $request)
+  {
+    if (Auth::user()->account_role == "Agent") {
+      $tenants = DB::table('users')->where('created_by', Auth::id())->where('account_role', 'Tenant')->get();
+    }else {
+      $tenants = DB::table('users')->where('created_by', Auth::user()->created_by)->where('account_role', 'Tenant')->get();
+    }
       return view('Agent.Tenant.view',compact('tenants'));
   }
 

@@ -17,7 +17,11 @@ class AgentcategoriesController extends Controller
      */
     public function index()
     {
+      if (Auth::user()->account_role == "Agent") {
         $categories = DB::table('agentcategories')->where('added_by', Auth::id())->get();
+      }else {
+        $categories = DB::table('agentcategories')->where('added_by', Auth::user()->created_by)->get();
+      }
         return view('Agent.Categories.categories',compact('categories'));
     }
 
@@ -28,6 +32,11 @@ class AgentcategoriesController extends Controller
      */
     public function create()
     {
+      if (Auth::user()->account_role == "Agent") {
+
+      }else {
+
+      }
         return view('Agent.Categories.create');
     }
 
@@ -39,11 +48,19 @@ class AgentcategoriesController extends Controller
      */
     public function store(Request $request)
     {
+      if (Auth::user()->account_role == "Agent") {
         DB::table('agentcategories')->insert([
-            'name' => $request->name,
-            'added_by' => $request->added_by,
-            'created_at' => Carbon::now(),
+          'name' => $request->name,
+          'added_by' => $request->added_by,
+          'created_at' => Carbon::now(),
         ]);
+      }else {
+        DB::table('agentcategories')->insert([
+          'name' => $request->name,
+          'added_by' => Auth::user()->created_by,
+          'created_at' => Carbon::now(),
+        ]);
+      }
 
         return back()->with('success', 'Your category has been created successfully!');
     }
@@ -80,11 +97,19 @@ class AgentcategoriesController extends Controller
      */
     public function update(Request $request)
     {
+      if (Auth::user()->account_role == "Agent") {
         DB::table('agentcategories')->where('id', $request->id)->update([
-            'name' => $request->name,
-            'added_by' => $request->added_by,
-            'updated_at' => Carbon::now(),
+          'name' => $request->name,
+          'added_by' => $request->added_by,
+          'updated_at' => Carbon::now(),
         ]);
+      }else {
+        DB::table('agentcategories')->where('id', $request->id)->update([
+          'name' => $request->name,
+          'added_by' => Auth::user()->created_by,
+          'updated_at' => Carbon::now(),
+        ]);
+      }
 
         return back()->with('success', 'Your category has been updated!');
     }

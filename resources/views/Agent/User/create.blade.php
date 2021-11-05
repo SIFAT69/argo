@@ -3,6 +3,9 @@
 Create New Tenant
 @endsection
 @section('content')
+  @php
+    $user = Auth::user();
+  @endphp
 <section class="our-dashbord dashbord bgc-f7 pb50">
     <div class="container-fluid">
         <div class="row">
@@ -50,6 +53,18 @@ Create New Tenant
                                                 <div class="my_profile_setting_input form-group">
                                                     <label for="formGroupExampleEmail">Email</label>
                                                     <input type="email" class="form-control" id="formGroupExampleEmail" name="email" required>
+                                                    @error('email')
+                                                        @include('layouts.atom.error')
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-xl-12">
+                                                <div class="my_profile_setting_input form-group">
+                                                    <label for="formGroupExampleEmail">Select Roles</label>
+                                                    <select name="account_role" id="" class="form-control">
+                                                        <option value="Tenant" @if($user->account_role == "Tenant") selected @endif>Tenant</option>
+                                                        <option value="Service Providers" @if($user->account_role == "Service Providers") selected @endif>Service Providers</option>
+                                                    </select>
                                                     @error('email')
                                                         @include('layouts.atom.error')
                                                     @enderror

@@ -260,9 +260,9 @@
                                     <h4>Change password</h4>
                                 </div>
                                 <div class="col-xl-10">
-                                   <form action="{{ route('update.agent.profile.password', $user->id) }}" method="POST">
+                                   <form action="{{ route('update.agent.profile.passwords', $user->id) }}" method="POST">
                                        @csrf
-                                       @method("PUT")
+                                       {{-- @method("PUT") --}}
                                        <div class="row">
                                             <div class="col-xl-6">
                                                 <div class="my_profile_setting_input form-group">
