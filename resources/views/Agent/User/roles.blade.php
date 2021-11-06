@@ -13,9 +13,9 @@
         @include('Alerts.success')
         @include('Alerts.danger')
           <div class="widget-content widget-content-area br-6">
-              <a href="{!! route('agent.stuff.create') !!}" class="btn btn-success float-right" style="margin: 1rem">Create Stuff</a>
+              
               <a href="{!! route('agent.create.roles') !!}" class="btn btn-warning float-right" style="margin: 1rem">Create Role</a>
-              <a href="{!! route('agent.stuff') !!}" class="btn btn-info float-right" style="margin: 1rem">See Stuff's</a>
+              {{-- <a href="{!! route('agent.stuff') !!}" class="btn btn-info float-right" style="margin: 1rem">See Stuff's</a> --}}
               <br>
               <br>
               <br>

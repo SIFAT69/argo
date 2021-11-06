@@ -43,6 +43,7 @@ use App\Http\Controllers\{
   ConnectstripeController,
   AgentfacilityController,
   RolesController,
+  TaskController,
 };
 
 use App\Events\ActivityHappened;
@@ -256,6 +257,13 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 Route::group(['middleware' => ['auth','agent', 'agentstuff']], function () {
     Route::middleware('agent')->group(function(){
         Route::get('/agency-dashbord',[AgentController::class, 'AgentDashboard'])->name('AgentDashboard');
+
+        // Task Start
+        Route::get('/my-task', [TaskController::class, 'index'])->name('agent.task');
+        Route::post('/my-task/save', [TaskController::class, 'save'])->name('agent.store');
+        Route::post('/my-task/update/{id}/save', [TaskController::class, 'update'])->name('agent.update');
+        Route::get('/my-task/delete/{id}', [TaskController::class, 'delete'])->name('agent.delete');
+        // Task End
 
         // Roles And Permission Start
         Route::get('agent/roles/', [RolesController::class, 'index'])->name('agent.roles');

@@ -57,7 +57,7 @@ class SettingController extends Controller
         );
 
         ActivityHappened::dispatch(Auth::id(), 'Meta keyword has been updated.');
-        
+
         return back()->with('success', "Successfully updated");
     }
 
@@ -66,7 +66,7 @@ class SettingController extends Controller
         $generalContact = GeneralContact::find(1);
         if(!$generalContact)
             $generalContact = new GeneralContact;
-            
+
         return view('Dashboard.Settings.generalContact_edit', ['generalContact' => $generalContact]);
     }
 
@@ -89,7 +89,7 @@ class SettingController extends Controller
             ['id' => 1],
             $data
         );
-        
+
         ActivityHappened::dispatch(Auth::id(), 'The general contact has been updated.');
 
         return back()->with('success', "Successfully updated");
@@ -120,7 +120,7 @@ class SettingController extends Controller
         );
 
         ActivityHappened::dispatch(Auth::id(), 'The email configuration has been updated.');
-        
+
         return back()->with('success', "Successfully updated");
     }
 

@@ -10,7 +10,7 @@ Create New Tenant
             <div class="col-lg-9 col-xl-10 maxw100flex-992">
                 <div class="row">
                     @include('layouts.menu.agentmenu')
-                    <a href="{!! route('agent.roles') !!}" class="btn btn-danger float-right" style="margin: 1rem">Go Back</a>
+                    <a href="{!! route('agent.stuff') !!}" class="btn btn-danger float-right" style="margin: 1rem">Go Back</a>
                     {{-- {{ $user }} --}}
                     <div class="col-lg-12">
 
@@ -50,6 +50,24 @@ Create New Tenant
                                                 <div class="my_profile_setting_input form-group">
                                                     <label for="formGroupExampleEmail">Email</label>
                                                     <input type="email" class="form-control" id="formGroupExampleEmail" name="email" required>
+                                                    @error('email')
+                                                        @include('layouts.atom.error')
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            @php
+                                              $roles = DB::table('roles')->where('created_by', Auth::id())->get();
+                                            @endphp
+                                            <div class="col-lg-12 col-xl-12">
+                                                <div class="my_profile_setting_input form-group">
+                                                    <label for="formGroupExampleEmail">Select Roles</label>
+                                                    <select name="account_role" id="" class="form-control">
+                                                      @forelse ($roles as $role)
+                                                        <option value="{{ $role->rolesname }}">{{ $role->rolesname }}</option>
+                                                      @empty
+                                                        <option value="NULL"> No roles created yet! </option>
+                                                      @endforelse
+                                                    </select>
                                                     @error('email')
                                                         @include('layouts.atom.error')
                                                     @enderror

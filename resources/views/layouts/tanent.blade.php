@@ -51,7 +51,7 @@
                 <li class="header"><img src="{{ asset('/uploads/header-logo.png') }}" alt="header logo"></li>
                 <li class="title"><span>Main</span></li>
                 <li class="treeview"><a href="{!! route('TanentDashboard') !!}"><i class="flaticon-layers"></i><span> Dashboard</span></a></li>
-                <li class="treeview"><a href="{!! route('tenant.message.tenantIndex', [$name->name, $name->id]) !!}"><i class="flaticon-envelope"></i><span>Tenant Message</span></a></li>
+                <li class="treeview"><a href="{!! route('tenant.message.tenantIndex', [$name->name, $name->id]) !!}"><i class="flaticon-envelope"></i><span>Message</span></a></li>
                 <li class="title"><span>Manage Listings</span></li>
                 <li class="treeview">
                     <a href="{!! route('tanents.properties.index') !!}"><i class="flaticon-home"></i> <span> My Properties</span></a>
@@ -60,7 +60,7 @@
                 <li><a href="{!! route('services.request.index') !!}"><i class="fas fa-cogs"></i> <span> Service Requests</span></a></a></li>
                 <li><a href="{!! route('contracts.tenant.index') !!}"><i class="fas fa-funnel-dollar"></i> <span> Contracts</span></a></a></li>
                 <li class="title"><span>Manage Account</span></li>
-                <li><a href="{!! route('tenant.payments.history') !!}"><i class="flaticon-user"></i> <span>My Payments</span></a></li>
+                <li><a href="{!! route('tenant.payments.history') !!}"><i class="fas fa-dollar"></i> <span>My Payments</span></a></li>
                 <li><a href="{!! route('tanent.profile') !!}"><i class="flaticon-user"></i> <span>My Profile</span></a></li>
                 <li class="title"><span>Session</span></li>
                 <li><a href="{!! route('welcome') !!}"><i class="flaticon-back"></i> <span>Back To Website</span></a></li>

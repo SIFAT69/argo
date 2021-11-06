@@ -116,6 +116,8 @@
                 <li class="title"><span>Manage Account</span></li>
                 <li><a href="{!! route('agent.roles') !!}"> <i class="fas fa-user"></i> <span>Roles & Permission</span></a></li>
                 <li><a href="{!! route('users.agent.index') !!}"> <i class="fas fa-users"></i> <span>Service Providers</span></a></li>
+                <li><a href="{!! route('agent.stuff') !!}"> <i class="fas fa-users"></i> <span>Stuffs</span></a></li>
+                <li><a href="{!! route('agent.task') !!}"> <i class="fas fa-list"></i> <span>My Task</span></a></li>
                 <li><a href="{!! route('packageHistory') !!}"><i class="flaticon-box"></i> <span>My Package</span></a></li>
                 <li><a href="{!! route('agent.profile') !!}"><i class="flaticon-user"></i> <span>My Profile</span></a></li>
                 @endif

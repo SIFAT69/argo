@@ -19,6 +19,8 @@
               <li><a href="{!! route('agent.transaction.history') !!}"><span class="flaticon-box"></span> My Wallet</a></li>
               <li><a href="{!! route('agent.roles') !!}"> <span class="fas fa-users"></span> Roles & Permission</a></li>
               <li><a href="{!! route('users.agent.index') !!}"> <span class="fas fa-users"></span> Service Providers</a></li>
+              <li><a href="{!! route('agent.stuff') !!}"> <span class="fas fa-users"></span> Stuffs</a></li>
+              <li><a href="{!! route('agent.task') !!}"> <span class="fas fa-list"></span> My Task</a></li>
               <li><a href="{!! route('packageHistory') !!}"><span class="flaticon-box"></span> My Package</a></li>
               <li><a href="{!! route('agent.profile') !!}"><span class="flaticon-user"></span> My Profile</a></li>
               @endif
