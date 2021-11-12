@@ -325,7 +325,7 @@ Argo
 							<div class="sl_creator">
 								<h4 class="mb25">Listed By</h4>
 								<div class="media">
-									<img class="mr-3" src="/uploads/{{ $propertyOwner->avatar }}" style="border-radius:50px;" alt="Property Owner Image">
+									<img class="mr-3" src="/uploads/{{ $propertyOwner->avatar }}" style="border-radius:50px; width: 55px" alt="Property Owner Image">
 									<div class="media-body">
 								    	<h5 class="mt-0 mb0">{{ $propertyOwner->name }}</h5>
 								    	<p class="mb0">{{ $propertyOwner->phoneNumber ?? 'No Phone' }}</p>

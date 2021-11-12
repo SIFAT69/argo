@@ -196,7 +196,7 @@ class ProjectController extends Controller
 
       DB::table('projects')->where('id', $request->id)->update([
         // 'user_id' => Auth::id(),
-        'status' => 0,
+        'status' => 1,
         'title' => $request->title,
         'slug' => $slug,
         'meta_description' => $request->meta_desc,

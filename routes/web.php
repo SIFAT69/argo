@@ -44,6 +44,7 @@ use App\Http\Controllers\{
   AgentfacilityController,
   RolesController,
   TaskController,
+  CalenderController,
 };
 
 use App\Events\ActivityHappened;
@@ -258,6 +259,14 @@ Route::group(['middleware' => ['auth','agent', 'agentstuff']], function () {
     Route::middleware('agent')->group(function(){
         Route::get('/agency-dashbord',[AgentController::class, 'AgentDashboard'])->name('AgentDashboard');
 
+        // Calender Start
+        Route::get('/calender-and-appointment',[CalenderController::class, 'index'])->name('calender.index');
+        Route::get('/all/appointment',[CalenderController::class, 'appointments'])->name('calender.appointments');
+        Route::post('/all/appointment/post',[CalenderController::class, 'appointmentsSave'])->name('calender.appointments.save');
+        Route::get('/all/appointment/status/{id}',[CalenderController::class, 'appointmentsStatus'])->name('calender.appointments.status');
+        Route::get('/all/appointment/delete/{id}',[CalenderController::class, 'appointmentsDelete'])->name('calender.appointments.delete');
+        // Calender End
+
         // Task Start
         Route::get('/my-task', [TaskController::class, 'index'])->name('agent.task');
         Route::post('/my-task/save', [TaskController::class, 'save'])->name('agent.store');
@@ -352,6 +361,7 @@ Route::group(['middleware' => ['auth','agent', 'agentstuff']], function () {
         // Tenant Create Start
         Route::get('agencies/tenants/', [TanentController::class, 'AgentTenant'])->name('AgentTenant');
         Route::get('agencies/tenant/show/{id}', [TanentController::class, 'AgentTenantShow'])->name('AgentTenantShow');
+        Route::get('agencies/stuff/show/{id}', [TanentController::class, 'AgentTenantShow'])->name('AgentStuffShow');
         Route::get('agencies/tenant/{id}/edit/', [TanentController::class, 'AgentTenantEdit'])->name('AgentTenantEdit');
         Route::get('agencies/tenant/{id}/destroy/', [TanentController::class, 'AgentTenantDestroy'])->name('AgentTenantDestroy');
         // Tenant Create End

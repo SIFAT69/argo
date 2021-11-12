@@ -16,7 +16,7 @@
         @include('Alerts.success')
         @include('Alerts.danger')
           <div class="widget-content widget-content-area br-6">
-              <a href="{!! route('agent.stuff.create') !!}" class="btn btn-success float-right" style="margin: 1rem">Create Stuff</a>
+              <a href="{!! route('agent.stuff.create') !!}" class="btn btn-success float-right" style="margin: 1rem">Create Staff</a>
               {{-- <a href="{!! route('users.agent.index') !!}" class="btn btn-danger float-right" style="margin: 1rem">Go back</a> --}}
               <br>
               <br>
@@ -57,6 +57,7 @@
                                     <td>
                                         <button type="submit" class="btn btn-outline-success rounded bs-tooltip" data-placement="top" title="Save"><img src="https://img.icons8.com/material-outlined/24/000000/save--v4.png" /></button>
                                     </form>
+                                    <a href="{!! route('AgentTenantEdit', $user->id) !!}" class="btn btn-outline-info rounded bs-tooltip" data-placement="top" title="View"><img src="https://img.icons8.com/material-sharp/24/000000/edit--v1.png" width="25px" /></a>
                                     <a href="{!! route('AgentTenantShow', $user->id) !!}" class="btn btn-outline-info rounded bs-tooltip" data-placement="top" title="View"><img src="https://img.icons8.com/ios/50/000000/visible.png" width="25px" /></a>
                                     @if (empty($user->deleted_at))
                                     <a href="{!! route('AgentTenantDestroy', $user->id) !!}" class="btn btn-outline-danger rounded bs-tooltip" data-placement="top" title="Lock"><img src="https://img.icons8.com/ios-filled/64/000000/lock.png"  width="24px"/></a>
@@ -69,7 +70,7 @@
 
                             @empty
                             <tr>
-                                <td colspan="5" class="text-center">No Stuff created yet!</td>
+                                <td colspan="5" class="text-center">No Staff created yet!</td>
                             </tr>
                             @endforelse
                         </tbody>

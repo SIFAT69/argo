@@ -67,6 +67,7 @@ Create New Tenant
                                                     @enderror
                                                 </div>
                                             </div>
+                                            
                                             <div class="col-xl-12 text-right">
                                                 <div class="my_profile_setting_input">
                                                     <button type="submit" class="btn btn2">Create Now</button>

@@ -81,6 +81,7 @@ class LandlordController extends Controller
      */
     public function show(Request $request)
     {
+        $landlord = DB::table('landlords')->where('id', $request->id)->first();
         return view('Agent.Landlords.view',compact('landlord'));
     }
 

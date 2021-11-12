@@ -25,6 +25,21 @@ class User extends Authenticatable
         'password',
         'account_role',
         'created_by',
+        'license',
+        'taxNumber',
+        'phoneNumber',
+        'faxNumber',
+        'mobileNumber',
+        'language',
+        'companyName',
+        'address',
+        'about',
+        'bank_name',
+        'bank_account',
+        'bank_sort_code',
+        'contact_number',
+        'payment_type',
+        'dob',
     ];
 
     /**

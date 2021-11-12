@@ -105,30 +105,30 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         // dd($request->all());
-		$data =	$request->validate([
-			'name' => 'bail|required|string|max:255',
-			'email' => "bail|required|email|max:255|unique:App\Models\User,email,{$id}",
-			'license' => 'bail|nullable|string|max:255',
-			'taxNumber' => 'bail|nullable|string|max:255',
-			'phoneNumber' => 'bail|nullable|string|max:255',
-			'faxNumber' => 'bail|nullable|string|max:255',
-			'mobileNumber' => 'bail|nullable|string|max:255',
-			'language' => 'bail|nullable|string|max:255',
-			'companyName' => 'bail|nullable|string|max:255',
-			'address' => 'bail|nullable|string|max:2555',
-			'about' => 'bail|nullable|string|max:2555',
-            'skype' => 'bail|nullable|string|max:255',
-			'website' => 'bail|nullable|string|max:255',
-			'facebook' => 'bail|nullable|string|max:255',
-			'twitter' => 'bail|nullable|string|max:255',
-			'linkedin' => 'bail|nullable|string|max:255',
-			'instagram' => 'bail|nullable|string|max:255',
-			'googlePlus' => 'bail|nullable|string|max:255',
-			'youtube' => 'bail|nullable|string|max:255',
-			'pinterest' => 'bail|nullable|string|max:255',
-			'vimeo' => 'bail|nullable|string|max:255',
-			// 'avatar' => 'bail|sometimes|image|mimes:jpeg,jpg,png|dimensions:ratio=1/1',
-		]);
+        		$data =	$request->validate([
+        			'name' => 'bail|required|string|max:255',
+        			'email' => "bail|required|email|max:255|unique:App\Models\User,email,{$id}",
+        			'license' => 'bail|nullable|string|max:255',
+        			'taxNumber' => 'bail|nullable|string|max:255',
+        			'phoneNumber' => 'bail|nullable|string|max:255',
+        			'faxNumber' => 'bail|nullable|string|max:255',
+        			'mobileNumber' => 'bail|nullable|string|max:255',
+        			'language' => 'bail|nullable|string|max:255',
+        			'companyName' => 'bail|nullable|string|max:255',
+        			'address' => 'bail|nullable|string|max:2555',
+        			'about' => 'bail|nullable|string|max:2555',
+              'skype' => 'bail|nullable|string|max:255',
+        			'website' => 'bail|nullable|string|max:255',
+        			'facebook' => 'bail|nullable|string|max:255',
+        			'twitter' => 'bail|nullable|string|max:255',
+        			'linkedin' => 'bail|nullable|string|max:255',
+        			'instagram' => 'bail|nullable|string|max:255',
+        			'googlePlus' => 'bail|nullable|string|max:255',
+        			'youtube' => 'bail|nullable|string|max:255',
+        			'pinterest' => 'bail|nullable|string|max:255',
+        			'vimeo' => 'bail|nullable|string|max:255',
+        			// 'avatar' => 'bail|sometimes|image|mimes:jpeg,jpg,png|dimensions:ratio=1/1',
+        		]);
 
         if (!empty($request->avatar)) {
             $randomNumber =rand();

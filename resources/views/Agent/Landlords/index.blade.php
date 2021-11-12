@@ -22,7 +22,6 @@
                 <div class="row">
                     @include('layouts.menu.agentmenu')
                     <div class="col-lg-12 col-xl-12">
-
                         <div class="candidate_revew_select style2 text-right mb30-991">
                             <ul class="mb0">
                                 <li class="list-inline-item">
@@ -58,7 +57,7 @@
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="myTable">
                                                 @forelse ($landlords as $lordlord)
                                                 <tr>
                                                     <td>{{ $loop->index+1 }}.</td>

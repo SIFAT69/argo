@@ -220,6 +220,21 @@ class TanentController extends Controller
         'password' => Hash::make($password),
         'account_role' => $request->account_role,
         'created_by' => Auth::id(),
+        'license' => $request->license,
+        'taxNumber' => $request->taxNumber,
+        'phoneNumber' => $request->phoneNumber,
+        'faxNumber' => $request->faxNumber,
+        'mobileNumber' => $request->mobileNumber,
+        'language' => $request->language,
+        'companyName' => $request->companyName,
+        'address' => $request->address,
+        'about' => $request->about,
+        'bank_name' => $request->bank_name,
+        'bank_account' => $request->bank_account,
+        'bank_sort_code' => $request->bank_sort_code,
+        'contact_number' => $request->contact_number,
+        'payment_type' => $request->payment_type,
+        'dob' => $request->dob,
     ]);
     ActivityHappened::dispatch(Auth::id(), 'A new user has been created');
 
@@ -255,6 +270,21 @@ class TanentController extends Controller
         'password' => Hash::make($password),
         'account_role' => 'Agent Stuff',
         'created_by' => Auth::id(),
+        'license' => $request->license,
+        'taxNumber' => $request->taxNumber,
+        'phoneNumber' => $request->phoneNumber,
+        'faxNumber' => $request->faxNumber,
+        'mobileNumber' => $request->mobileNumber,
+        'language' => $request->language,
+        'companyName' => $request->companyName,
+        'address' => $request->address,
+        'about' => $request->about,
+        'bank_name' => $request->bank_name,
+        'bank_account' => $request->bank_account,
+        'bank_sort_code' => $request->bank_sort_code,
+        'contact_number' => $request->contact_number,
+        'payment_type' => $request->payment_type,
+        'dob' => $request->dob,
     ]);
     ActivityHappened::dispatch(Auth::id(), 'A new user has been created');
 

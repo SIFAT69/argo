@@ -9,14 +9,22 @@
               <div class="col-lg-3 col-xl-2 dn-992 pl0"></div>
               <div class="col-sm-12 col-lg-8 col-xl-10 maxw100flex-992">
                   <div class="row">
-                      @include('layouts.menu.agentmenu')
+                    @include('layouts.menu.agentmenu')
                       <div class="col-lg-12 col-xl-12">
                           <div class="candidate_revew_select style2 text-right mb30-991">
                               <ul class="mb0">
                                   <li class="list-inline-item">
                                       <div class="candidate_revew_search_box course fn-520">
                                           <a class="btn btn-primary text-white mb-2" href="{!! route('AgentTenantEdit', $tenant->id) !!}">Edit</a>
-                                          <a class="btn btn-danger text-white mb-2" href="{!! route('Landlord.index') !!}">Go Back</a>
+                                            @if(Route::is('Landlord.show') )
+                                            <a class="btn btn-danger text-white mb-2" href="{!! route('Landlord.index') !!}">Go Back</a>
+                                            @endif
+                                            @if(Route::is('AgentTenantShow') )
+                                            <a class="btn btn-danger text-white mb-2" href="{!! route('AgentTenant') !!}">Go Back</a>
+                                            @endif
+                                            @if(Route::is('AgentStuffShow') )
+                                            <a class="btn btn-danger text-white mb-2" href="{!! route('agent.stuff') !!}">Go Back</a>
+                                            @endif
                                       </div>
                                   </li>
                               </ul>
