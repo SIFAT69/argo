@@ -1,11 +1,6 @@
 @extends('layouts.service')
 @section('page_title')
-- Service Dashbord
-@endsection
-@section('content')
-@extends('layouts.agent')
-@section('page_title')
-All Service Request
+- Maintence Request
 @endsection
 @section('content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -26,22 +21,20 @@ All Service Request
             <div class="col-sm-12 col-lg-8 col-xl-10 maxw100flex-992">
                 <div class="row">
                       @include('layouts.menu.servicemenu')
-                    <div class="col-lg-8 col-xl-8">
-
-                        <div class="candidate_revew_select style2 text-right mb30-991">
-                            <ul class="mb0">
-                                <li class="list-inline-item">
-                                    <div class="candidate_revew_search_box course fn-520">
-                                        <form class="form-inline my-2">
-                                            <input class="form-control mr-sm-2" type="search" id="myInput" placeholder="Search properties" aria-label="Search">
-                                            <button class="btn my-2 my-sm-0" type="submit"><span class="flaticon-magnifying-glass"></span></button>
-                                        </form>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                     <div class="col-lg-12">
+                        <div class="candidate_revew_select style2 text-right mb30-991">
+                          <a href="{!! route('dashboard') !!}" class="btn btn-danger float-right" style="margin: 1rem">Go Back</a>
+                          <ul class="mb0">
+                            <li class="list-inline-item">
+                              <div class="candidate_revew_search_box course fn-520">
+                                <form class="form-inline my-2">
+                                  <input class="form-control mr-sm-2" type="search" id="myInput" placeholder="Search service request" aria-label="Search">
+                                  <button class="btn my-2 my-sm-0" type="submit"><span class="flaticon-magnifying-glass"></span></button>
+                                </form>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
                         @include('Alerts.success')
                         @include('Alerts.danger')
                         <div class="my_dashboard_review mb40">
@@ -102,12 +95,10 @@ All Service Request
                                                 </td>
                                                 <td> {{ \Carbon\Carbon::parse($servicesRequest->created_at)->diffForHumans() }} </td>
                                                 <td>
-                                                    <a href="{!! route('services.services.show', $servicesRequest->id) !!}" class="btn btn-outline-primary" title="See Details"><img src="https://img.icons8.com/ios-glyphs/30/000000/visible--v2.gif"
-                                                          width="20px" alt=""></a>
+                                                    <a href="{!! route('services.services.show', $servicesRequest->id) !!}" class="btn btn-outline-primary" title="See Details"><i class="fas fa-eye"></i></a>
                                                     <a href="{!! route('services.comments.cancel', $servicesRequest->id) !!}" class="btn btn-outline-warning" title="Cancel Request"><img src="https://img.icons8.com/color/48/000000/cancel--v3.png"
                                                           width="20px" alt=""></a>
-                                                    <a data-bs-toggle="modal" data-bs-target="#hardDeleteRequest{{ $loop->index+1 }}" class="btn btn-outline-danger" title="Hard Delete Request"><img
-                                                          src="https://img.icons8.com/ios/50/000000/delete--v2.gif" width="20px" alt=""></a>
+                                                    <a data-bs-toggle="modal" data-bs-target="#hardDeleteRequest{{ $loop->index+1 }}" class="btn btn-outline-danger" title="Hard Delete Request"><i class="far fa-trash-alt"></i></a>
                                                     <!-- Modal -->
                                                     <div class="modal fade" id="hardDeleteRequest{{ $loop->index+1 }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                         <div class="modal-dialog">
@@ -159,6 +150,5 @@ All Service Request
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-@endsection
 
 @endsection

@@ -11,6 +11,12 @@
               <div class="col-lg-9 col-xl-10 maxw100flex-992">
                   <div class="row">
                       @include('layouts.menu.servicemenu')
+                      <div class="col-lg-12 mb10">
+                          <div class="breadcrumb_content style2">
+                              <h2 class="breadcrumb_title">Hi, {{ Auth::user()->name }}</h2>
+                              <p>We are glad to see you again!</p>
+                          </div>
+                      </div>
                       {{-- {{ $user }} --}}
                       <div class="col-lg-12">
                           @include('Alerts.success')

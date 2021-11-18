@@ -3,6 +3,17 @@
   - Service Providers
 @endsection
 @section('content')
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+  $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+  </script>
 <section class="our-dashbord dashbord bgc-f7 pb50">
     <div class="container-fluid">
       <div class="row">
@@ -14,6 +25,18 @@
         @include('Alerts.danger')
           <div class="widget-content widget-content-area br-6">
               <a href="{!! route('users.agent.create') !!}" class="btn btn-success float-right" style="margin: 1rem">Create user</a>
+              <div class="candidate_revew_select style2 text-right mb30-991">
+                <ul class="mb0">
+                  <li class="list-inline-item">
+                    <div class="candidate_revew_search_box course fn-520">
+                      <form class="form-inline my-2">
+                          <input class="form-control mr-sm-2" type="search" id="myInput" placeholder="Search Service Providers" aria-label="Search">
+                          <button class="btn my-2 my-sm-0" type="submit"><span class="flaticon-magnifying-glass"></span></button>
+                        </form>
+                    </div>
+                  </li>
+                </ul>
+              </div>
               <br>
               <br>
               <br>
@@ -31,7 +54,7 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="myTable">
                             @forelse ($users as $user)
                               @if ($user->account_role != "Agent Stuff")
                             <tr>
@@ -39,27 +62,15 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</td>
-
-                                <form action="{!! route('users.agent.update') !!}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="user_id" value="{{ $user->id }}">
-                                    <td>
-                                        <select name="account_role" id="" class="form-control">
-                                            <option value="Tenant" @if($user->account_role == "Tenant") selected @endif>Tenant</option>
-                                            <option value="Service Providers" @if($user->account_role == "Service Providers") selected @endif>Service Providers</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <button type="submit" class="btn btn-outline-success rounded bs-tooltip" data-placement="top" title="Save"><img src="https://img.icons8.com/material-outlined/24/000000/save--v4.png" /></button>
-                                    </form>
-                                    <a href="{!! route('AgentTenantEdit', $user->id) !!}" class="btn btn-outline-info rounded bs-tooltip" data-placement="top" title="View"><img src="https://img.icons8.com/material-sharp/24/000000/edit--v1.png" width="25px" /></a>
-                                    <a href="{!! route('AgentTenantShow', $user->id) !!}" class="btn btn-outline-info rounded bs-tooltip" data-placement="top" title="View"><img src="https://img.icons8.com/ios/50/000000/visible.png" width="25px" /></a>
-                                    @if (empty($user->deleted_at))
-                                    <a href="{!! route('AgentTenantDestroy', $user->id) !!}" class="btn btn-outline-danger rounded bs-tooltip" data-placement="top" title="Lock"><img src="https://img.icons8.com/ios-filled/64/000000/lock.png"  width="24px"/></a>
-                                    @else
-                                    <a href="{!! route('AgentTenantDestroy', $user->id) !!}" class="btn btn-outline-warning rounded bs-tooltip" data-placement="top" title="Unlock"><img src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-unlock-multimedia-kiranshastry-solid-kiranshastry.png" width="24px"/></a>
-                                    @endif
-
+                                <td>{{ $user->account_role }}</td>
+                                <td>
+                                <a href="{!! route('AgentServiceEdit', $user->id) !!}" class="btn btn-outline-info rounded bs-tooltip" data-placement="top" title="View"><img src="https://img.icons8.com/material-sharp/24/000000/edit--v1.png" width="25px" /></a>
+                                <a href="{!! route('AgentTenantShow', $user->id) !!}" class="btn btn-outline-info rounded bs-tooltip" data-placement="top" title="View"><img src="https://img.icons8.com/ios/50/000000/visible.png" width="25px" /></a>
+                                @if (empty($user->deleted_at))
+                                <a href="{!! route('AgentTenantDestroy', $user->id) !!}" class="btn btn-outline-danger rounded bs-tooltip" data-placement="top" title="Lock"><img src="https://img.icons8.com/ios-filled/64/000000/lock.png"  width="24px"/></a>
+                                @else
+                                <a href="{!! route('AgentTenantDestroy', $user->id) !!}" class="btn btn-outline-warning rounded bs-tooltip" data-placement="top" title="Unlock"><img src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-unlock-multimedia-kiranshastry-solid-kiranshastry.png" width="24px"/></a>
+                                @endif
                                 </td>
                             </tr>
                           @endif

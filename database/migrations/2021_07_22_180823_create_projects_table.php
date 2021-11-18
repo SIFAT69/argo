@@ -40,6 +40,7 @@ class CreateProjectsTable extends Migration
             $table->json('facilities');
             $table->json('features');
             $table->json('distance');
+            $table->string('landloard')->nullable();
             $table->string('youtube_thumb');
             $table->string('youtube_link');
             $table->timestamps();

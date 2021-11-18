@@ -22,8 +22,8 @@
   <div class="container mt-5">
     <div class="row">
       <div class="col-md-12">
-        @include('alerts.success')
-        @include('alerts.danger')
+        @include('Alerts.success')
+        @include('Alerts.danger')
         <button type="button" class="btn btn-success mb-3" name="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Create An Appointment</button>
         <h2>Today Date: </h2>
         <hr>

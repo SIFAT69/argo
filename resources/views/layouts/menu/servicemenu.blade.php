@@ -4,17 +4,11 @@
             <button onclick="myFunction()" class="dropbtn"><span class="fa fa-bars pr10"></span> Dashboard Navigation</button>
             <ul id="myDropdown" class="dropdown-content">
                 <li class="treeview"><a href="{!! route('dashboard') !!}"><span class="flaticon-layers"></span> Dashboard</a></li>
-                <li><a href="{!! route('servicesForServiceProviders') !!}"><span class="fas fa-cogs"></span>  Service Requests</a></li>
-                <li><a href="{!! route('services.profile') !!}"><span class="flaticon-user"></span> My Profile</a></li>
+                <li><a href="{!! route('servicesForServiceProviders') !!}"><span class="fas fa-cogs"></span>  Maintence Request</a></li>
+                <li><a href="{!! route('agent.service.profile.settings') !!}"><span class="flaticon-user"></span> My Profile</a></li>
                 <li><a href="{!! route('welcome') !!}"><span class="flaticon-back"></span> Back To Website</a></li>
                 <li><a href="{!! route('logout') !!}"><span class="flaticon-logout"></span> Logout</a></li>
             </ul>
         </div>
-    </div>
-</div>
-<div class="col-lg-12 mb10">
-    <div class="breadcrumb_content style2">
-        <h2 class="breadcrumb_title">Hi, {{ Auth::user()->name }}</h2>
-        <p>We are glad to see you again!</p>
     </div>
 </div>

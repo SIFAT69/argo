@@ -45,6 +45,7 @@ use App\Http\Controllers\{
   RolesController,
   TaskController,
   CalenderController,
+  DocumentsController,
 };
 
 use App\Events\ActivityHappened;
@@ -76,6 +77,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
+
     // Blogs
     Route::get('/blog-lists', [BlogController::class, 'blogList'])->name('blogList');
     Route::get('/blog-create-new', [BlogController::class, 'createNewBlog'])->name('createNewBlog');
@@ -254,10 +256,17 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
 });
 
+//Documents Start
+Route::post('/documents-uploads', [DocumentsController::class, 'store'])->name('documents.store');
+  Route::post('agencies/create/expense', [ExpenseController::class, 'store'])->name('expense.agent.store');
+//Documents End
+
 // Agent Route Start
 Route::group(['middleware' => ['auth','agent', 'agentstuff']], function () {
     Route::middleware('agent')->group(function(){
         Route::get('/agency-dashbord',[AgentController::class, 'AgentDashboard'])->name('AgentDashboard');
+        Route::post('/assigned/to/services/providers/{id}',[ServicerequestController::class, 'updateAssingedTo'])->name('updateAssingedTo');
+
 
         // Calender Start
         Route::get('/calender-and-appointment',[CalenderController::class, 'index'])->name('calender.index');
@@ -289,6 +298,7 @@ Route::group(['middleware' => ['auth','agent', 'agentstuff']], function () {
         // Roles And Permission End
         //Profile Start
         Route::get('/agency-settings-profile', [AgentController::class, 'agentProfile'])->name('agent.profile');
+
         Route::put('/agent-profile-information/{userId}', [AgentController::class, 'updateProfileInformation'])->name('update.agent.profile.information');
         Route::put('/agent-profile-socialMedia/{userId}', [AgentController::class, 'updateProfileSocialMedia'])->name('update.agent.profile.socialMedia');
         Route::post('/agent-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.passwords');
@@ -319,6 +329,7 @@ Route::group(['middleware' => ['auth','agent', 'agentstuff']], function () {
 
         Route::get('tanents/create/{email}/{name}', [TanentController::class, 'tanents_create'])->name('tanents.create');
         Route::post('tanents/store', [TanentController::class, 'tanents_store'])->name('tanents.store');
+        Route::post('service/providers/store', [TanentController::class, 'service_providers_store'])->name('service.providers.store');
 
         // Agents Features Start
         Route::get('agencies/features/list/', [AgentfeaturesController::class, 'agentsFeaturesList'])->name('agentsFeaturesList');
@@ -362,7 +373,9 @@ Route::group(['middleware' => ['auth','agent', 'agentstuff']], function () {
         Route::get('agencies/tenants/', [TanentController::class, 'AgentTenant'])->name('AgentTenant');
         Route::get('agencies/tenant/show/{id}', [TanentController::class, 'AgentTenantShow'])->name('AgentTenantShow');
         Route::get('agencies/stuff/show/{id}', [TanentController::class, 'AgentTenantShow'])->name('AgentStuffShow');
+        Route::get('agencies/staff/{id}/edit/', [TanentController::class, 'AgentTenantEdit'])->name('AgentStaffEdit');
         Route::get('agencies/tenant/{id}/edit/', [TanentController::class, 'AgentTenantEdit'])->name('AgentTenantEdit');
+        Route::get('agencies/service/providers/{id}/edit/', [TanentController::class, 'AgentTenantEdit'])->name('AgentServiceEdit');
         Route::get('agencies/tenant/{id}/destroy/', [TanentController::class, 'AgentTenantDestroy'])->name('AgentTenantDestroy');
         // Tenant Create End
 
@@ -374,7 +387,7 @@ Route::group(['middleware' => ['auth','agent', 'agentstuff']], function () {
         // Agent Service Request End
 
         // Expense Starts
-        Route::post('agencies/create/expense', [ExpenseController::class, 'store'])->name('expense.agent.store');
+
         Route::post('agencies/create/edit', [ExpenseController::class, 'update'])->name('expense.agent.update');
         Route::get('agencies/create/delete/{id}', [ExpenseController::class, 'destroy'])->name('expense.agent.destroy');
         // Expense End
@@ -474,6 +487,7 @@ Route::group(['middleware' =>'auth'], function () {
 // Tenant Route Start
 Route::group(['middleware' => ['auth', 'tenant']], function () {
     Route::get('/tanent-dashbord',[TanentController::class, 'TanentDashboard'])->name('TanentDashboard');
+    Route::get('/my-docs',[DocumentsController::class, 'tenant_doscs'])->name('tenant_doscs');
 
     // //Profile Start
     Route::get('/tanent-settings-profile', [TanentController::class, 'tanentProfile'])->name('tanent.profile');
@@ -524,7 +538,8 @@ Route::group(['middleware' => ['auth', 'servicerequest']], function () {
   Route::put('/services-profile-information/{userId}', [AgentController::class, 'updateProfileInformation'])->name('update.service.profile.information');
   Route::put('/agent-profile-socialMedia/{userId}', [AgentController::class, 'updateProfileSocialMedia'])->name('update.agent.profile.socialMedia');
   Route::put('/services-profile-password/{userId}', [AgentController::class, 'updateProfilePassword'])->name('update.agent.profile.password');
-
+  Route::get('/service-settings-profile', [AgentController::class, 'agentProfile'])->name('agent.service.profile.settings');
+  Route::put('/service-profile-information/{userId}', [AgentController::class, 'updateProfileInformation'])->name('update.agent.profile.information');
 });
 
 // Route::get('/purchase', function (Request $request) {

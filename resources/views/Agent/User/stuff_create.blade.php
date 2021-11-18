@@ -24,7 +24,6 @@ Create New Tenant
                                 <div class="col-xl-10">
                                     <form action="{{ route('agent.stuff.store') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
-                                        {{-- @method('PUT') --}}
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="wrap-custom-file">

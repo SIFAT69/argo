@@ -65,6 +65,20 @@ Edit a new property
 
             <img src="/uploads/{{ $imageName }}" width="120px" alt="">
             @endforeach
+
+            @php
+              $landloards = DB::table('landlords')->where('added_by', Auth::id())->get();
+            @endphp
+            <div class="form-row">
+                <div class="col-md-12 mb-4">
+                    <label for="validationCustom01">Landloard:</label>
+                    <select class="form-control" name="landloard">
+                        @foreach ($landloards as $landloard)
+                        <option value="{{ $landloard->name }}" @if($project->landloard == $landloard->name) selected @endif>{{ $landloard->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
             <hr>
             <h4>Location:</h4>
             <hr>

@@ -14,6 +14,7 @@ $(document).ready(function(){
   });
 });
 </script>
+
   <section class="our-dashbord dashbord bgc-f7 pb50">
 		<div class="container-fluid">
 			<div class="row">
@@ -24,14 +25,14 @@ $(document).ready(function(){
 						<div class="col-lg-8 col-xl-8">
 							<div class="candidate_revew_select style2 text-right mb30-991">
 								<ul class="mb0">
-                                    <li class="list-inline-item">
-                                        @if(Auth::user()->account_role == "Agent")
-                                        <a href="{!! route('services.agent.index') !!}" class="btn btn-danger">Back</a>
-                                        @endif
-                                        @if(Auth::user()->account_role == "Tenant")
-                                        <a href="{!! route('services.request.index') !!}" class="btn btn-danger">Back</a>
-                                        @endif
-                                    </li>
+                  <li class="list-inline-item">
+                      @if(Auth::user()->account_role == "Agent")
+                      <a href="{!! route('services.agent.index') !!}" class="btn btn-danger d-flex-left" style="margin-right: -473px;">Back</a>
+                      @endif
+                      @if(Auth::user()->account_role == "Tenant")
+                      <a href="{!! route('services.request.index') !!}" class="btn btn-danger d-flex-left" style="margin-right: -473px;">Back</a>
+                      @endif
+                  </li>
 								</ul>
 							</div>
 						</div>
@@ -48,7 +49,27 @@ $(document).ready(function(){
                                               <li class="list-group-item"> <strong>Apertment Name : </strong> {{ $ServiceRequest->title }} </li>
                                               <li class="list-group-item"> <strong>Type : </strong> {{ $ServiceRequest->type }} </li>
                                               <li class="list-group-item"> <strong>Property ID : </strong> {{ $ServiceRequest->code_id }} </li>
+                                              @php
+                                                $property =  DB::table('properties')->where('code', $ServiceRequest->code_id)->first();
+                                                $project =  DB::table('projects')->where('code', $ServiceRequest->code_id)->first();
+                                              @endphp
+                                              @if ($ServiceRequest->type == "Property")
+                                                <li class="list-group-item"> <strong>Locations : </strong> {{ $property->address }}, {{ $property->states }}, {{ $property->city }}, {{ $property->location }} </li>
+                                              @endif
+                                              @if ($ServiceRequest->type == "Project")
+                                                <li class="list-group-item"> <strong>Locations : </strong> {{ $project->address }}, {{ $property->states }}, {{ $project->city }}, {{ $project->location }} </li>
+                                              @endif
                                               <li class="list-group-item"> <strong>Requested By(Name) : </strong> {{ $ServiceRequest->requester }} </li>
+                                              @php
+                                                $property_landloard =  DB::table('properties')->where('code', $ServiceRequest->code_id)->value('landloard');
+                                                $project_landloard =  DB::table('projects')->where('code', $ServiceRequest->code_id)->value('landloard');
+                                              @endphp
+                                              @if (!empty($property_landloard))
+                                                <li class="list-group-item"> <strong>Landloard : </strong> {{ $property_landloard }} </li>
+                                              @endif
+                                              @if (!empty($project_landloard))
+                                                <li class="list-group-item"> <strong>Landloard : </strong> {{ $project_landloard }} </li>
+                                              @endif
                                               <li class="list-group-item"> <strong>Status : </strong>
                                                 <form action="{!! route('expense.agent.update.status', $ServiceRequest->id) !!}">
                                                     @csrf
@@ -58,20 +79,82 @@ $(document).ready(function(){
                                                         <option value="In progress" @if( $ServiceRequest->status == "In progress") selected @endif>In progress</option>
                                                         <option value="Complete" @if( $ServiceRequest->status == "Complete") selected @endif>Complete</option>
                                                         <option value="Hold" @if( $ServiceRequest->status == "Hold") selected @endif>Hold</option>
+                                                        <option value="Paid" @if( $ServiceRequest->status == "Paid") selected @endif>Paid</option>
                                                         <option value="Cancelled" @if( $ServiceRequest->status == "Cancelled") selected @endif>Cancelled</option>
+                                                    </select>
+                                                    <button type="submit" class="btn btn-sm btn-success mt-2">Save</button>
+                                                </form>
+                                              </li>
+                                              @php
+                                                $providers = DB::table('users')->where('account_role', 'Service Providers')->where('created_by', Auth::id())->get();
+                                              @endphp
+                                              <li class="list-group-item"> <strong>Assign to service providers : </strong>
+                                                <form action="{!! route('updateAssingedTo', $ServiceRequest->id) !!}" method="post">
+                                                    @csrf
+                                                    <select name="assigned_to" class="form-control">
+                                                      @foreach ($providers as $provider)
+                                                        <option value="{{ $provider->id }}" @if($ServiceRequest->assigned_to == $provider->id) @endif>{{ $provider->name }}</option>
+                                                      @endforeach
                                                     </select>
                                                     <button type="submit" class="btn btn-sm btn-success mt-2">Save</button>
                                                 </form>
                                               </li>
                                             </ul>
                                           </div>
+
                                     </div>
                                    <div class="col-md-8">
                                        <div class="card">
-                                        @if (Auth::user()->account_role == "Agent" || Auth::user()->account_role == "Constructor")
+                                        @if (Auth::user()->account_role == "Service Providers")
                                         <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add new expenses</a>
                                         @endif
-                                        <div class="card-body">
+                                        <style id="table_style" type="text/css">
+                                        body
+                                        {
+                                          font-family: Arial;
+                                          font-size: 10pt;
+                                        }
+                                        table
+                                        {
+                                          border: 1px solid #ccc;
+                                          border-collapse: collapse;
+                                        }
+                                        table th
+                                        {
+                                          background-color: #F7F7F7;
+                                          color: #333;
+                                          font-weight: bold;
+                                        }
+                                        table th, table td
+                                        {
+                                          padding: 5px;
+                                          border: 1px solid #ccc;
+                                        }
+                                        </style>
+                                        <script type="text/javascript">
+                                        function PrintTable() {
+                                          var printWindow = window.open('', '', 'height=200,width=400');
+                                          printWindow.document.write('<html><head><title>Table Contents</title>');
+
+                                          //Print the Table CSS.
+                                          var table_style = document.getElementById("table_style").innerHTML;
+                                          printWindow.document.write('<style type = "text/css">');
+                                          printWindow.document.write(table_style);
+                                          printWindow.document.write('</style>');
+                                          printWindow.document.write('</head>');
+
+                                          //Print the DIV contents i.e. the HTML Table.
+                                          printWindow.document.write('<body>');
+                                          var divContents = document.getElementById("dvContents").innerHTML;
+                                          printWindow.document.write(divContents);
+                                          printWindow.document.write('</body>');
+
+                                          printWindow.document.write('</html>');
+                                          printWindow.document.close();
+                                          printWindow.print();
+                                        }
+                                        </script>
+                                        <div class="card-body" id="dvContents">
                                             <table class="table">
                                                 <thead>
                                                   <tr>
@@ -81,9 +164,9 @@ $(document).ready(function(){
                                                     <th scope="col">Action</th>
                                                   </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody id="invoice">
                                                     @forelse ($servicesExpense as $expense)
-                                                    <tr>
+                                                    <tr >
                                                       <td>{{ $expense->expense_name }}</td>
                                                       <td>${{ $expense->expense }}</td>
                                                       <td>{{ \Carbon\Carbon::parse($expense->date)->diffForHumans() }}</td>
@@ -92,52 +175,9 @@ $(document).ready(function(){
                                                           <a data-bs-toggle="modal" data-bs-target="#delete{{ $expense->id }}" class="btn btn-outline-danger"> <i class="far fa-trash-alt"></i> </a>
                                                       </td>
                                                     </tr>
-                                                    {{-- Delete Modal --}}
-                                                    <div class="modal fade" id="delete{{ $expense->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
 
-                                                            <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <a href="{!! route('expense.agent.destroy',  $expense->id) !!}" class="btn btn-primary">Delete</a>
-                                                            </div>
-                                                        </div>
-                                                        </div>
-                                                    </div>
-                                                    {{-- Delete Modal --}}
 
-                                                    <!-- Edit Expense -->
-                                                        <div class="modal fade" id="edit{{ $expense->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Edit Expense - {{ $expense->expense_name }}</h5>
-                                                                </div>
-                                                                <form action="{!! route('expense.agent.update') !!}" method="post">
-                                                                    @csrf
-                                                                <div class="modal-body">
-                                                                    <input type="hidden" name="request_id" value="{{ $ServiceRequest->id }}">
-                                                                    <input type="hidden" name="id" value="{{ $expense->id }}">
-                                                                    <label for="expense_name">Expense Name:</label>
-                                                                    <input type="text" name="expense_name" id="expense_name" class="form-control mb-2" value="{{ $expense->expense_name }}">
-                                                                    <label for="price">Price:</label>
-                                                                    <input type="text" name="price" id="price" class="form-control mb-2" value="{{ $expense->expense }}">
-                                                                    <label for="date">Date:</label>
-                                                                    <input type="date" name="date" id="date" class="form-control mb-2" value="{{ $expense->date }}">
-                                                                    <label for="desc">Description:</label>
-                                                                    <textarea name="desc" id="desc" cols="30" rows="5" placeholder="Write here ..." class="form-control mb-2">{{ $expense->desc }}</textarea>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary">Save changes</button>
-                                                                </div>
-                                                            </form>
-                                                            </div>
-                                                            </div>
-                                                        </div>
-                                                        {{-- Edit Expense --}}
+
                                                     @empty
                                                     <tr>
                                                         <td colspan="4">No expense added yet!</td>
@@ -148,8 +188,56 @@ $(document).ready(function(){
                                         </div>
                                       </div>
                                           <button class="btn btn-info mt-4" disabled>Total Expense: ${{ DB::table('expenses')->where('request_id', $ServiceRequest->id)->sum('expense') }}</button>
+                                          <a href="#" class="btn btn-info mt-4" onclick="PrintTable();" value="Print"> <i class="fas fa-print"></i> </a>
                                     </div>
+                                    <!-- Edit Expense -->
+                                      @foreach ($servicesExpense as $expense)
+                                        <div class="modal fade" id="edit{{ $expense->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Expense - {{ $expense->expense_name }}</h5>
+                                                </div>
+                                                <form action="{!! route('expense.agent.update') !!}" method="post">
+                                                    @csrf
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="request_id" value="{{ $ServiceRequest->id }}">
+                                                    <input type="hidden" name="id" value="{{ $expense->id }}">
+                                                    <label for="expense_name">Expense Name:</label>
+                                                    <input type="text" name="expense_name" id="expense_name" class="form-control mb-2" value="{{ $expense->expense_name }}">
+                                                    <label for="price">Price:</label>
+                                                    <input type="text" name="price" id="price" class="form-control mb-2" value="{{ $expense->expense }}">
+                                                    <label for="date">Date:</label>
+                                                    <input type="date" name="date" id="date" class="form-control mb-2" value="{{ $expense->date }}">
+                                                    <label for="desc">Description:</label>
+                                                    <textarea name="desc" id="desc" cols="30" rows="5" placeholder="Write here ..." class="form-control mb-2">{{ $expense->desc }}</textarea>
+                                                </div>
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </form>
+                                            </div>
+                                            </div>
+                                        </div>
 
+                                        {{-- Delete Modal --}}
+                                        <div class="modal fade" id="delete{{ $expense->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <a href="{!! route('expense.agent.destroy',  $expense->id) !!}" class="btn btn-primary">Delete</a>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        {{-- Delete Modal --}}
+                                      @endforeach
+                                        {{-- Edit Expense --}}
 
                                     {{-- Modals For Expense Start --}}
                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

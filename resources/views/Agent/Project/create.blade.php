@@ -60,6 +60,22 @@
                       </div>
                   </div>
                   <hr>
+                  <h4>Landloard:</h4>
+                  <hr>
+                  @php
+                    $landloards = DB::table('landlords')->where('added_by', Auth::id())->get();
+                  @endphp
+                  <div class="form-row">
+                      <div class="col-md-12 mb-4">
+                          <label for="validationCustom01">Landloard:</label>
+                          <select class="form-control" name="landloard">
+                              @foreach ($landloards as $landloard)
+                              <option value="{{ $landloard->name }}">{{ $landloard->name }}</option>
+                              @endforeach
+                          </select>
+                      </div>
+                  </div>
+                  <hr>
                   <h4>Location:</h4>
                   <hr>
                   <div class="form-row">

@@ -41,6 +41,7 @@ class CreatePropertiesTable extends Migration
           $table->json('facilities')->nullable();
           $table->json('features')->nullable();
           $table->json('distance')->nullable();
+          $table->string('landloard')->nullable();
           $table->string('youtube_thumb');
           $table->string('youtube_link');
           $table->string('is_featured')->default('No');

@@ -10,7 +10,7 @@
             <li><a href="{!! route('tenant.message.tenantIndex', [$name->name, $name->id]) !!}"><span class="flaticon-envelope"></span>Tenant Message</a></li>
             <li><a href="{!! route('tanents.properties.index') !!}"><span class="flaticon-home"></span>  My Properties</a></li>
             <li><a href="{!! route('tanents.projects.index') !!}"><span class="flaticon-heart"></span>  My Projects</a></li>
-            <li><a href="{!! route('services.request.index') !!}"><span class="fas fa-cogs"></span>  Service Requests</a></li>
+            <li><a href="{!! route('services.request.index') !!}"><span class="fas fa-cogs"></span>  Maintence Request</a></li>
             <li><a href="{!! route('contracts.tenant.index') !!}"><span class="fas fa-funnel-dollar"></span>  Contracts</a></li>
             <li><a href="{!! route('tenant.payments.history') !!}"><span class="flaticon-user"></span> My Payments</a></li>
             <li><a href="{!! route('tanent.profile') !!}"><span class="flaticon-user"></span> My Profile</a></li>

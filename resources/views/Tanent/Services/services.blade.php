@@ -23,7 +23,7 @@ $(document).ready(function(){
 						@include('layouts.menu.tenantmenu')
 						<div class="col-lg-4 col-xl-4 mb10">
 							<div class="breadcrumb_content style2 mb30-991">
-								<h2 class="breadcrumb_title">Service Requests</h2>
+								<h2 class="breadcrumb_title">Maintence Request</h2>
 							</div>
 						</div>
 						<div class="col-lg-8 col-xl-8">
@@ -105,8 +105,8 @@ $(document).ready(function(){
                                                 </td>
                                                 <td> {{ \Carbon\Carbon::parse($servicesRequest->created_at)->diffForHumans() }} </td>
                                                 <td>
-                                                    <a href="{!! route('services.request.show', $servicesRequest->id) !!}" class="btn btn-outline-primary" title="See Details"><img src="https://img.icons8.com/ios-glyphs/30/000000/visible--v2.gif" width="20px" alt=""></a>
-                                                    <a href="{!! route('services.comments.cancel', $servicesRequest->id) !!}" class="btn btn-outline-danger" title="Cancel Request"><img src="https://img.icons8.com/color/48/000000/cancel--v3.png" width="20px" alt=""></a>
+                                                    <a href="{!! route('services.request.show', $servicesRequest->id) !!}" class="btn btn-outline-primary" title="See Details"><i class="fas fa-eye"></i></a>
+                                                    <a href="{!! route('services.comments.cancel', $servicesRequest->id) !!}" class="btn btn-outline-danger" title="Cancel Request"><i class="far fa-window-close"></i></a>
                                                 </td>
                                             </tr>
                                             @empty

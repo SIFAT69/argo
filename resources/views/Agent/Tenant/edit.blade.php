@@ -9,9 +9,7 @@
             <div class="col-lg-3 col-xl-2 dn-992 pl0"></div>
             <div class="col-lg-9 col-xl-10 maxw100flex-992">
                 <div class="row">
-                    @include('layouts.menu.agentmenu')
-                    {{-- <a href="{!! route('AgentTenant') !!}" class="btn btn-danger float-right" style="margin: 1rem">Tenant List</a> --}}
-                    {{-- {{ $user }} --}}
+                      <a href="{!! redirect()->back()->getTargetUrl() !!}" class="btn btn-danger float-right" style="margin: 1rem">Go Back</a>
                     <div class="col-lg-12">
 
                         @include('Alerts.success')

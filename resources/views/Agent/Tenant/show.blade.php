@@ -15,6 +15,7 @@
                               <ul class="mb0">
                                   <li class="list-inline-item">
                                       <div class="candidate_revew_search_box course fn-520">
+                                          <a class="btn btn-info text-white mb-2" data-toggle="modal" data-target="#uploadDocs">Upload Documents</a>
                                           <a class="btn btn-primary text-white mb-2" href="{!! route('AgentTenantEdit', $tenant->id) !!}">Edit</a>
                                             @if(Route::is('Landlord.show') )
                                             <a class="btn btn-danger text-white mb-2" href="{!! route('Landlord.index') !!}">Go Back</a>
@@ -30,6 +31,32 @@
                               </ul>
                           </div>
                       </div>
+                      <!-- Modal -->
+                      <div class="modal fade" id="uploadDocs" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Documents</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <form action="{!! route('documents.store') !!}" method="post" enctype="multipart/form-data">
+                              @csrf
+                            <div class="modal-body">
+                              <label for="">Upload documents : </label>
+                              <input type="file" class="form-control-file" name="docs[]" multiple>
+                              <input type="hidden" class="form-control" name="tenant_id" value="{{ $tenant->id }}">
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary">Upload</button>
+                            </div>
+                          </form>
+                          </div>
+                        </div>
+                      </div>
+
                       <div class="col-lg-12">
                           @include('Alerts.success')
                           @include('Alerts.danger')
@@ -51,7 +78,15 @@
                                         <li class="list-group-item"> <b>Payment Type: </b> {{ $tenant->payment_type }} </li>
                                         <li class="list-group-item"> <b>Date Of Birth: </b> {{ $tenant->dob }} </li>
                                         <li class="list-group-item"> <b>Identification Documents: </b> {{ $tenant->identification_documents }} </li>
-                                        <li class="list-group-item"> <b>Contractual Documents: </b> {{ $tenant->contractual_documents  }} </li>
+                                        <li class="list-group-item"> <b>Documents : </b>
+                                          <ul>
+                                            @forelse ($documents as $document)
+                                              <li>{{ $loop->index+1 }}. <a href="{!! asset('uploads') !!}/docs/{{ $document->documents }}">{{ $document->documents }}</a>  </li>
+                                            @empty
+                                              <li>No Docs found!</li>
+                                            @endforelse
+                                          </ul>
+                                         </li>
                                         <li class="list-group-item"> <b>Status: </b> <small class="badge badge-success">Active</small> </li>
                                       </ul>
                                   </div>

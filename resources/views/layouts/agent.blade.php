@@ -78,7 +78,7 @@
                 @if ($user->account_role == "Agent Stuff" && $role->message == "on" || $user->account_role == "Agent")
                 <li class="treeview"><a href="{!! route('tenant.message.index') !!}"><i class="flaticon-envelope"></i><span>Tenant Message</span></a></li>
                 @endif
-                <li class="title"><span>Manage Listings</span></li>
+                <li class="title"><span>Manage Contracts</span></li>
                 @if ($user->account_role == "Agent Stuff" && $role->properties == "on" || $user->account_role == "Agent")
                 <li class="treeview">
                     <a href="{!! route('MyProperties') !!}"><i class="flaticon-home"></i> <span>My Properties</span></a>
@@ -103,7 +103,7 @@
                 <li><a href="{!! route('AgentTenant') !!}"><i class="fas fa-home"></i> <span> Tenant</span></a></li>
                 @endif
                 @if ($user->account_role == "Agent Stuff" && $role->service_request == "on" || $user->account_role == "Agent")
-                <li><a href="{!! route('services.agent.index') !!}"><i class="fas fa-cogs"></i> <span> Service Requests</span></a></li>
+                <li><a href="{!! route('services.agent.index') !!}"><i class="fas fa-cogs"></i> <span> Maintence Request</span></a></li>
                 @endif
                 @if ($user->account_role == "Agent Stuff" && $role->contracts == "on" || $user->account_role == "Agent")
                 <li><a href="{!! route('contracts.agent.index') !!}"><i class="fas fa-funnel-dollar"></i> <span> Contracts</span></a></li>

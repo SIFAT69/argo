@@ -1,6 +1,6 @@
 @extends('layouts.tanent')
 @section('page_title')
-  All properties
+  Create Service Request
 @endsection
 @section('content')
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

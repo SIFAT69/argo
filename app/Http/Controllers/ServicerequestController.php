@@ -155,10 +155,19 @@ class ServicerequestController extends Controller
        return back()->with('success', 'Your status has been upadated!');
     }
 
+    public function updateAssingedTo(Request $request)
+    {
+       DB::table('servicerequests')->where('id', $request->id)->update([
+         'assigned_to' => $request->assigned_to,
+       ]);
+
+       return back()->with('success', 'Your status has been upadated!');
+    }
+
     public function servicesForServiceProviders()
     {
       $agent_id = Auth::user()->created_by;
-      $servicesRequests = DB::table('servicerequests')->where('agent_id', $agent_id)->get();
+      $servicesRequests = DB::table('servicerequests')->where('agent_id', $agent_id)->where('assigned_to', Auth::id())->get();
       return view('ServiceDashboard.servicerequest',compact('servicesRequests'));
     }
 }

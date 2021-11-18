@@ -218,7 +218,52 @@ class TanentController extends Controller
         'name' => $request->name,
         'email' => $request->email,
         'password' => Hash::make($password),
-        'account_role' => $request->account_role,
+        'account_role' => "Tenant",
+        'created_by' => Auth::id(),
+        'license' => $request->license,
+        'taxNumber' => $request->taxNumber,
+        'phoneNumber' => $request->phoneNumber,
+        'faxNumber' => $request->faxNumber,
+        'mobileNumber' => $request->mobileNumber,
+        'language' => $request->language,
+        'companyName' => $request->companyName,
+        'address' => $request->address,
+        'about' => $request->about,
+        'bank_name' => $request->bank_name,
+        'bank_account' => $request->bank_account,
+        'bank_sort_code' => $request->bank_sort_code,
+        'contact_number' => $request->contact_number,
+        'payment_type' => $request->payment_type,
+        'dob' => $request->dob,
+    ]);
+    ActivityHappened::dispatch(Auth::id(), 'A new user has been created');
+
+    Mail::to($request->email)->send(new TenantCreated($request->email, $password));
+
+    return back()->with('success', 'User account is created successfully');
+  }
+
+  public function service_providers_store(Request $request)
+  {
+    $data =	$request->validate([
+        'name' => 'bail|required|string|max:255',
+        'email' => "bail|required|email|max:255|unique:App\Models\User,email",
+    ]);
+
+    $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    $pass = array(); //remember to declare $pass as an array
+    $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+    for ($i = 0; $i < 12; $i++) {
+        $n = rand(0, $alphaLength);
+        $pass[] = $alphabet[$n];
+    }
+    $password = implode($pass);
+
+    User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($password),
+        'account_role' => "Service Providers",
         'created_by' => Auth::id(),
         'license' => $request->license,
         'taxNumber' => $request->taxNumber,
@@ -316,7 +361,8 @@ class TanentController extends Controller
   public function AgentTenantShow(Request $request)
   {
       $tenant = DB::table('users')->where('id', $request->id)->first();
-      return view('Agent.Tenant.show',compact('tenant'));
+      $documents = DB::table('documents')->where('send_to', $tenant->id)->get();
+      return view('Agent.Tenant.show',compact('tenant', 'documents'));
   }
 
   public function AgentTenantEdit(Request $request)

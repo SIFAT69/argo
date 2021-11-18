@@ -14,8 +14,10 @@
                         @include('Alerts.success')
                         @include('Alerts.danger')
                         <div class="row">
+                          <div class="col-md-12">
+                            <a href="{!! route('dashboard') !!}" class="btn btn-danger mb-5" style="float:right;"> Back </a>
+                          </div>
                             <div class="col-lg-12 col-xl-12">
-                                <a href="{!! route('dashboard') !!}" class="btn btn-danger mb-3"> Back </a>
                                 <div class="message_container">
                                     <div class="user_heading">
                                         <a href="#">

@@ -14,8 +14,7 @@
                       @include('Alerts.success')
                       @include('Alerts.danger')
                         <div class="breadcrumb_content style2">
-                            <h2 class="breadcrumb_title">Hello, {{ Auth::user()->name }}!</h2>
-                            <p>We are glad to see you again!</p>
+                            <h2 class="breadcrumb_title">Dashboard</h2>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">

@@ -25,7 +25,7 @@ Create New Tenant
                                     <h4>Profile Information</h4>
                                 </div>
                                 <div class="col-xl-10">
-                                    <form action="{{ route('tanents.store') }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('service.providers.store') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         {{-- @method('PUT') --}}
                                         <div class="row">
@@ -58,18 +58,18 @@ Create New Tenant
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="col-lg-12 col-xl-12">
+                                            {{-- <div class="col-lg-12 col-xl-12">
                                                 <div class="my_profile_setting_input form-group">
                                                     <label for="formGroupExampleEmail">Select Roles</label>
                                                     <select name="account_role" id="" class="form-control">
-                                                        <option value="Tenant" @if($user->account_role == "Tenant") selected @endif>Tenant</option>
-                                                        <option value="Service Providers" @if($user->account_role == "Service Providers") selected @endif>Service Providers</option>
+                                                        <option value="Tenant">Tenant</option>
+                                                        <option value="Service Providers">Service Providers</option>
                                                     </select>
                                                     @error('email')
                                                         @include('layouts.atom.error')
                                                     @enderror
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="col-lg-6 col-xl-6">
                                                 <div class="my_profile_setting_input form-group">
                                                     <label for="formGroupExampleInput6">License</label>

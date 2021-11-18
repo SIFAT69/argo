@@ -53,9 +53,9 @@
                 <li class="title"><span>Main</span></li>
                 <li class="treeview"><a href="{!! route('dashboard') !!}"><i class="flaticon-layers"></i><span> Dashboard</span></a></li>
                 <li class="title"><span>Manage Listings</span></li>
-                <li><a href="{!! route('servicesForServiceProviders') !!}"><i class="fas fa-cogs"></i> <span> Service Requests</span></a></li>
+                <li><a href="{!! route('servicesForServiceProviders') !!}"><i class="fas fa-cogs"></i> <span> Maintence Request</span></a></li>
                 <li class="title"><span>Manage Account</span></li>
-                <li><a href="{!! route('agent.profile') !!}"><i class="flaticon-user"></i> <span>My Profile</span></a></li>
+                <li><a href="{!! route('agent.service.profile.settings') !!}"><i class="flaticon-user"></i> <span>My Profile</span></a></li>
                 <li class="title"><span>Session</span></li>
                 <li><a href="{!! route('welcome') !!}"><i class="flaticon-back"></i> <span>Back To Website</span></a></li>
                 <li><a href="{!! route('logout') !!}"><i class="flaticon-logout"></i> <span>Logout</span></a></li>
